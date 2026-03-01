@@ -22,7 +22,7 @@ Tag* ShortTag::copy(void){
 	return t;
 }
 bool_t ShortTag::equals(const Tag& v){
-	ShortTag* tg = &v;
+	const ShortTag* tg = (const ShortTag*) &v;
 	bool_t eq = Tag::equals(v);
 	if(eq) return this->value == tg->value;
 	return eq;

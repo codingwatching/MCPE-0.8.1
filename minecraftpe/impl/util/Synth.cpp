@@ -15,7 +15,7 @@ void Synth::create(int32_t x, int32_t y, float* arr){
 			*v11 = v10;
 		}
 
-		arr = (float*)((void*)arr + v7);
+		arr = (float*)((char*)arr + v7);
 	}
 }
 

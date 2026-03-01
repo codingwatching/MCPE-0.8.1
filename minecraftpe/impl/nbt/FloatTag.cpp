@@ -22,7 +22,7 @@ Tag* FloatTag::copy(void){
 	return new FloatTag(this->getName(), this->value);
 }
 bool_t FloatTag::equals(const Tag& v){
-	FloatTag* tg = &v;
+	const FloatTag* tg = (const FloatTag*) &v;
 	bool_t eq = Tag::equals(v);
 	if(eq) return this->value == tg->value;
 	return eq;

@@ -35,7 +35,7 @@ Tag* ByteArrayTag::copy(void){
 	return new ByteArrayTag(this->getName(), arr, 0); //XXX count is 0??????
 }
 bool_t ByteArrayTag::equals(const Tag& t){
-	ByteArrayTag* tg = &t;
+	const ByteArrayTag* tg = (const ByteArrayTag*) &t;
 	bool_t eq = Tag::equals(t);
 
 	if(eq){

@@ -796,7 +796,7 @@ void Mob::handleEntityEvent(int8_t event) {
 	}
 }
 SynchedEntityData* Mob::getEntityData() const{
-	return &this->synchedEntityData;
+	return (SynchedEntityData*) &this->synchedEntityData;
 }
 //there are two getEntityData functions for some reason
 bool_t Mob::isMob() {

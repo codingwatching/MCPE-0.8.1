@@ -10,7 +10,39 @@
 #include <gui/screens/ManageMCOServerScreen.hpp>
 
 
-MCOServerListItemElement::MCOServerListItemElement(Minecraft*, struct MCOServerListItem&, bool_t, std::function<void (MCOServerListItem&, bool_t)>);
+MCOServerListItemElement::MCOServerListItemElement(Minecraft* mc, struct MCOServerListItem& item, bool_t a4, std::function<void(MCOServerListItem&, bool_t)> func)
+	: GuiElement(1, 1, 0, 0, 24, 24)
+	, field_2C(0) {
+	this->field_30 = item;
+	this->field_78 = 0;
+	this->field_7C = 0;
+	this->field_80 = func;
+	this->field_90 = 0;
+	this->height = 32;
+	Touch::TButton* v7 = new Touch::TButton(1, "", 0);
+	v7->init(mc, "gui/spritesheet.png", IntRectangle{8, 32, 8, 8}, {0, 32, 8, 8}, 2, 2, 120, 32);
+	this->field_7C = v7;
+	if(a4) {
+		this->field_78 = new ImageWithBackground(2);
+		this->field_78->init(mc->texturesPtr, 32, 32, {112, 0, 8, 67}, {120, 0, 8, 67}, 2, 2, "gui/spritesheet.png");
+		ImageDef v21;
+		v21.field_0 = "gui/touchgui.png";
+		v21.field_24 = 1;
+		v21.width = 22.0;
+		v21.field_18 = 0;
+		v21.height = 21.0;
+		v21.field_14 = 218;
+		v21.field_1C = 22;
+		v21.field_20 = 21;
+		this->field_78->setImageDef(v21, 0);
+		this->field_78->width = 32;
+		this->field_78->height = 32;
+		this->field_78->setupPositions();
+		if(!item.field_14) {
+			this->field_78->setActiveAndVisibility(0, item.field_14);
+		}
+	}
+}
 
 MCOServerListItemElement::~MCOServerListItemElement() {
 	if(this->field_78) {

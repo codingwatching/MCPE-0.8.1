@@ -61,7 +61,7 @@ int recursiveDelete(const char_t* a1) {
 
 		closedir(v2);
 	}
-w	return remove(a1);
+	return remove(a1);
 #endif
 }
 bool_t exists(const char_t* a1){

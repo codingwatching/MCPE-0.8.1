@@ -50,7 +50,7 @@ int32_t ShapelessRecipe::size() {
 std::vector<ItemInstance>* ShapelessRecipe::assemble(CraftingContainer* a2) {
 	return &this->field_1C;
 }
-std::vector<ItemInstance>* ShapelessRecipe::getResultItem() const {
+const std::vector<ItemInstance>* ShapelessRecipe::getResultItem() const {
 	return &this->field_1C;
 }
 int32_t ShapelessRecipe::getCraftingSize() {

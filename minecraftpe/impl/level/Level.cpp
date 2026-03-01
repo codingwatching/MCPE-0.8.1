@@ -107,7 +107,7 @@ bool_t Level::addEntity(struct Entity* e) {
 	if(a2->isPlayer()) {
 		auto&& player = std::find(this->playersMaybe.begin(), this->playersMaybe.end(), a2);
 		if(player == this->playersMaybe.end()) {
-			this->playersMaybe.emplace_back(a2);
+			this->playersMaybe.emplace_back((Player*) a2);
 		}
 	}
 	chunk = this->getChunk(v4, v5);
@@ -2407,7 +2407,7 @@ void Level::tick() {
 	this->tickTiles();
 	for(int32_t v9 = 0; v9 < this->entities.size(); ++v9) {
 		Entity* e = this->entities[v9];
-		SynchedEntityData* v11 = e->getEntityData();
+		SynchedEntityData* v11 = (SynchedEntityData*) e->getEntityData();
 		if(v11) {
 			if(v11->isDirty) {
 				SetEntityDataPacket pk(e->entityId, 0, v11->packDirty());

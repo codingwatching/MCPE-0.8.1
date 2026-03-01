@@ -10,7 +10,7 @@ else()
 endif()
 find_package(SDL REQUIRED)
 find_package(ZLIB REQUIRED)
-add_compile_options(-fpermissive -Wno-write-strings -Winfinite-recursion -Werror=return-type -g0 -DIMTOOLAZYTOFIX16ERRS -DPCTWEAKS)
+add_compile_options(-fpermissive -Wno-out-of-line-declaration -Wno-write-strings -Winfinite-recursion -Werror=return-type -g0 -DIMTOOLAZYTOFIX16ERRS -DPCTWEAKS)
 
 file(GLOB_RECURSE IMPLCPP *.cpp)
 file(GLOB_RECURSE HEADC *.h)

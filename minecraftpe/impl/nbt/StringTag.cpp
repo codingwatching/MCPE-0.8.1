@@ -22,7 +22,7 @@ Tag* StringTag::copy(void){
 	return new StringTag(this->getName(), this->value);
 }
 bool_t StringTag::equals(const Tag& v){
-	StringTag* tg = &v;
+	const StringTag* tg = (const StringTag*) &v;
 	bool_t eq = Tag::equals(v);
 	if(eq) return this->value == tg->value;
 	return eq;

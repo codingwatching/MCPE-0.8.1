@@ -81,49 +81,49 @@ void SynchedEntityData::assignValues(std::vector<DataItem*>* a2) {
 }
 int8_t SynchedEntityData::getByte(int32_t a2) {
 	auto&& v = this->data.find(a2);
-	if(v == this->data.end() || v->second->dataId != 0) {
+	if(v == this->data.end() || v->second->typeId != 0) {
 		return 0;
 	}
 	return ((DataItem2<int8_t>*)v->second)->value;
 }
 float SynchedEntityData::getFloat(int32_t a2) {
 	auto&& v = this->data.find(a2);
-	if(v == this->data.end() || v->second->dataId != 3) {
+	if(v == this->data.end() || v->second->typeId != 3) {
 		return 0;
 	}
 	return ((DataItem2<float>*)v->second)->value;
 }
 int32_t SynchedEntityData::getInt(int32_t a2) {
 	auto&& v = this->data.find(a2);
-	if(v == this->data.end() || v->second->dataId != 2) {
+	if(v == this->data.end() || v->second->typeId != 2) {
 		return 0;
 	}
 	return ((DataItem2<int32_t>*)v->second)->value;
 }
 ItemInstance SynchedEntityData::getItemInstance(int32_t a2) {
 	auto&& v = this->data.find(a2);
-	if(v == this->data.end() || v->second->dataId != 5) {
+	if(v == this->data.end() || v->second->typeId != 5) {
 		return ItemInstance();
 	}
 	return ItemInstance(((DataItem2<ItemInstance>*)v->second)->value);
 }
 Pos SynchedEntityData::getPos(int32_t a2) {
 	auto&& v = this->data.find(a2);
-	if(v == this->data.end() || v->second->dataId != 6) {
+	if(v == this->data.end() || v->second->typeId != 6) {
 		return {0, 0, 0};
 	}
 	return ((DataItem2<Pos>*)v->second)->value;
 }
 int16_t SynchedEntityData::getShort(int32_t a2) {
 	auto&& v = this->data.find(a2);
-	if(v == this->data.end() || v->second->dataId != 1) {
+	if(v == this->data.end() || v->second->typeId != 1) {
 		return 0;
 	}
 	return ((DataItem2<int16_t>*)v->second)->value;
 }
 std::string SynchedEntityData::getString(int32_t a2) {
 	auto&& v = this->data.find(a2);
-	if(v == this->data.end() || v->second->dataId != 4) {
+	if(v == this->data.end() || v->second->typeId != 4) {
 		return "";
 	}
 	return ((DataItem2<std::string>*)v->second)->value;

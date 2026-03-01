@@ -50,7 +50,7 @@ Tag* ListTag::copy(void){
 	return tg;
 }
 bool_t ListTag::equals(const Tag& v){
-	ListTag* tg = &v;
+	const ListTag* tg = (const ListTag*) &v;
 	bool_t eq = Tag::equals(v);
 	if(eq){
 		if(tg->value.size() == this->value.size()){
@@ -76,14 +76,15 @@ void ListTag::deleteChildren(void){
 void ListTag::print(const std::string& s, PrintStream& ps){
 	//XXX
 	Tag::print(s, ps);
-	s += "{";
-	s += "   ";
+	std::string v14 = s;
+	v14 += "{";
+	v14 += "   ";
 
 	for(Tag* t : this->value){
 		t->print(s, ps);
 	}
 
-	s += "}";
+	v14 += "}";
 }
 float ListTag::getFloat(int32_t n){
 	if(n >= this->value.size()){

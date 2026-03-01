@@ -16,9 +16,9 @@ void (*glBufferData)(GLenum target, GLsizeiptr size, const void *data, GLenum us
 #define GLFUNCADDR glXGetProcAddress
 #endif
 void initGlFuncs(){
-	glDeleteBuffers = GLFUNCADDR("glDeleteBuffers");
-	glGenBuffers = GLFUNCADDR("glGenBuffers");
-	glBindBuffer = GLFUNCADDR("glBindBuffer");
-	glBufferData = GLFUNCADDR("glBufferData");
+	glDeleteBuffers = (void (*)(GLsizei, const GLuint*)) GLFUNCADDR("glDeleteBuffers");
+	glGenBuffers = (void (*)(GLsizei, GLuint*)) GLFUNCADDR("glGenBuffers");
+	glBindBuffer = (void (*)(GLenum, GLuint)) GLFUNCADDR("glBindBuffer");
+	glBufferData = (void (*)(GLenum, GLsizeiptr, const void*, GLenum)) GLFUNCADDR("glBufferData");
 }
 #endif

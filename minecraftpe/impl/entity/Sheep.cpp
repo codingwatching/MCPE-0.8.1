@@ -101,6 +101,7 @@ void Sheep::setSheared(bool_t a2) {
 	int8_t b = this->synchedEntityData.getByte(16);
 	if(a2) b |= 0x10;
 	else b &= 0xEF;
+	printf("SHEARED: %d\n", b);
 	this->synchedEntityData.set<int8_t>(16, b); //signed char
 }
 
@@ -118,6 +119,7 @@ bool_t Sheep::interactWithPlayer(Player* a2) {
 	if(sel) {
 		if(Item::shears == sel->itemClass) {
 			if(Item::shears) {
+				this->isSheared();
 				if(!this->isSheared() && !this->isBaby()) {
 					level = this->level;
 					if(!level->isClientMaybe) {

@@ -9,7 +9,7 @@ std::vector<ItemInstance> Container::getSlotCopies() {
 		ItemInstance* v5 = this->getItem(v2);
 		ItemInstance* v6;
 		if(v5) {
-			res.emplace_back(v5);
+			res.emplace_back(*v5);
 		} else {
 			res.emplace_back(v8);
 		}

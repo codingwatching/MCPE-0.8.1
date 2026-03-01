@@ -22,7 +22,7 @@ Tag* LongTag::copy(void){
 	return new LongTag(this->getName(), this->value);
 }
 bool_t LongTag::equals(const Tag& v){
-	LongTag* tg = &v;
+	const LongTag* tg = (const LongTag*) &v;
 	bool_t eq = Tag::equals(v);
 	if(eq) return this->value == tg->value;
 	return eq;

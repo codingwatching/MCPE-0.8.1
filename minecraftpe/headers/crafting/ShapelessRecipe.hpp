@@ -12,6 +12,6 @@ struct ShapelessRecipe: Recipe
 	virtual int32_t getMaxCraftCount(ItemPack&);
 	virtual int32_t size();
 	virtual std::vector<ItemInstance>* assemble(CraftingContainer*);
-	virtual std::vector<ItemInstance>* getResultItem() const;
+	virtual const std::vector<ItemInstance>* getResultItem() const;
 	virtual int32_t getCraftingSize();
 };

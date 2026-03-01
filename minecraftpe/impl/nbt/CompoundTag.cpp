@@ -56,7 +56,7 @@ int32_t CompoundTag::getId(void) const{
 	return 10;
 }
 bool_t CompoundTag::equals(const Tag& t){
-	CompoundTag* tg = &t;
+	CompoundTag* tg = (CompoundTag*) &t;
 	bool_t eq = Tag::equals(t);
 	if(eq) {
 		std::map<const std::string, Tag*>::iterator it_this = this->value.begin();

@@ -3,7 +3,7 @@
 
 bool_t RakDataInput::readBytes(void* a2, int32_t a3) {
 	if(this->hasBytesLeft(a3)) {
-		this->stream->ReadBits(a2, 8 * a3, 1);
+		this->stream->ReadBits((unsigned char*) a2, 8 * a3, 1);
 		return 1;
 	}
 	return 0;

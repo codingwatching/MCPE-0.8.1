@@ -22,7 +22,7 @@ Tag* DoubleTag::copy(void){
 	return new DoubleTag(this->getName(), this->value);
 }
 bool_t DoubleTag::equals(const Tag& v){
-	DoubleTag* tg = &v;
+	const DoubleTag* tg = (const DoubleTag*) &v;
 	bool_t eq = Tag::equals(v);
 	if(eq) return this->value == tg->value;
 	return eq;
