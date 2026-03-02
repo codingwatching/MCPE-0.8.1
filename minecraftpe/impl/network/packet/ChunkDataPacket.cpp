@@ -29,6 +29,7 @@ void ChunkDataPacket::write(RakNet::BitStream* stream) {
 			}
 		}
 	}
+	stream->Write(this->stream);
 }
 void ChunkDataPacket::read(RakNet::BitStream* stream) {
 	stream->Read<int32_t>(this->xPos);

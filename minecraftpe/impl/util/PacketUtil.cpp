@@ -4,11 +4,11 @@
 #include <entity/Entity.hpp>
 
 ItemInstance PacketUtil::readItemInstance(RakNet::BitStream* stream){
-	int8_t v5;
+	uint8_t v5;
 	int16_t v6, v7;
 
 	stream->Read<int16_t>(v6);
-	stream->Read<int8_t>(v5);
+	stream->Read<uint8_t>(v5);
 	stream->Read<int16_t>(v7);
 	ItemInstance v8(v6, v5, v7);
 	if(v8.isValid) return ItemInstance(v8);

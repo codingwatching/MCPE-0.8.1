@@ -94,8 +94,8 @@ static int32_t _ihatecppstd(const void* a, const void* b) {
 	const IntPair* bb = (const IntPair*)b;
 	bool_t res = _ihatecppstdevenmore(*aa, *bb);
 	if(aa->x == bb->x && aa->y == bb->y) return 0;
-	if(res) return 1;
-	return -1;
+	if(res) return -1;
+	return 1;
 }
 
 void ClientSideNetworkHandler::arrangeRequestChunkOrder() {
@@ -505,7 +505,7 @@ void ClientSideNetworkHandler::handle(const RakNet::RakNetGUID&, struct ChunkDat
 									v10 = v33;
 								} while(v12 != 16);
 
-								for(int i = 0; i < 8; ++i) { //TODO inlined into 2int assign?
+								for(int i = 0; i < 8; ++i) { //XXX inlined into 2int assign?
 									v7->tileMeta.data[((v11 + (((v30 & 0xF) << 11) | (v30 >> 4 << 7))) >> 1) + i] = v48[i];
 								}
 							}

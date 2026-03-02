@@ -13,7 +13,7 @@ ContainerSetContentPacket::~ContainerSetContentPacket() {
 }
 void ContainerSetContentPacket::write(RakNet::BitStream* stream) {
 	stream->Write<uint8_t>(PID_CONTAINER_SET_CONTENT_PACKET);
-	stream->Write<int8_t>(this->field_C);
+	stream->Write<uint8_t>(this->field_C);
 	int16_t v10 = this->field_10.size();
 	stream->Write<int16_t>(v10);
 	for(int32_t i = 0; i < this->field_10.size(); ++i) {
