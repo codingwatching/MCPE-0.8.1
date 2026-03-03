@@ -9,6 +9,7 @@ TouchInputHolder::TouchInputHolder(Minecraft* mc)
 	this->mouseX = 0;
 	this->mouseY = 0;
 	this->field_C = 0;
+	this->minecraft = mc;
 	this->onConfigChanged(createConfig(mc));
 }
 

@@ -1,6 +1,7 @@
 #include <input/TouchAreaModel.hpp>
 #include <input/MouseAction.hpp>
 #include <util/area/IArea.hpp>
+#include <stdio.h>
 TouchAreaModel::Area::Area(IArea* area) {
 	this->area = area;
 	this->field_4 = 0;
@@ -21,6 +22,7 @@ void TouchAreaModel::clear() {
 		}
 
 		delete area;
+		int n = this->areas.size();
 	}
 	this->areas.clear();
 }

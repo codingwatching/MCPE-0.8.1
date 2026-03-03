@@ -141,7 +141,8 @@ void android_main(struct android_app* state) {
 				goto LABEL_32;
 			}
 			//TODO actually calls App::init(&engine->appCtx);
-			mc->init();
+			/*???????????????????*/
+			mc->App::init(engine.appCtx);
 
 			hasInit = 1;
 			mc->setSize(engine.width, engine.height);
@@ -153,7 +154,7 @@ void android_main(struct android_app* state) {
 			sleepMs(50);
 			goto LABEL_32;
 		}
-		//TODO contextWasLost stuff
+
 		if ( contextWasLost )
 		{
 			if ( eglMakeCurrent(
@@ -179,8 +180,8 @@ void android_main(struct android_app* state) {
 			}
 		}
 	}
-	//if(mc){
-	//	delete mc;
-	//}
+	if(mc){
+		delete mc;
+	}
 }
 #endif

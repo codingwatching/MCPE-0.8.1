@@ -156,8 +156,8 @@ std::string AppPlatform_android::getImagePath(const std::string& a3, bool_t a4){
 	return "images/" + a3; //TODO check
 }
 
-static unsigned int _d65c6fb8(int a1){
-	return a1 & 0xFF00FF00 | (a1 << 16) & 0xFF0000 | ((a1 >> 16) & 0xff0000);
+static unsigned int _d65c6fb8(unsigned int a1){
+	return (a1 & 0xFF00FF00) | (a1 << 16) & 0xFF0000 | ((a1 >> 16) & 0xff);
 }
 
 void AppPlatform_android::loadPNG(ImageData& a2, const std::string& a3, bool_t a4){
@@ -306,7 +306,7 @@ void AppPlatform_android::uploadPlatformDependentData(int32_t a2, void* a3){
 AssetFile AppPlatform_android::readAssetFile(const std::string& a3){
 	if(this->initialized && this->_jniGetFileDataBytes != 0){
 		JVMAttacher v14(this->jvm);
-		jbyteArray v10 = (jbyteArray) v14.env->CallObjectMethod(this->mainActivityRef, this->_jniGetFileDataBytes);
+		jbyteArray v10 = (jbyteArray) v14.env->CallObjectMethod(this->mainActivityRef, this->_jniGetFileDataBytes, v14.env->NewStringUTF(a3.c_str()));
 		if(v10){
 			int len = v14.env->GetArrayLength(v10);
 			unsigned char* v13 = new unsigned char[len];

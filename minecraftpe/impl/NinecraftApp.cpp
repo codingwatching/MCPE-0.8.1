@@ -138,7 +138,9 @@ void NinecraftApp::update(void){
 	//TODO MultiTouch::commit(vecEndPtr);
 	Minecraft::update();
 	if(this->context.field_10){
-		//TODO eglSwapBuffers(this->context.field_0, this->context.field_8);
+#if defined(ANDROID) and defined(USEGLES)
+		eglSwapBuffers(this->context.field_0, this->context.field_8);
+#endif
 	}
 	Mouse::reset2();
 	if(this->level){

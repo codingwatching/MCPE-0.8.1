@@ -1203,8 +1203,13 @@ void Minecraft::updateStatusUserAttributes(void) {
 }
 
 bool_t Minecraft::useTouchscreen(void) {
+#ifdef ANDROID
+	return this->options.useTouchscreen || !this->supportsNonTouchScreen;
+#else
 	return 0;
-	//TODO touchscreen support return this->options.useTouchscreen || !this->supportsNonTouchScreen;
+	//TODO touchscreen support
+	//return this->options.useTouchscreen || !this->supportsNonTouchScreen;
+#endif
 }
 Minecraft::~Minecraft() {
 }

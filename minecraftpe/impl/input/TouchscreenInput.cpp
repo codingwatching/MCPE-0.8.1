@@ -441,5 +441,5 @@ void TouchscreenInput::onConfigChanged(const Config& a2) {
 	}
 	float v23 = v4 - (float)((float)(v21 + 4.0) + 0.0);
 	this->rectArea9 = new RectangleArea(1, v23, 4, v21 + 4, v23 + v21);
-	this->touchAreaModel.addArea(106, this->rectArea8);
+	this->touchAreaModel.addArea(106, this->rectArea9);
 }
