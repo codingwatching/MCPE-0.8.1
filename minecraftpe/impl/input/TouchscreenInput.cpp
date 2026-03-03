@@ -24,14 +24,14 @@ TouchscreenInput::TouchscreenInput(Minecraft* a2, Options* a3)
 	this->field_41 = 0;
 	this->field_42 = 0;
 	this->options = a3;
-	this->rectArea7 = 0;
-	this->rectArea8 = 0;
-	this->rectArea1 = 0;
-	this->rectArea6 = 0;
-	this->rectArea9 = 0;
-	this->rectArea5 = 0;
-	this->rectArea2 = 0;
-	this->rectArea3 = 0;
+	this->leftArrow = 0;
+	this->rightArrow = 0;
+	this->upArrow = 0;
+	this->backArrow = 0;
+	this->chatButton = 0;
+	this->jumpButton = 0;
+	this->upLeftButton = 0;
+	this->upRightButton = 0;
 	this->field_7C = 0;
 	this->minecraft = a2;
 	this->field_A8 = 0;
@@ -47,10 +47,10 @@ TouchscreenInput::TouchscreenInput(Minecraft* a2, Options* a3)
 }
 void TouchscreenInput::clear() {
 	this->touchAreaModel.clear();
-	if(this->rectArea2) delete this->rectArea2;
-	this->rectArea2 = 0;
-	if(this->rectArea3) delete this->rectArea3;
-	this->rectArea3 = 0;
+	if(this->upLeftButton) delete this->upLeftButton;
+	this->upLeftButton = 0;
+	if(this->upRightButton) delete this->upRightButton;
+	this->upRightButton = 0;
 }
 RectangleArea* TouchscreenInput::getPauseRectangleArea() {
 	return this->field_68;
@@ -115,7 +115,7 @@ void TouchscreenInput::rebuild() {
 				v4 = _D6E06660;
 			}
 			Tesselator::instance.colorABGR(v4);
-			sub_D6604D0C(this->rectArea7, 26, 107, 26.0);
+			sub_D6604D0C(this->leftArrow, 26, 107, 26.0);
 			if(hideGUI || this->field_11) {
 				v5 = _D6E06658;
 			} else if(this->isButtonDown(103)) {
@@ -124,7 +124,7 @@ void TouchscreenInput::rebuild() {
 				v5 = _D6E06660;
 			}
 			Tesselator::instance.colorABGR(v5);
-			sub_D6604D0C(this->rectArea8, 78, 107, 26.0);
+			sub_D6604D0C(this->rightArrow, 78, 107, 26.0);
 			if(hideGUI) {
 				v6 = _D6E06658;
 			} else if(this->isButtonDown(101)) {
@@ -140,11 +140,11 @@ void TouchscreenInput::rebuild() {
 				v7 = 52;
 				v8 = 107;
 			}
-			sub_D6604D0C(this->rectArea6, v7, v8, 26.0);
-			if(hideGUI) {
+			sub_D6604D0C(this->backArrow, v7, v8, 26.0);
+			if(hideGUI) { //show 2 additionall buttons if uparrow is pressed
 				Tesselator::instance.colorABGR(_D6E06660);
-				sub_D6604D0C(this->rectArea2, 0, 133, 26.0);
-				sub_D6604D0C(this->rectArea3, 26, 133, 26.0);
+				sub_D6604D0C(this->upLeftButton, 0, 133, 26.0);
+				sub_D6604D0C(this->upRightButton, 26, 133, 26.0);
 			}
 		}
 		if(this->isButtonDown(100)) {
@@ -160,7 +160,7 @@ void TouchscreenInput::rebuild() {
 			v10 = 0;
 			v11 = 107;
 		}
-		sub_D6604D0C(this->rectArea1, v10, v11, 26.0);
+		sub_D6604D0C(this->upArrow, v10, v11, 26.0);
 		if(this->field_43 && hideGUI) {
 			v12 = _D6E06658;
 		} else if(this->isButtonDown(104)) {
@@ -174,7 +174,7 @@ void TouchscreenInput::rebuild() {
 		} else {
 			v13 = 107;
 		}
-		sub_D6604D0C(this->rectArea5, 104, v13, 26.0);
+		sub_D6604D0C(this->jumpButton, 104, v13, 26.0);
 		if(!this->minecraft->currentScreen) {
 			if(this->isButtonDown(106)) {
 				v14 = _D6E0665C;
@@ -182,7 +182,7 @@ void TouchscreenInput::rebuild() {
 				v14 = _D6E06660;
 			}
 			Tesselator::instance.colorABGR(v14);
-			sub_D6604D0C(this->rectArea9, 200, 82, 18.0);
+			sub_D6604D0C(this->chatButton, 200, 82, 18.0);
 		}
 		glColor4f(1.0, 1.0, 1.0, 0.65);
 		Tesselator::instance.draw(1);
@@ -423,23 +423,23 @@ void TouchscreenInput::onConfigChanged(const Config& a2) {
 	float v13 = v6 + (float)(v5 + v5);
 	float v16 = (float)(v8 + v5) + v5;
 	float v18 = v8 + (float)(v5 + v5);
-	this->rectArea1 = new RectangleArea(1, v6 + v5, v8, v11, v8 + v5);
-	this->touchAreaModel.addArea(100, this->rectArea1);
-	this->rectArea2 = new RectangleArea(1, v6, v8, v6 + v5, v8 + v5);
-	this->rectArea3 = new RectangleArea(1, v13, v8, v13 + v5, v8 + v5);
-	this->rectArea5 = new RectangleArea(1, v6 + v5, v8 + v5, v11, v16);
-	this->touchAreaModel.addArea(104, this->rectArea5);
-	this->rectArea6 = new RectangleArea(1, v11, v18, v6 + v5, v18 + v5);
-	this->touchAreaModel.addArea(101, this->rectArea6);
-	this->rectArea7 = new RectangleArea(1, v6, v10, v6 + v5, v16);
-	this->touchAreaModel.addArea(102, this->rectArea7);
-	this->rectArea8 = new RectangleArea(1, v13, v10, v13 + v5, v16);
-	this->touchAreaModel.addArea(103, this->rectArea8);
+	this->upArrow = new RectangleArea(1, v6 + v5, v8, v11, v8 + v5);
+	this->touchAreaModel.addArea(100, this->upArrow);
+	this->upLeftButton = new RectangleArea(1, v6, v8, v6 + v5, v8 + v5);
+	this->upRightButton = new RectangleArea(1, v13, v8, v13 + v5, v8 + v5);
+	this->jumpButton = new RectangleArea(1, v6 + v5, v8 + v5, v11, v16);
+	this->touchAreaModel.addArea(104, this->jumpButton);
+	this->backArrow = new RectangleArea(1, v6 + v5, v18, v11, v18 + v5);
+	this->touchAreaModel.addArea(101, this->backArrow);
+	this->leftArrow = new RectangleArea(1, v6, v10, v6 + v5, v16);
+	this->touchAreaModel.addArea(102, this->leftArrow);
+	this->rightArrow = new RectangleArea(1, v13, v10, v13 + v5, v16);
+	this->touchAreaModel.addArea(103, this->rightArrow);
 	float v21 = Gui::GuiScale * 18.0;
 	if((float)(Gui::GuiScale * 18.0) > (float)(this->minecraft->field_C84 * 10.0)) {
 		v21 = this->minecraft->field_C84 * 10.0;
 	}
 	float v23 = v4 - (float)((float)(v21 + 4.0) + 0.0);
-	this->rectArea9 = new RectangleArea(1, v23, 4, v21 + 4, v23 + v21);
-	this->touchAreaModel.addArea(106, this->rectArea9);
+	this->chatButton = new RectangleArea(1, v23, 4, v23 + v21, v21 + 4);
+	this->touchAreaModel.addArea(106, this->chatButton);
 }

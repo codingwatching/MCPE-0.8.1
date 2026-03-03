@@ -157,7 +157,6 @@ Item::Tier Item::Tier::STONE{1, 131, 4.0, 1};
 Item::Tier Item::Tier::WOOD{0, 59, 2.0, 0};
 
 void Item::initItems(std::shared_ptr<TextureAtlas> a2){
-	printf("Item::initItems - not implemented\n");
 	Item::_itemTextureAtlas = a2;
 
 	if(Item::_D6E4C850_ItemsInitialized) return;

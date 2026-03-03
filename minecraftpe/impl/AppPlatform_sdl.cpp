@@ -188,9 +188,6 @@ void AppPlatform_sdl::init(){
 	bool_t running = this->hasContext;
 	bool_t hasInit = 0;
 	Tesselator& tess = Tesselator::instance;
-	//int32_t t = textures.loadAndBindTexture("../cat.png");
-	//printf("%d\n", t);
-
 	static const int lbkey = 102;
 	static const int rbkey = 103;
 	bool windowActive = 1;
@@ -206,7 +203,7 @@ void AppPlatform_sdl::init(){
 			//mc->currentScreen->init(mc, this->screenWidth, this->screenHeight);
 		}
 
-		if(mc->mouseGrabbed) {
+		if(mc->mouseGrabbed && !mc->useTouchscreen()) {
 			SDL_WM_GrabInput(SDL_GRAB_ON);
 			SDL_ShowCursor(SDL_DISABLE);
 		} else {

@@ -9,11 +9,13 @@ bool_t IncludeExcludeArea::isInside(float x, float y) {
 
 	for(i = 0; i < this->areas1.size(); ++i) {
 		area1 = this->areas1[i];
-		if(area1->isInside(x, y)) break;
+		if(area1->isInside(x, y)) goto SKIP_RETURN;
 LABEL_9:
 	//
 	;
 	}
+	return 0;
+	SKIP_RETURN:
 
 	for(i = 0; i < this->areas2.size(); ++i) {
 		area2 = this->areas2[i];

@@ -183,8 +183,6 @@ void Minecraft::_levelGenerated(void) {
 void Minecraft::_reloadInput(void) {
 	if(this->inputHolder) delete this->inputHolder;
 	if(this->useTouchscreen()) {
-		//TODO touchscreen input
-		printf("Attempting to create touchscreen input(WIP)\n");
 		TouchInputHolder* holder = new TouchInputHolder(this);
 		this->inputHolder = holder;
 	} else {
@@ -1206,7 +1204,7 @@ bool_t Minecraft::useTouchscreen(void) {
 #ifdef ANDROID
 	return this->options.useTouchscreen || !this->supportsNonTouchScreen;
 #else
-	return 0;
+	return 1;
 	//TODO touchscreen support
 	//return this->options.useTouchscreen || !this->supportsNonTouchScreen;
 #endif

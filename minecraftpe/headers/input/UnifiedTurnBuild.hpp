@@ -27,7 +27,7 @@ struct UnifiedTurnBuild: GuiComponent, ITurnInput, IBuildInput
 	int32_t field_F0, field_F4;
 	double field_F8;
 	float field_100, field_104, field_108;
-	int32_t field_10C;
+	Player* field_10C;
 	double field_110;
 	int32_t field_118;
 	int8_t field_11C, field_11D, field_11E, field_11F;

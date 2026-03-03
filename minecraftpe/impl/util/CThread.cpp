@@ -15,6 +15,7 @@ int32_t CThread::sleep(uint32_t a2) {
 }
 
 CThread::~CThread() {
-	pthread_join(this->field_8, 0);
-	pthread_attr_destroy(&this->field_C);
+	//TODO crashes here on phone - invalid thread is passed or something
+	//pthread_join(this->field_8, 0);
+	//pthread_attr_destroy(&this->field_C);
 }

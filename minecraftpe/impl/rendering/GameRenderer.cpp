@@ -1,5 +1,4 @@
 #include <rendering/GameRenderer.hpp>
-#include <unigl.h>
 #include <Minecraft.hpp>
 #include <entity/LocalPlayer.hpp>
 #include <entity/player/gamemode/GameMode.hpp>
@@ -24,6 +23,7 @@
 #include <rendering/states/EnableState.hpp>
 #include <tile/Tile.hpp>
 #include <tile/material/Material.hpp>
+#include <unigl.h>
 
 int32_t t_keepPic = -1;
 GameRenderer::GameRenderer(struct Minecraft* a2)
@@ -957,7 +957,7 @@ void GameRenderer::setupGuiScreen(bool_t a2) {
 #else
 	glOrtho
 #endif
-	(0.0, (float)v4, (float)(int32_t)v3, 0.0, 2000.0, 3000.0);
+		(0.0, (float)v4, (float)(int32_t)v3, 0.0, 2000.0, 3000.0);
 
 	glMatrixMode(0x1700u);
 	glLoadIdentity();
@@ -1053,8 +1053,52 @@ void GameRenderer::unZoomRegion() {
 void GameRenderer::updateAllChunks() {
 	this->minecraft->levelRenderer->updateDirtyChunks(this->minecraft->viewEntityMaybe, 1);
 }
-bool_t GameRenderer::updateFreeformPickDirection(float, struct Vec3&, struct Vec3&) {
-	printf("GameRenderer::updateFreeformPickDirection - not implemented(required for touchscreen stuff)\n"); //TODO GameRenderer::updateFreeformPickDirection touchscreen support
+bool_t GameRenderer::updateFreeformPickDirection(float a2, struct Vec3& a3, struct Vec3& a4) {
+	if(this->minecraft->inputHolder->allowPicking()) {
+		float v8 = 12;
+		Vec3 v37 = this->minecraft->viewEntityMaybe->getPos(a2);
+		float x = v37.x;
+		float y = v37.y;
+		float z = v37.z;
+		_D67AD634 = -1;
+
+		if(!this->minecraft->options.thirdPerson) {
+			v8 = 6;
+		}
+		int viewport[4] = {0, 0, 0, 0};
+
+		viewport[3] = this->minecraft->field_20;
+		viewport[2] = this->minecraft->field_1C;
+		float mouseX = this->minecraft->inputHolder->mouseX;
+		float mouseY = viewport[3] - this->minecraft->inputHolder->mouseY;
+		float objXYZ[3];
+
+		if(glhUnProjectf(mouseX, mouseY, 1.0, this->modelViewMat, this->projectionMat, viewport, objXYZ)) {
+			Vec3 v39(x + objXYZ[0], y + objXYZ[1], z + objXYZ[2]);
+			glhUnProjectf(mouseX, mouseY, 0.0, this->modelViewMat, this->projectionMat, viewport, objXYZ);
+			Vec3 v40(x + objXYZ[0], y + objXYZ[1], z + objXYZ[2]);
+			float v18 = v39.x - v40.x;
+			float v19 = v40.y;
+			float v20 = v40.z;
+			float v21 = v39.y;
+			a3.x = v40.x;
+			a3.y = v19;
+			a3.z = v20;
+			Vec3 v41 = Vec3(v18, v21 - v40.y, v39.z - v40.z).normalized(); //inlined
+			a4 = v41;
+			//inlined v40->add(a4->multiply(v8)) ?
+			Vec3 _a1(v8 * a4.x, v8 * a4.y, v8 * a4.z);
+			Vec3 v42(v40.x + _a1.x, v40.y + _a1.y, v40.z + _a1.z);
+			bool a5 = this->minecraft->player && this->minecraft->player->getSelectedItem() ? this->minecraft->player->getSelectedItem()->isLiquidClipItem() : 0;
+			HitResult a1 = this->minecraft->level->clip(v40, v42, a5, 0);
+
+			this->minecraft->selectedObject = a1;
+			if(this->minecraft->options.thirdPerson && this->minecraft->selectedObject.hitType != 2 && this->minecraft->viewEntityMaybe->distanceToSqr(this->minecraft->selectedObject.field_4, this->minecraft->selectedObject.field_8, this->minecraft->selectedObject.field_C) > v8 * v8) {
+				this->minecraft->selectedObject.hitType = 2;
+			}
+			return 1;
+		}
+	}
 	return 0;
 }
 
