@@ -52,6 +52,7 @@ void android_main(struct android_app* state) {
 	state->destroyRequested = 0;
 	state->onAppCmd = engine_handle_cmd;
 	state->onInputEvent = engine_handle_input; //XXX doesnt have symbol
+
 	pthread_mutex_lock(&_D6E04480);
 	appPlatform.mainActivityRef = mainActivity_ref;
 	pthread_mutex_unlock(&_D6E04480);
@@ -71,25 +72,25 @@ void android_main(struct android_app* state) {
 	ninecraftApp = mc;
 	engine.state = state;
 
-	//TODO fix crash
-	/*activity->vm->AttachCurrentThread(&activity->env, 0);
-	jclass clz = activity->env->FindClass("android/os/Environment");
-	jmethodID v9 = activity->env->GetStaticMethodID(clz, "getExternalStorageDirectory", "()Ljava/io/File;");
-	if(activity->env->ExceptionOccurred()){
-		activity->env->ExceptionDescribe();
+	JNIEnv* env = activity->env;
+	activity->vm->AttachCurrentThread(&env, 0);
+	jclass clz = env->FindClass("android/os/Environment");
+	jmethodID v9 = env->GetStaticMethodID(clz, "getExternalStorageDirectory", "()Ljava/io/File;");
+	if(env->ExceptionOccurred()){
+		env->ExceptionDescribe();
 	}
-	jobject v10 = activity->env->CallStaticObjectMethod(clz, v9);
-	jclass v11 = activity->env->GetObjectClass(v10);
-	jmethodID mid = activity->env->GetMethodID(v11, "getAbsolutePath", "()Ljava/lang/String;");
-	jstring v14 = (jstring)activity->env->CallObjectMethod(v10, mid);
-	const char* utfChars = activity->env->GetStringUTFChars(v14, 0);
+	jobject v10 = env->CallStaticObjectMethod(clz, v9);
+	jclass v11 = env->GetObjectClass(v10);
+	jmethodID mid = env->GetMethodID(v11, "getAbsolutePath", "()Ljava/lang/String;");
+	jstring v14 = (jstring)env->CallObjectMethod(v10, mid);
+	const char* utfChars = env->GetStringUTFChars(v14, 0);
 	mc->dataPathMaybe = utfChars;
 	mc->field_CC4 = utfChars;
-	activity->env->ReleaseStringUTFChars(v14, utfChars);*/
+	env->ReleaseStringUTFChars(v14, utfChars);
 	activity->vm->DetachCurrentThread();
-	/*if(state->savedState){
+	if(state->savedState){
 		mc->loadState(state->savedState, state->savedStateSize);
-	}*/
+	}
 	bool actFinished = 0;
 	bool hasInit = 0;
 	appPlatform.field_10C = activity;

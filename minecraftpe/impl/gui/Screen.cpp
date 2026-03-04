@@ -256,6 +256,7 @@ bool_t Screen::closeOnPlayerHurt(){
 }
 void Screen::confirmResult(bool_t, int32_t){}
 void Screen::lostFocus(){
+	//TODO lostFocus
 	//field_20 -> field_24: vector?
 	printf("Screen::lostFocus - not implemented\n");
 }
@@ -273,8 +274,12 @@ bool_t Screen::supppressedBySubWindow(){
 }
 void Screen::onTextBoxUpdated(int32_t){}
 void Screen::onMojangConnectorStatus(MojangConnectionStatus){}
-void Screen::setTextboxText(const std::string&){
-	printf("Screen::setTextboxText - not implemented\n");
+void Screen::setTextboxText(const std::string& a2){
+	for(auto&& e : this->elements){
+		if(e->suppressOtherGUI()){
+			e->setTextboxText(a2);
+		}
+	}
 }
 void Screen::onInternetUpdate(){}
 void Screen::buttonClicked(struct Button*){}

@@ -41,7 +41,11 @@ JNIEXPORT void JNICALL Java_com_mojang_minecraftpe_MainActivity_nativeReturnKeyP
 	Keyboard::feed(13, 0);
 }
 JNIEXPORT void JNICALL Java_com_mojang_minecraftpe_MainActivity_nativeSetTextboxText(JNIEnv* env, jobject dis, jstring s){
-    __android_log_write(ANDROID_LOG_ERROR, "MCPE081DECOMP", "Java_com_mojang_minecraftpe_MainActivity_nativeSetTextboxText - not implemented");
+	const char* utfChars = env->GetStringUTFChars(s, 0);
+	DEBUGMSG("NATIVESETTBTEXT %s", utfChars);
+	std::string v7 = !utfChars ? "" : utfChars;
+	env->ReleaseStringUTFChars(s, utfChars);
+	ninecraftApp->setTextboxText(v7);
 }
 JNIEXPORT void JNICALL Java_com_mojang_minecraftpe_MainActivity_nativeStopThis(JNIEnv* env, jobject dis){
 
@@ -49,8 +53,17 @@ JNIEXPORT void JNICALL Java_com_mojang_minecraftpe_MainActivity_nativeStopThis(J
 JNIEXPORT void JNICALL Java_com_mojang_minecraftpe_MainActivity_nativeSuspend(JNIEnv* env, jobject dis){
 
 }
+std::string nativeUtf8Input;
 JNIEXPORT void JNICALL Java_com_mojang_minecraftpe_MainActivity_nativeTypeCharacter(JNIEnv* env, jobject dis, jstring s){
-    __android_log_write(ANDROID_LOG_ERROR, "MCPE081DECOMP", "Java_com_mojang_minecraftpe_MainActivity_nativeTypeCharacter - not implemented");
+    const char* utfChars = env-> GetStringUTFChars(s, 0);
+	if(utfChars){
+		nativeUtf8Input = utfChars;
+		std::string v8 = nativeUtf8Input;
+		Keyboard::feedText(v8, 0);
+	}
+	printf("@nativeTypeCharacter: %s\n", nativeUtf8Input.c_str());
+	env->ReleaseStringUTFChars(s, utfChars);
+
 }
 JNIEXPORT void JNICALL Java_com_mojang_minecraftpe_MainActivity_nativeUnregisterThis(JNIEnv* env, jobject dis){
 	pthread_self();

@@ -183,7 +183,6 @@ void NinecraftApp::init(void){
 	const char* v43[] = {"/games", "/com.mojang", "/minecraftpe"};
 	createTree(this->dataPathMaybe.c_str(), v43, 3);
 	this->field_D00 = this->dataPathMaybe + "/games" + "/com.mojang" + "/minecraftpe";
-
 	int32_t x = 0;
 	do{
 		float v7 = sin((float)x / 10430.0);

@@ -14,7 +14,6 @@ void engine_handle_cmd(android_app* a1, int a2) {
 	std::string v26 = "???";
 	ENGINE* engine = (ENGINE*)a1->userData;
 
-	__android_log_print(ANDROID_LOG_ERROR, "MCPEDECOMP", "CMD %d", a2);
 	switch(a2) {
 		case APP_CMD_INIT_WINDOW:
 			if(engine->state->window) {

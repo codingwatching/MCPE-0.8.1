@@ -340,7 +340,7 @@ bool_t AppPlatform_android::isNetworkEnabled(bool_t a2){
 	if(!this->_jniIsNetworkEnabled) return 0;
 
 	JVMAttacher v6(this->jvm);
-	bool v4 = v6.env->CallBooleanMethod(this->mainActivityRef, this->_jniIsNetworkEnabled) != 0;
+	bool v4 = v6.env->CallBooleanMethod(this->mainActivityRef, this->_jniIsNetworkEnabled, a2) != 0;
 	v6.forceDetach();
 	return v4;
 }
