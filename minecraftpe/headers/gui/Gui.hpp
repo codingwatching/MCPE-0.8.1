@@ -31,7 +31,7 @@ struct Gui : GuiComponent, AppPlatform::Listener{
 	int8_t al4, al5, al6;
 	int32_t field_A18, field_A1C, field_A20, field_A28;
 	int32_t slotsAmount;
-	MeshBuffer meshBuffer1, meshBuffer2;
+	MeshBuffer outerBreakRingMesh, innerBreakRingMesh;
 	float field_A80;
 	int32_t field_A84;
 	std::string tipMessage;

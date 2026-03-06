@@ -33,7 +33,7 @@
 LevelRenderer::LevelRenderer(Minecraft* minecraft, std::shared_ptr<TextureAtlas> a3)
 	: field_164(Color4::BLACK) {
 	this->field_160 = this->field_15C = 0; //XXX doesnt seem to be in mcpe
-	this->field_14 = 0.0;
+	this->destroyProgress = 0.0;
 	this->field_1C = 0;
 	this->field_8 = -9999.0;
 	this->field_C = -9999.0;
@@ -814,7 +814,7 @@ void LevelRenderer::renderHit(Player* a2, const HitResult& a3, int32_t df, void*
 	int32_t v14; // r5
 	int32_t v16; // [sp+10h] [bp-28h] BYREF
 
-	if(!df && this->field_14 > 0.0) {
+	if(!df && this->destroyProgress > 0.0) {
 		v8 = 0;
 		BlendFunctionState v17(0x306u, 0);
 		glPushMatrix();
@@ -835,7 +835,7 @@ void LevelRenderer::renderHit(Player* a2, const HitResult& a3, int32_t df, void*
 			v11 = a3.field_4;
 			v12 = a3.field_8;
 			v14 = a3.field_C;
-			this->field_70->tesselateInWorld(v8, v11, v12, v14, *this->destroyTexture.getUV((int32_t)(float)(this->field_14 * 10.0)));
+			this->field_70->tesselateInWorld(v8, v11, v12, v14, *this->destroyTexture.getUV((int32_t)(float)(this->destroyProgress * 10.0)));
 			Tesselator::instance.draw(1);
 			//EnableState::~EnableState((EnableState*)&v16);
 		}

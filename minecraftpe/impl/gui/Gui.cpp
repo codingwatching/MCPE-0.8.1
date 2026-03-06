@@ -73,14 +73,12 @@ void Gui::onConfigChanged(const Config& a2) {
 	int v16;		   // r7
 	int v17;		   // s14
 	float v18;		   // r0
-	float v19;		   // s17
 	float v20;		   // r0
 	int sp;			   // r0
 	int v22;		   // r4
 	int v23;		   // [sp+Ch] [bp-8Ch] BYREF
 	int v24;		   // [sp+10h] [bp-88h] BYREF
 	int v25;		   // [sp+14h] [bp-84h] BYREF
-	MeshBuffer result; // [sp+18h] [bp-80h] BYREF
 
 	v4 = 0;
 	v5 = this->minecraftInst->platform();
@@ -104,19 +102,19 @@ void Gui::onConfigChanged(const Config& a2) {
 		Tesselator::instance.vertexUV(v6 * v14, v6 * v15, 0.0, 1.0, 0.0);
 		Tesselator::instance.vertexUV(v6 * v11, v6 * v13, 0.0, 0.0, 0.0);
 	} while(v4 != 24);
-	this->meshBuffer1 = Tesselator::instance.end();
-	v16 = 0;
+	this->outerBreakRingMesh = Tesselator::instance.end();
 
+	v16 = 0;
 	Tesselator::instance.begin(6, 26);
 	Tesselator::instance.vertex(0.0, 0.0, 0.0);
 	do {
 		v17 = v16--;
 		v18 = (float)v17 * v8;
-		v19 = v18 * 10430.0;
 		v20 = Mth::cos(v18);
-		Tesselator::instance.vertex(v7 * v20, v7 * Mth::sin(v19), 0.0);
+		Tesselator::instance.vertex(v7 * v20, v7 * Mth::sin(v18), 0.0);
 	} while(v16 != -25);
-	this->meshBuffer2 = Tesselator::instance.end();
+	this->innerBreakRingMesh = Tesselator::instance.end();
+
 	sp = a2.mc->useTouchscreen();
 	if(sp) {
 		if(a2.mc->options.useJoypad) {
@@ -201,7 +199,7 @@ int32_t Gui::getNumSlots() {
 }
 RectangleArea Gui::getRectangleArea(int32_t a3) {
 	int32_t v6;				  // s12
-	int32_t NumSlots;		  // r0
+	int32_t slots;		  // r0
 	float v8;				  // s16
 	Minecraft* minecraftInst; // r3
 	float v10;				  // s15
@@ -211,14 +209,14 @@ RectangleArea Gui::getRectangleArea(int32_t a3) {
 	int32_t v14;			  // s13
 
 	v6 = this->minecraftInst->field_1C / 2;
-	NumSlots = this->getNumSlots();
+	slots = this->getNumSlots();
 	v8 = (float)v6 + 2.0;
 	minecraftInst = this->minecraftInst;
-	v10 = (float)((float)(10 * NumSlots + 3) + 1.0) * Gui::GuiScale;
+	v10 = (float)((float)(10 * slots + 3) + 1.0) * Gui::GuiScale;
 	v11 = Gui::GuiScale * 25.0;
 	if(a3 < 0) {
 		v12 = (float)minecraftInst->field_20;
-		return RectangleArea(1, 0, v12, (float)(v8 + v10), v12);
+		return RectangleArea(1, 0, v12 - v11, (float)(v8 + v10) + 2, v12);
 	}
 	if(!a3) {
 		v14 = minecraftInst->field_20;
@@ -674,7 +672,7 @@ LABEL_15:
 			v23 = Gui::InvGuiScale * v22->mouseX;
 			v24 = Gui::InvGuiScale * v22->mouseY;
 			glTranslatef(v23, v24, 0.0);
-			this->meshBuffer1.render();
+			this->outerBreakRingMesh.render();
 			glTranslatef(-v23, -v24, 0.0);
 			return;
 		}
@@ -697,12 +695,12 @@ LABEL_21:
 	glPushMatrix();
 	glColor4f(1.0, 1.0, 1.0, v15 * 0.8);
 	glTranslatef(Gui::InvGuiScale * this->minecraftInst->inputHolder->mouseX, Gui::InvGuiScale * this->minecraftInst->inputHolder->mouseY, 0.0);
-	this->meshBuffer1.render();
+	this->outerBreakRingMesh.render();
 	v26 = (float)((float)(v25 + (float)((float)(v19 - v25) * a5)) * 0.5) + 0.5;
 	glScalef(v26, v26, 1.0);
 	glColor4f(1.0, 1.0, 1.0, 1.0);
 	glBlendFunc(0x307u, 0x301u);
-	this->meshBuffer2.render();
+	this->innerBreakRingMesh.render();
 	glBlendFunc(0x302u, 0x303u);
 	glPopMatrix();
 }

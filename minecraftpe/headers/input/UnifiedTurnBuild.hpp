@@ -17,13 +17,13 @@ struct UnifiedTurnBuild: GuiComponent, ITurnInput, IBuildInput
 	int32_t field_1C;
 	int8_t field_20, field_21, field_22, field_23;
 	int32_t field_24, field_28, field_2C, field_30;
-	RectangleArea field_34, field_4C, field_64, field_7C, field_94;
+	RectangleArea field_34, moveButtonsArea, field_64, hotbarArea, field_94;
 	IInputHolder* field_AC;
 	int32_t field_B0;
 	float field_B4, field_B8;
 	int8_t field_BC, field_BD, field_BE, field_BF;
 	TouchAreaModel field_C0;
-	IncludeExcludeArea field_D0;
+	IncludeExcludeArea allowCameraMovement;
 	int32_t field_F0, field_F4;
 	double field_F8;
 	float field_100, field_104, field_108;

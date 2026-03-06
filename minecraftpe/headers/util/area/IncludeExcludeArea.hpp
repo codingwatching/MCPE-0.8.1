@@ -4,8 +4,8 @@
 
 struct IncludeExcludeArea: IArea
 {
-	std::vector<IArea*> areas1;
-	std::vector<IArea*> areas2;
+	std::vector<IArea*> includeAreas;
+	std::vector<IArea*> excludeAreas;
 
 	virtual ~IncludeExcludeArea();
 	virtual bool_t isInside(float x, float y);

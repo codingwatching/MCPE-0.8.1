@@ -11,9 +11,9 @@
 
 UnifiedTurnBuild::UnifiedTurnBuild(int32_t a2, int32_t a3, int32_t a4, float a5, float a6, IInputHolder* a7, Minecraft* a8)
 	: field_34(1, -1, -1, 0, 0)
-	, field_4C(1, -1, -1, 0, 0)
+	, moveButtonsArea(1, -1, -1, 0, 0)
 	, field_64(1, -1, -1, 0, 0)
-	, field_7C(1, -1, -1, 0, 0)
+	, hotbarArea(1, -1, -1, 0, 0)
 	, field_94(1, -1, -1, 0, 0) {
 	this->curTime = -1.0;
 	this->field_1C = a2;
@@ -34,7 +34,7 @@ UnifiedTurnBuild::UnifiedTurnBuild(int32_t a2, int32_t a3, int32_t a4, float a5,
 	this->field_11D = 0;
 	this->field_11E = 0;
 	this->field_120 = 0;
-	this->field_D0.field_4 = 0;
+	this->allowCameraMovement.field_4 = 0;
 	this->options = &a8->options;
 	this->field_108 = a6;
 	this->onConfigChanged(createConfig(a8));
@@ -71,8 +71,8 @@ void UnifiedTurnBuild::onConfigChanged(const Config& a2) {
 
 	v2 = (float)a2.field_4;
 	v3 = a2.field_0;
-	maxX = this->field_4C.maxX;
-	minX = this->field_4C.minX;
+	maxX = this->moveButtonsArea.maxX;
+	minX = this->moveButtonsArea.minX;
 
 	this->field_34.field_4 = 1;
 	this->field_34.minX = 0.0;
@@ -81,25 +81,25 @@ void UnifiedTurnBuild::onConfigChanged(const Config& a2) {
 	this->field_34.maxX = (float)v3;
 	v9 = (float)((float)(maxX - minX) * 0.05) + 10.0;
 	v10 = maxX + v9;
-	minY = this->field_4C.minY;
-	this->field_4C.maxX = v10;
-	maxY = this->field_4C.maxY;
-	this->field_4C.minX = minX - v9;
+	minY = this->moveButtonsArea.minY;
+	this->moveButtonsArea.maxX = v10;
+	maxY = this->moveButtonsArea.maxY;
+	this->moveButtonsArea.minX = minX - v9;
 	v13 = (float)((float)(maxY - minY) * 0.05) + 10.0;
-	this->field_4C.maxY = maxY + v13;
+	this->moveButtonsArea.maxY = maxY + v13;
 	this->field_94.minX = this->field_94.minX - 10.0;
 	this->field_94.maxX = this->field_94.maxX + 10.0;
 	this->field_94.minY = this->field_94.minY - 10.0;
 	v14 = this->field_94.maxY + 10.0;
-	this->field_4C.minY = minY - v13;
+	this->moveButtonsArea.minY = minY - v13;
 	this->field_94.maxY = v14;
-	this->field_D0.clear();
-	this->field_D0.areas1.push_back(&this->field_34);
-	this->field_D0.areas2.push_back(&this->field_4C);
-	this->field_D0.areas2.push_back(&this->field_7C);
+	this->allowCameraMovement.clear();
+	this->allowCameraMovement.includeAreas.push_back(&this->field_34);
+	this->allowCameraMovement.excludeAreas.push_back(&this->moveButtonsArea);
+	this->allowCameraMovement.excludeAreas.push_back(&this->hotbarArea);
 	this->field_C0.clear();
 
-	TouchAreaModel::Area* v15 = new TouchAreaModel::Area(&this->field_D0);
+	TouchAreaModel::Area* v15 = new TouchAreaModel::Area(&this->allowCameraMovement);
 	v15->field_4 = 100;
 	this->field_C0.areas.emplace_back(v15);
 }

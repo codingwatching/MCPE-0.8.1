@@ -463,8 +463,8 @@ void GameRenderer::pick(float a2) {
 void GameRenderer::render(float pt) {
 	int32_t v29;
 	if(this->minecraft->player) {
-		if(minecraft->mouseGrabbed) {
-			minecraft->mouseHandler.poll();
+		if(this->minecraft->mouseGrabbed) {
+			this->minecraft->mouseHandler.poll();
 			Minecraft* v5 = this->minecraft;
 			float v6 = (float)((float)((float)((float)(v5->options.sensitity * 0.6) + 0.2) * (float)((float)(v5->options.sensitity * 0.6) + 0.2)) * (float)((float)(v5->options.sensitity * 0.6) + 0.2)) * 8.0;
 			float v7 = v6 * v5->mouseHandler.field_0;
@@ -1098,6 +1098,8 @@ bool_t GameRenderer::updateFreeformPickDirection(float a2, struct Vec3& a3, stru
 			}
 			return 1;
 		}
+	}else{
+		_D67AD634 = 1;
 	}
 	return 0;
 }

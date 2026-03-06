@@ -79,10 +79,10 @@ void GameMode::render(float a2) {
 	if(v2 > 0.0) {
 		v3 = this->field_4 + (float)((float)(v2 - this->field_4) * a2);
 		this->minecraft->gui.field_10 = v3;
-		this->minecraft->levelRenderer->field_14 = v3;
+		this->minecraft->levelRenderer->destroyProgress = v3;
 	} else {
 		this->minecraft->gui.field_10 = 0.0;
-		this->minecraft->levelRenderer->field_14 = 0.0;
+		this->minecraft->levelRenderer->destroyProgress = 0.0;
 	}
 }
 float GameMode::getPickRange() {

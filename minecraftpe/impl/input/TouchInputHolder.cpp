@@ -17,8 +17,8 @@ TouchInputHolder::~TouchInputHolder() {
 }
 void TouchInputHolder::onConfigChanged(const Config& a2) {
 	this->moveInput.onConfigChanged(a2);
-	this->turnInput.field_4C = *this->moveInput.getRectangleArea();
-	this->turnInput.field_7C = this->minecraft->gui.getRectangleArea(this->minecraft->options.leftHanded ? 1 : -1);
+	this->turnInput.moveButtonsArea = *this->moveInput.getRectangleArea();
+	this->turnInput.hotbarArea = this->minecraft->gui.getRectangleArea(this->minecraft->options.leftHanded ? 1 : -1);
 	if(!a2.options->useJoypad) {
 		this->turnInput.field_108 = 1.0;
 	} else {
@@ -42,7 +42,7 @@ bool_t TouchInputHolder::allowPicking() {
 	int v12;				// [sp+4h] [bp-34h]
 
 	v2 = 0;
-	v3 = &this->turnInput.field_D0;
+	v3 = &this->turnInput.allowCameraMovement;
 	v12 = Multitouch::_activePointerCount;
 	while(v2 < v12) {
 		v4 = Multitouch::_activePointerList[v2];
