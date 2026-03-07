@@ -752,7 +752,7 @@ void ClientSideNetworkHandler::handle(const RakNet::RakNetGUID& a2, struct Conta
 	if(this->minecraft) {
 		if(this->minecraft->player) {
 			if(a3->field_C) {
-				int v7 = (uint8_t)a3->field_C;
+				int v7 = a3->field_C;
 				if(v7 == 120) {
 					for(int i = 0; i < (a3->field_10.size() >= 4 ? 4 : a3->field_10.size()); ++i) {
 						this->minecraft->player->setArmor(i, &a3->field_10[i]);
@@ -760,7 +760,7 @@ void ClientSideNetworkHandler::handle(const RakNet::RakNetGUID& a2, struct Conta
 				} else {
 					if(this->minecraft->player->currentContainer) {
 						if(this->minecraft->player->currentContainer->field_0 == v7) {
-							for(int j = 0; j < a3->field_10.size(); ++a3) {
+							for(int j = 0; j < a3->field_10.size(); ++j) {
 								this->minecraft->player->currentContainer->setSlot(j, &a3->field_10[j]);
 							}
 						}

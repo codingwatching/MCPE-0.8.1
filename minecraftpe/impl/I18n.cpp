@@ -49,7 +49,7 @@ std::string I18n::getDescriptionString(const struct ItemInstance& a2) {
 			int32_t v9 = 0;
 			while(1) {
 				if(v15 == _d6e09320[v9]) {
-					if(I18n::get(_d6e09320[v9 + 1] + "desc.", v17)) break; //TODO check
+					if(I18n::get("desc."+_d6e09320[v9 + 1], v17)) break;
 				}
 				v9 += 2;
 				if(v9 == 6) {

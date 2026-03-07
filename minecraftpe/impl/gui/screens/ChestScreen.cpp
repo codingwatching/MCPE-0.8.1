@@ -275,6 +275,7 @@ void ChestScreen::render(int32_t a2, int32_t a3, float a4) {
 	this->minecraft->texturesPtr->loadAndBindTexture("gui/spritesheet.png");
 }
 void ChestScreen::init() {
+	BaseContainerScreen::init();
 	ImageDef a2;
 	a2.field_0 = "gui/spritesheet.png";
 	a2.field_4 = 0;

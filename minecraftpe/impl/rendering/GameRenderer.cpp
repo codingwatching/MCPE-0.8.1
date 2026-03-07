@@ -656,7 +656,6 @@ void GameRenderer::renderLevel(float a2) {
 	float v11;						// s18
 	float v12;						// s17
 	GLenum v13;						// r0
-	Minecraft* v16;					// r3
 	LevelRenderer* a1;				// [sp+14h] [bp-52Ch]
 
 	minecraft = this->minecraft;
@@ -734,8 +733,7 @@ void GameRenderer::renderLevel(float a2) {
 	this->minecraft->levelRenderer->renderNameTags(a2);
 	if(this->field_4C == 1.0) {
 		if(viewEntityMaybe->isPlayer()) {
-			v16 = this->minecraft;
-			if(!v16->currentScreen && v16->selectedObject.hitType != 2 && !viewEntityMaybe->isUnderLiquid(Material::water)) {
+			if(!this->minecraft->currentScreen && this->minecraft->selectedObject.hitType != 2 && !viewEntityMaybe->isUnderLiquid(Material::water)) {
 #ifndef PCTWEAKS
 				if(this->minecraft->useTouchscreen()) {
 #endif
