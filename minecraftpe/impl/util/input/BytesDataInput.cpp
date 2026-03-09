@@ -39,18 +39,17 @@ int16_t BytesDataInput::readShort() {
 }
 
 std::string BytesDataInput::readString() {
-	int16_t slen = this->readShort();
-	int32_t v6;
-	void* v7;
+	int slen = this->readShort();
+	int v6;
 
 	if(slen > 0) {
 		if(slen == 0x7fff) v6 = 32766;
 		else v6 = slen;
-		v7 = ::operator new[](v6+1);
+		char* v7 = new char[v6+1];
 		this->readBytes(v7, v6);
-		((char_t*)v7)[v6] = 0;
-		std::string ret((char*)v7);
-		if(v7) ::operator delete[](v7);
+		v7[v6] = 0;
+		std::string ret(v7);
+		if(v7) delete[] v7;
 		return ret;
 	}
 

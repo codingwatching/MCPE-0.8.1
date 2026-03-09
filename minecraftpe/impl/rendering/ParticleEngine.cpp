@@ -28,17 +28,14 @@ ParticleEngine::ParticleEngine(Level* a2, Textures* a3) {
 	a3->loadTexture("particles.png", 1, 0);
 }
 Particle* ParticleEngine::_get(ParticleType a2) {
-	if(this->particles[a2].empty()) return 0;
-	Particle* p = this->particles[a2].back();
-	this->particles[a2].pop_back();
+	if(this->particlesToReuse[a2].empty()) return 0;
+	Particle* p = this->particlesToReuse[a2].back();
+	this->particlesToReuse[a2].pop_back();
 	return p;
 }
 void ParticleEngine::_release(Particle* a2) {
-	 //TODO check
-	auto&& p = std::find(this->particles[a2->type].begin(), this->particles[a2->type].end(), a2);
-	if(p != this->particles[a2->type].end()) {
-		this->particles[a2->type].erase(p);
-	}
+	std::deque<Particle*>* deq = &this->particlesToReuse[a2->type];
+	deq->emplace_back(a2); //TODO check is this actually emplace_back
 }
 void ParticleEngine::clear() {
 	for(auto& p: this->string2ParticleVec) {
@@ -47,7 +44,7 @@ void ParticleEngine::clear() {
 		}
 		p.second.clear();
 	}
-	for(auto& pd: this->particles) {
+	for(auto& pd: this->particlesToReuse) {
 		while(!pd.empty()) {
 			Particle* p = pd.back();
 			if(p) delete p;

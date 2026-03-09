@@ -6,7 +6,7 @@
 struct DataItem;
 struct SetEntityDataPacket : Packet{
 	int32_t entityId;
-	int8_t field_10, field_11, field_12, field_13;
+	int8_t needsMemoryFreeing, field_11, field_12, field_13;
 	std::vector<DataItem*> data;
 
 	SetEntityDataPacket();

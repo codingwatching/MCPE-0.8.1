@@ -603,11 +603,10 @@ ItemInstance* FillingContainer::getItem(int32_t a2) {
 	return result;
 }
 void FillingContainer::setItem(int32_t a2, ItemInstance* a3) {
-	int32_t v2 = a2;
 	if(a2 >= 0 && a2 < this->items.size()) {
-		std::vector<ItemInstance*>* slotList = this->getSlotList(v2);
+		std::vector<ItemInstance*>* slotList = this->getSlotList(a2);
 		if(slotList) {
-			delete slotList->at(v2);
+			delete (*slotList)[a2];
 			if(a3) {
 				(*slotList)[a2] = new ItemInstance(*a3);
 			} else {

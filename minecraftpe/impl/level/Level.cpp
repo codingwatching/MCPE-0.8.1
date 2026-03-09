@@ -2177,7 +2177,7 @@ LABEL_8:
 		}
 		LightUpdate v21(a2, a3, a4, minZ, maxX, maxY, maxZ);
 		this->lightsToUpdate.emplace_back(v21);
-		if(this->lightsToUpdate.size() > 28000027) { //TODO check size(in b1.7 it is 1000000)
+		if(this->lightsToUpdate.size() > 1000000) { //TODO check size(in b1.7 it is 1000000)
 			this->lightsToUpdate.clear();
 		}
 		--_D6E4DF94;
@@ -2476,7 +2476,6 @@ struct ChunkSource* Level::createChunkSource() {
 	ChunkStorage* v4;			   // r7
 	ChunkSource* v5;			   // r9
 	ChunkCache* v6;				   // r0
-	LevelChunk* v7;				   // r7
 
 	levelStoragePtr = this->levelStoragePtr;
 	if(levelStoragePtr) {
@@ -2491,7 +2490,6 @@ struct ChunkSource* Level::createChunkSource() {
 		v6->level = this;
 		v6->lastChunk = 0;
 		v6->field_4 = 1;
-		v7 = (LevelChunk*)operator new(0x2DCu);
 		v3->emptyChunk = new EmptyLevelChunk(this);
 		memset(v3->chunks, 0, sizeof(v3->chunks));
 	} else {
