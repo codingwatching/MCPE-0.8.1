@@ -11,8 +11,11 @@ include_directories(glm)
 include_directories(RakNet/Source/)
 
 # i love python
+OPTION(JSONCPP_WITH_TESTS "Compile and run JsonCpp test executables" ON)
+OPTION(JSONCPP_WITH_POST_BUILD_UNITTEST "Automatically run unit-tests as a post build step" ON)
 SET(JSONCPP_WITH_TESTS OFF)
 SET(JSONCPP_WITH_POST_BUILD_UNITTEST OFF)
+
 include_directories(jsoncpp/jsoncpp/include)
 add_subdirectory(jsoncpp/jsoncpp)
 include_directories(jsoncpp/jsoncpp/src/lib_json/)
