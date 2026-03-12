@@ -1,3 +1,4 @@
+import sys
 lib_sound_data = {
 	"PCM_fuse": 0x002E2650-0x1000,
 	"PCM_eat3": 0x0031F5AA-0x1000,
@@ -106,8 +107,11 @@ lib_sound_data = {
 	"PCM_cloth2": 0x00930144-0x1000,
 	"PCM_cloth1": 0x0093476E-0x1000
 }
+if(len(sys.argv) < 2):
+	print("Usage: ", sys.argv[0] if len(sys.argv) == 1 else "get_sound_data.py", "<path/to/libminecraftpe.so>")
+	exit(0);
 
-with open("libminecraftpe.so", "rb") as f:
+with open(sys.argv[1], "rb") as f:
 	allbytes = f.read()
 
 content = "#include <pcm_data.h>\n";
@@ -126,3 +130,5 @@ for k, v in lib_sound_data.items():
 	#data_length = read_int_from_bytes(bytes, item[1] + 12)
 with open("pcm_data.c", "w") as f:
 	f.write(content);
+print()
+print("- Sounds were written to pcm_data.c: move this file into the needed directory -")
