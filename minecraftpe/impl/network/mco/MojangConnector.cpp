@@ -56,7 +56,7 @@ std::shared_ptr<LoginInformation> MojangConnector::getLoginInformation() {
 std::shared_ptr<MCOParser> MojangConnector::getMCOParser() {
 	return this->mcoParser;
 }
-std::shared_ptr<MCOServerListItem> MojangConnector::getMCOServerList() {
+std::shared_ptr<std::unordered_map<long long, MCOServerListItem>> MojangConnector::getMCOServerList() {
 	return this->serverList;
 }
 std::shared_ptr<RestService> MojangConnector::getMCOSercice() {
@@ -80,8 +80,8 @@ void MojangConnector::setLoginInformation(const LoginInformation&) {
 void MojangConnector::setMCOCreateServersEnabled(bool_t a2) {
 	this->serverCreationEnabled = a2;
 }
-void MojangConnector::setMCOServerList(std::shared_ptr<std::unordered_map<int64_t, MCOServerListItem>> a2){
-	printf("MojangConnector::setMCOServerList - not implemented\n"); //TODO
+void MojangConnector::setMCOServerList(std::shared_ptr<std::unordered_map<long long, MCOServerListItem>> a2) {
+	this->serverList = a2;
 }
 void MojangConnector::setMCOServiceEnabled(bool_t a2) {
 	this->serviceEnabled = a2;

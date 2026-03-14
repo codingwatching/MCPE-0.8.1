@@ -22,7 +22,7 @@ struct MojangConnector{
 	MojangConnectionStatus status;
 	std::shared_ptr<MCOParser> mcoParser;
 	Minecraft* minecraft;
-	std::shared_ptr<MCOServerListItem> serverList;
+	std::shared_ptr<std::unordered_map<long long, MCOServerListItem>> serverList;
 	bool_t serverCreationEnabled;
 	int8_t field_3D, field_3E, field_3F;
 	std::shared_ptr<Random> random;
@@ -39,7 +39,7 @@ struct MojangConnector{
 	std::string* getJoinMCOPayload();
 	std::shared_ptr<LoginInformation> getLoginInformation();
 	std::shared_ptr<MCOParser> getMCOParser();
-	std::shared_ptr<MCOServerListItem> getMCOServerList();
+	std::shared_ptr<std::unordered_map<long long, MCOServerListItem>> getMCOServerList();
 	std::shared_ptr<RestService> getMCOSercice();
 	std::string* getServerKey();
 	std::shared_ptr<ThreadCollection> getThreadCollection();
@@ -47,7 +47,7 @@ struct MojangConnector{
 	bool_t isServiceEnabled();
 	void setLoginInformation(const LoginInformation&);
 	void setMCOCreateServersEnabled(bool_t);
-	void setMCOServerList(std::shared_ptr<std::unordered_map<int64_t, MCOServerListItem>>); //long long
+	void setMCOServerList(std::shared_ptr<std::unordered_map<long long, MCOServerListItem>>);
 	void setMCOServiceEnabled(bool_t);
 	void setPayload(const std::string&);
 	void setServerKey(const std::string&);

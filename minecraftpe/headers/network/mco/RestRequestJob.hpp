@@ -27,7 +27,7 @@ struct RestRequestJob: Job
 	static std::shared_ptr<RestRequestJob> CreateJob(RestRequestType, std::shared_ptr<RestService>, Minecraft*);
 
 	RestRequestJob();
-	static void launchRequest(std::shared_ptr<RestRequestJob>, std::shared_ptr<ThreadCollection>, std::function<void(int32_t, const std::string&, const RestCallTagData&, std::shared_ptr<RestRequestJob>)>, std::function<void(bool_t, bool_t, int32_t, const std::string&, const RestCallTagData&, std::shared_ptr<RestRequestJob>)>);
+	static void launchRequest(std::shared_ptr<RestRequestJob>, std::shared_ptr<ThreadCollection>, std::function<void(int32_t, const std::string&, const RestCallTagData&, std::shared_ptr<RestRequestJob>)>, std::function<void(bool, bool, int32_t, const std::string&, const RestCallTagData&, std::shared_ptr<RestRequestJob>)>);
 	void setBody(const std::string&);
 
 	template<typename... _args>

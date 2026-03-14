@@ -1,7 +1,9 @@
 #include <network/mco/RestRequestJob.hpp>
-#include "util/JobStatus.hpp"
+#include <util/JobStatus.hpp>
 #include <network/mco/RestCallTagData.hpp>
 #include <time.h>
+#include <util/Util.hpp>
+
 std::shared_ptr<RestRequestJob> RestRequestJob::CreateJob(RestRequestType, std::shared_ptr<RestService>, Minecraft*) {
 	printf("RestRequestJob::CreateJob - not implemented\n"); //TODO
 	return std::shared_ptr<RestRequestJob>();
@@ -13,15 +15,24 @@ RestRequestJob::RestRequestJob(){
 	this->field_C = 0;
 	this->status = JS_0;
 }
-void RestRequestJob::launchRequest(std::shared_ptr<RestRequestJob>, std::shared_ptr<ThreadCollection>, std::function<void(int32_t, const std::string&, const RestCallTagData&, std::shared_ptr<RestRequestJob>)>, std::function<void(bool_t, bool_t, int32_t, const std::string&, const RestCallTagData&, std::shared_ptr<RestRequestJob>)>) {
+void RestRequestJob::launchRequest(std::shared_ptr<RestRequestJob>, std::shared_ptr<ThreadCollection>, std::function<void(int32_t, const std::string&, const RestCallTagData&, std::shared_ptr<RestRequestJob>)>, std::function<void(bool, bool, int32_t, const std::string&, const RestCallTagData&, std::shared_ptr<RestRequestJob>)>) {
 	printf("RestRequestJob::launchRequest - not implemented\n"); //TODO
 }
 void RestRequestJob::setBody(const std::string& a2) {
 	this->body = a2;
 }
 
-template<typename... _args>
-void RestRequestJob::setMethod(const std::string&, _args... args);
+template<>
+void RestRequestJob::setMethod<>(const std::string& a2) {
+	std::vector<std::string> v4;
+	this->field_30 = Util::simpleFormat(a2, v4);
+}
+
+template<>
+void RestRequestJob::setMethod<long long,std::string,int,std::string>(const std::string& a2, long long, std::string, int, std::string);
+template<>
+void RestRequestJob::setMethod<long long,std::string>(const std::string& a2, long long, std::string);
+
 void RestRequestJob::setTagData(const RestCallTagData& a2) {
 	this->field_44 = a2.guid_g;
 	this->field_4C = a2.str;

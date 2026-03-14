@@ -50,6 +50,7 @@
 #include <entity/MobFactory.hpp>
 #include <rendering/EntityRenderDispatcher.hpp>
 #include <cpputils.hpp>
+#include <network/mco/LoginInformation.hpp>
 
 char_t* Minecraft::progressMessages[] = {"Locating server", "Building terrain", "Preparing", "Saving chunks", "Waiting for Minecraft Realms"};
 
@@ -433,6 +434,10 @@ void Minecraft::init(void) {
 	this->_reloadInput();
 	this->setSize(this->field_1C, this->field_20);
 	this->mojangConnector = std::shared_ptr<MojangConnector>(new MojangConnector(this));
+	std::shared_ptr<LoginInformation> v20 = this->mojangConnector->getLoginInformation();
+	if(v20->accessToken != "") {
+		printf("Minecraft::init - initialize MCO(for realms) - not implemented\n"); //TODO
+	}
 }
 bool_t Minecraft::isCreativeMode(void) {
 	return this->isCreative;

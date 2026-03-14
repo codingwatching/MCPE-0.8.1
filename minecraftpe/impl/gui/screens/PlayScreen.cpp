@@ -16,6 +16,8 @@
 #include <level/storage/LevelStorageSource.hpp>
 #include <cpputils.hpp>
 #include <gui/elements/Label.hpp>
+#include <network/RestService.hpp>
+#include <network/mco/MCOParser.hpp>
 
 PlayScreen::PlayScreen(bool_t a2) {
 	PlayScreenState v4 = a2 ? PlayScreenState::ELEVEN : PlayScreenState::ZERO;
@@ -219,12 +221,56 @@ void PlayScreen::updateMCOServerList() {
 	printf("PlayScreen::updateMCOServerList - not implemented\n");
 }
 void PlayScreen::updateMCOStatus() {
-	//TODO
-	printf("PlayScreen::updateMCOStatus - not implemented\n");
+	if(this->minecraft->mojangConnector->getConnectionStatus() && !this->field_A4 && this->minecraft->mojangConnector->getConnectionStatus()) {
+		safeStopAndRemove<std::shared_ptr<RestRequestJob>>(this->field_9C);
+		this->field_9C = RestRequestJob::CreateJob(RRT_0, this->minecraft->mojangConnector->getMCOSercice(), this->minecraft);
+		this->field_9C->setMethod("/info/status");
+		RestRequestJob::launchRequest(
+			this->field_9C,
+			this->minecraft->mojangConnector->getThreadCollection(),
+			[this](int32_t a2, const std::string& a3, const RestCallTagData& a4, std::shared_ptr<RestRequestJob> v11) { //automatically copies it?
+				bool buyServerEnabled = 0, createServersEnabled = 0, serviceEnabled = 0;
+				this->minecraft->mojangConnector->getMCOParser()->parseStatus(a3, buyServerEnabled, createServersEnabled, serviceEnabled);
+				this->minecraft->mojangConnector->setMCOServiceEnabled(serviceEnabled);
+				this->minecraft->mojangConnector->setMCOCreateServersEnabled(createServersEnabled);
+				safeStopAndRemove<std::shared_ptr<RestRequestJob>>(this->field_9C);
+				if(serviceEnabled) {
+					safeStopAndRemove<std::shared_ptr<RestRequestJob>>(this->field_9C);
+					this->updateRealmsState();
+				} else {
+					this->minecraft->screenChooser.setScreen(START_MENU_SCREEN);
+				}
+			},
+			[this](bool, bool, int32_t, const std::string&, const RestCallTagData&, std::shared_ptr<RestRequestJob> v9){ //same as in prev func
+				safeStopAndRemove<std::shared_ptr<RestRequestJob>>(this->field_9C);
+			}
+		);
+	}
 }
 void PlayScreen::updateRealmsState() {
-	//TODO
-	printf("PlayScreen::updateRealmsState - not implemented\n");
+	bool createServersEnabled = this->minecraft->mojangConnector->isMCOCreateServersEnabled();
+	std::shared_ptr<std::unordered_map<long long, MCOServerListItem>> v6 = this->minecraft->mojangConnector->getMCOServerList();
+	if(!v6) {
+		if(createServersEnabled) {
+			this->setPlayScreenSate(FOUR, 1);
+		} else {
+			this->setPlayScreenSate(SEVEN, 1);
+		}
+	} else {
+		if(!createServersEnabled) {
+			if(v6->size()) {
+				this->setPlayScreenSate(SIX, 1);
+			}else{
+				this->setPlayScreenSate(SEVEN, 1);
+			}
+		}else{
+			if(v6->size()) {
+				this->setPlayScreenSate(THREE, 1);
+			}else{
+				this->setPlayScreenSate(FOUR, 1);
+			}
+		}
+	}
 }
 
 PlayScreen::~PlayScreen() {

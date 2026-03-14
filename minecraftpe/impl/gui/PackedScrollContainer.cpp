@@ -40,7 +40,7 @@ void PackedScrollContainer::render(Minecraft* a2, int32_t a3, int32_t a4) {
 	int32_t v18;				  // r9
 	int32_t v21;				  // r3
 	int32_t v22;				  // r3
-	ScrollBar* VerticleScrollBar; // r0
+	ScrollBar* vscrollbar; // r0
 	float color;				  // s13
 	int32_t v25;				  // [sp+Ch] [bp-3Ch]
 
@@ -72,10 +72,10 @@ void PackedScrollContainer::render(Minecraft* a2, int32_t a3, int32_t a4) {
 		}
 	}
 	this->scrollingPane->render(a3, a4, 1.0);
-	VerticleScrollBar = this->scrollingPane->getVerticleScrollBar();
-	color = VerticleScrollBar->color;
+	vscrollbar = this->scrollingPane->getVerticleScrollBar();
+	color = vscrollbar->color;
 	if(color > 0.0) {
-		this->fill(VerticleScrollBar->field_0, VerticleScrollBar->field_4 + 2.0, VerticleScrollBar->field_0 + VerticleScrollBar->field_8, (float)(VerticleScrollBar->field_4 + VerticleScrollBar->field_C) + 2.0, ((int32_t)(float)(color * 255.0) << 24) | 0xFFFFFF);
+		this->fill(vscrollbar->field_0, vscrollbar->field_4 + 2.0, vscrollbar->field_0 + vscrollbar->field_8, (float)(vscrollbar->field_4 + vscrollbar->field_C) + 2.0, ((int32_t)(float)(color * 255.0) << 24) | 0xFFFFFF);
 	}
 	glDisable(0xC11u);
 }

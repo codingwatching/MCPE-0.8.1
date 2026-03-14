@@ -14,6 +14,7 @@ struct AppPlatform_sdl : AppPlatform{
 	virtual void loadPNG(ImageData&, const std::string&, bool_t);
 	virtual AssetFile readAssetFile(const std::string& path);
 	virtual bool supportsTouchscreen();
+	virtual LoginInformation getLoginInformation(void);
 
 	AppPlatform_sdl();
 	~AppPlatform_sdl();

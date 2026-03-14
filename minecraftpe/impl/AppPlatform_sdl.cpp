@@ -13,6 +13,8 @@
 #include <entity/LocalPlayer.hpp>
 #include <inventory/Inventory.hpp>
 #include <input/KeyboardInput.hpp>
+#include <network/mco/LoginInformation.hpp>
+
 #ifdef USEGLES
 #include <GLES/glext.h>
 #else
@@ -388,6 +390,15 @@ void AppPlatform_sdl::init(){
 	}
 
 	if(mc) delete mc;
+}
+LoginInformation AppPlatform_sdl::getLoginInformation(void) {
+	return LoginInformation();
+	LoginInformation ret;
+	ret.accessToken = "cliff";
+	ret.clientId = "my_beloved";
+	ret.profileId = "freehij_when_enchantile";
+	ret.profileName = "wsndow1";
+	return ret;
 }
 void AppPlatform_sdl::sdlCtxDestroy(){
 	if(!this->hasContext) return;
