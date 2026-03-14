@@ -429,7 +429,7 @@ std::string AppPlatform_android::getPlatformStringVar(int32_t a2){
 	{
 		JVMAttacher v11(this->jvm);
 		std::string v10;
-		jstring v8 = (jstring) v11.env->CallObjectMethod(this->mainActivityRef, this->_jniGetPlatformStringVar);
+		jstring v8 = (jstring) v11.env->CallObjectMethod(this->mainActivityRef, this->_jniGetPlatformStringVar, a2);
 		const char* utfChars =  v11.env->GetStringUTFChars(v8, 0);
 		if ( utfChars )
 		{

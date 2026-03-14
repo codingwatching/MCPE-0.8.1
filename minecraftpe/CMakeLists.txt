@@ -42,7 +42,7 @@ if(ANDROID)
 	add_library(native_app_glue STATIC ${ANDROID_NDK}/sources/android/native_app_glue/android_native_app_glue.c)
 	add_library(minecraftpe SHARED ${IMPLCPP} ${IMPLC} ${HEADC} ${HEADCPP})
 	target_include_directories(minecraftpe PUBLIC "headers/" ${ANDROID_NDK}/sources/android/native_app_glue/)
-	target_link_libraries(minecraftpe ZLIB::ZLIB EGL GLESv1_CM OpenSLES RakNetStatic native_app_glue jsoncpp_lib utf8proc log native_app_glue android)
+	target_link_libraries(minecraftpe ZLIB::ZLIB EGL GLESv1_CM OpenSLES oaes_lib RakNetStatic native_app_glue jsoncpp_lib utf8proc log native_app_glue android)
 else()
 	add_executable(minecraftpe08decomp ${IMPLCPP} ${IMPLC} ${HEADC} ${HEADCPP})
 	target_precompile_headers(minecraftpe08decomp PRIVATE
