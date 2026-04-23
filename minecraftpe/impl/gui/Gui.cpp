@@ -166,11 +166,11 @@ void Gui::addMessage(const std::string& a2, const std::string& a3, int32_t a4) {
 		this->chatMessages.emplace(this->chatMessages.begin(), v13);
 
 		if(!this->minecraftInst->isOnlineClient() && v13.field_8[0] == '/') {
-#ifdef WIP
-			std::string v10 = ServerCommandParser::executeCommand(&v13); //TODO check - for some reason references (ServerCommandParser*)this->minecraftInst->field_D30,
-#else
-			std::string v10 = "WIP - Gui::addMessage";
-#endif
+			//TODO - proper command handling
+			//std::string v10 = ServerCommandParser::executeCommand
+			std::string cmd = v13.field_8.substr(1);
+			std::string v10 = cmd == "" ? "Error: no command provided" : "Error: Command "+cmd+" not found";
+
 			this->chatMessages.emplace(this->chatMessages.begin(), GuiMessage("server", v10, 200));
 		}
 

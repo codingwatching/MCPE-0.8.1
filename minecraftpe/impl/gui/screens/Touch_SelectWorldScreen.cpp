@@ -4,6 +4,9 @@
 #include <Minecraft.hpp>
 #include <input/Mouse.hpp>
 #include <util/Util.hpp>
+#include <set>
+#include <level/storage/LevelStorageSource.hpp>
+#include <algorithm>
 
 Touch::SelectWorldScreen::SelectWorldScreen()
 	: field_54(1, "")
@@ -12,9 +15,6 @@ Touch::SelectWorldScreen::SelectWorldScreen()
 	, backButton(3, "Back", 0)
 	, field_168(4, "") {
 	this->selectionList = 0;
-	this->field_19C = 0;
-	this->field_1A0 = 0;
-	this->field_1A4 = 0;
 	this->field_1A9 = 0;
 	this->field_1AC = 0;
 	this->field_54.active = 0;
@@ -31,14 +31,29 @@ Touch::SelectWorldScreen::SelectWorldScreen()
 		this->field_54.setImageDef(a3, 1);
 	}
 }
-std::string Touch::SelectWorldScreen::getUniqueLevelName(const std::string& a2) {
-	//TODO
-	printf("Touch::SelectWorldScreen::getUniqueLevelName - not implemented\n");
-	return a2;
+std::string Touch::SelectWorldScreen::getUniqueLevelName(const std::string& a3) {
+	std::set<std::string> v14;
+	for(int v6 = 0; v6 < this->field_19C.size(); ++v6) {
+		v14.insert(this->field_19C[v6].field_0);
+	}
+	std::string ret = a3;
+	while(1) {
+		if(v14.find(ret) == v14.end()) {
+			break;
+		}
+		ret += '-';
+	}
+	return ret;
 }
 void Touch::SelectWorldScreen::loadLevelSource(){
-	//TODO
-	printf("Touch::SelectWorldScreen::loadLevelSource - not implemented\n");
+	this->minecraft->getLevelSource()->getLevelList(this->field_19C);
+	std::sort(this->field_19C.begin(), this->field_19C.end());
+	for(int i = 0; i < this->field_19C.size(); ++i) {
+		LevelSummary* v9 = &this->field_19C[i];
+		if(v9->field_0 != LevelStorageSource::TempLevelId) {
+			this->selectionList->field_78.emplace_back(LevelSummary(*v9));
+		}
+	}
 }
 
 Touch::SelectWorldScreen::~SelectWorldScreen() {

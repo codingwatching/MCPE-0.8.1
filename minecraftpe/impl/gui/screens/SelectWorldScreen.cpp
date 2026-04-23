@@ -11,7 +11,6 @@
 #include <set>
 #include <level/storage/LevelStorageSource.hpp>
 #include <algorithm>
-#include <string.h>
 
 SelectWorldScreen::SelectWorldScreen()
 	: deleteButton(1, "Delete")

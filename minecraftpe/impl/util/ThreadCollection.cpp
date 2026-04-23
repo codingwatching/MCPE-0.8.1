@@ -17,7 +17,7 @@ ThreadCollection::ThreadCollection(uint32_t a2) {
 	}
 	for(unsigned int i = 0; i != a2; ++i) {
 		//this causes evil and malicious crashes and other stuff
-	//	this->threads.emplace_back(std::thread(Worker(*this))); //TODO check
+		//	this->threads.emplace_back(std::thread(Worker(*this))); //TODO check
 	}
 }
 void ThreadCollection::enqueue(std::shared_ptr<Job> a2) {

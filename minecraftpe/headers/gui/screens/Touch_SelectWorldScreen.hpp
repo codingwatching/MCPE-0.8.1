@@ -3,6 +3,7 @@
 #include <gui/buttons/ImageButton.hpp>
 #include <gui/buttons/Touch_TButton.hpp>
 #include <gui/buttons/Touch_THeader.hpp>
+#include <level/LevelSummary.hpp>
 
 namespace Touch {
 	struct TouchWorldSelectionList;
@@ -14,7 +15,7 @@ namespace Touch {
 		Touch::TButton backButton;
 		Button field_168;
 		Touch::TouchWorldSelectionList* selectionList;
-		int32_t field_19C, field_1A0, field_1A4;
+		std::vector<LevelSummary> field_19C;
 		int8_t field_1A8, field_1A9, field_1AA, field_1AB;
 		int32_t field_1AC;
 
