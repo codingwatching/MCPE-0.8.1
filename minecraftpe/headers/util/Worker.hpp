@@ -4,7 +4,7 @@
 struct ThreadCollection;
 struct Worker
 {
-	ThreadCollection* field_0;
+	ThreadCollection* threadCollection;
 
 	Worker(ThreadCollection&);
 	void operator()(void);

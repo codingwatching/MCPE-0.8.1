@@ -1,21 +1,38 @@
 #include <util/Worker.hpp>
 #include <util/ThreadCollection.hpp>
+#include <util/Job.hpp>
 
 Worker::Worker(ThreadCollection& a2) {
-	this->field_0 = &a2;
+	this->threadCollection = &a2;
 }
 void Worker::operator()(void) {
-	std::unique_lock<std::mutex> v24(this->field_0->mutex, std::defer_lock); //TODO check is defer_lock
-	v24.lock();
-	/*while(1) {
-		if(this->field_0->isStopped) {
+
+	while(1) {
+		if(this->threadCollection->isStopped) {
 			break;
 		}
 
-		if(!this->field_0->field_C.empty()) {
-			auto&& el = this->field_0->field_C.front();
-			this->field_0->field_C.pop_front(); //TODO check;
-
+		if(!this->threadCollection->field_C.empty()) {
+			std::shared_ptr<Job> el;
+			{
+				std::unique_lock<std::mutex> v24(this->threadCollection->mutex, std::defer_lock);
+				v24.lock();
+				el = this->threadCollection->field_C.front();
+				this->threadCollection->field_C.pop_front(); //TODO check;
+			}
+			if(el.get()) {
+				el->run();
+				if(el->getStatus() == JS_3) {
+					std::unique_lock<std::mutex> v24(this->threadCollection->field_60, std::defer_lock);
+					v24.lock();
+					this->threadCollection->field_34.emplace_back(std::shared_ptr<Job>(el));
+				}
+			}
+			continue;
 		}
-	}*/
+
+		std::unique_lock<std::mutex> mut(this->threadCollection->mutex, std::defer_lock);
+		mut.lock();
+		this->threadCollection->field_64.wait(mut);
+	}
 }

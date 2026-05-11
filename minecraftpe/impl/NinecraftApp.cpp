@@ -212,6 +212,7 @@ void NinecraftApp::init(void){
 	Tesselator::instance.init();
 	I18n::loadLanguage(this->platform(), "en_US");
 	Minecraft::init();
+
 	this->levelStorageSource = new ExternalFileLevelStorageSource(this->dataPathMaybe, this->field_CC4);
 	this->field_CFC = 0;
 	this->texturesPtr = new Textures(&this->options, this->platform());

@@ -448,7 +448,7 @@ void Minecraft::init(void) {
 		RestRequestJob::launchRequest(
 			v21,
 			this->mojangConnector->getThreadCollection(),
-			[this](int32_t a2, const std::string& a3, const RestCallTagData& a4, std::shared_ptr<RestRequestJob> v11){
+			[this](int32_t a2, const std::string& a3, const RestCallTagData& a4, std::shared_ptr<RestRequestJob> v11) {
 				LoginInformation v14 = this->mojangConnector->getMCOParser()->parseMCOAccountValidSessionReturnValue(a3);
 				this->mojangConnector->setLoginInformation(v14);
 				this->platform()->statsTrackData("login", "{\"new_registration\": false, \"automatic_login\": true}");

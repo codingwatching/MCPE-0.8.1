@@ -481,6 +481,7 @@ int32_t LevelRenderer::renderChunks(int32_t a2, float a3, bool_t a4) {
 		v10 = 0;
 		Mob* ve = this->minecraft->viewEntityMaybe;
 		glTranslatef(-(float)(ve->prevPosX + (float)((float)(ve->posX - ve->prevPosX) * a3)), -(float)(ve->prevPosY + (float)((float)(ve->posY - ve->prevPosY) * a3)), -(float)(ve->prevPosZ + (float)((float)(ve->posZ - ve->prevPosZ) * a3)));
+
 		for(auto&& i = this->nearChunks.begin(); i != this->nearChunks.end(); ++i) {
 			MeshBuffer* mb = i->second->getRenderChunk(a2);
 			if(mb->isValid()) {
