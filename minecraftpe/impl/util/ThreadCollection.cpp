@@ -32,7 +32,7 @@ void ThreadCollection::enqueue(std::shared_ptr<Job> a2) {
 void ThreadCollection::processUIThread() {
 	for(auto&& it = this->field_34.begin(); it != this->field_34.end();) {
 
-		if(it->get()->status == JS_3) {
+		if(it->get()->status == JS_FINISHED) {
 			it->get()->finish();
 		}
 		it = this->field_34.erase(it); //TODO check

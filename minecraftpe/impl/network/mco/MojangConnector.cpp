@@ -9,7 +9,13 @@
 #include <oaes_lib.h>
 #include <string.h>
 #include <util/Base64.hpp>
+#ifndef AUTH_SERVER
+#define AUTH_SERVER "https://authserver.mojang.com"
+#endif
 
+#ifndef PEOAPI_SERVER
+#define PEOAPI_SERVER "https://peoapi.minecraft.net"
+#endif
 MojangConnector::MojangConnector(Minecraft* minecraft) {
 	this->serverCreationEnabled = 0;
 	this->serviceEnabled = 0;
@@ -18,8 +24,8 @@ MojangConnector::MojangConnector(Minecraft* minecraft) {
 	this->minecraft = minecraft;
 	this->threadCollection = std::shared_ptr<ThreadCollection>(new ThreadCollection(4));
 	this->mcoParser = std::shared_ptr<MCOParser>(new MCOParser());
-	this->accountService = std::shared_ptr<RestService>(new RestService("https://authserver.mojang.com"));
-	this->mcoService = std::shared_ptr<RestService>(new RestService("https://peoapi.minecraft.net"));
+	this->accountService = std::shared_ptr<RestService>(new RestService(AUTH_SERVER));
+	this->mcoService = std::shared_ptr<RestService>(new RestService(PEOAPI_SERVER));
 	this->gameVersionNet = Common::getGameVersionStringNet();
 	this->mcoService->setCookieData("version", this->gameVersionNet);
 	this->status = STATUS_0;
@@ -74,8 +80,8 @@ bool_t MojangConnector::isMCOCreateServersEnabled() {
 bool_t MojangConnector::isServiceEnabled() {
 	return this->serviceEnabled;
 }
-void MojangConnector::setLoginInformation(const LoginInformation&) {
-	printf("MojangConnector::setLoginInformation - not implemented\n"); //TODO
+void MojangConnector::setLoginInformation(const LoginInformation& a2) {
+	printf("MojangConnector::setLoginInformation(accessToken=%s clientId=%s profileId=%s profileName=%s) - not implemented\n", a2.accessToken.c_str(), a2.clientId.c_str(), a2.profileId.c_str(), a2.profileName.c_str()); //TODO
 }
 void MojangConnector::setMCOCreateServersEnabled(bool_t a2) {
 	this->serverCreationEnabled = a2;

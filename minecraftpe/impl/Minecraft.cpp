@@ -441,7 +441,7 @@ void Minecraft::init(void) {
 	std::shared_ptr<LoginInformation> v20 = this->mojangConnector->getLoginInformation();
 	if(v20->accessToken != "") {
 		std::string v18 = MCOStringify::stringifyRefresh(v20->accessToken, v20->clientId, v20->profileId, Common::getGameVersionStringNet());
-		std::shared_ptr<RestRequestJob> v21 = RestRequestJob::CreateJob(RRT_1, this->mojangConnector->getAccountSercice(), this);
+		std::shared_ptr<RestRequestJob> v21 = RestRequestJob::CreateJob(RRT_POST, this->mojangConnector->getAccountSercice(), this);
 		this->field_30 = Util::simpleFormat("/refresh", {});
 		v21->setBody(v18);
 		//something weird happens with v21 here

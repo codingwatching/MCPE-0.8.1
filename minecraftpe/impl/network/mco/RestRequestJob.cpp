@@ -3,23 +3,23 @@
 #include <network/mco/RestCallTagData.hpp>
 #include <time.h>
 #include <util/Util.hpp>
+#include <network/mco/CurlRestRequestJob.hpp>
 
 std::shared_ptr<RestRequestJob> RestRequestJob::CreateJob(RestRequestType a2, std::shared_ptr<RestService> a3, Minecraft* a4) {
 #ifdef ANDROID
 	DEBUGMSG("RestRequestJob::CreateJob(android not implemented\n");
 	return std::shared_ptr<RestRequestJob>();
 #else
-	std::shared_ptr<RestRequestJob> ret(new RestRequestJob());
-	ret->field_38 = a3;
-	ret->field_40 = a2;
+	std::shared_ptr<RestRequestJob> ret(new CurlRestRequestJob());
+	ret->field_8 = ret; //TODO check is this actually how it is assigned
+	ret->restService = a3;
+	ret->requestType = a2;
 	return ret;
 #endif
 }
 
 RestRequestJob::RestRequestJob(){
 	this->field_4 = 0;
-	this->field_8 = 0;
-	this->field_C = 0;
 	this->status = JS_0;
 }
 void RestRequestJob::launchRequest(std::shared_ptr<RestRequestJob> a1, std::shared_ptr<ThreadCollection> a2, std::function<void(int32_t, const std::string&, const RestCallTagData&, std::shared_ptr<RestRequestJob>)> a3, std::function<void(bool, bool, int32_t, const std::string&, const RestCallTagData&, std::shared_ptr<RestRequestJob>)> a4) {
@@ -43,20 +43,19 @@ template<>
 void RestRequestJob::setMethod<long long,std::string>(const std::string& a2, long long, std::string);
 
 void RestRequestJob::setTagData(const RestCallTagData& a2) {
-	this->field_44 = a2.guid_g;
-	this->field_4C = a2.str;
+	this->field_44 = a2;
 }
 
 RestRequestJob::~RestRequestJob() {
 }
 void RestRequestJob::stop() {
-	this->status = JS_2;
+	this->status = JS_STOPPED;
 }
 void RestRequestJob::run() {
-	this->trySetStatus(JS_1);
+	this->trySetStatus(JS_STARTED);
 	timespec t{1, 0};
 	nanosleep(&t, 0);
-	this->trySetStatus(JS_3);
+	this->trySetStatus(JS_FINISHED);
 }
 void RestRequestJob::finish(){
 	//copyRawCharArrayInside(&v6, "Yey"); Nay

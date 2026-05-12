@@ -9,7 +9,7 @@ JobStatus Job::getStatus() {
 	return this->status;
 }
 JobStatus Job::trySetStatus(JobStatus a2) {
-	if(this->status != JS_2) {
+	if(this->status != JS_STOPPED) {
 		this->status = a2;
 	}
 	return this->status;

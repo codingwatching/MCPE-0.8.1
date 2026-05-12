@@ -6,23 +6,23 @@
 #include <string>
 #include <network/mco/RestRequestType.hpp>
 #include <RakNetTypes.h>
+#include <network/mco/RestCallTagData.hpp>
 
-struct RestCallTagData;
 struct RestService;
 struct Minecraft;
 struct ThreadCollection;
 
 struct RestRequestJob: Job
 {
-	int32_t field_4, field_8, field_C;
+	int32_t field_4;
+	std::weak_ptr<RestRequestJob> field_8;
 	std::function<void(int32_t, const std::string&, const RestCallTagData&, std::shared_ptr<RestRequestJob>)> field_10;
 	std::function<void(bool_t, bool_t, int32_t, const std::string&, const RestCallTagData&, std::shared_ptr<RestRequestJob>)> field_20;
 	std::string field_30;
 	std::string body;
-	std::shared_ptr<RestService> field_38;
-	RestRequestType field_40;
-	RakNet::RakNetGUID field_44;
-	std::string field_4C;
+	std::shared_ptr<RestService> restService;
+	RestRequestType requestType;
+	RestCallTagData field_44;
 
 	static std::shared_ptr<RestRequestJob> CreateJob(RestRequestType, std::shared_ptr<RestService>, Minecraft*);
 

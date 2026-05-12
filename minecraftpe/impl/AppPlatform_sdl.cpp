@@ -392,7 +392,7 @@ void AppPlatform_sdl::init(){
 	if(mc) delete mc;
 }
 LoginInformation AppPlatform_sdl::getLoginInformation(void) {
-	return LoginInformation();
+	//return LoginInformation();
 	LoginInformation ret;
 	ret.accessToken = "cliff";
 	ret.clientId = "my_beloved";

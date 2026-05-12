@@ -94,7 +94,7 @@ void LoginOption::mouseReleased(Minecraft* mc, int32_t a3, int32_t a4, int32_t a
 			if(this->field_50->clicked(mc, a3, a4)) {
 				std::shared_ptr<LoginInformation> v19 = mc->mojangConnector->getLoginInformation();
 				std::string body = MCOStringify::stringifySignOut(v19->accessToken, v19->clientId);
-				std::shared_ptr<RestRequestJob> v20 = RestRequestJob::CreateJob(RRT_1, mc->mojangConnector->getAccountSercice(), mc);
+				std::shared_ptr<RestRequestJob> v20 = RestRequestJob::CreateJob(RRT_POST, mc->mojangConnector->getAccountSercice(), mc);
 				v20->field_30 = Util::simpleFormat("/invalidate", {});
 				v20->setBody(body);
 				RestRequestJob::launchRequest( //TODO check is this stuff corrent, std is pain
