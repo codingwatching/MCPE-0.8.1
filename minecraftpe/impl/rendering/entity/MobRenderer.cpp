@@ -83,7 +83,7 @@ void MobRenderer::render(Entity* a2_, float a3, float a4, float a5, float a6, fl
 	}
 	v15 = a2->field_128;
 	this->field_18 = v15 + (float)(a7 * Mth::wrapDegrees(a2->field_124 - v15));
-	v16 = a2->field_130;
+	v16 = a2->prevHeadYaw;
 	this->field_14 = v16 + (float)(a7 * Mth::wrapDegrees(a2->headYaw - v16));
 	if(a2->isRiding()) {
 		if(a2->ridingAt->isMob()) {

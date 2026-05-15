@@ -15,8 +15,8 @@ struct Sensing;
 struct Mob : Entity{
 	int32_t field_118;
 	float field_11C, field_120, field_124, field_128;
-	float headYaw;
-	float field_130, field_134, field_138;
+	float headYaw, prevHeadYaw;
+	float field_134, field_138;
 	int32_t health, prevHealthMaybe;
 	int32_t hurtTime;
 	int32_t field_148;
@@ -46,7 +46,7 @@ struct Mob : Entity{
 	float field_B8C, field_B90, field_B94, field_B98;
 	float field_B9C, field_BA0;
 	int32_t field_BA4, field_BA8;
-	float field_BAC, field_BB0, field_BB4, field_BB8, field_BBC;
+	float lerpX, lerpY, lerpZ, lerpYaw, lerpPitch;
 	int32_t field_BC0, field_BC4;
 	float field_BC8, field_BCC, field_BD0, field_BD4;
 	float field_BD8, field_BDC, field_BE0, field_BE4;

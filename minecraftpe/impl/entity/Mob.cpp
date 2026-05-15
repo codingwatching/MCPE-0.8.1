@@ -23,7 +23,7 @@ Mob::Mob(Level* a2)
 	: Entity(a2) {
 	this->field_124 = 0.0;
 	this->field_128 = 0.0;
-	this->field_130 = 0.0;
+	this->prevHeadYaw = 0.0;
 	this->field_118 = 20;
 	this->field_134 = 0.0;
 	this->field_138 = 0.0;
@@ -51,11 +51,11 @@ Mob::Mob(Level* a2)
 	this->field_BA0 = 1.0;
 	this->field_BA4 = 0;
 	this->field_BA8 = 0;
-	this->field_BAC = 0.0;
-	this->field_BB0 = 0.0;
-	this->field_BB4 = 0.0;
-	this->field_BB8 = 0.0;
-	this->field_BBC = 0.0;
+	this->lerpX = 0.0;
+	this->lerpY = 0.0;
+	this->lerpZ = 0.0;
+	this->lerpYaw = 0.0;
+	this->lerpPitch = 0.0;
 	this->field_BC0 = 0;
 	this->field_BC4 = 0;
 	this->field_BC8 = 0.0;
@@ -272,12 +272,12 @@ void Mob::reset() {
 	Entity::reset();
 	this->_init();
 }
-void Mob::lerpTo(float a2, float a3, float a4, float a5, float a6, int32_t a7) {
-	this->field_BAC = a2;
-	this->field_BB0 = a3 + this->ridingHeight;
-	this->field_BB4 = a4;
-	this->field_BB8 = a5;
-	this->field_BBC = a6;
+void Mob::lerpTo(float x, float y, float z, float yaw, float pitch, int32_t a7) {
+	this->lerpX = x;
+	this->lerpY = y + this->ridingHeight;
+	this->lerpZ = z;
+	this->lerpYaw = yaw;
+	this->lerpPitch = pitch;
 	this->field_BA8 = a7;
 }
 void Mob::tick() {
@@ -309,18 +309,6 @@ void Mob::tick() {
 	float k; // s15
 	bool_t v29; // r3
 	float v30; // s14
-	float v31; // s13
-	float prevYaw; // s15
-	float v33; // s14
-	float v34; // s13
-	float v35; // s14
-	float v36; // s14
-	float v37; // s13
-	float prevPitch; // s14
-	float v39; // s14
-	float headYaw; // s13
-	float v41; // s14
-	float v42; // s14
 
 	Entity::tick();
 	level = this->level;
@@ -342,10 +330,10 @@ void Mob::tick() {
 	if(v5 > 0) {
 		yaw = this->yaw;
 		v7 = (float)v5;
-		x = this->posX + (float)((float)(this->field_BAC - this->posX) / (float)v5);
-		y = this->posY + (float)((float)(this->field_BB0 - this->posY) / (float)v5);
-		z = this->posZ + (float)((float)(this->field_BB4 - this->posZ) / (float)v5);
-		for(i = this->field_BB8 - yaw; i < -180.0; i = i + 360.0) {
+		x = this->posX + (float)((float)(this->lerpX - this->posX) / (float)v5);
+		y = this->posY + (float)((float)(this->lerpY - this->posY) / (float)v5);
+		z = this->posZ + (float)((float)(this->lerpZ - this->posZ) / (float)v5);
+		for(i = this->lerpYaw - yaw; i < -180.0; i = i + 360.0) {
 			;
 		}
 		while(i >= 180.0) {
@@ -354,7 +342,7 @@ void Mob::tick() {
 		v12 = yaw + (float)(i / v7);
 		pitch = this->pitch;
 		this->yaw = v12;
-		v14 = this->field_BBC - pitch;
+		v14 = this->lerpPitch - pitch;
 		this->field_BA8 = v5 - 1;
 		this->pitch = pitch + (float)(v14 / v7);
 		this->setPos(x, y, z);
@@ -416,66 +404,18 @@ void Mob::tick() {
 			v21 = -v21;
 		}
 	}
-	v31 = this->yaw;
-	while(1) {
-		prevYaw = this->prevYaw;
-		if((float)(v31 - prevYaw) >= -180.0) {
-			break;
-		}
-		this->prevYaw = prevYaw - 360.0;
-	}
-	while(1) {
-		v33 = this->prevYaw;
-		if((float)(v31 - v33) < 180.0) {
-			break;
-		}
-		this->prevYaw = v33 + 360.0;
-	}
-	v34 = this->field_124;
-	while(1) {
-		v35 = this->field_128;
-		if((float)(v34 - v35) >= -180.0) {
-			break;
-		}
-		this->field_128 = v35 - 360.0;
-	}
-	while(1) {
-		v36 = this->field_128;
-		if((float)(v34 - v36) < 180.0) {
-			break;
-		}
-		this->field_128 = v36 + 360.0;
-	}
-	v37 = this->pitch;
-	while(1) {
-		prevPitch = this->prevPitch;
-		if((float)(v37 - prevPitch) >= -180.0) {
-			break;
-		}
-		this->prevPitch = prevPitch - 360.0;
-	}
-	while(1) {
-		v39 = this->prevPitch;
-		if((float)(v37 - v39) < 180.0) {
-			break;
-		}
-		this->prevPitch = v39 + 360.0;
-	}
-	headYaw = this->headYaw;
-	while(1) {
-		v41 = this->field_130;
-		if((float)(headYaw - v41) >= -180.0) {
-			break;
-		}
-		this->field_130 = v41 - 360.0;
-	}
-	while(1) {
-		v42 = this->field_130;
-		if((float)(headYaw - v42) < 180.0) {
-			break;
-		}
-		this->field_130 = v42 + 360.0;
-	}
+
+	while(this->yaw - this->prevYaw < -180.0) this->prevYaw -= 360.0;
+	while(this->yaw - this->prevYaw >= 180.0) this->prevYaw += 360.0;
+
+	while(this->field_124 - this->field_128 < 180.0) this->field_128 -= 360.0;
+	while(this->field_124 - this->field_128 >= 180.0) this->field_128 += 360.0;
+
+	while(this->pitch - this->prevPitch < -180.0) this->prevPitch -= 360.0;
+	while(this->pitch - this->prevPitch >= 180.0) this->prevPitch += 360.0;
+
+	while(this->headYaw - this->prevHeadYaw < -180.0) this->prevHeadYaw -= 360.0;
+	while(this->headYaw - this->prevHeadYaw >= 180.0) this->prevHeadYaw += 360.0;
 	this->updateWalkAnim();
 	this->field_B94 = this->field_B94 + v21;
 }
@@ -621,7 +561,7 @@ void Mob::baseTick() {
 	pitch = this->pitch;
 	this->prevPitch = pitch;
 	this->field_128 = v17;
-	this->field_130 = this->headYaw;
+	this->prevHeadYaw = this->headYaw;
 	if(!this->level->isClientMaybe) {
 		if(this->field_BEE) {
 			v38 = &this->field_BD0;

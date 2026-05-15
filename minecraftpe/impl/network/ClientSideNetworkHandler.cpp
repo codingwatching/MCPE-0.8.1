@@ -322,7 +322,7 @@ void ClientSideNetworkHandler::handle(const RakNet::RakNetGUID& a2, struct AddMo
 			if(mob) {
 				mob->entityId = a3->eid;
 				mob->moveTo(a3->x, a3->y, a3->z, a3->pitch, a3->yaw);
-				mob->field_130 = a3->pitch;
+				mob->prevHeadYaw = a3->pitch;
 				mob->headYaw = a3->pitch;
 				mob->getEntityData()->assignValues(&a3->readData);
 				this->level->addEntity(mob);
