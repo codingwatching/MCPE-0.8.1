@@ -173,7 +173,7 @@ void LocalPlayer::sendPosition() {
 	this->field_BD4 = this->pitch;
 	this->field_BD8 = this->yaw;
 	if(this->isRiding()) {
-		PlayerInputPacket v17(this->moveStrafe, this->moveStrafe, this->isJumping, this->isSneaking());
+		PlayerInputPacket v17(this->moveForward, this->moveStrafe, this->isJumping, this->isSneaking());
 		this->minecraft->rakNetInstance->send(v17);
 	}
 }
@@ -390,10 +390,9 @@ void LocalPlayer::actuallyHurt(int32_t a2) {
 }
 void LocalPlayer::aiStep() {
 	Minecraft* minecraft;	  // r3
-	KeyboardInput* moveInput; // r0
+	IMoveInput* moveInput; // r0
 	Screen* currentScreen;	  // r3
 	bool_t jumpingMaybe;	  // r5
-	KeyboardInput* v6;		  // r3
 	bool_t flying;			  // r2
 	float strafeInput;		  // s14
 	float forwardInput;		  // s15
@@ -408,13 +407,12 @@ void LocalPlayer::aiStep() {
 	if(!currentScreen || currentScreen->field_C) {
 		moveInput->tick(this);
 	}
-	v6 = this->moveInput;
-	if(v6->sneakingMaybe && this->ySize < 0.2) {
+	if(this->moveInput->sneakingMaybe && this->ySize < 0.2) {
 		this->ySize = 0.2;
 	}
 	this->field_B7C = 1.0;
 	if(this->abilities.mayfly) {
-		if(!jumpingMaybe && v6->jumpingMaybe) // enable/disable flying
+		if(!jumpingMaybe && this->moveInput->jumpingMaybe) // enable/disable flying
 		{
 			if(this->flyToggleCounter > 0) {
 				flying = this->abilities.flying;
@@ -425,8 +423,8 @@ void LocalPlayer::aiStep() {
 			}
 		}
 		if(this->abilities.flying) {
-			strafeInput = v6->strafeInput;
-			forwardInput = v6->forwardInput;
+			strafeInput = this->moveInput->strafeInput;
+			forwardInput = this->moveInput->forwardInput;
 			if(strafeInput < 0.0) {
 				strafeInput = -strafeInput;
 			}
@@ -439,10 +437,10 @@ void LocalPlayer::aiStep() {
 			if(forwardInput < 0.01) {
 				this->field_B7C = 0.75;
 			}
-			if(v6->flyUpPressed) {
+			if(this->moveInput->flyUpPressed) {
 				this->motionY = this->motionY + 0.15;
 			}
-			if(v6->flyDownPressed) {
+			if(this->moveInput->flyDownPressed) {
 				this->motionY = this->motionY - 0.15;
 			}
 		}

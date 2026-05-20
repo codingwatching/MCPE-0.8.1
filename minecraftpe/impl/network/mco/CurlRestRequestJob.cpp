@@ -1,3 +1,4 @@
+#ifndef ANDROID
 #include <network/mco/CurlRestRequestJob.hpp>
 #include <curl/curl.h>
 #include <network/RestService.hpp>
@@ -132,3 +133,4 @@ void CurlRestRequestJob::finish(){
 
 	printf("CurlRestRequestJob::finish - not implemented\n");
 }
+#endif

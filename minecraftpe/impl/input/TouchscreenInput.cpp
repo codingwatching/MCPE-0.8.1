@@ -12,14 +12,14 @@
 static int _D6E06658, _D6E0665C, _D6E06660, _D6E06664, _D6E06668;
 TouchscreenInput::TouchscreenInput(Minecraft* a2, Options* a3)
 	: field_1C(1, 0, 0, 1, 1) {
-	this->field_4 = 0.0;
-	this->field_8 = 0.0;
-	this->field_C = 0;
-	this->field_D = 0;
-	this->field_E = 0;
-	this->field_F = 0;
-	this->field_10 = 0;
-	this->field_11 = 0;
+	this->strafeInput = 0.0;
+	this->forwardInput = 0.0;
+	this->idkWhatIsThis = 0;
+	this->jumpingMaybe = 0;
+	this->sneakingMaybe = 0;
+	this->flyUpPressed  = 0;
+	this->flyDownPressed = 0;
+	this->idkWhatIsThis2 = 0;
 	this->field_40 = 0;
 	this->field_41 = 0;
 	this->field_42 = 0;
@@ -103,11 +103,11 @@ void TouchscreenInput::rebuild() {
 	hideGUI = options->hideGUI;
 	if(!options->hideGUI) {
 		Tesselator::instance.begin(0);
-		if(!this->field_11 && (this->field_42 || (hideGUI = this->field_41) != 0)) {
+		if(!this->idkWhatIsThis2 && (this->field_42 || (hideGUI = this->field_41) != 0)) {
 			hideGUI = 1;
 		}
 		if(!this->minecraft->player->isRiding()) {
-			if(hideGUI || this->field_11) {
+			if(hideGUI || this->idkWhatIsThis2)  {
 				v4 = _D6E06658;
 			} else if(this->isButtonDown(102)) {
 				v4 = _D6E0665C;
@@ -116,7 +116,7 @@ void TouchscreenInput::rebuild() {
 			}
 			Tesselator::instance.colorABGR(v4);
 			sub_D6604D0C(this->leftArrow, 26, 107, 26.0);
-			if(hideGUI || this->field_11) {
+			if(hideGUI || this->idkWhatIsThis2)  {
 				v5 = _D6E06658;
 			} else if(this->isButtonDown(103)) {
 				v5 = _D6E0665C;
@@ -133,7 +133,7 @@ void TouchscreenInput::rebuild() {
 				v6 = _D6E06660;
 			}
 			Tesselator::instance.colorABGR(v6);
-			if(this->field_11) {
+			if(this->idkWhatIsThis2)  {
 				v7 = 78;
 				v8 = 133;
 			} else {
@@ -153,7 +153,7 @@ void TouchscreenInput::rebuild() {
 			v9 = _D6E06660;
 		}
 		Tesselator::instance.colorABGR(v9);
-		if(this->field_11) {
+		if(this->idkWhatIsThis2)  {
 			v10 = 52;
 			v11 = 133;
 		} else {
@@ -216,9 +216,9 @@ void TouchscreenInput::tick(Player* a2) {
 	int v25; // [sp+8h] [bp-58h]
 
 	v2 = 0;
-	this->field_4 = 0.0;
-	this->field_8 = 0.0;
-	this->field_D = 0;
+	this->strafeInput = 0.0;
+	this->forwardInput = 0.0;
+	this->jumpingMaybe  = 0;
 	this->field_B0[0] = 0;
 	this->field_B0[1] = 0;
 	v5 = 0;
@@ -247,14 +247,14 @@ void TouchscreenInput::tick(Player* a2) {
 			v10 = v7;
 		}
 		v11 = Multitouch::_pointers[v10].getY();
-		if(this->field_1C.isInside((float)v9, (float)v11) && this->field_41 && !this->field_11) {
+		if(this->field_1C.isInside((float)v9, (float)v11) && this->field_41 && !this->idkWhatIsThis2)  {
 			v5 = 1;
 			v20 = (float)v11 - this->field_1C.centerY();
 			v21 = this->field_1C.centerX();
 			v22 = atan2(v20, (float)((float)v9 - v21));
 			v23 = (float)(v22 + 3.1416);
-			this->field_8 = Mth::sin(v23);
-			this->field_4 = Mth::cos(v23);
+			this->forwardInput = Mth::sin(v23);
+			this->strafeInput = Mth::cos(v23);
 		}
 		pointerId = this->touchAreaModel.getPointerId(v9, v11, v7);
 		v13 = pointerId;
@@ -278,13 +278,13 @@ void TouchscreenInput::tick(Player* a2) {
 				}
 				if(Multitouch::_wasPressed[v7]) {
 LABEL_30:
-					this->field_D = 1;
+					this->jumpingMaybe  = 1;
 					goto LABEL_80;
 				}
 				if(this->field_41 && !a2->abilities.flying) {
 					v24 = 1;
 					v6 = 1;
-					this->field_8 = this->field_8 + 1.0;
+					this->forwardInput = this->forwardInput + 1.0;
 					goto LABEL_35;
 				}
 LABEL_80:
@@ -298,26 +298,26 @@ LABEL_59:
 			if(pointerId == 100) {
 LABEL_35:
 				if(a2->isInWater()) {
-					this->field_D = 1;
-				} else if(!this->field_11) {
+					this->jumpingMaybe  = 1;
+				} else if(!this->idkWhatIsThis2)  {
 					v5 = 1;
 				}
 				v13 = 100;
-				this->field_8 = this->field_8 + 1.0;
+				this->forwardInput = this->forwardInput + 1.0;
 				goto LABEL_40;
 			}
 			if(pointerId == 101) {
 				if(!this->field_41) {
-					this->field_8 = this->field_8 - 1.0;
+					this->forwardInput = this->forwardInput - 1.0;
 					goto LABEL_40;
 				}
 				goto LABEL_57;
 			}
 			if(pointerId == 102) {
 				if(!this->field_41) {
-					v16 = this->field_4 + 1.0;
+					v16 = this->strafeInput + 1.0;
 LABEL_50:
-					this->field_4 = v16;
+					this->strafeInput = v16;
 					goto LABEL_40;
 				}
 			} else {
@@ -336,7 +336,7 @@ LABEL_50:
 					goto LABEL_57;
 				}
 				if(!this->field_41) {
-					v16 = this->field_4 - 1.0;
+					v16 = this->strafeInput - 1.0;
 					goto LABEL_50;
 				}
 			}
@@ -350,36 +350,36 @@ LABEL_60:
 	this->field_41 = v5;
 	if(v24) {
 		if(!this->field_42) {
-			this->field_D = 1;
+			this->jumpingMaybe  = 1;
 		}
 		this->field_42 = 1;
 	} else {
 		this->field_42 = 0;
 	}
-	this->field_11 = 0;
+	this->idkWhatIsThis2 = 0;
 	isButtonDown = this->isButtonDown(100);
 	if(isButtonDown) {
-		this->field_F = (this->field_F | this->field_40) & this->field_A8;
+		this->flyUpPressed  = (this->flyUpPressed  | this->field_40) & this->field_A8;
 	} else {
-		this->field_F = 0;
+		this->flyUpPressed  = 0;
 	}
 
 	v19 = this->isButtonDown(101);
 	if ( v19 )
 	{
-		v19 = (this->field_10 | this->field_40) & this->field_A8;
+		v19 = (this->flyDownPressed  | this->field_40) & this->field_A8;
 	}
-	this->field_10 = v19;
-	if ( a2->abilities.flying && (this->field_F || v19 || v6 && !this->field_41) )
+	this->flyDownPressed  = v19;
+	if ( a2->abilities.flying && (this->flyUpPressed  || v19 || v6 && !this->field_41) )
 	{
-		this->field_8 = 0.0;
-		this->field_11 = 1;
+		this->forwardInput = 0.0;
+		this->idkWhatIsThis2 = 1;
 	}
 	this->field_43 = a2->abilities.flying;
-	if ( this->field_E )
+	if ( this->sneakingMaybe   )
 	{
-		this->field_4 = this->field_4 * 0.3;
-		this->field_8 = this->field_8 * 0.3;
+		this->strafeInput = this->strafeInput * 0.3;
+		this->forwardInput = this->forwardInput * 0.3;
 	}
 	this->field_40 = v6;
 }
@@ -390,8 +390,8 @@ void TouchscreenInput::render(float a2) {
 void TouchscreenInput::setKey(int32_t, bool_t) {
 }
 void TouchscreenInput::releaseAllKeys() {
-	this->field_4 = 0.0;
-	this->field_8 = 0.0;
+	this->strafeInput = 0.0;
+	this->forwardInput = 0.0;
 	this->field_B0[0] = 0;
 	this->field_B0[1] = 0;
 	this->field_B0[2] = 0;

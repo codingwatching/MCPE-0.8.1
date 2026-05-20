@@ -4,7 +4,7 @@
 #include <inventory/InventoryMenu.hpp>
 #include <math/SmoothFloat.hpp>
 
-struct KeyboardInput;
+struct IMoveInput;
 struct Minecraft;
 struct User;
 struct ChestTileEntity;
@@ -12,7 +12,7 @@ struct FurnaceTileEntity;
 struct TileEntity;
 struct LocalPlayer: Player, IContainerListener
 {
-	KeyboardInput* moveInput;
+	IMoveInput* moveInput;
 	InventoryMenu inventoryMenu;
 	bool_t allowAutojump;
 	int8_t field_D79, field_D7A, field_D7B;

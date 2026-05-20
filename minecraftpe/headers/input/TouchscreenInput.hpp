@@ -11,14 +11,6 @@ struct Player;
 
 struct TouchscreenInput: IMoveInput
 {
-	float field_4;
-	float field_8;
-	int8_t field_C;
-	int8_t field_D;
-	int8_t field_E;
-	int8_t field_F;
-	int8_t field_10;
-	int8_t field_11;
 	int8_t field_12;
 	int8_t field_13;
 	GuiComponent field_14;

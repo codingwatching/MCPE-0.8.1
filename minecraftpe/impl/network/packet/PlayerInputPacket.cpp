@@ -17,16 +17,16 @@ void PlayerInputPacket::handle(const RakNet::RakNetGUID& a2, NetEventCallback* a
 }
 
 void PlayerInputPacket::read(RakNet::BitStream* stream) {
-	stream->Read<float>(this->moveForward);
 	stream->Read<float>(this->moveStrafe);
+	stream->Read<float>(this->moveForward);
 	stream->Read<bool>(this->isJumping);
 	stream->Read<bool>(this->isSneaking);
 }
 
 void PlayerInputPacket::write(RakNet::BitStream* stream) {
 	stream->Write<uint8_t>(PID_PLAYER_INPUT_PACKET);
-	stream->Write<float>(this->moveForward);
 	stream->Write<float>(this->moveStrafe);
+	stream->Write<float>(this->moveForward);
 	stream->Write<bool>(this->isJumping);
 	stream->Write<bool>(this->isSneaking);
 }

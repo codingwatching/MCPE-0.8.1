@@ -5,10 +5,10 @@
 KeyboardInput::KeyboardInput(Options* a2) {
 	this->strafeInput = 0;
 	this->forwardInput = 0;
-	this->field_8 = 0;
+	this->idkWhatIsThis = 0;
 	this->jumpingMaybe = 0;
 	this->sneakingMaybe = 0;
-	this->flyUpPressed = this->flyDownPressed = this->field_D = 0;
+	this->flyUpPressed = this->flyDownPressed = this->idkWhatIsThis2 = 0;
 	for(int32_t i = 0; i != 10; ++i) {
 		this->inputs[i] = 0;
 	}

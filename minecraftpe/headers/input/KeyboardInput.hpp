@@ -6,11 +6,6 @@ struct Player;
 
 struct KeyboardInput: IMoveInput
 {
-	float strafeInput, forwardInput;
-	int8_t field_8;
-	bool_t jumpingMaybe, sneakingMaybe;
-	int8_t flyUpPressed;
-	int8_t flyDownPressed, field_D;
 	int8_t inputs[10];
 	Options* options;
 

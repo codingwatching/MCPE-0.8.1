@@ -198,7 +198,7 @@ void Minecraft::_reloadInput(void) {
 	this->mouseHandler.setTurnInput(this->inputHolder->getTurnInput());
 	if(this->level) {
 		if(this->player) {
-			this->player->moveInput = (KeyboardInput*)this->inputHolder->getMoveInput();
+			this->player->moveInput = this->inputHolder->getMoveInput();
 		}
 	}
 }
