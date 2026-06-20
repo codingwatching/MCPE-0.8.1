@@ -11,6 +11,8 @@ include_directories(glm)
 include_directories(OpenAES/inc/)
 include_directories(RakNet/Source/)
 
+OPTION(DYNAMICSOUNDS "Build without relying on embedded sound data. Sounds must be provided later in the sounds/ directory (extract them from .so lib using tools/pcm2wav.py)." OFF)
+
 # i love python
 OPTION(JSONCPP_WITH_TESTS "Compile and run JsonCpp test executables" ON)
 OPTION(JSONCPP_WITH_POST_BUILD_UNITTEST "Automatically run unit-tests as a post build step" ON)
