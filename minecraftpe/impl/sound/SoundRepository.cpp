@@ -21,7 +21,9 @@ void SoundRepository::add(const std::string& a2, const struct SoundDesc& a3) {
 }
 bool_t SoundRepository::get(const std::string& a2, struct SoundDesc& a3) {
 	auto&& p = this->sounds.find(a2);
-	if(p == this->sounds.end()) return 0;
+	if(p == this->sounds.end()) {
+		return 0;
+	}
 
 	a3 = SoundDesc(p->second[Mth::random(p->second.size())]); //inlined
 	return 1;

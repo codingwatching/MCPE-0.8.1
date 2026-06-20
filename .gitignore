@@ -4,3 +4,4 @@ minecraftpe/impl/pcm_data.c
 build/
 CMakeLists.txt.user
 assets/*
+sounds/*

@@ -27,6 +27,11 @@ if(ANDROID)
 	add_compile_options(-DEVILOREOBROKEPTHREADS)
 else()
 	add_compile_options(-DIMTOOLAZYTOFIX16ERRS -DPCTWEAKS)
+
+	if(DYNAMICSOUNDS)
+		add_compile_options(-DDYNAMICSOUNDS)
+	endif()
+
 endif()
 
 if(DEBUG)

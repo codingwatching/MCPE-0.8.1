@@ -1,11 +1,15 @@
 #include <sound/SoundDesc.hpp>
+#include <sounddata.hpp>
+#include <pcm_data.h>
 
 SoundDesc::SoundDesc(char_t* pcmPtr) {
 	int32_t v2; // r4
 	int32_t v3; // r5
 	int32_t v4; // r2
-
 	this->pcmData = (uint8_t*) pcmPtr;
+#ifdef DYNAMICSOUNDS
+	if(!pcmPtr) return;
+#endif
 	this->field_18 = "";
 	v2 = *(int32_t*)pcmPtr;
 	this->channels = v2;
@@ -33,4 +37,5 @@ SoundDesc::SoundDesc() {
 	this->pcmData = 0;
 }
 SoundDesc::~SoundDesc() {
+
 }
