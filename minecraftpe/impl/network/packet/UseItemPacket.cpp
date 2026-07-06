@@ -24,7 +24,7 @@ UseItemPacket::UseItemPacket(Entity* e, int32_t x, int32_t y, int32_t z, int32_t
 	this->itemId = it ? it->getId() : 0;
 	this->blockMeta = it ? it->getAuxValue() : 0;
 	this->entityID = e->entityId;
-	this->posX = e->posY;
+	this->posX = e->posX;
 	this->posY = e->posY;
 	this->posZ = e->posZ;
 }
