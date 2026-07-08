@@ -79,3 +79,6 @@ jobs:
         name: build
         path: 
           build/minecraftpe/build/minecraftpe08decomp.exe
+          build/SDL.dll
+          build/curl-8.20.0/build-win64/bin/libcurl-4.dll
+          
