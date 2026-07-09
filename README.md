@@ -14,7 +14,7 @@ You must also have original 0.8.1 apk file to extract sounds(won't compile witho
 * ```
   mkdir build
   cd build
-  cmake .. -DJSONCPP_WITH_TESTS=OFF -DJSONCPP_WITH_POST_BUILD_UNITTEST=OFF
+  cmake ..
   make
   ```
 * the output should be `minecraftpe/build/minecraftpe08decomp`
