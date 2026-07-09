@@ -15,8 +15,8 @@
 #include <nbt/CompoundTag.hpp>
 
 std::string Tag::NullString = "";
-Tag::Tag(const std::string& name){
-	this->tagName = name;
+Tag::Tag(const std::string& name) : field_0(0), tagName(name) {
+
 }
 
 Tag::~Tag(void){

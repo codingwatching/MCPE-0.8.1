@@ -3,10 +3,10 @@
 #include <util/output/IDataOutput.hpp>
 #include <nbt/FloatTag.hpp>
 
-ListTag::ListTag(void) : Tag(""){
+ListTag::ListTag(void) : Tag(""), value(){
 
 }
-ListTag::ListTag(const std::string& s) : Tag(s){
+ListTag::ListTag(const std::string& s) : Tag(s), value(){
 
 }
 void ListTag::write(IDataOutput* out){

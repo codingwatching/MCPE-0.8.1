@@ -61,7 +61,7 @@ void WorldSelectionList::stepRight() {
 	}
 }
 
-float sub_D65F560E(float a1, float a2, float a3, float a4) {
+static float sub_D65F560E(float a1, float a2, float a3, float a4) {
 	float v4; // s1
 	float v5; // s3
 

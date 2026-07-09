@@ -3,6 +3,8 @@ cmake_minimum_required(VERSION 3.16)
 if(ANDROID)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
 ENDIF()
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fvisibility=protected -fvisibility-inlines-hidden")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fvisibility=protected -fvisibility-inlines-hidden")
 
 project(minecraftpe08decomp)
 set (CMAKE_CXX_STANDARD 11)

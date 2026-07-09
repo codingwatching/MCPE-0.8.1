@@ -2,8 +2,8 @@
 #include <util/input/IDataInput.hpp>
 #include <util/output/IDataOutput.hpp>
 //XXX might be not like in vanilla
-StringTag::StringTag(const std::string& name, const std::string& value) : Tag(name){
-	this->value = value;
+StringTag::StringTag(const std::string& name, const std::string& value) : Tag(name), value(value){
+
 }
 
 void StringTag::write(IDataOutput* out){

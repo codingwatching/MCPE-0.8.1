@@ -40,6 +40,7 @@ if(DEBUG)
 else()
 	add_compile_options(-g0)
 endif()
+
 file(GLOB_RECURSE IMPLCPP *.cpp)
 file(GLOB_RECURSE IMPLC *.c)
 file(GLOB_RECURSE HEADC *.h)
@@ -56,6 +57,7 @@ else()
 		"$<$<COMPILE_LANGUAGE:CXX>:<vector$<ANGLE-R>>"
 		"$<$<COMPILE_LANGUAGE:CXX>:<string$<ANGLE-R>>"
 	)
+
 	target_include_directories(minecraftpe08decomp PUBLIC "headers/")
 	target_link_libraries(minecraftpe08decomp)
 	if(WIN32)

@@ -456,68 +456,7 @@ void AppPlatform_sdl::init(){
 			}
 		}
 
-		//TODO engine stuff
-
-		/*Tesselator::instance.begin(4);
-		Tesselator::instance.enableColor();
-		Tesselator::instance.color(0xffff0000);
-		Tesselator::instance.vertex(0, 0, 0);
-		Tesselator::instance.vertex(0, 1, 0);
-		Tesselator::instance.vertex(1, 1, 0);
-		Tesselator::instance.vertex(1, 0, 0);
-		Tesselator::instance.color(0xff0000ff);
-		Tesselator::instance.vertex(0, 1, 0);
-		Tesselator::instance.vertex(0, 1, 1);
-		Tesselator::instance.vertex(1, 1, 1);
-		Tesselator::instance.vertex(1, 1, 0);
-		Tesselator::instance.color(0xff00ff00);
-		Tesselator::instance.vertex(0, 0, 0);
-		Tesselator::instance.vertex(0, 0, 1);
-		Tesselator::instance.vertex(0, 1, 1);
-		Tesselator::instance.vertex(0, 1, 0);
-		Tesselator::instance.color(0xff00ffff);
-		Tesselator::instance.vertex(0, 0, 0);
-		Tesselator::instance.vertex(1, 0, 0);
-		Tesselator::instance.vertex(1, 0, 1);
-		Tesselator::instance.vertex(0, 0, 1);
-		Tesselator::instance.color(0xffffff00);
-		Tesselator::instance.vertex(1, 0, 0);
-		Tesselator::instance.vertex(1, 1, 0);
-		Tesselator::instance.vertex(1, 1, 1);
-		Tesselator::instance.vertex(1, 0, 1);
-		Tesselator::instance.color(0xffff00ff);
-		Tesselator::instance.vertex(0, 0, 1);
-		Tesselator::instance.vertex(1, 0, 1);
-		Tesselator::instance.vertex(1, 1, 1);
-		Tesselator::instance.vertex(0, 1, 1);
-		cube = Tesselator::instance.end();*/
-		//TODO contextWasLost
-		//else{
-		//printf("BUFSIZES %d+%d=%d\n", glBufferPool.unusedBuffers.size(), glBufferPool.usedBuffers.size(), glBufferPool.unusedBuffers.size()+glBufferPool.usedBuffers.size());
-			mc->update();
-		//}
-		/*glViewport(0, 0, mc->field_1C, mc->field_20);
-		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
-		glOrtho(0, mc->field_1C*Gui::InvGuiScale, mc->field_20*Gui::InvGuiScale, 0, 0, 1);
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
-
-		glEnable(GL_TEXTURE_2D);
-
-		glClearColor(1, 1, 1, 1);
-		glClear(GL_COLOR_BUFFER_BIT);
-
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-		glEnableClientState(GL_VERTEX_ARRAY);
-		Tesselator::instance.enableColor();
-
-		//TODO this thing happens in gamerenderer
-		int32_t mx = Mouse::getX();
-		int32_t my = Mouse::getY();
-		mc->currentScreen->render(mx*Gui::InvGuiScale, my*Gui::InvGuiScale, 0);*/
+		mc->update();
 		SDL_GL_SwapBuffers();
 	}
 
