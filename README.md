@@ -22,20 +22,15 @@ You must also have original 0.8.1 apk file to extract sounds(won't compile witho
 ### Android
 Use https://github.com/oldminecraftcommunity/MCPE-0.8.1-Android
 
-### Other OSes
-Currently the project should also support windows.
-
-Windows version does not require OpenAL(it uses DirectSound instead). It should be possible to cross compile this project for windows by using something like
-```
-cmake .. -DJSONCPP_WITH_TESTS=OFF -DJSONCPP_WITH_POST_BUILD_UNITTEST=OFF -DCMAKE_SYSTEM_NAME=Windows -DCMAKE_C_COMPILER=x86_64-w64-mingw32-gcc -DCMAKE_CXX_COMPILER=x86_64-w64-mingw32-g++ -DCMAKE_EXE_LINKER_FLAGS="${CMAKE_EXE_LINKER_FLAGS} -static" -DCMAKE_FIND_ROOT_PATH_MODE_PROGRAM=NEVER -DCMAKE_FIND_ROOT_PATH_MODE_LIBRARY=ONLY -DCMAKE_FIND_ROOT_PATH_MODE_INCLUDE=ONLY -DSDL_LIBRARY=/usr/x86_64-w64-mingw32/lib/SDL.dll -DZLIB_LIBRARY=/usr/x86_64-w64-mingw32/lib/zlib1.dll -DCMAKE_FIND_ROOT_PATH=/usr/x86_64-w64-mingw32/
-```
-(def should be simplifed later)
-
-**Building on windows was not tested!**
+### Windows
+Windows version does not require OpenAL(it uses DirectSound instead). See [.github/workflows/main.yml](https://github.com/oldminecraftcommunity/MCPE-0.8.1/blob/master/.github/workflows/main.yml#L37) for a way to cross compile it for windows on linux. **Building on windows was not tested!**
 
 ### Running
 * extract `assets` from real MCPE 0.8.1 apk into the folder you're running the executable from
 * run compiled executable
+
+### Prebuilt versions
+There are prebuilt versions available in github actions(they are probably getting autoremoved every 3 months, so should probably move them later into releases<?>). The prebuilt versions do not contain assets or sounds, so you have to extract them yourself. Use `python tools/pcm2wav.py <path/to/libminecraftpe.so>` to extract sounds from `libminecraftpe.so` into `sounds` folder and move it to the same directory where `assets` and executable file is located.
 
 ## Some additional info:
 * JSON library that was probably used by Mojang: https://chromium.googlesource.com/external/jsoncpp/+/6921bf1feef6f1fb83935ae3943f07753488311d/jsoncpp
