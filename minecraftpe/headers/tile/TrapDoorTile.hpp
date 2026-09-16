@@ -11,7 +11,9 @@ struct TrapDoorTile : Tile{
 	static bool_t isOpen(int32_t);
 	void setOpen(Level*, int32_t, int32_t, int32_t, bool_t);
 
-	virtual ~TrapDoorTile();
+	virtual ~TrapDoorTile() {
+	}
+
 	virtual bool_t isCubeShaped();
 	virtual int32_t getRenderShape();
 	virtual void updateShape(LevelSource*, int32_t, int32_t, int32_t);

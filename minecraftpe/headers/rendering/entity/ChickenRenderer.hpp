@@ -5,6 +5,7 @@ struct ChickenRenderer: MobRenderer
 {
 	ChickenRenderer(Model*, float);
 
-	virtual ~ChickenRenderer();
+	virtual ~ChickenRenderer() {
+	}
 	virtual float getBob(Mob*, float);
 };

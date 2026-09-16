@@ -38,7 +38,7 @@ MojangConnector::MojangConnector(Minecraft* minecraft) {
 void MojangConnector::clearLoginInformation() {
 	this->setLoginInformation(LoginInformation());
 }
-std::shared_ptr<RestService> MojangConnector::getAccountSercice() {
+std::shared_ptr<RestService> MojangConnector::getAccountService() {
 	return this->accountService;
 }
 MojangConnectionStatus MojangConnector::getConnectionStatus() {
@@ -57,7 +57,7 @@ std::string MojangConnector::getEncryptedJoinDataString(long long a3, const std:
 	std::string v11(&v12[32], v10 - 32);
 	return Base64::base64Encode(v11);
 }
-std::string* MojangConnector::getJoinMCOPayload() {
+const std::string* MojangConnector::getJoinMCOPayload() const{
 	return &this->joinMCOPayload;
 }
 std::shared_ptr<LoginInformation> MojangConnector::getLoginInformation() {
@@ -81,7 +81,7 @@ std::shared_ptr<ThreadCollection> MojangConnector::getThreadCollection() {
 bool_t MojangConnector::isMCOCreateServersEnabled() {
 	return this->status == STATUS_2 && this->serverCreationEnabled;
 }
-bool_t MojangConnector::isServiceEnabled() {
+bool_t MojangConnector::isServiceEnabled() const{
 	return this->serviceEnabled;
 }
 void MojangConnector::setLoginInformation(const LoginInformation& a2) {
@@ -143,10 +143,10 @@ void MojangConnector::setStatus(MojangConnectionStatus status) {
 
 	}
 }
-void MojangConnector::updateUIThread() {
+void MojangConnector::updateUIThread() const{
 	this->threadCollection->processUIThread();
 }
-std::string MojangConnector::urlEncode(std::string a2) {
+std::string MojangConnector::urlEncode(std::string a2) const{
 	printf("MojangConnector::urlEncode(%s) - not implemented\n", a2.c_str()); //TODO
 	return "";
 }

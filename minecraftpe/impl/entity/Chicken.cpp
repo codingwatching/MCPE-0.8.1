@@ -34,8 +34,6 @@ Chicken::Chicken(Level* a2)
 	this->goalSelector.addGoal(7, new RandomLookAroundGoal(this), 1);
 }
 
-Chicken::~Chicken() {
-}
 int32_t Chicken::getEntityTypeId() const {
 	return 10;
 }
@@ -46,9 +44,6 @@ void Chicken::readAdditionalSaveData(CompoundTag* a2) {
 }
 void Chicken::addAdditonalSaveData(CompoundTag* a2) {
 	Animal::addAdditonalSaveData(a2);
-}
-float Chicken::getBaseSpeed() {
-	return 0.25;
 }
 int32_t Chicken::getMaxHealth() {
 	return 4;
@@ -141,7 +136,7 @@ std::string Chicken::getDeathSound() {
 bool_t Chicken::useNewAi() {
 	return 1;
 }
-bool_t Chicken::isFood(const ItemInstance* a2) {
+bool_t Chicken::isFood(const ItemInstance* a2) const{
 	if(a2->itemClass) {
 		return a2->itemClass->isSeed();
 	}

@@ -8,8 +8,11 @@ struct SlabTile : Tile{
 	SlabTile(int32_t, const std::string&, bool_t, const struct Material*);
 	bool_t isBottomSlab(LevelSource*, int32_t, int32_t, int32_t);
 
-	virtual ~SlabTile();
-	virtual int32_t getTileType();
+	virtual ~SlabTile() {
+	}
+	virtual int32_t getTileType() {
+		return 2;
+	}
 	virtual bool_t isCubeShaped();
 	virtual void updateShape(LevelSource*, int32_t, int32_t, int32_t);
 	virtual void updateDefaultShape();

@@ -3,12 +3,11 @@
 #include <entity/path/PathNavigation.hpp>
 #include <level/Level.hpp>
 
-RestrictSunGoal::RestrictSunGoal(PathfinderMob* a2) : Goal() {
+RestrictSunGoal::RestrictSunGoal(PathfinderMob* a2) :
+		Goal() {
 	this->holder = a2;
 }
 
-RestrictSunGoal::~RestrictSunGoal() {
-}
 bool_t RestrictSunGoal::canUse() {
 	return this->holder->level->isDay();
 }

@@ -26,11 +26,14 @@ struct ExternalFileLevelStorage: LevelStorage, ChunkStorage
 
 	virtual ~ExternalFileLevelStorage();
 	virtual LevelData* prepareLevel(Level*);
-	virtual ChunkStorage* createChunkStorage(Dimension*);
+	virtual ChunkStorage* createChunkStorage(Dimension*) {
+		return this;
+	}
 	virtual void saveLevelData(LevelData&, std::vector<Player*>*);
 	virtual bool_t load(Player*);
 	virtual bool_t save(Player*);
-	virtual void closeAll();
+	virtual void closeAll() {
+	}
 	virtual void saveGame(Level*);
 	virtual void loadEntities(Level*, LevelChunk*);
 	virtual LevelChunk* load(Level*, int32_t, int32_t);
@@ -38,6 +41,7 @@ struct ExternalFileLevelStorage: LevelStorage, ChunkStorage
 	virtual void saveEntities(Level*, LevelChunk*);
 	virtual void saveAll(Level*, std::vector<LevelChunk*>&);
 	virtual void tick();
-	virtual void flush();
+	virtual void flush() {
+	}
 
 };

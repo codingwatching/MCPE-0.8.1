@@ -33,11 +33,21 @@ struct ChatScreen: Screen
 	virtual bool_t handleBackEvent(bool_t);
 	virtual void tick();
 	virtual void removed();
-	virtual bool_t renderGameBehind();
-	virtual bool_t isPauseScreen();
-	virtual bool_t isErrorScreen();
-	virtual bool_t isInGameScreen();
-	virtual bool_t closeOnPlayerHurt();
+	virtual bool_t renderGameBehind() {
+		return 1;
+	}
+	virtual bool_t isPauseScreen() {
+		return 0;
+	}
+	virtual bool_t isErrorScreen() {
+		return 0;
+	}
+	virtual bool_t isInGameScreen() {
+		return 1;
+	}
+	virtual bool_t closeOnPlayerHurt() {
+		return 1;
+	}
 	virtual void setTextboxText(const std::string&);
 	virtual void buttonClicked(Button*);
 	virtual void keyPressed(int32_t);

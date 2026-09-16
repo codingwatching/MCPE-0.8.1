@@ -37,12 +37,20 @@ struct MeshBuffer{
 
 
 	MeshBuffer(MeshBuffer&&);
-	MeshBuffer(const MeshBuffer::VertexFormat*, void*, int32_t, void*, uint32_t, uint32_t, uint32_t);
+	MeshBuffer(const MeshBuffer::VertexFormat*, void*, int32_t, void*, uint32_t, int32_t, uint32_t);
 	MeshBuffer(void);
-	bool_t _load(const MeshBuffer::VertexFormat*, void*, int32_t, void*, uint32_t, uint32_t, uint32_t);
+	bool_t _load(const MeshBuffer::VertexFormat*, void*, int32_t, void*, uint32_t, int32_t, uint32_t);
 	void _move(MeshBuffer&);
-	bool_t isValid(void);
-	bool_t load(const MeshBuffer::VertexFormat*, void*, int32_t, void*, uint32_t, uint32_t, uint32_t);
+	bool_t isValid() const{
+		if(this->arrayBuffer){
+			if(this->arraysCount <= 3) return 0;
+			if(this->drawMode){
+				return this->vertexFormat != 0;
+			}
+		}
+		return 0;
+	}
+	bool_t load(const MeshBuffer::VertexFormat*, void*, int32_t, void*, uint32_t, int32_t, uint32_t);
 	MeshBuffer& operator=(MeshBuffer&&);
 	void render(void);
 	void reset(void);

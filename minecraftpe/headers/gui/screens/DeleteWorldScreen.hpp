@@ -8,7 +8,8 @@ struct DeleteWorldScreen: ConfirmScreen
 
 	DeleteWorldScreen(const LevelSummary&);
 
-	virtual ~DeleteWorldScreen();
+	virtual ~DeleteWorldScreen() {
+	}
 	virtual void postResult(bool_t);
 
 };

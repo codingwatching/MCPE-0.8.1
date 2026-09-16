@@ -132,7 +132,7 @@ void FillingContainer::compressLinkedSlotList(int32_t a2) {
 		}
 	}
 }
-bool_t FillingContainer::contains(ItemInstance* a2) {
+bool_t FillingContainer::contains(ItemInstance* a2) const{
 	uint32_t i;		  // r4
 	ItemInstance* v5; // r0
 
@@ -635,18 +635,14 @@ ItemInstance FillingContainer::removeItem(int32_t a3, int32_t a4) {
 	}
 	return ItemInstance();
 }
-std::string FillingContainer::getName() {
+std::string FillingContainer::getName() const{
 	return "Inventory";
 }
-int32_t FillingContainer::getMaxStackSize() {
+int32_t FillingContainer::getMaxStackSize() const{
 	return 254;
 }
 bool_t FillingContainer::stillValid(Player* a2) {
 	return !a2->isDead;
-}
-void FillingContainer::startOpen() {
-}
-void FillingContainer::stopOpen() {
 }
 
 bool_t FillingContainer::add(ItemInstance* a2) {

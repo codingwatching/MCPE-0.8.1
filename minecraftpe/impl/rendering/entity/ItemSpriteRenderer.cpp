@@ -14,14 +14,13 @@ ItemSpriteRenderer::~ItemSpriteRenderer() {
 	AppPlatform::_singleton->removeListener(this);
 }
 void ItemSpriteRenderer::render(Entity* e, float x, float y, float z, float a6, float a7) {
-	TextureUVCoordinateSet* v11; // r5
 	float v12;					 // s16
 	float v13;					 // s17
 	float v14;					 // r11
 	float v15;					 // s18
 
 	if(!this->meshBuffer.arrayBuffer || this->meshBuffer.arraysCount <= 3 || !this->meshBuffer.drawMode || !this->meshBuffer.vertexFormat) {
-		v11 = this->item->getIcon(0, 0, 0);
+		const TextureUVCoordinateSet* v11 = this->item->getIcon(0, 0, 0);
 		this->textureFile = this->item->itemTexture;
 		v12 = v11->minX;
 		v13 = v11->maxX;
@@ -45,6 +44,4 @@ void ItemSpriteRenderer::render(Entity* e, float x, float y, float z, float a6, 
 	this->meshBuffer.render();
 	glPopMatrix();
 	glDisable(0xBC0u);
-}
-void ItemSpriteRenderer::onAppSuspended() {
 }

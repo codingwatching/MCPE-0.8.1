@@ -1354,7 +1354,7 @@ bool_t TileRenderer::tesselateBedInWorld(Tile* tile, int32_t x, int32_t y, int32
 	uint32_t v9;					   // r0
 	int32_t v10;					   // r10
 	float v11;						   // s22
-	TextureUVCoordinateSet* v12;	   // r0
+	const TextureUVCoordinateSet* v12;	   // r0
 	float v13;						   // s16
 	float maxX;						   // s21
 	float v15;						   // r11
@@ -1368,7 +1368,7 @@ bool_t TileRenderer::tesselateBedInWorld(Tile* tile, int32_t x, int32_t y, int32
 	float v23;						   // s23
 	float v24;						   // s21
 	float v25;						   // r0
-	TextureUVCoordinateSet* v26;	   // r0
+	const TextureUVCoordinateSet* v26;	   // r0
 	float v27;						   // s21
 	float v28;						   // lr
 	float v29;						   // s20
@@ -2091,7 +2091,7 @@ bool_t TileRenderer::tesselateCrossInWorld(Tile* tile, int32_t x, int32_t y, int
 	return 1;
 }
 void TileRenderer::tesselateCrossTexture(Tile* tile, int32_t d, float a4, float a5, float a6) {
-	TextureUVCoordinateSet* v7; // r0
+	const TextureUVCoordinateSet* v7; // r0
 	float maxX;					// s16
 	float minY;					// r11
 	float maxY;					// s17
@@ -2407,13 +2407,13 @@ bool_t TileRenderer::tesselateFenceInWorld(FenceTile* tile, int32_t x, int32_t y
 	return 1;
 }
 bool_t TileRenderer::tesselateFireInWorld(Tile* tile, int32_t x, int32_t y, int32_t z) {
-	TextureUVCoordinateSet* v9;	 // r9
-	TextureUVCoordinateSet* v10; // r0
+	const TextureUVCoordinateSet* v9;	 // r9
+	const TextureUVCoordinateSet* v10; // r0
 	float minX;					 // r5
 	float minY;					 // s17
 	float maxX;					 // s16
 	float maxY;					 // s18
-	TextureUVCoordinateSet* v15; // r8
+	const TextureUVCoordinateSet* v15; // r8
 	float v16;					 // r3
 	float v17;					 // s20
 	float v18;					 // s20
@@ -2711,7 +2711,7 @@ bool_t TileRenderer::tesselateInWorldNoCulling(Tile* a2, int32_t a3, int32_t a4,
 	return result;
 }
 bool_t TileRenderer::tesselateLadderInWorld(Tile* tile, int32_t x, int32_t y, int32_t z) {
-	TextureUVCoordinateSet* v9; // r9
+	const TextureUVCoordinateSet* v9; // r9
 	float v10;					// r0
 	float minX;					// r11
 	float maxX;					// r8
@@ -2914,7 +2914,7 @@ bool_t TileRenderer::tesselateRowInWorld(Tile* tile, int32_t x, int32_t y, int32
 	return 1;
 }
 void TileRenderer::tesselateRowTexture(Tile* tile, int32_t a3, float a4, float a5, float a6) {
-	TextureUVCoordinateSet* v7; // r0
+	const TextureUVCoordinateSet* v7; // r0
 	float minY;					// r7
 	float maxX;					// s16
 	float maxY;					// s17
@@ -3072,7 +3072,7 @@ bool_t TileRenderer::tesselateStemInWorld(Tile* tile, int32_t x, int32_t y, int3
 	return 1;
 }
 void TileRenderer::tesselateStemTexture(Tile* a2, int32_t a3, float a4, float a5, float a6, float a7) {
-	TextureUVCoordinateSet* v8; // r0
+	const TextureUVCoordinateSet* v8; // r0
 	float minY;					// s16
 	float minX;					// r11
 	float maxX;					// s18
@@ -3572,7 +3572,7 @@ LABEL_82:
 	return 1;
 }
 void TileRenderer::tesselateTorch(Tile* tile, float a3, float a4, float a5, float a6, float a7) {
-	TextureUVCoordinateSet* v9; // r0
+	const TextureUVCoordinateSet* v9; // r0
 	float maxY;					// s16
 	float minY;					// s23
 	float v12;					// s14
@@ -3812,13 +3812,13 @@ bool_t TileRenderer::tesselateWaterInWorld(Tile* tile, int32_t x, int32_t y, int
 	float v23;						   // s17
 	float v24;						   // s18
 	float v25;						   // s19
-	TextureUVCoordinateSet* v26;	   // r0
+	const TextureUVCoordinateSet* v26;	   // r0
 	float v27;						   // s20
 	float v28;						   // s22
 	float v29;						   // s23
 	float v30;						   // s24
 	float SlopeAngle;				   // s25
-	TextureUVCoordinateSet* v32;	   // r0
+	const TextureUVCoordinateSet* v32;	   // r0
 	float v33;						   // s23
 	float v34;						   // s25
 	float v35;						   // s14
@@ -3840,7 +3840,7 @@ bool_t TileRenderer::tesselateWaterInWorld(Tile* tile, int32_t x, int32_t y, int
 	int32_t i;						   // r6
 	int32_t v52;					   // r12
 	int32_t v53;					   // r9
-	TextureUVCoordinateSet* v54;	   // r0
+	const TextureUVCoordinateSet* v54;	   // r0
 	float v55;						   // s30
 	float v56;						   // s15
 	float v57;						   // s31

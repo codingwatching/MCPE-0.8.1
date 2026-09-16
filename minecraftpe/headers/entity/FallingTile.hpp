@@ -12,9 +12,12 @@ struct FallingTile: Entity
 	Level* getLevel();
 	void init();
 
-	virtual ~FallingTile();
+	virtual ~FallingTile() {
+	}
 	virtual void tick();
-	virtual float getShadowRadius();
+	virtual float getShadowRadius() {
+		return 0;
+	}
 	virtual float getShadowHeightOffs();
 	virtual bool_t isPickable();
 	virtual int32_t getEntityTypeId() const;

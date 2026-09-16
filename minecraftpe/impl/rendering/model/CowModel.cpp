@@ -25,6 +25,3 @@ CowModel::CowModel()
 	this->field_318.zOffset = this->field_318.zOffset - 1.0;
 	this->field_39C = this->field_39C + 2.0;
 }
-
-CowModel::~CowModel() {
-}

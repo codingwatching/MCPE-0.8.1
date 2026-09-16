@@ -107,7 +107,7 @@ std::string ItemInstance::getDescriptionId() const {
 float ItemInstance::getDestroySpeed(Tile* a2) {
 	return this->itemClass->getDestroySpeed(this, a2);
 }
-TextureUVCoordinateSet* ItemInstance::getIcon(int32_t a2, bool_t a3) const{
+const TextureUVCoordinateSet* ItemInstance::getIcon(int32_t a2, bool_t a3) const{
 	return this->itemClass->getIcon(this->metadata, a2, a3);
 }
 int32_t ItemInstance::getId() const {
@@ -124,10 +124,10 @@ int32_t ItemInstance::getMaxDamage() const {
 int32_t ItemInstance::getMaxStackSize() const {
 	return this->itemClass->getMaxStackSize(this);
 }
-int32_t ItemInstance::getMaxUseDuration() {
+int32_t ItemInstance::getMaxUseDuration() const{
 	return this->itemClass->getMaxUseDuration();
 }
-std::string ItemInstance::getName() {
+std::string ItemInstance::getName() const{
 	return this->itemClass->getName(this);
 }
 int32_t ItemInstance::getUseAnimation() const {
@@ -259,7 +259,7 @@ bool_t ItemInstance::matchesNulls(const ItemInstance* a1, const ItemInstance* a2
 bool_t ItemInstance::mineBlock(int32_t a2, int32_t a3, int32_t a4, int32_t a5, Mob* a6) {
 	return this->itemClass->mineBlock(this, a2, a3, a4, a5, a6);
 }
-bool_t ItemInstance::operator==(const ItemInstance& a2) {
+bool_t ItemInstance::operator==(const ItemInstance& a2) const{
 	return this->matches(&a2);
 }
 void ItemInstance::releaseUsing(Level* a2, Player* a3, int32_t a4) {
@@ -269,11 +269,8 @@ ItemInstance ItemInstance::remove(int32_t a3) {
 	this->count -= a3;
 	return ItemInstance(this->itemClass, a3, this->metadata);
 }
-bool_t ItemInstance::sameItem(ItemInstance* a2) const{
-	if(!a2) return 0;
-	return this->itemClass == a2->itemClass && this->itemClass != 0;
-}
-bool_t ItemInstance::sameItemAndAux(ItemInstance* a2) {
+
+bool_t ItemInstance::sameItemAndAux(ItemInstance* a2) const{
 	if(a2) {
 		if(this->itemClass == a2->itemClass && this->itemClass) {
 			return this->metadata == a2->metadata;
@@ -298,7 +295,7 @@ void ItemInstance::setNull() {
 }
 void ItemInstance::snap(Player*) {
 }
-std::string ItemInstance::toString() {
+std::string ItemInstance::toString() const{
 	std::stringstream str;
 	str << this->count;
 	str << " x ";

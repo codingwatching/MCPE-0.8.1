@@ -2,13 +2,17 @@
 #include <util/JobStatus.hpp>
 #include <network/mco/RestCallTagData.hpp>
 #include <time.h>
-#include <util/Util.hpp>
 #include <network/mco/CurlRestRequestJob.hpp>
-
+#ifdef ANDROID
+#include <android/AndroidRestRequestJob.hpp>
+#endif
 std::shared_ptr<RestRequestJob> RestRequestJob::CreateJob(RestRequestType a2, std::shared_ptr<RestService> a3, Minecraft* a4) {
 #ifdef ANDROID
-	DEBUGMSG("RestRequestJob::CreateJob(android not implemented\n");
-	return std::shared_ptr<RestRequestJob>();
+	std::shared_ptr<RestRequestJob> ret; //init with 0
+	ret = std::shared_ptr<AndroidRestRequestJob>(new AndroidRestRequestJob(a4)); //exchange
+	ret->restService = a3;
+	ret->requestType = a2;
+	return ret;
 #else
 	std::shared_ptr<RestRequestJob> ret(new CurlRestRequestJob());
 	ret->field_8 = ret; //TODO check is this actually how it is assigned
@@ -30,17 +34,6 @@ void RestRequestJob::launchRequest(std::shared_ptr<RestRequestJob> a1, std::shar
 void RestRequestJob::setBody(const std::string& a2) {
 	this->body = a2;
 }
-
-template<>
-void RestRequestJob::setMethod<>(const std::string& a2) {
-	std::vector<std::string> v4;
-	this->field_30 = Util::simpleFormat(a2, v4);
-}
-
-template<>
-void RestRequestJob::setMethod<long long,std::string,int,std::string>(const std::string& a2, long long, std::string, int, std::string);
-template<>
-void RestRequestJob::setMethod<long long,std::string>(const std::string& a2, long long, std::string);
 
 void RestRequestJob::setTagData(const RestCallTagData& a2) {
 	this->field_44 = a2;

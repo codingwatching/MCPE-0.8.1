@@ -25,8 +25,6 @@ void WoolCarpetTile::updateDefaultShape() {
 	this->updateShape(0);
 }
 
-WoolCarpetTile::~WoolCarpetTile() {
-}
 bool_t WoolCarpetTile::isCubeShaped() {
 	return 0;
 }
@@ -43,7 +41,7 @@ bool_t WoolCarpetTile::shouldRenderFace(LevelSource* level, int32_t x, int32_t y
 		return Tile::shouldRenderFace(level, x, y, z, side);
 	}
 }
-TextureUVCoordinateSet* WoolCarpetTile::getTexture(int32_t a2, int32_t a3) {
+const TextureUVCoordinateSet* WoolCarpetTile::getTexture(int32_t a2, int32_t a3) {
 	return Tile::cloth->getTexture(a2, a3);
 }
 AABB* WoolCarpetTile::getAABB(Level* level, int32_t x, int32_t y, int32_t z) {
@@ -78,9 +76,7 @@ bool_t WoolCarpetTile::mayPlace(Level* level, int32_t x, int32_t y, int32_t z) {
 void WoolCarpetTile::neighborChanged(Level* level, int32_t x, int32_t y, int32_t z, int32_t, int32_t, int32_t, int32_t) {
 	this->checkCanSurvive(level, x, y, z);
 }
-float WoolCarpetTile::getThickness() {
-	return 0.07;
-}
+
 bool_t WoolCarpetTile::canSurvive(Level* level, int32_t x, int32_t y, int32_t z){
 	return !level->isEmptyTile(x, y - 1, z);
 }

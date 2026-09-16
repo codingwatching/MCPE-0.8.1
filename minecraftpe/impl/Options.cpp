@@ -82,7 +82,7 @@ void Options::update() {
 						} else if(v13[i] == OptionStrings::Game_ThirdPerson) {
 							this->readBool(v13[i + 1], this->thirdPerson);
 						} else if(v13[i] == OptionStrings::Controls_UseTouchScreen) {
-							if(this->minecraft->supportNonTouchscreen()) {
+							if(this->minecraft->supportNonTouchScreen()) {
 								this->readBool(v13[i + 1], this->useTouchscreen);
 							}
 							this->useTouchscreen = 0;
@@ -311,7 +311,7 @@ void Options::initDefaultValues(void) {
 	this->sensitity = 0.5;
 	this->limitFramerate = 0;
 	this->renderDistance = 2;
-	this->useTouchscreen = this->minecraft->supportNonTouchscreen();
+	this->useTouchscreen = this->minecraft->supportNonTouchScreen();
 	float v4 = this->minecraft->platform()->getPixelsPerMillimeter();
 	if(v4 > 12) v4 = 12;
 	else if(v4 <= 3) v4 = 3;
@@ -369,7 +369,7 @@ void Options::initDefaultValues(void) {
 	this->setAdditionalHiddenOptions({});
 }
 bool_t Options::hideOption(const Options::Option* a2) {
-	if(a2 == &Options::Option::USE_TOUCHSCREEN && !this->minecraft->supportNonTouchscreen()) {
+	if(a2 == &Options::Option::USE_TOUCHSCREEN && !this->minecraft->supportNonTouchScreen()) {
 		return 1;
 	}
 	for(int32_t i = 0; i < this->hiddenOptionsVec.size(); ++i) {

@@ -30,8 +30,6 @@ void PrimedTnt::explode() {
 	this->level->explode(0, this->posX, this->posY, this->posZ, 3.1);
 }
 
-PrimedTnt::~PrimedTnt() {
-}
 void PrimedTnt::tick() {
 	float motionY;	 // s15
 	float motionX;	 // r1
@@ -73,9 +71,7 @@ void PrimedTnt::tick() {
 		this->explode();
 	}
 }
-float PrimedTnt::getShadowRadius() {
-	return 0;
-}
+
 float PrimedTnt::getShadowHeightOffs() {
 	return 0;
 }

@@ -16,10 +16,13 @@ struct BreedGoal: Goal
 	void breed();
 	Animal* getFreePartner();
 
-	virtual ~BreedGoal();
+	virtual ~BreedGoal() {
+	}
 	virtual bool_t canUse();
 	virtual bool_t canContinueToUse();
 	virtual void stop();
 	virtual void tick();
-	virtual void setLevel(Level*);
+	virtual void setLevel(Level* l) {
+		this->level = l;
+	}
 };

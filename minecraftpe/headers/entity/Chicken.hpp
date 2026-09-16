@@ -9,12 +9,14 @@ struct Chicken: Animal
 
 	Chicken(Level*);
 
-	virtual ~Chicken();
+	virtual ~Chicken(){}
 	virtual int32_t getEntityTypeId() const;
 	virtual void causeFallDamage(float);
 	virtual void readAdditionalSaveData(CompoundTag*);
 	virtual void addAdditonalSaveData(CompoundTag*);
-	virtual float getBaseSpeed();
+	virtual float getBaseSpeed() {
+		return 0.25;
+	}
 	virtual int32_t getMaxHealth();
 	virtual void aiStep();
 	virtual void dropDeathLoot();
@@ -22,6 +24,6 @@ struct Chicken: Animal
 	virtual std::string getHurtSound();
 	virtual std::string getDeathSound();
 	virtual bool_t useNewAi();
-	virtual bool_t isFood(const ItemInstance*);
+	virtual bool_t isFood(const ItemInstance*) const;
 	virtual Mob* getBreedOffspring(Animal*);
 };

@@ -50,8 +50,6 @@ bool_t FleeSunGoal::getHidePos(Vec3* a2) {
 	return 0;
 }
 
-FleeSunGoal::~FleeSunGoal() {
-}
 bool_t FleeSunGoal::canUse() {
 	PathfinderMob* holder; // r5
 	int32_t v3;			   // r6
@@ -81,7 +79,4 @@ bool_t FleeSunGoal::canContinueToUse() {
 }
 void FleeSunGoal::start() {
 	this->holder->getNavigation()->moveTo(this->target.x, this->target.y, this->target.z, this->speedMultiplier);
-}
-void FleeSunGoal::setLevel(Level* a2) {
-	this->level = a2;
 }

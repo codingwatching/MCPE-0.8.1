@@ -9,5 +9,7 @@ struct DisableState{
 		this->disabled = s;
 		if(s) glDisable(this->disabled);
 	}
-	~DisableState();
+	~DisableState() {
+		if (this->disabled) glEnable(this->disabled);
+	}
 };

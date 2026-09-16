@@ -10,8 +10,7 @@ FollowParentGoal::FollowParentGoal(Animal* a2, float a3)
 	this->speedMultiplier = a3;
 	this->ticksFollowing = 0;
 }
-FollowParentGoal::~FollowParentGoal() {
-}
+
 bool_t FollowParentGoal::canUse() {
 	Entity* v2;		// r5
 	Animal* holder; // r0

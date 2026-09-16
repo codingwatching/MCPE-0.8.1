@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <memory>
+#include <network/mco/RestRequestJob.hpp>
 
 #define vcvts_n_f32_s32(a2, a3) (float)((float)(a2) / (1 << (uint32_t)(a3)))
 #ifdef __WIN32__
@@ -31,6 +32,13 @@ template <typename T> void safeRemove(T*& p){
 
 template <typename T> void safeStopAndRemove(T&);
 
+template <>
+inline void safeStopAndRemove(std::shared_ptr<RestRequestJob>& a2) {
+	if(a2.get()) {
+		a2->stop();
+		a2 = std::shared_ptr<RestRequestJob>(); //TODO check
+	}
+}
 
 void splitString(const std::string&, char_t, std::vector<std::string>&);
 bool_t exists(const char_t* a1);

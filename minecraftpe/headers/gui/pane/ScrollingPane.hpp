@@ -97,10 +97,15 @@ struct ScrollingPane: GuiComponent
 	virtual ~ScrollingPane();
 	virtual void renderBatch(std::vector<ScrollingPane::GridItem>&, float, float, float);
 	virtual void renderItem(ScrollingPane::GridItem&, float);
-	virtual void didEndDragging();
-	virtual void didEndDecelerating();
-	virtual void willBeginDecelerating();
-	virtual void willBeginDragging();
+	virtual void didEndDragging() {
+	}
+	virtual void didEndDecelerating() {
+	}
+	virtual void willBeginDecelerating() {
+	}
+	virtual void willBeginDragging() {
+	}
 	virtual bool_t onSelect(int32_t, bool_t);
-	virtual void refreshItems();
+	virtual void refreshItems() {
+	}
 };

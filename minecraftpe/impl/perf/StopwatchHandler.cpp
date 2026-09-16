@@ -37,7 +37,3 @@ void StopwatchHandler::printEvery(int32_t a2) {
 		this->field_18 = v2;
 	}
 }
-
-StopwatchHandler::~StopwatchHandler() {
-	this->clearAll();
-}

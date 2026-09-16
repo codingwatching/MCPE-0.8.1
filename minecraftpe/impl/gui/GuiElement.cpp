@@ -17,19 +17,11 @@ GuiElement::GuiElement(bool_t a2, bool_t a3, int32_t a4, int32_t a5, int32_t a6,
 	this->field_1C = 0;
 }
 
-bool_t GuiElement::backPressed(struct Minecraft*, bool_t){
-	return 0;
-}
 void GuiElement::clearBackground(){
 	safeRemove(this->field_1C);
 	this->color = 0;
 }
-void GuiElement::focusuedMouseClicked(struct Minecraft*, int32_t, int32_t, int32_t){}
-void GuiElement::focusuedMouseReleased(struct Minecraft*, int32_t, int32_t, int32_t){}
-void GuiElement::keyPressed(struct Minecraft*, int32_t){}
-void GuiElement::keyboardNewChar(struct Minecraft*, std::string, bool_t){}
-void GuiElement::mouseClicked(struct Minecraft*, int32_t, int32_t, int32_t){}
-void GuiElement::mouseReleased(struct Minecraft*, int32_t, int32_t, int32_t){}
+
 bool_t GuiElement::pointInside(int32_t x, int32_t y){
 	if(x < this->posX) return 0;
 	if(x > this->posX + this->width) return 0;
@@ -67,16 +59,10 @@ void GuiElement::setBackground(uint32_t color){
 	this->color = color;
 }
 
-void GuiElement::setTextboxText(const std::string&){}
 void GuiElement::setVisible(bool_t a2){
 	this->visible = a2;
 }
-void GuiElement::setupPositions(){}
-bool_t GuiElement::suppressOtherGUI(){
-	return 0;
-}
-void GuiElement::tick(Minecraft*){}
-void GuiElement::topRender(Minecraft*, int32_t, int32_t){}
+
 GuiElement::~GuiElement(){
 	safeRemove(this->field_1C);
 }

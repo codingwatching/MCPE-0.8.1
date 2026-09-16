@@ -5,5 +5,6 @@ struct CowModel: QuadrupedModel
 {
 	CowModel();
 
-	virtual ~CowModel();
+	virtual ~CowModel() {
+	}
 };

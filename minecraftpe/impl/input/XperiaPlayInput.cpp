@@ -25,8 +25,7 @@ XperiaPlayInput::XperiaPlayInput(Minecraft* a2, Options* a3)
 	this->onConfigChanged(createConfig(a2));
 }
 
-XperiaPlayInput::~XperiaPlayInput() {
-}
+
 void XperiaPlayInput::tick(Player* player){
 	bool_t sneakingMaybe; // r6
 	bool_t jumpingMaybe; // r3

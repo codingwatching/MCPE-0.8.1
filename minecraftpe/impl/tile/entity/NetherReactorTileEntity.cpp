@@ -214,7 +214,7 @@ void NetherReactorTileEntity::finishReactorRun() {
 		}
 	}
 }
-std::string NetherReactorTileEntity::getName() {
+std::string NetherReactorTileEntity::getName() const{
 	return "NetherReactor";
 }
 int32_t NetherReactorTileEntity::getNumEnemiesPerLevel(int32_t a2) {

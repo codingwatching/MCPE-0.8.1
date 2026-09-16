@@ -53,6 +53,6 @@ bool_t HoeItem::useOn(ItemInstance* item, Player* player, Level* level, int32_t 
 	}
 	return 0;
 }
-bool_t HoeItem::isHandEquipped() {
+bool_t HoeItem::isHandEquipped() const{
 	return 1;
 }

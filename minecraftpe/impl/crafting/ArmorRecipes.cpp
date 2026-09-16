@@ -1,7 +1,10 @@
 #include <crafting/ArmorRecipes.hpp>
 #include <crafting/Recipes.hpp>
 #include <item/Item.hpp>
-static Recipes::Shape _dword_D6E4DD70[4] = {Recipes::Shape("XXX", "X X"), Recipes::Shape("X X", "XXX", "XXX"), Recipes::Shape("XXX", "X X", "X X"), Recipes::Shape("X X", "X X")};
+static std::vector<std::string> _dword_D6E4DD70[4] = {
+	Recipes::Shape("XXX", "X X"), Recipes::Shape("X X", "XXX", "XXX"),
+	Recipes::Shape("XXX", "X X", "X X"), Recipes::Shape("X X", "X X")
+};
 
 void ArmorRecipes::addRecipes(Recipes* a1) {
 	int v2;			 // r5
@@ -40,7 +43,7 @@ void ArmorRecipes::addRecipes(Recipes* a1) {
 			v5 = Item::items[v4];
 			std::vector<Recipes::Type> v6;
 			v6.emplace_back(Recipes::Type('X', v5)); //inlined
-			a1->addShapedRecipe(v8, _dword_D6E4DD70[v3++].shape, v6);
+			a1->addShapedRecipe(v8, _dword_D6E4DD70[v3++], v6);
 		} while(v3 != 4);
 		++v2;
 	} while(v2 != 4);

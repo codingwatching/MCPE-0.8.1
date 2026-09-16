@@ -15,8 +15,8 @@ PerfRenderer::PerfRenderer(Minecraft* mc, Font* font){
 	this->lastRenderedAt = -1;
 	int32_t cnt = 512;
 	do{
-		this->field_C.emplace_back(0);
-		this->field_18.emplace_back(0);
+		this->field_C.emplace_back(0.0f);
+		this->field_18.emplace_back(0.0f);
 		--cnt;
 	}while(cnt);
 }

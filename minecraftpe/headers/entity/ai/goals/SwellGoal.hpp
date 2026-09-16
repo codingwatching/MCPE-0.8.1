@@ -11,7 +11,9 @@ struct SwellGoal: Goal
 
 	SwellGoal(Creeper*);
 
-	virtual ~SwellGoal();
+	virtual ~SwellGoal() {
+	}
+
 	virtual bool_t canUse();
 	virtual void start();
 	virtual void stop();

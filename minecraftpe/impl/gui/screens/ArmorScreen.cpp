@@ -204,7 +204,7 @@ void ArmorScreen::updateItems() {
 	for(int32_t i = 9; i < this->minecraft->player->inventory->getContainerSize(); ++i) {
 		ItemInstance* v5 = this->minecraft->player->inventory->getItem(i);
 		if(ItemInstance::isArmorItem(v5)) {
-			this->field_1E0.emplace_back(v5);
+			this->field_1E0.push_back(v5);
 		}
 	}
 }

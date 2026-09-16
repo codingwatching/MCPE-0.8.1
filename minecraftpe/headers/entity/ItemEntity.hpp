@@ -3,6 +3,8 @@
 
 struct ItemEntity: Entity
 {
+	static const int LIFETIME;
+
 	ItemInstance itemInstance;
 	int32_t field_130;
 	int32_t delayBeforePickup;
@@ -12,7 +14,7 @@ struct ItemEntity: Entity
 	ItemEntity(Level*);
 	ItemEntity(Level*, float, float, float, const ItemInstance&);
 	bool_t checkInTile(float, float, float);
-	int32_t getLifeTime();
+	int32_t getLifeTime() const;
 
 	virtual ~ItemEntity();
 	virtual void tick();

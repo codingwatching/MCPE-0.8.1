@@ -15,8 +15,6 @@ ChestTile::ChestTile(int32_t id)
 	this->field_A80 = *texItem->getUV(2);
 }
 
-ChestTile::~ChestTile() {
-}
 bool_t ChestTile::isCubeShaped() {
 	return 0;
 }
@@ -35,9 +33,6 @@ TextureUVCoordinateSet* ChestTile::getTexture(LevelSource* ls, int32_t x, int32_
 }
 bool_t ChestTile::isSolidRender() {
 	return 0;
-}
-int32_t ChestTile::getTileEntityType() {
-	return 2;
 }
 void ChestTile::onRemove(Level* level, int32_t x, int32_t y, int32_t z) {
 	ChestTileEntity* te; // r0

@@ -26,7 +26,7 @@ TextBox::TextBox(Minecraft* a2, const Options::Option* a3, const std::string& a4
 	this->height = 18;
 	this->doneButton->init(a2);
 }
-TextBox::TextBox(Minecraft* a2, const std::string& a3, int32_t a4, const char_t* a5, int32_t a6, Screen* screen, void (Screen::*a8)(int32_t), int32_t a9, int32_t a10)
+TextBox::TextBox(Minecraft* a2, const std::string& a3, int32_t a4, const char_t* a5, int32_t a6, Screen* screen, void (Screen::*a8)(int32_t), int32_t a10)
 	: GuiElement(1, 1, 0, 0, 24, 24)
 	, field_3C(a3) { //TODO seems to have one less argument according to demangled function name
 	this->field_2C = 0;
@@ -40,7 +40,7 @@ TextBox::TextBox(Minecraft* a2, const std::string& a3, int32_t a4, const char_t*
 	this->field_5D = 0;
 	this->field_58 = screen;
 	this->field_50 = a8;
-	this->field_54 = a9;
+	//this->field_54 = a9;
 	this->doneButton = new Touch::TButton(1, 0, 0, "Done", 0);
 	this->doneButton->init(a2);
 	this->doneButton->posX = a2->currentScreen->width - this->doneButton->width;
@@ -50,7 +50,7 @@ TextBox::TextBox(Minecraft* a2, const std::string& a3, int32_t a4, const char_t*
 int32_t TextBox::getKey() {
 	return this->key;
 }
-std::string* TextBox::getText() {
+const std::string* TextBox::getText() const{
 	return &this->text;
 }
 void TextBox::setText(const std::string& a2) {
@@ -201,7 +201,7 @@ void TextBox::setTextboxText(const std::string& a2) {
 }
 void TextBox::setFocus(Minecraft* a2) {
 	if(!this->field_40) {
-		a2->platform()->showKeyboard(&this->text, this->field_44, this->validChars != 0);
+		a2->platform()->showKeyboard(this->text, this->field_44, this->validChars != 0);
 		this->field_40 = 1;
 	}
 }

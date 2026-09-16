@@ -12,7 +12,9 @@ struct Feature{
 	void placeBlock(Level*, int32_t, int32_t, int32_t, int32_t);
 	void placeBlock(Level*, int32_t, int32_t, int32_t, int32_t, int32_t);
 
-	virtual ~Feature();
+	virtual ~Feature() {
+	}
 	virtual bool_t place(Level*, Random*, int32_t, int32_t, int32_t) = 0;
-	virtual void init(float, float, float);
+	virtual void init(float, float, float) {
+	}
 };

@@ -271,13 +271,13 @@ ItemInstance FurnaceTileEntity::removeItem(int32_t a3, int32_t a4) {
 	}
 	return ItemInstance();
 }
-std::string FurnaceTileEntity::getName() {
+std::string FurnaceTileEntity::getName() const{
 	return "Furnace";
 }
-int32_t FurnaceTileEntity::getMaxStackSize() {
+int32_t FurnaceTileEntity::getMaxStackSize() const{
 	return 64;
 }
-int32_t FurnaceTileEntity::getContainerSize() {
+int32_t FurnaceTileEntity::getContainerSize() const{
 	return 3;
 }
 bool_t FurnaceTileEntity::stillValid(Player* a2) {

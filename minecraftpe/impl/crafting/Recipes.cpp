@@ -12,17 +12,23 @@
 #include <item/Item.hpp>
 #include <tile/Tile.hpp>
 
-Recipes::Shape::Shape(const std::string& a2) {
-	this->shape.push_back(a2);
+std::vector<std::string> Recipes::Shape(const std::string& a2) {
+	std::vector<std::string> r;
+	r.push_back(a2);
+	return r;
 }
-Recipes::Shape::Shape(const std::string& a2, const std::string& a3) {
-	this->shape.push_back(a2);
-	this->shape.push_back(a3);
+std::vector<std::string> Recipes::Shape(const std::string& a2, const std::string& a3) {
+	std::vector<std::string> r;
+	r.push_back(a2);
+	r.push_back(a3);
+	return r;
 }
-Recipes::Shape::Shape(const std::string& a2, const std::string& a3, const std::string& a4) {
-	this->shape.push_back(a2);
-	this->shape.push_back(a3);
-	this->shape.push_back(a4);
+std::vector<std::string> Recipes::Shape(const std::string& a2, const std::string& a3, const std::string& a4) {
+	std::vector<std::string> r;
+	r.push_back(a2);
+	r.push_back(a3);
+	r.push_back(a4);
+	return r;
 }
 
 Recipes* Recipes::instance = 0;
@@ -67,7 +73,7 @@ Recipes::Recipes() {
 	this->addShapedRecipe(ItemInstance(Tile::trapdoor, 2), "###", "###", definition<Tile*>('#', Tile::wood));
 	this->addShapedRecipe(ItemInstance(Item::sign, 1), "###", "###", " X ", definition<Tile*, Item*>('#', Tile::wood, 'X', Item::stick) /*inlined*/);
 	std::vector<ItemInstance> cakestuff = {ItemInstance(Item::cake, 1), ItemInstance(Item::bucket, 3)};
-	this->addShapedRecipe(cakestuff, Recipes::Shape("AAA", "BEB", "CCC").shape, definition<ItemInstance, Item*, Item*, Item*>('A', ItemInstance(Item::bucket, 1, 1), 'B', Item::sugar, 'C', Item::wheat, 'E', Item::egg));
+	this->addShapedRecipe(cakestuff, Recipes::Shape("AAA", "BEB", "CCC"), definition<ItemInstance, Item*, Item*, Item*>('A', ItemInstance(Item::bucket, 1, 1), 'B', Item::sugar, 'C', Item::wheat, 'E', Item::egg));
 	this->addShapedRecipe(ItemInstance(Item::sugar, 1), "#", definition<Item*>('#', Item::reeds));
 	this->addShapedRecipe(ItemInstance(Tile::wood, 4, 0), "#", definition<ItemInstance>('#', ItemInstance(Tile::treeTrunk, 1, 0)));
 	this->addShapedRecipe(ItemInstance(Tile::wood, 4, 1), "#", definition<ItemInstance>('#', ItemInstance(Tile::treeTrunk, 1, 1)));
@@ -100,16 +106,13 @@ Recipes::Recipes() {
 	this->addShapedRecipe(ItemInstance(Tile::woolCarpet, 3, 14), "##", definition<ItemInstance>('#', ItemInstance(Tile::cloth, 1, 14)));
 }
 void Recipes::addShapedRecipe(const ItemInstance& a2, const std::string& a3, const std::string& a4, const std::string& a5, const std::vector<Recipes::Type>& a6) {
-	Recipes::Shape v8(a3, a4, a5);
-	this->addShapedRecipe(a2, v8.shape, a6);
+	this->addShapedRecipe(a2, Recipes::Shape(a3, a4, a5), a6);
 }
 void Recipes::addShapedRecipe(const ItemInstance& a2, const std::string& a3, const std::string& a4, const std::vector<Recipes::Type>& a5) {
-	Recipes::Shape v7(a3, a4);
-	this->addShapedRecipe(a2, v7.shape, a5);
+	this->addShapedRecipe(a2, Recipes::Shape(a3, a4), a5);
 }
 void Recipes::addShapedRecipe(const ItemInstance& a2, const std::string& a3, const std::vector<Recipes::Type>& a4) {
-	Recipes::Shape v7(a3);
-	this->addShapedRecipe(a2, v7.shape, a4);
+	this->addShapedRecipe(a2, Recipes::Shape(a3), a4);
 }
 void Recipes::addShapedRecipe(const ItemInstance& a2, const std::vector<std::string> a3, const std::vector<Recipes::Type>& a4) { //TODO last arg type might be slightly different
 	std::vector<ItemInstance> v7;
@@ -138,8 +141,7 @@ void Recipes::addShapedRecipe(const std::vector<ItemInstance>& results, const st
 						v22[i] = p->second;
 					}
 				}
-				ShapedRecipe* v29 = new ShapedRecipe(v9, v8, v22, results);
-				this->recipes.emplace_back(v29);
+				this->recipes.push_back(new ShapedRecipe(v9, v8, v22, results));
 				return;
 			}
 			const Recipes::Type* v11 = &ingridients[v10];
@@ -168,7 +170,7 @@ void Recipes::addShapelessRecipe(const ItemInstance& a2, const std::vector<Recip
 	}
 	std::vector<ItemInstance> a1;
 	a1.push_back(a2);
-	this->recipes.emplace_back(new ShapelessRecipe(a1, v14));
+	this->recipes.push_back(new ShapelessRecipe(a1, v14));
 }
 Recipes* Recipes::getInstance() {
 	if(!Recipes::instance) {

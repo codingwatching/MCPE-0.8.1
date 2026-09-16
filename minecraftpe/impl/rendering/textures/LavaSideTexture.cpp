@@ -36,7 +36,6 @@ void LavaSideTexture::tick(){
 	int32_t v10;  // r11
 	int32_t v11;  // r6
 	float* v12;	  // r2
-	float* v13;	  // r3
 	int32_t v14;  // r5
 	int32_t v15;  // r8
 	int32_t v16;  // r9
@@ -44,7 +43,6 @@ void LavaSideTexture::tick(){
 	float* v18;	  // r3
 	int32_t v19;  // r6
 	int32_t v20;  // r5
-	float* v21;	  // r3
 	float v22;	  // s15
 	uint8_t* v23; // r3
 
@@ -56,31 +54,28 @@ void LavaSideTexture::tick(){
 		v14 = v1;
 		v11 = 0;
 		v16 = 16 * ((v3 + 1) & 0xF);
-		v17 = (float)((float)((float)v3 * 3.1416) + (float)((float)v3 * 3.1416)) * 0.0625;
+		v17 = (float)((float)((float)v3 * 3.1416f) + (float)((float)v3 * 3.1416f)) * 0.0625f;
 		do {
-			v4 = Mth::sin(v17) * 1.2;
-			v5 = Mth::sin((float)((float)((float)v11 * 3.1416) + (float)((float)v11 * 3.1416)) * 0.0625);
+			v4 = Mth::sin(v17) * 1.2f;
+			v5 = Mth::sin((float)((float)((float)v11 * 3.1416f) + (float)((float)v11 * 3.1416f)) * 0.0625f);
 			v6 = (int32_t)v4;
 			v7 = v15 - 2;
-			v8 = 0.0;
+			v8 = 0.0f;
 			while(v7 != v15 + 1) {
 				for(i = v11 - 1; i != v11 + 2; ++i) {
 					v10 = ((int8_t)i + (int8_t)v6) & 0xF;
-					v8 = v8 + this->field_34[16 * (((int8_t)v7 + (uint8_t)(int32_t)(float)(v5 * 1.2)) & 0xF) + v10];
+					v8 = v8 + this->field_34[16 * (((int8_t)v7 + (uint8_t)(int32_t)(float)(v5 * 1.2f)) & 0xF) + v10];
 				}
 				++v7;
 			}
 			++v11;
 			v12 = this->field_3C;
-			this->field_38[v14] = (float)(v8 / 10.0) + (float)((float)((float)((float)((float)(v12[v14] + v12[(v11 & 0xF) + v1]) + v12[(v11 & 0xF) + v16]) + v12[v14 + v16 - v1]) * 0.25) * 0.8);
-			this->field_3C[v14] = this->field_3C[v14] + (float)(this->field_40[v14] * 0.01);
-			v13 = &this->field_3C[v14];
-			if(*v13 < 0.0) {
-				*v13 = 0.0;
-			}
-			this->field_40[v14] = this->field_40[v14] - 0.06;
+			this->field_38[v14] = (float)(v8 / 10.0) + (float)((float)((float)((float)((float)(v12[v14] + v12[(v11 & 0xF) + v1]) + v12[(v11 & 0xF) + v16]) + v12[v14 + v16 - v1]) * 0.25f) * 0.8f);
+			this->field_3C[v14] = this->field_3C[v14] + (float)(this->field_40[v14] * 0.01f);
+			if(this->field_3C[v14] < 0.0f) this->field_3C[v14] = 0.0f;
+			this->field_40[v14] = this->field_40[v14] - 0.06f;
 			if(Mth::fastRandom() <= 0x147AE14) {
-				this->field_40[v14] = 1.5;
+				this->field_40[v14] = 1.5f;
 			}
 			++v14;
 		} while(v11 != 16);
@@ -93,16 +88,16 @@ void LavaSideTexture::tick(){
 	this->field_34 = this->field_38;
 	this->field_38 = v18;
 	do {
-		v21 = &this->field_34[(uint8_t)(v20 + 16 * (this->field_30 / -3))];
-		v22 = *v21 + *v21;
-		if(v22 > 1.0) {
-			v22 = 1.0;
-		} else if(v22 < 0.0) {
-			v22 = 0.0;
+		float v21 = this->field_34[(uint8_t)(v20 + 16 * (this->field_30 / -3))];
+		v22 = v21 + v21;
+		if(v22 > 1.0f) {
+			v22 = 1.0f;
+		} else if(v22 < 0.0f) {
+			v22 = 0.0f;
 		}
-		this->data[4 * v20++] = (int32_t)(float)((float)(v22 * 100.0) + 155.0);
-		this->data[v19] = (int32_t)(float)((float)(v22 * v22) * 255.0);
-		this->data[v19 + 1] = (int32_t)(float)((float)((float)((float)(v22 * v22) * v22) * v22) * 128.0);
+		this->data[4 * v20++] = (int32_t)(float)((float)(v22 * 100.0f) + 155.0f);
+		this->data[v19] = (int32_t)(float)((float)(v22 * v22) * 255.0f);
+		this->data[v19 + 1] = (int32_t)(float)((float)((float)((float)(v22 * v22) * v22) * v22) * 128.0f);
 		v23 = &this->data[v19];
 		v19 += 4;
 		v23[2] = -1;

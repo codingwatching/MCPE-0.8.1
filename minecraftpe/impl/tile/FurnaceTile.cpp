@@ -47,8 +47,6 @@ void FurnaceTile::setLit(bool_t a1, Level* level, int32_t x, int32_t y, int32_t 
 	}
 }
 
-FurnaceTile::~FurnaceTile() {
-}
 TextureUVCoordinateSet* FurnaceTile::getTexture(int32_t a2) {
 	if(a2 == 1 || a2 == 0) {
 		return &this->field_A98;
@@ -68,9 +66,7 @@ TextureUVCoordinateSet* FurnaceTile::getTexture(LevelSource* level, int32_t x, i
 	if(this->isLit) return &this->field_A68;
 	return &this->field_A50;
 }
-int32_t FurnaceTile::getTileEntityType() {
-	return 1;
-}
+
 void FurnaceTile::animateTick(Level* level, int32_t x, int32_t y, int32_t z, Random* rng) {
 	float v8;  // s19
 	int32_t v9;	   // r5

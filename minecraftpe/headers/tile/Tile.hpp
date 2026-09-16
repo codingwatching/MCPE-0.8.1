@@ -21,8 +21,18 @@ struct Tile{
 	struct SoundType{
 		float field_0, field_4;
 		std::string field_8, field_C;
-		SoundType(const std::string&, const std::string&, float, float); //TODO does not exist
-		SoundType(const std::string&, float, float);
+		SoundType(const std::string& f8, const std::string& s, float a, float b) {
+			this->field_4 = b;
+			this->field_0 = a;
+			this->field_8 = f8;
+			this->field_C = "step." + s;
+		}
+		SoundType(const std::string& s, float a, float b) {
+			this->field_4 = b;
+			this->field_0 = a;
+			this->field_8 = "step." + s;
+			this->field_C = "step." + s;
+		}
 		//not needed? ~SoundType();
 	};
 
@@ -98,10 +108,10 @@ struct Tile{
 	static Tile* netherrack;
 	static Tile* lightGem;
 	static Tile* litPumpkin;
-	static Tile* cake;
+	static Tile* cake, * redStoneDust;
 	static Tile* invisible_bedrock;
 	static Tile* trapdoor;
-	static Tile* stoneBrickSmooth;
+	static Tile* stoneBrickSmooth, *netherFence;
 	static Tile* ironFence;
 	static Tile* thinGlass;
 	static Tile* melon;
@@ -197,42 +207,59 @@ struct Tile{
 	void popResource(Level*, int32_t, int32_t, int32_t, const struct ItemInstance&);
 	Tile* setCategory(int32_t, int32_t);
 
-	virtual ~Tile();
+	virtual ~Tile() {
+	}
+
 	virtual int32_t getTileType();
-	virtual bool_t onFertilized(Level*, int32_t, int32_t, int32_t);
+	virtual bool_t onFertilized(Level*, int32_t, int32_t, int32_t) {
+		return 0;
+	}
 	virtual bool_t isCubeShaped();
 	virtual int32_t getRenderShape();
 	virtual Tile* setShape(float, float, float, float, float, float);
-	virtual void updateShape(LevelSource*, int32_t, int32_t, int32_t);
-	virtual void updateDefaultShape(void);
-	virtual void addLights(Level*, int32_t, int32_t, int32_t);
+	virtual void updateShape(LevelSource*, int32_t, int32_t, int32_t) {
+	}
+	virtual void updateDefaultShape(void) {
+	}
+	virtual void addLights(Level*, int32_t, int32_t, int32_t){}
 	virtual float getBrightness(LevelSource*, int32_t, int32_t, int32_t);
 	virtual bool_t shouldRenderFace(LevelSource*, int32_t, int32_t, int32_t, int32_t);
-	virtual TextureUVCoordinateSet* getTexture(int32_t);
-	virtual TextureUVCoordinateSet* getTexture(int32_t, int32_t);
-	virtual TextureUVCoordinateSet* getTexture(LevelSource*, int32_t, int32_t, int32_t, int32_t);
-	virtual TextureUVCoordinateSet* getCarriedTexture(int32_t, int32_t);
+	virtual const TextureUVCoordinateSet* getTexture(int32_t);
+	virtual const TextureUVCoordinateSet* getTexture(int32_t, int32_t);
+	virtual const TextureUVCoordinateSet* getTexture(LevelSource*, int32_t, int32_t, int32_t, int32_t);
+	virtual const TextureUVCoordinateSet* getCarriedTexture(int32_t, int32_t);
 	virtual AABB* getAABB(Level*, int32_t, int32_t, int32_t);
 	virtual void addAABBs(Level*, int32_t, int32_t, int32_t, const AABB*, std::vector<AABB>&);
 	virtual AABB getTileAABB(Level*, int32_t, int32_t, int32_t);
 	virtual bool_t isSolidRender();
 	virtual bool_t isPathfindable(LevelSource*, int32_t, int32_t, int32_t);
-	virtual bool_t isUnbreakable();
-	virtual bool_t isLiquidTile();
-	virtual int32_t getTileEntityType(void);
+	virtual bool_t isUnbreakable() {
+		return this->blockHardness < 0;
+	}
+	virtual bool_t isLiquidTile() {
+		return 0;
+	}
+	virtual int32_t getTileEntityType(void) {
+		return 0;
+	}
 	virtual bool_t mayPick();
 	virtual bool_t mayPick(int32_t, bool_t);
 	virtual bool_t mayPlace(Level *, int32_t, int32_t, int32_t, uint8_t);
 	virtual bool_t mayPlace(Level*, int32_t, int32_t, int32_t);
 	virtual int32_t getTickDelay();
-	virtual void tick(Level*, int32_t, int32_t, int32_t, Random*);
-	virtual void animateTick(Level*, int32_t, int32_t, int32_t, Random*);
+	virtual void tick(Level* level, int32_t x, int32_t y, int32_t z, Random* rng) {
+	}
+	virtual void animateTick(Level*, int32_t, int32_t, int32_t, Random*){}
 	virtual void destroy(Level*, int32_t, int32_t, int32_t, int32_t);
 	virtual void playerWillDestroy(Level*, int32_t, int32_t, int32_t, int32_t, Player*);
 	virtual void neighborChanged(Level*, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t);
-	virtual void onPlace(Level*, int32_t, int32_t, int32_t);
-	virtual void onRemove(Level*, int32_t, int32_t, int32_t);
-	virtual void onGraphicsModeChanged(bool_t);
+	virtual void onPlace(Level*, int32_t, int32_t, int32_t) {
+	}
+	virtual void onRemove(Level*, int32_t, int32_t, int32_t) {
+	}
+	virtual void onGraphicsModeChanged(bool_t a2) {
+		this->goodGraphics = a2;
+	}
 	virtual int32_t getResource(int32_t, Random*);
 	virtual int32_t getResourceCount(Random*);
 	virtual float getDestroyProgress(Player*);
@@ -241,32 +268,43 @@ struct Tile{
 	virtual bool_t spawnBurnResources(Level*, float, float, float);
 	virtual float getExplosionResistance(Entity*);
 	virtual HitResult clip(Level*, int32_t, int32_t, int32_t, const Vec3&, const Vec3&);
-	virtual void wasExploded(Level*, int32_t, int32_t, int32_t);
+	virtual void wasExploded(Level*, int32_t, int32_t, int32_t) {
+	}
 	virtual int32_t getRenderLayer();
 	virtual bool_t use(Level*, int32_t, int32_t, int32_t, Player*);
-	virtual void stepOn(Level*, int32_t, int32_t, int32_t, Entity*);
-	virtual void fallOn(Level*, int32_t, int32_t, int32_t, Entity*, float);
-	virtual int32_t getPlacementDataValue(Level*, int32_t, int32_t, int32_t, int32_t, float, float, float, struct Mob*, int32_t);
-	virtual void prepareRender(Level*, int32_t, int32_t, int32_t);
-	virtual void attack(Level*, int32_t, int32_t, int32_t, Player*);
-	virtual void handleEntityInside(Level*, int32_t, int32_t, int32_t, Entity*, Vec3&);
-	virtual int32_t getColor(int32_t);
+	virtual void stepOn(Level*, int32_t, int32_t, int32_t, Entity*) {
+	}
+	virtual void fallOn(Level*, int32_t, int32_t, int32_t, Entity*, float){}
+	virtual int32_t getPlacementDataValue(Level* level, int32_t x, int32_t y, int32_t z, int32_t a6, float a7, float a8, float a9, struct Mob* a10, int32_t a11) {
+		return a11;
+	}
+	virtual void prepareRender(Level*, int32_t, int32_t, int32_t) {
+	}
+	virtual void attack(Level*, int32_t, int32_t, int32_t, Player*){}
+	virtual void handleEntityInside(Level*, int32_t, int32_t, int32_t, Entity*, Vec3&){}
+	virtual int32_t getColor(int32_t) {
+		return 0xffffffff;
+	}
 	virtual int32_t getColor(LevelSource*, int32_t, int32_t, int32_t);
-	virtual float getThickness();
+	virtual float getThickness() {
+		return 0;
+	}
+
 	virtual bool_t isSignalSource();
 	virtual int32_t getSignal(LevelSource*, int32_t, int32_t, int32_t);
 	virtual int32_t getSignal(LevelSource*, int32_t, int32_t, int32_t, int32_t);
 	virtual int32_t getDirectSignal(Level*, int32_t, int32_t, int32_t, int32_t);
-	virtual void entityInside(Level*, int32_t, int32_t, int32_t, Entity*);
+	virtual void entityInside(Level*, int32_t, int32_t, int32_t, Entity*){}
 	virtual void playerDestroy(Level*, Player*, int32_t, int32_t, int32_t, int32_t);
 	virtual bool_t canSurvive(Level*, int32_t, int32_t, int32_t);
-	virtual std::string getName();
-	virtual std::string getDescriptionId(void);
-	virtual std::string getDescriptionId(const struct ItemInstance*);
+	virtual std::string getName() const;
+	virtual std::string getDescriptionId(void) const;
+	virtual std::string getDescriptionId(const struct ItemInstance*) const;
 	virtual std::string getTypeDescriptionId(int32_t);
 	virtual Tile* setDescriptionId(const std::string&);
-	virtual void triggerEvent(Level*, int32_t, int32_t, int32_t, int32_t, int32_t);
-	virtual TextureUVCoordinateSet* getTextureNum(int32_t);
+	virtual void triggerEvent(Level*, int32_t, int32_t, int32_t, int32_t, int32_t) {
+	}
+	virtual const TextureUVCoordinateSet* getTextureNum(int32_t);
 	virtual Tile* setSoundType(const Tile::SoundType&);
 	virtual Tile* setLightBlock(int32_t);
 	virtual Tile* setLightEmission(float);

@@ -68,7 +68,8 @@ struct ServerSideNetworkHandler: NetEventCallback, LevelListener
 	virtual void onPlayerVerified(const RestCallTagData&);
 	virtual void onPlayerVerifiedFailed(const RestCallTagData&);
 	virtual void tileChanged(int32_t, int32_t, int32_t);
-	virtual void tileBrightnessChanged(int32_t, int32_t, int32_t);
+	virtual void tileBrightnessChanged(int32_t, int32_t, int32_t) {
+	}
 	virtual Packet* getAddPacketFromEntity(Entity*);
 	virtual void entityAdded(Entity*);
 	virtual void entityRemoved(Entity*);

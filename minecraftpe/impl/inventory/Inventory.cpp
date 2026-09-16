@@ -48,7 +48,7 @@ int32_t Inventory::getLinkedSlotForItem(int32_t a2) {
 	}
 	return -1;
 }
-int32_t Inventory::getLinkedSlotForItemAndAux(int32_t a2, int32_t a3) {
+int32_t Inventory::getLinkedSlotForItemIdAndAux(int32_t a2, int32_t a3) {
 	int32_t i;			  // r4
 	ItemInstance* linked; // r0
 	ItemInstance* v8;	  // r0
@@ -137,10 +137,10 @@ void Inventory::setupDefault() {
 
 Inventory::~Inventory() {
 }
-int32_t Inventory::getContainerSize() {
+int32_t Inventory::getContainerSize() const{
 	return this->items.size();
 }
-bool_t Inventory::stilValid(Player* a2) {
+bool_t Inventory::stillValid(Player* a2) {
 	return !this->player->isDead && a2->distanceToSqr(this->player) <= 64;
 }
 bool_t Inventory::add(ItemInstance* a2) {

@@ -9,6 +9,8 @@
 #include <math/Mth.hpp>
 #include <sound/SoundEngine.hpp>
 
+const float TouchscreenInput::BUTTONS_TRANSPARENCY = 0.65;
+
 static int _D6E06658, _D6E0665C, _D6E06660, _D6E06664, _D6E06668;
 TouchscreenInput::TouchscreenInput(Minecraft* a2, Options* a3)
 	: field_1C(1, 0, 0, 1, 1) {

@@ -72,7 +72,7 @@ struct TileEntity* LevelChunk::getTileEntity(int32_t x, int32_t y, int32_t z) {
 	return tent;
 }
 
-std::unordered_map<TilePos, struct TileEntity*>* LevelChunk::getTileEntityMap() {
+const std::unordered_map<TilePos, struct TileEntity*>* LevelChunk::getTileEntityMap() const{
 	return &this->tileEntities;
 }
 bool_t LevelChunk::hasTileEntityAt(struct TileEntity* ent) {
@@ -373,8 +373,7 @@ void LevelChunk::getEntitiesOfType(int32_t a2, const struct AABB& a3, std::vecto
 bool_t LevelChunk::isSkyLit(int32_t a2, int32_t a3, int32_t a4) {
 	return a3 >= this->heightMap[a2 | 16 * a4];
 }
-void LevelChunk::lightLava() {
-}
+
 void LevelChunk::recalcBlockLights() {
 }
 void LevelChunk::skyBrightnessChanged() {

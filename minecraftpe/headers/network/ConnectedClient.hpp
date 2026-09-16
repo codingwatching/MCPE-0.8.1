@@ -7,5 +7,7 @@ struct ConnectedClient{
 	std::string field_4;
 	int time;
 
-	ConnectedClient(int sock); //inlined
+	ConnectedClient(int sock) :
+			sock(sock), time(0) {
+	}
 };

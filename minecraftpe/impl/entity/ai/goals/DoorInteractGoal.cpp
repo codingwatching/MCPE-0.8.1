@@ -25,8 +25,6 @@ Tile* DoorInteractGoal::getDoorTile(int32_t x, int32_t y, int32_t z) {
 	return 0;
 }
 
-DoorInteractGoal::~DoorInteractGoal() {
-}
 bool_t DoorInteractGoal::canUse() {
 	Mob* holder;		 // r0
 	PathNavigation* nav; // r7

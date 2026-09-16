@@ -7,7 +7,8 @@ struct Goal
 
 	Goal();
 
-	virtual ~Goal();
+	virtual ~Goal() {
+	}
 	virtual bool_t canUse() = 0;
 	virtual bool_t canContinueToUse();
 	virtual bool_t canInterrupt();

@@ -20,5 +20,3 @@ void TileEntityRenderer::init(TileEntityRenderDispatcher* a2) {
 
 TileEntityRenderer::~TileEntityRenderer() {
 }
-void TileEntityRenderer::onNewLevel(Level*) {
-}

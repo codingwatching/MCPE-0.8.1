@@ -2,7 +2,7 @@
 #include <crafting/Recipes.hpp>
 #include <item/Item.hpp>
 #include <tile/Tile.hpp>
-static Recipes::Shape _dword_D6E4DEF8("X", "X", "#");
+static std::vector<std::string> _dword_D6E4DEF8 = Recipes::Shape("X", "X", "#");
 void WeaponRecipes::addRecipes(Recipes* a1) {
 	int v2;			  // r6
 	int v3;			  // r7
@@ -22,7 +22,7 @@ void WeaponRecipes::addRecipes(Recipes* a1) {
 	results[4] = Item::sword_gold;
 	do {
 		v3 = mats[v2];
-		a1->addShapedRecipe(ItemInstance(results[v2]), _dword_D6E4DEF8.shape, /*inlined*/ v3 <= 255 ? definition<Item*, Tile*>('#', Item::stick, 'X', Tile::tiles[v3]) : definition<Item*, Item*>('#', Item::stick, 'X', Item::items[v3]));
+		a1->addShapedRecipe(ItemInstance(results[v2]), _dword_D6E4DEF8, /*inlined*/ v3 <= 255 ? definition<Item*, Tile*>('#', Item::stick, 'X', Tile::tiles[v3]) : definition<Item*, Item*>('#', Item::stick, 'X', Item::items[v3]));
 		++v2;
 
 	} while(v2 != 5);

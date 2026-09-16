@@ -7,13 +7,20 @@ struct Cow: Animal
 
 	Cow(Level*);
 
-	virtual ~Cow();
-	virtual void tick();
+	virtual ~Cow() {
+	}
+
+	virtual void tick() {
+		++this->milkedTicks;
+		Mob::tick();
+	}
 	virtual bool_t interactWithPlayer(Player*);
 	virtual int32_t getEntityTypeId() const;
 	virtual void readAdditionalSaveData(CompoundTag*);
 	virtual void addAdditonalSaveData(CompoundTag*);
-	virtual float getBaseSpeed();
+	virtual float getBaseSpeed() {
+		return 0.2;
+	}
 	virtual int32_t getMaxHealth();
 	virtual int32_t getDeathLoot();
 	virtual void dropDeathLoot();

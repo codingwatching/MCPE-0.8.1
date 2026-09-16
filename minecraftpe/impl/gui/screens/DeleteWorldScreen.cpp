@@ -7,8 +7,6 @@ DeleteWorldScreen::DeleteWorldScreen(const LevelSummary& a2)
 	this->field_44 = 1;
 }
 
-DeleteWorldScreen::~DeleteWorldScreen() {
-}
 void DeleteWorldScreen::postResult(bool_t a2) {
 	if(a2) {
 		this->minecraft->getLevelSource()->deleteLevel(this->levelSummary.worldName);

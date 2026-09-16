@@ -15,9 +15,12 @@ struct FleeSunGoal: Goal
 	FleeSunGoal(PathfinderMob*, float);
 	bool_t getHidePos(Vec3*);
 
-	virtual ~FleeSunGoal();
+	virtual ~FleeSunGoal() {
+	}
 	virtual bool_t canUse();
 	virtual bool_t canContinueToUse();
 	virtual void start();
-	virtual void setLevel(Level*);
+	virtual void setLevel(Level* a2) {
+		this->level = a2;
+	}
 };

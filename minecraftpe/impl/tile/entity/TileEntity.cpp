@@ -99,51 +99,7 @@ void TileEntity::_destructionWobble(float& x, float& y, float& z) {
 		}
 	}
 }
-void TileEntity::_resetAABB(void) {
-	float posX; // s12
-	float x; // s9
-	float y; // s10
-	float z; // s11
-	float posY; // s13
-	float posZ; // s14
-	float v7; // s9
-	float v8; // s10
-	float v9; // s11
 
-	posX = (float)this->posX;
-	x = Vec3::ONE.x;
-	y = Vec3::ONE.y;
-	z = Vec3::ONE.z;
-	posY = (float)this->posY;
-	posZ = (float)this->posZ;
-	if(posX == 0.0) {
-		posX = 0.0;
-	}
-	this->aabb.minX = posX;
-	if(posY == 0.0) {
-		posY = 0.0;
-	}
-	this->aabb.minY = posY;
-	v7 = posX + x;
-	v8 = posY + y;
-	if(posZ == 0.0) {
-		posZ = 0.0;
-	}
-	this->aabb.minZ = posZ;
-	v9 = posZ + z;
-	if(v7 == 0.0) {
-		v7 = 0.0;
-	}
-	this->aabb.maxX = v7;
-	if(v8 == 0.0) {
-		v8 = 0.0;
-	}
-	this->aabb.maxY = v8;
-	if(v9 == 0.0) {
-		v9 = 0.0;
-	}
-	this->aabb.maxZ = v9;
-}
 void TileEntity::clearRemoved(void) {
 	this->removed = 0;
 }
@@ -185,7 +141,7 @@ struct Tile* TileEntity::getTile() {
 	return this->block;
 }
 
-bool_t TileEntity::isRemoved() {
+bool_t TileEntity::isRemoved() const{
 	return this->removed;
 }
 bool_t TileEntity::isType(TileEntity* ent, int32_t a2) {
@@ -321,8 +277,7 @@ bool_t TileEntity::save(CompoundTag* a2) {
 	a2->putInt("z", this->posZ);
 	return 1;
 }
-void TileEntity::tick() {
-}
+
 bool_t TileEntity::isFinished() {
 	return 0;
 }
@@ -339,8 +294,7 @@ void TileEntity::setLevelAndPos(Level* level, int32_t x, int32_t y, int32_t z) {
 Packet* TileEntity::getUpdatePacket() {
 	return 0;
 }
-void TileEntity::onUpdatePacket(CompoundTag*) {
-}
+
 void TileEntity::setRemoved(void) {
 	Level* level;			// r3
 	uint32_t isClientMaybe; // r5
@@ -362,9 +316,4 @@ void TileEntity::triggerEvent(int32_t, int32_t) {
 void TileEntity::clearCache(void) {
 	this->block = 0;
 	this->blockMetadata = -1;
-}
-void TileEntity::onNeighborChanged(int32_t, int32_t, int32_t) {
-}
-float TileEntity::getShadowRadius() {
-	return 0;
 }

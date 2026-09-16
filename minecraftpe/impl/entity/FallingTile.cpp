@@ -34,8 +34,6 @@ void FallingTile::init() {
 	this->ridingHeight = this->entityHeight * 0.5;
 }
 
-FallingTile::~FallingTile() {
-}
 void FallingTile::tick() {
 	float motionY_1; // s15
 	float motionX;	 // r1
@@ -109,9 +107,7 @@ LABEL_13:
 		goto LABEL_14;
 	}
 }
-float FallingTile::getShadowRadius() {
-	return 0;
-}
+
 float FallingTile::getShadowHeightOffs() {
 	return 0;
 }

@@ -64,7 +64,7 @@ std::string Pig::getDeathSound() {
 bool_t Pig::useNewAi() {
 	return 1;
 }
-bool_t Pig::isFood(const ItemInstance* a2) {
+bool_t Pig::isFood(const ItemInstance* a2) const{
 	int id; // r0
 
 	id = a2->getId();

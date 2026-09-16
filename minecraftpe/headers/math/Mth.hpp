@@ -37,15 +37,13 @@ struct Mth{
 		if(v1 < -180.0) return v2 + 360;
 		return v2;
 	}
-	static uint32_t fastRandom(void){
+	static uint32_t fastRandom(void) {
 		static int32_t x = 123456789;
 		static int32_t y = 362436069;
 		static int32_t z = 521288629;
 		static int32_t w = 88675123;
-
 		uint32_t v0;
 		uint32_t result;
-
 		v0 = x ^ (x << 11);
 		x = y;
 		y = z;
@@ -56,7 +54,21 @@ struct Mth{
 	}
 	static float random(void);
 	static uint32_t random(int32_t);
-	static float clampRotate(float, float, float);
+	static float clampRotate(float f, float f1, float f2) {
+		float f3, f4, f5;
+		f3 = fmodf(f1 - f, 360.0);
+		f4 = f3;
+		if (f3 >= 180.0) f4 = f3 - 360.0;
+
+		if (f4 < -180.0) f4 = f4 + 360.0;
+
+		f5 = -f2;
+		if (f4 > f2) f4 = f2;
+
+		if (f4 >= f5) f5 = f4;
+
+		return f + f5;
+	}
 	static float sqrt(float f){
 		return ::sqrt(f);
 	}

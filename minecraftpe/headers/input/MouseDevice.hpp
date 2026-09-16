@@ -14,8 +14,8 @@ struct MouseDevice{
 	int32_t firstMovement;
 
 	MouseDevice();
-	void feed(int8_t, int8_t, int16_t, int16_t);
-	void feed(int8_t, int8_t, int16_t, int16_t, int16_t, int16_t);
+	void feed(char, char, int16_t, int16_t);
+	void feed(char, char, int16_t, int16_t, int16_t, int16_t);
 	bool_t getButtonState(int32_t);
 	int16_t getDX();
 	int16_t getDY();

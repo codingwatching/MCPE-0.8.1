@@ -9,7 +9,9 @@ struct FurnaceMenu: BaseContainerMenu
 
 	FurnaceMenu(FurnaceTileEntity*);
 
-	virtual ~FurnaceMenu();
+	virtual ~FurnaceMenu() {
+	}
+
 	virtual std::vector<ItemInstance> getItems();
 	virtual void setSlot(int32_t, ItemInstance*);
 	virtual void setData(int32_t, int32_t);

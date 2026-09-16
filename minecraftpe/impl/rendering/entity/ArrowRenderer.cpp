@@ -2,14 +2,7 @@
 #include <rendering/Tesselator.hpp>
 #include <entity/Arrow.hpp>
 #include <math/Mth.hpp>
-ArrowRenderer::ArrowRenderer()
-	: EntityRenderer()
-	, field_8() {
-	AppPlatform::_singleton->addListener(this, 1);
-}
-ArrowRenderer::~ArrowRenderer() {
-	AppPlatform::_singleton->removeListener(this);
-}
+
 void ArrowRenderer::render(Entity* e, float x, float y, float z, float a6, float a7) {
 	float v12; // s16
 
@@ -53,7 +46,4 @@ void ArrowRenderer::render(Entity* e, float x, float y, float z, float a6, float
 	glEnable(0xB44u);
 	glDisable(0xBC0u);
 	glPopMatrix();
-}
-void ArrowRenderer::onAppSuspended() {
-	this->field_8.reset();
 }

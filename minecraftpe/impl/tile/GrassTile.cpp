@@ -37,8 +37,6 @@ bool_t GrassTile::_randomWalk(Level* level, int32_t& x, int32_t& y, int32_t& z, 
 	return 0;
 }
 
-GrassTile::~GrassTile() {
-}
 bool_t GrassTile::onFertilized(Level* level, int32_t x, int32_t y, int32_t z) {
 	Random* p_random; // r10
 	int32_t i;		  // r6

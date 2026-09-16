@@ -9,6 +9,7 @@
 #include <nbt/CompoundTag.hpp>
 #include <tile/Tile.hpp>
 
+const float Arrow::ARROW_BASE_DAMAGE = 2.0f;
 Arrow::Arrow(Level* a2)
 	: Entity(a2) {
 	this->isInReverse = 0;

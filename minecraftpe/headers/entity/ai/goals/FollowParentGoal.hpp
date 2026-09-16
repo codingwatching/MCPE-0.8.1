@@ -13,7 +13,8 @@ struct FollowParentGoal: Goal
 
 	FollowParentGoal(Animal*, float);
 
-	virtual ~FollowParentGoal();
+	virtual ~FollowParentGoal() {
+	}
 	virtual bool_t canUse();
 	virtual bool_t canContinueToUse();
 	virtual void start();

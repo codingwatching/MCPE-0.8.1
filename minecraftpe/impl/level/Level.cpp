@@ -83,7 +83,7 @@ void Level::_init(const std::string& levelName, const struct LevelSettings& a3, 
 	this->chunkSource = v10;
 	this->updateSkyBrightness();
 }
-void Level::_syncTime(int32_t a2) { //long
+void Level::_syncTime(long a2) { //long
 	if(!this->isClientMaybe) {
 		SetTimePacket pk(a2, (uint32_t)this->levelData.stopTime >> 31);
 		this->rakNetInstance->send(pk);
@@ -684,7 +684,12 @@ void Level::explode(struct Entity* a2, float a3, float a4, float a5, float a6, b
 		v15.explode();
 		v15.finalizeExplosion();
 		ExplodePacket v14(a3, a4, a5, a6);								//inlined
-		v14.positions.assign(v15.field_10.begin(), v15.field_10.end()); //TODO check
+		v14.positions = std::vector<TilePos>(v15.field_10.size()); //TODO check
+		TilePos* tps = v14.positions.data();
+		for(const TilePos& tp: v15.field_10) {
+			*tps = tp;
+			++tps;
+		}
 		this->rakNetInstance->send(v14);
 	}
 }
@@ -1618,7 +1623,8 @@ void Level::removeEntity(struct Entity* a2) {
 	a2->remove();
 	if(a2->isPlayer()) {
 		if(a2->field_108) {
-			auto&& p = std::find(this->playersMaybe.begin(), this->playersMaybe.end(), a2);
+			//the cast to Player* is very important to match the original
+			auto&& p = std::find(this->playersMaybe.begin(), this->playersMaybe.end(), (Player*)a2);
 			if(p != this->playersMaybe.end()) {
 				this->playersMaybe.erase(p);
 			}
@@ -1845,7 +1851,7 @@ void Level::setTilesDirty(int32_t x1, int32_t y1, int32_t z1, int32_t x2, int32_
 		ll->setTilesDirty(x1, y1, z1, x2, y2, z2);
 	}
 }
-int32_t Level::setTime(int32_t newTime) { //long
+int32_t Level::setTime(long newTime) {	  //long
 	int32_t v3;							  // r4
 	int32_t prevTimeSent;				  // r0
 
@@ -2161,8 +2167,8 @@ LABEL_8:
 				++v17;
 			}
 		}
-		LightUpdate v21(a2, a3, a4, minZ, maxX, maxY, maxZ);
-		this->lightsToUpdate.emplace_back(v21);
+		;
+		this->lightsToUpdate.push_back(LightUpdate(a2, a3, a4, minZ, maxX, maxY, maxZ));
 		if(this->lightsToUpdate.size() > 1000000) {
 			this->lightsToUpdate.clear();
 		}
@@ -2454,8 +2460,7 @@ void Level::addToTickNextTick(int32_t x, int32_t y, int32_t z, int32_t id, int32
 		this->tickDataTreeImpl.insert(v17);
 	}
 }
-void Level::updateSleepingPlayerList() {
-}
+
 struct ChunkSource* Level::createChunkSource() {
 	LevelStorage* levelStoragePtr; // r0
 	ChunkCache* v3;				   // r4

@@ -9,7 +9,8 @@ struct ChickenModel: Model
 
 	ChickenModel();
 
-	virtual ~ChickenModel();
+	virtual ~ChickenModel() {
+	}
 	virtual void render(Entity*, float, float, float, float, float, float);
 	virtual void setupAnim(float, float, float, float, float, float);
 };

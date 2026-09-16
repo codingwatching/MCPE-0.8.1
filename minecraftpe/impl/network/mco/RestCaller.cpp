@@ -49,6 +49,3 @@ RestCaller::~RestCaller() {
 void RestCaller::urlEscape(const std::string&) {
 	printf("RestCaller::urlEscape - not implemented\n");
 }
-void RestCaller::update() {
-	printf("RestCaller::update - not implemented\n");
-}

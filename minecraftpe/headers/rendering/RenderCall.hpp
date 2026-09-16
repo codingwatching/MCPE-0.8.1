@@ -14,5 +14,6 @@ struct RenderCall
 		//TODO memset to zero before constructor called? - is there even a constructor?
 		this->field_31 = this->field_32 = 0;
 	}
-	~RenderCall();
+	~RenderCall() {
+	}
 };

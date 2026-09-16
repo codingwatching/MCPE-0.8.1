@@ -16,7 +16,7 @@ struct Button : GuiElement{
 
 	bool_t hovered(struct Minecraft*, int32_t, int32_t);
 	bool_t isInside(int32_t, int32_t);
-	bool_t isOverrideScreenRendering();
+	bool_t isOveridingScreenRendering();
 	bool_t isPressed(int32_t, int32_t);
 	void setMsg(const std::string&);
 	void setOverrideScreenRendering(bool_t);

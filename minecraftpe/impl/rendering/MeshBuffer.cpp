@@ -14,7 +14,7 @@ MeshBuffer::MeshBuffer(MeshBuffer&& o) : MeshBuffer(){
 	this->_move(o);
 }
 
-MeshBuffer::MeshBuffer(const MeshBuffer::VertexFormat* a2, void* a3, int32_t a4, void* a5, uint32_t a6, uint32_t a7, uint32_t a8){
+MeshBuffer::MeshBuffer(const MeshBuffer::VertexFormat* a2, void* a3, int32_t a4, void* a5, uint32_t a6, int32_t a7, uint32_t a8){
 	this->arrayBuffer = 0;
 	this->arrayElementsBuffer = 0;
 	this->arraysCount = 0;
@@ -26,7 +26,7 @@ MeshBuffer::MeshBuffer(const MeshBuffer::VertexFormat* a2, void* a3, int32_t a4,
 	this->load(a2, a3, a4, a5, a6, a7, a8);
 }
 
-bool_t MeshBuffer::_load(const MeshBuffer::VertexFormat* a2, void* a3, int32_t a4, void* a5, uint32_t a6, uint32_t a7, uint32_t a8){
+bool_t MeshBuffer::_load(const MeshBuffer::VertexFormat* a2, void* a3, int32_t a4, void* a5, uint32_t a6, int32_t a7, uint32_t a8){
 	GLenum v11;
 	int32_t v12;
 
@@ -79,16 +79,6 @@ void MeshBuffer::_move(MeshBuffer& a2){
 	a2.vertexFormat = 0;
 }
 
-bool_t MeshBuffer::isValid(){
-	if(this->arrayBuffer){
-		if(this->arraysCount <= 3) return 0;
-		if(this->drawMode){
-			return this->vertexFormat != 0;
-		}
-	}
-	return 0;
-}
-
 MeshBuffer& MeshBuffer::operator=(MeshBuffer&& a2){
 	this->_move(a2);
 	return *this;
@@ -107,7 +97,7 @@ void MeshBuffer::render(){
 	}
 }
 
-bool_t MeshBuffer::load(const MeshBuffer::VertexFormat* a2, void* a3, int32_t a4, void* a5, uint32_t a6, uint32_t a7, uint32_t a8){
+bool_t MeshBuffer::load(const MeshBuffer::VertexFormat* a2, void* a3, int32_t a4, void* a5, uint32_t a6, int32_t a7, uint32_t a8){
 	if(this->_load(a2, a3, a4, a5, a6, a7, a8)){
 		return 1;
 	}

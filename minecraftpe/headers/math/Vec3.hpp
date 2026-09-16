@@ -25,7 +25,12 @@ struct Vec3{
 		if(z == 0) z = 0;
 		this->z = z;
 	}
-	float distanceTo(const Vec3&);
+	float distanceTo(const Vec3& v) const {
+		float dy = v.y - this->y;
+		float dz = v.z - this->z;
+		float dx = v.x - this->x;
+		return sqrt(dy * dy + dx * dx + dz * dz);
+	}
 	float distanceToSqr(const Vec3& v) const{
 		float dy = v.y - this->y;
 		float dz = v.z - this->z;
@@ -92,7 +97,14 @@ struct Vec3{
 		this->x = xc;
 		this->z = zc;
 	}
-	Vec3 normalized(void);
+	Vec3 normalized(void) const {
+		float length;
+		length = sqrt((this->y * this->y) + (this->x * this->x) + (this->z * this->z));
+		if (length >= 0.0001) {
+			return Vec3(this->x / length, this->y / length, this->z / length);
+		}
+		return Vec3::ZERO;
+	}
 	void xRot(float v){
 		double v2;
 		float v4, v5;

@@ -31,7 +31,7 @@ void ExternalFileLevelStorageSource::addLevelSummaryIfExists(std::vector<LevelSu
 		ls.field_8 = ld.getLastPlayed();
 		ls.field_14 = ld.getSizeOnDisk();
 		ls.gamemode = ld.getGameType();
-		a2.emplace_back(ls);
+		a2.push_back(ls);
 	}
 }
 std::string ExternalFileLevelStorageSource::getFullPath(const std::string& a3) {
@@ -42,8 +42,6 @@ std::string ExternalFileLevelStorageSource::getFullPath(const std::string& a3) {
 	}
 }
 
-ExternalFileLevelStorageSource::~ExternalFileLevelStorageSource() {
-}
 std::string ExternalFileLevelStorageSource::getName() {
 	return "External File Level Storage";
 }
@@ -87,8 +85,7 @@ LevelStorage* ExternalFileLevelStorageSource::selectLevel(const std::string& a2,
 bool_t ExternalFileLevelStorageSource::isNewLevelIdAcceptable(const std::string&) {
 	return 1;
 }
-void ExternalFileLevelStorageSource::clearAll() {
-}
+
 void ExternalFileLevelStorageSource::deleteLevel(const std::string& a2) {
 	DeleteDirectory(this->getFullPath(a2), 1);
 }
@@ -97,15 +94,7 @@ void ExternalFileLevelStorageSource::renameLevel(const std::string&, const std::
 	printf("ExternalFileLevelStorageSource::renameLevel - not implemented\n");
 }
 ;
-bool_t ExternalFileLevelStorageSource::isConvertible(const std::string&) {
-	return 0;
-}
-bool_t ExternalFileLevelStorageSource::requiresConversion(const std::string&) {
-	return 0;
-}
-bool_t ExternalFileLevelStorageSource::convertLevel(const std::string&, ProgressListener*) {
-	return 0;
-}
+
 static std::string _D66784C8(LevelData* a2) { //inlined
 	std::stringstream v10;
 	v10 << a2->getSeed();

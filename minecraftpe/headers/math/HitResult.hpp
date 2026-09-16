@@ -19,5 +19,5 @@ struct HitResult{
 	HitResult(const HitResult&);
 	HitResult(int32_t, int32_t, int32_t, int32_t, const Vec3&);
 	HitResult(void);
-	float distanceTo(Entity* entity);
+	float distanceTo(Entity* entity) const;
 };

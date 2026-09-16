@@ -21,6 +21,7 @@ struct Mob;
 
 struct LevelRenderer: LevelListener, AppPlatform::Listener
 {
+	static const int CHUNK_SIZE;
 	float field_8;
 	float field_C;
 	float field_10;
@@ -91,10 +92,10 @@ struct LevelRenderer: LevelListener, AppPlatform::Listener
 	std::string gatherStats1();
 	void generateSky();
 	static int32_t getLayerFeature(int32_t, bool_t);
-	void render(const AABB&);
+	void render(const AABB&) const;
 	int32_t renderChunks(int32_t, float, bool_t);
 	void renderClouds(float);
-	void renderDebug(const AABB&, float);
+	void renderDebug(const AABB&, float) const;
 	void renderEntities(Vec3, FrustumCuller*, bool_t, float);
 	int32_t renderFarChunks(float);
 	void renderFilledHitSelect(Player*, float, Tile*, const HitResult&);

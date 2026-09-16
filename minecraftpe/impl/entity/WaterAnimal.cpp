@@ -7,7 +7,7 @@ WaterAnimal::WaterAnimal(Level* level)
 int32_t WaterAnimal::getExperienceReward(Player*) {
 	return this->random.genrand_int32() % 3 + 1;
 }
-int32_t WaterAnimal::getCreatureBaseType() {
+int32_t WaterAnimal::getCreatureBaseType() const{
 	return 3;
 }
 void WaterAnimal::readAdditionalSaveData(CompoundTag* t) {

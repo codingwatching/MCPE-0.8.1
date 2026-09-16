@@ -1,5 +1,4 @@
 #include <tile/DeadBush.hpp>
-#include <level/Level.hpp>
 #include <entity/Player.hpp>
 #include <item/Item.hpp>
 
@@ -8,8 +7,6 @@ DeadBush::DeadBush(int32_t id, const std::string& name)
 	this->textureUV = this->getTextureUVCoordinateSet(name, 1);
 }
 
-DeadBush::~DeadBush() {
-}
 int32_t DeadBush::getResource(int32_t, Random*) {
 	return -1;
 }

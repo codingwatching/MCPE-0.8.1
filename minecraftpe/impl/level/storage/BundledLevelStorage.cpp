@@ -36,12 +36,7 @@ LevelData* BundledLevelStorage::prepareLevel(Level* a2) {
 	this->levelData->setSpawnMobs(!v3);
 	return this->levelData;
 }
-ChunkStorage* BundledLevelStorage::createChunkStorage(Dimension*) {
-	return this;
-}
-bool_t BundledLevelStorage::load(Player*) {
-	return 0;
-}
+
 LevelChunk* BundledLevelStorage::load(Level* a2, int32_t a3, int32_t a4) {
 	static Stopwatch sw1;
 	static Stopwatch sw2;

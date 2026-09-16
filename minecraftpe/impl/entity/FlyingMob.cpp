@@ -8,8 +8,6 @@ FlyingMob::FlyingMob(Level* a2)
 	: Mob(a2) {
 }
 
-FlyingMob::~FlyingMob() {
-}
 void FlyingMob::causeFallDamage(float) {
 }
 bool_t FlyingMob::onLadder() {

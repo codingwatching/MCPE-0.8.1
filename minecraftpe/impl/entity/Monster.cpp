@@ -70,7 +70,7 @@ bool_t Monster::hurt(Entity* a2, int32_t a3) {
 	return 0;
 }
 
-int32_t Monster::getCreatureBaseType() {
+int32_t Monster::getCreatureBaseType() const{
 	return 1;
 }
 void Monster::aiStep() {

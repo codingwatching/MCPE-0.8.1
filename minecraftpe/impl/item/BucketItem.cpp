@@ -41,7 +41,7 @@ int32_t BucketItem::getMaxStackSize(const ItemInstance* a2) {
 	if(a2->getAuxValue()) return 1;
 	return 16;
 }
-TextureUVCoordinateSet* BucketItem::getIcon(int32_t a2, int32_t, bool_t) {
+const TextureUVCoordinateSet* BucketItem::getIcon(int32_t a2, int32_t, bool_t) const{
 	if(a2 == Tile::water->blockID) {
 		return &this->field_90;
 	}
@@ -169,10 +169,10 @@ LABEL_17:
 	}
 	return 0;
 }
-bool_t BucketItem::isLiquidClipItem(int32_t a2) {
+bool_t BucketItem::isLiquidClipItem(int32_t a2) const{
 	return a2 == 0;
 }
-std::string BucketItem::getDescriptionId(const ItemInstance* a3) {
+std::string BucketItem::getDescriptionId(const ItemInstance* a3) const{
 	int32_t meta; // r0
 	bool_t v7;  // zf
 
@@ -188,6 +188,6 @@ std::string BucketItem::getDescriptionId(const ItemInstance* a3) {
 		}
 	}
 }
-bool_t BucketItem::isEmissive(int32_t a2) {
+bool_t BucketItem::isEmissive(int32_t a2) const{
 	return a2 == Tile::lava->blockID;
 }

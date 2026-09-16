@@ -19,18 +19,31 @@ struct GuiElement : GuiComponent{
 	void setVisible(bool_t);
 
 	virtual ~GuiElement();
-	virtual void tick(struct Minecraft*);
+	virtual void tick(struct Minecraft*) {
+	}
 	virtual void render(struct Minecraft*, int32_t, int32_t);
-	virtual void topRender(struct Minecraft*, int32_t, int32_t);
-	virtual void setupPositions(void);
-	virtual void mouseClicked(struct Minecraft*, int32_t, int32_t, int32_t);
-	virtual void mouseReleased(struct Minecraft*, int32_t, int32_t, int32_t);
-	virtual void focusuedMouseClicked(struct Minecraft*, int32_t, int32_t, int32_t);
-	virtual void focusuedMouseReleased(struct Minecraft*, int32_t, int32_t, int32_t);
-	virtual void keyPressed(struct Minecraft*, int32_t);
-	virtual void keyboardNewChar(struct Minecraft*, std::string, bool_t);
-	virtual bool_t backPressed(struct Minecraft*, bool_t);
+	virtual void topRender(struct Minecraft*, int32_t, int32_t) {
+	}
+	virtual void setupPositions(){}
+	virtual void mouseClicked(struct Minecraft*, int32_t, int32_t, int32_t) {
+	}
+	virtual void mouseReleased(struct Minecraft*, int32_t, int32_t, int32_t) {
+	}
+	virtual void focusuedMouseClicked(struct Minecraft*, int32_t, int32_t, int32_t) {
+	}
+	virtual void focusuedMouseReleased(struct Minecraft*, int32_t, int32_t, int32_t) {
+	}
+	virtual void keyPressed(struct Minecraft*, int32_t) {
+	}
+	virtual void keyboardNewChar(struct Minecraft*, std::string, bool_t) {
+	}
+	virtual bool_t backPressed(struct Minecraft*, bool_t) {
+		return 0;
+	}
 	virtual bool_t pointInside(int32_t x, int32_t y);
-	virtual bool_t suppressOtherGUI(void);
-	virtual void setTextboxText(const std::string&);
+	virtual bool_t suppressOtherGUI(){
+		return 0;
+	}
+	virtual void setTextboxText(const std::string&) {
+	}
 };

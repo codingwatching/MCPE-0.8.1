@@ -11,11 +11,14 @@ struct Creeper: Monster
 	float getSwelling(float);
 	void setSwellDir(int32_t);
 
-	virtual ~Creeper();
+	virtual ~Creeper() {
+	}
 	virtual void tick();
 	virtual bool_t interactWithPlayer(Player*);
 	virtual int32_t getEntityTypeId() const;
-	virtual float getBaseSpeed();
+	virtual float getBaseSpeed() {
+		return 0.25;
+	}
 	virtual int32_t getMaxHealth();
 	virtual int32_t getDeathLoot();
 	virtual std::string getHurtSound();

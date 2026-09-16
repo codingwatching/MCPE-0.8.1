@@ -6,9 +6,9 @@ OptionsPane::OptionsPane()
 	: PackedScrollContainer(1, 0, 0) {
 }
 OptionsGroup* OptionsPane::createOptionsGroup(std::string a2) {
-	OptionsGroup* g = new OptionsGroup(a2);
-	this->children.emplace_back(std::shared_ptr<OptionsGroup>(g));
-	return g;
+	std::shared_ptr<OptionsGroup> g(new OptionsGroup(a2));
+	this->children.emplace_back(std::shared_ptr<GuiElement>(g));
+	return (OptionsGroup*) g.get();
 }
 
 void OptionsPane::setupPositions() {

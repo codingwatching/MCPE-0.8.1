@@ -2,14 +2,6 @@
 #include <level/chunk/LevelChunk.hpp>
 #include <string.h>
 
-PerformanceTestChunkSource::~PerformanceTestChunkSource() {
-}
-bool_t PerformanceTestChunkSource::hasChunk(int32_t, int32_t) {
-	return 1;
-}
-LevelChunk* PerformanceTestChunkSource::getChunk(int32_t x, int32_t z) {
-	return this->create(x, z);
-}
 LevelChunk* PerformanceTestChunkSource::create(int32_t x, int32_t z) {
 	int32_t v6;		 // r4
 	uint8_t* v7;	 // r10
@@ -45,15 +37,4 @@ LevelChunk* PerformanceTestChunkSource::create(int32_t x, int32_t z) {
 	v14 = new LevelChunk(this->level, v7, x, z);
 	v14->recalcHeightmap();
 	return v14;
-}
-void PerformanceTestChunkSource::postProcess(ChunkSource*, int32_t, int32_t) {
-}
-bool_t PerformanceTestChunkSource::tick() {
-	return 0;
-}
-bool_t PerformanceTestChunkSource::shouldSave() {
-	return 0;
-}
-std::string PerformanceTestChunkSource::gatherStats() {
-	return "PerformanceTestChunkSource";
 }

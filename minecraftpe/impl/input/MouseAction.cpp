@@ -1,6 +1,6 @@
 #include <input/MouseAction.hpp>
 
-MouseAction::MouseAction(int8_t a2, int8_t a3, int16_t a4, int16_t a5, int8_t a6){
+MouseAction::MouseAction(char a2, char a3, int16_t a4, int16_t a5, char a6){
 	this->field_0 = a4;
 	this->evButton = a2;
 	this->state = a3;
@@ -10,7 +10,7 @@ MouseAction::MouseAction(int8_t a2, int8_t a3, int16_t a4, int16_t a5, int8_t a6
 	this->field_A = a6;
 }
 
-MouseAction::MouseAction(int8_t a2, int8_t a3, int16_t a4, int16_t a5, int16_t a6, int16_t a7, int8_t a8){
+MouseAction::MouseAction(char a2, char a3, int16_t a4, int16_t a5, int16_t a6, int16_t a7, char a8){
 	this->field_0 = a4;
 	this->evButton = a2;
 	this->state = a3;
@@ -20,6 +20,6 @@ MouseAction::MouseAction(int8_t a2, int8_t a3, int16_t a4, int16_t a5, int16_t a
 	this->field_A = a8;
 }
 
-bool_t MouseAction::isButton(){
+bool_t MouseAction::isButton() const{
 	return (uint32_t)(uint8_t)this->evButton - 1 <= 1;
 }

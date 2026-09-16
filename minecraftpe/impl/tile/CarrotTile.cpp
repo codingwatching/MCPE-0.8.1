@@ -6,9 +6,7 @@ CarrotTile::CarrotTile(int32_t id)
 	this->field_AC = *this->getTextureItem("carrots_stage_x");
 }
 
-CarrotTile::~CarrotTile() {
-}
-TextureUVCoordinateSet* CarrotTile::getTexture(int32_t a2, int32_t a3) {
+const TextureUVCoordinateSet* CarrotTile::getTexture(int32_t a2, int32_t a3) {
 	int32_t v4;
 	if(a3 > 6) v4 = 3;
 	else {

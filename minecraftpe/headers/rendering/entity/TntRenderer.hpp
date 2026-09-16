@@ -8,6 +8,7 @@ struct TntRenderer: EntityRenderer
 
 	TntRenderer();
 
-	virtual ~TntRenderer();
+	virtual ~TntRenderer() {
+	}
 	virtual void render(Entity*, float, float, float, float, float);
 };

@@ -14,7 +14,8 @@ struct TripodCameraRenderer: EntityRenderer
 	TripodCameraRenderer();
 	static float getFlashTime(const TripodCamera*, float);
 
-	virtual ~TripodCameraRenderer();
-	virtual void render(Entity*, float, float, float, float, float);
+	virtual ~TripodCameraRenderer() {
+	}
 
+	virtual void render(Entity*, float, float, float, float, float);
 };

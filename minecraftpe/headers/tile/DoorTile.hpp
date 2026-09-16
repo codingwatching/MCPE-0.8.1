@@ -11,7 +11,8 @@ struct DoorTile : Tile{
 	static bool_t isOpen(struct LevelSource*, int32_t, int32_t, int32_t);
 	static void setOpen(Level*, int32_t, int32_t, int32_t, bool_t);
 
-	virtual ~DoorTile();
+	virtual ~DoorTile() {
+	}
 	virtual bool_t isCubeShaped();
 	virtual int32_t getRenderShape();
 	virtual void updateShape(LevelSource*, int32_t, int32_t, int32_t);

@@ -194,7 +194,7 @@ Particle* ParticleEngine::instance(ParticleType a2, float a3, float a4, float a5
 	}
 	if(v16) {
 		v16->_init(a3, a4, a5, a6, a7, a8, a9);
-		this->string2ParticleVec[v16->textureAtlas].emplace_back(v16);
+		this->string2ParticleVec[v16->textureAtlas].push_back(v16);
 	}
 	return v16;
 }

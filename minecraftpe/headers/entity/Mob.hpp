@@ -105,10 +105,12 @@ struct Mob : Entity{
 	virtual bool_t hurt(Entity*, int32_t);
 	virtual void animateHurt();
 	virtual void handleEntityEvent(char);
+	virtual SynchedEntityData* getEntityData();
 	virtual SynchedEntityData* getEntityData() const;
-	//there are two getEntityData functions for some reason
 	virtual int32_t getEntityTypeId() const = 0;
-	virtual bool_t isMob();
+	virtual bool_t isMob() const {
+		return 1;
+	}
 	virtual void setSize(float, float);
 	virtual void outOfWorld();
 	virtual void causeFallDamage(float);
@@ -127,7 +129,7 @@ struct Mob : Entity{
 	virtual float getVoicePitch();
 	virtual void playAmbientSound();
 	virtual int32_t getAmbientSoundInterval();
-	virtual TextureUVCoordinateSet* getItemInHandIcon(const ItemInstance*, int32_t);
+	virtual const TextureUVCoordinateSet* getItemInHandIcon(const ItemInstance*, int32_t);
 	virtual float getBaseSpeed() = 0;
 	virtual void superTick();
 	virtual void heal(int32_t);

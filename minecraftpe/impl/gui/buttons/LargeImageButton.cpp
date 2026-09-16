@@ -13,7 +13,6 @@ LargeImageButton::LargeImageButton(int32_t a2, const std::string& s, ImageDef& i
 	this->setupDefault();
 }
 
-LargeImageButton::~LargeImageButton(){}
 void LargeImageButton::render(struct Minecraft* mc, int32_t x, int32_t y){
 	if(this->visible){
 		glColor4f(this->color.r, this->color.g, this->color.b, this->color.a);

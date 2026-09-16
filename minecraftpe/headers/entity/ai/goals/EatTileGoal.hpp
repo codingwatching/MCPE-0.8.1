@@ -12,12 +12,15 @@ struct EatTileGoal: Goal
 
 	EatTileGoal(Mob*);
 
-	virtual ~EatTileGoal();
+	virtual ~EatTileGoal() {
+	}
 	virtual bool_t canUse();
 	virtual bool_t canContinueToUse();
 	virtual void start();
 	virtual void stop();
 	virtual void tick();
 	virtual int32_t getEatAnimationTick();
-	virtual void setLevel(Level*);
+	virtual void setLevel(Level* level) {
+		this->level = level;
+	}
 };

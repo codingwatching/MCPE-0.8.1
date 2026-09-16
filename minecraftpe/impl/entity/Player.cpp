@@ -10,6 +10,8 @@
 #include <tile/BedTile.hpp>
 #include <nbt/CompoundTag.hpp>
 #include <nbt/ListTag.hpp>
+const float Player::DEFAULT_WALK_SPEED = 0.1f;
+const float Player::DEFAULT_FLY_SPEED = 0.02f;
 
 Player::Player(Level* a2, bool_t a3)
 	: Mob(a2) {

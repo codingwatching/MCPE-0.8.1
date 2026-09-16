@@ -7,6 +7,6 @@ struct PickaxeItem: DiggerItem
 
 	virtual ~PickaxeItem(){}
 	virtual float getDestroySpeed(ItemInstance*, Tile*);
-	virtual bool_t canDestroySpecial(const Tile*);
+	virtual bool_t canDestroySpecial(const Tile*) const;
 
 };

@@ -11,8 +11,8 @@ struct FurnaceRecipes
 	FurnaceRecipes();
 	void addFurnaceRecipe(int32_t, const ItemInstance&);
 	static FurnaceRecipes* getInstance();
-	void getRecipes(); //TODO prob different type, but it is empty so cant really guess
-	ItemInstance getResult(int32_t);
-	bool_t isFurnaceItem(int32_t);
+	void getRecipes() const; //TODO prob different type, but it is empty so cant really guess
+	ItemInstance getResult(int32_t) const;
+	bool_t isFurnaceItem(int32_t) const;
 	static void teardownFurnaceRecipes();
 };

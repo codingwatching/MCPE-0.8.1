@@ -17,7 +17,8 @@ struct DoorInteractGoal: Goal
 
 	Tile* getDoorTile(int32_t, int32_t, int32_t);
 
-	virtual ~DoorInteractGoal();
+	virtual ~DoorInteractGoal() {
+	}
 	virtual bool_t canUse();
 	virtual bool_t canContinueToUse();
 	virtual void start();

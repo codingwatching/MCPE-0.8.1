@@ -35,6 +35,15 @@ void gluPerspective(GLfloat fovy, GLfloat aspect, GLfloat zNear, GLfloat zFar) {
 		}
 	}
 }
+
+void glInit() { //unused empty func from 0.8.1
+}
+int anGenBuffers(int, unsigned int*) { //unused but exists in 0.8.1, used in 0.7.2
+	DEBUGMSG("anGenBuffer - not implemented\n");
+	return 0;
+}
+
+
 #else
 
 void (*glDeleteBuffers)(GLsizei n, const GLuint* buffers);
@@ -50,10 +59,10 @@ void (*glBufferData)(GLenum target, GLsizeiptr size, const void *data, GLenum us
 #define GLFUNCADDR glXGetProcAddress
 #endif
 void initGlFuncs(){
-	glDeleteBuffers = (void (*)(GLsizei, const GLuint*)) GLFUNCADDR("glDeleteBuffers");
-	glGenBuffers = (void (*)(GLsizei, GLuint*)) GLFUNCADDR("glGenBuffers");
-	glBindBuffer = (void (*)(GLenum, GLuint)) GLFUNCADDR("glBindBuffer");
-	glBufferData = (void (*)(GLenum, GLsizeiptr, const void*, GLenum)) GLFUNCADDR("glBufferData");
+	glDeleteBuffers = (void (*)(GLsizei, const GLuint*)) GLFUNCADDR((GLubyte*)"glDeleteBuffers");
+	glGenBuffers = (void (*)(GLsizei, GLuint*)) GLFUNCADDR((GLubyte*)"glGenBuffers");
+	glBindBuffer = (void (*)(GLenum, GLuint)) GLFUNCADDR((GLubyte*)"glBindBuffer");
+	glBufferData = (void (*)(GLenum, GLsizeiptr, const void*, GLenum)) GLFUNCADDR((GLubyte*)"glBufferData");
 }
 #endif
 

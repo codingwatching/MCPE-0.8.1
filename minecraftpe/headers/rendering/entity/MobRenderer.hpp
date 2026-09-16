@@ -28,5 +28,7 @@ struct MobRenderer: EntityRenderer
 	virtual int32_t getOverlayColor(Mob*, float, float);
 	virtual void scale(Mob*, float);
 	virtual void additionalRendering(Mob*, float);
-	virtual int32_t getArmorTransparencyMode();
+	virtual int32_t getArmorTransparencyMode() const {
+		return 3042;
+	}
 };

@@ -14,5 +14,6 @@ struct ItemSpriteRenderer: EntityRenderer, AppPlatform::Listener
 
 	virtual ~ItemSpriteRenderer();
 	virtual void render(Entity*, float, float, float, float, float);
-	virtual void onAppSuspended();
+	virtual void onAppSuspended() {
+	}
 };

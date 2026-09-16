@@ -7,6 +7,8 @@
 
 struct AndroidRestRequestJob: RestRequestJob
 {
+	//TODO struct is too big: must be 0x80, seems to be 0x90 - those three fields dont seem to be neccesary
+	//but they seem to be set before vt is assigned and not part of std::condition_variable
 	int field_54, field_58, field_5C;
 	std::condition_variable field_60;
 	std::mutex field_64; //maybe waitForAnswerMutex?
@@ -16,7 +18,6 @@ struct AndroidRestRequestJob: RestRequestJob
 	std::string content;
 	AppPlatform_android* platform;
 	bool started;
-	char _align[3];
 
 	AndroidRestRequestJob(Minecraft*);
 	bool isRunning();

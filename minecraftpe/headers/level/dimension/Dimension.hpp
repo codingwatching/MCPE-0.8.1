@@ -20,7 +20,9 @@ struct Dimension{
 	virtual void init(struct Level*);
 	virtual struct ChunkSource* createRandomLevelSource(void);
 	virtual bool_t isValidSpawn(int32_t, int32_t);
-	virtual bool_t isNaturalDimension();
+	virtual bool_t isNaturalDimension() {
+		return 0;
+	}
 	virtual float getTimeOfDay(long, float);
 	virtual Color4 getSunriseColor(float, float);
 	virtual Color4 getFogColor(float, float);

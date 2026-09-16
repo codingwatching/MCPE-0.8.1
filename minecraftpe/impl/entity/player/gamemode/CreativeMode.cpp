@@ -13,8 +13,6 @@ void CreativeMode::creativeDestroyBlock(int32_t x, int32_t y, int32_t z, int32_t
 	this->destroyBlock(x, y, z, side);
 }
 
-CreativeMode::~CreativeMode() {
-}
 void CreativeMode::startDestroyBlock(int32_t x, int32_t y, int32_t z, int32_t side) {
 	if(!this->minecraft->player->getCarriedItem() || Item::bow != this->minecraft->player->getCarriedItem()->itemClass || !Item::bow) {
 		this->creativeDestroyBlock(x, y, z, side);

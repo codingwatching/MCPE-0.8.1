@@ -1,6 +1,6 @@
 #include <util/SharedConstants.hpp>
 
-bool_t SharedConstants::isVesion(int32_t a, int32_t b, int32_t c, int32_t d) {
+bool_t SharedConstants::isVersion(int32_t a, int32_t b, int32_t c, int32_t d) {
 	if(a)
 		return 0;
 	else if(b == 8 && c == 1)

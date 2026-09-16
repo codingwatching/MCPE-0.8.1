@@ -3,6 +3,10 @@
 #include <util/PerlinNoise.hpp>
 #include <level/biome/Biome.hpp>
 #include <level/Level.hpp>
+const float BiomeSource::noiseScale = 0.25;
+const float BiomeSource::downfallScale = 0.05;
+const float BiomeSource::tempScale = 0.025;
+const float BiomeSource::zoom = 2.0;
 
 BiomeSource::BiomeSource(struct Level* a2)
 	: randomInstance1(9871 * a2->getSeed())
@@ -64,10 +68,10 @@ float* BiomeSource::getTemperatureBlock(int32_t a2, int32_t a3, int32_t a4, int3
 	float v17; // s15
 	int32_t i; // r1
 
-	reg = this->rainfallNoise->getRegion(this->rainfallNoises, a2, a3, a4, a5, 0.025, 0.025, 0.25);
+	reg = this->rainfallNoise->getRegion(this->rainfallNoises, a2, a3, a4, a5, BiomeSource::tempScale, BiomeSource::tempScale, BiomeSource::noiseScale);
 	detailNoises = this->detailNoises;
 	this->rainfallNoises = reg;
-	v11 = this->detailNoise->getRegion(detailNoises, a2, a3, a4, a5, 0.25, 0.25, 0.588);
+	v11 = this->detailNoise->getRegion(detailNoises, a2, a3, a4, a5, BiomeSource::noiseScale, BiomeSource::noiseScale, 0.588);
 	v12 = 0;
 	v13 = 0;
 	this->detailNoises = v11;
@@ -112,16 +116,16 @@ Biome** BiomeSource::getBiomeBlock(Biome** biomes, int32_t a3, int32_t a4, int32
 	float v22;				  // s14
 	Biome** biomes2;		  // r11
 
-	reg = this->rainfallNoise->getRegion(this->rainfallNoises, a3, a4, a5, a5, 0.025, 0.025, 0.25);
+	reg = this->rainfallNoise->getRegion(this->rainfallNoises, a3, a4, a5, a5, BiomeSource::tempScale, BiomeSource::tempScale, BiomeSource::noiseScale);
 	temperatureNoises = this->temperatureNoises;
 	this->rainfallNoises = reg;
-	reg2 = this->perlinNoisePtr2->getRegion(temperatureNoises, a3, a4, a5, a5, 0.05, 0.05, 0.3333);
+	reg2 = this->perlinNoisePtr2->getRegion(temperatureNoises, a3, a4, a5, a5, BiomeSource::downfallScale, BiomeSource::downfallScale, 0.3333);
 	v12 = a3;
 	v13 = 0;
 	v14 = 0;
 	detailNoises = this->detailNoises;
 	this->temperatureNoises = reg2;
-	this->detailNoises = this->detailNoise->getRegion(detailNoises, v12, a4, a5, a5, 0.25, 0.25, 0.588);
+	this->detailNoises = this->detailNoise->getRegion(detailNoises, v12, a4, a5, a5, BiomeSource::noiseScale, BiomeSource::noiseScale, 0.588);
 	while(v13 < a5) {
 		v17 = 0;
 		while(v17 < a6) {

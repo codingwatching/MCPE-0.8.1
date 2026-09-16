@@ -15,5 +15,6 @@ struct SmallButton: Button
 
 	Options::Option* getOption();
 
-	virtual ~SmallButton();
+	virtual ~SmallButton() {
+	}
 };

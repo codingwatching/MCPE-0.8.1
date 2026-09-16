@@ -6,7 +6,7 @@ PotatoTile::PotatoTile(int32_t a2)
 	this->field_AC = *this->getTextureItem("potatoes_stage_x");
 }
 
-TextureUVCoordinateSet* PotatoTile::getTexture(int32_t a2, int32_t a3) {
+const TextureUVCoordinateSet* PotatoTile::getTexture(int32_t a2, int32_t a3) {
 	int32_t v4;
 	if(a3 > 6) {
 		v4 = 3;

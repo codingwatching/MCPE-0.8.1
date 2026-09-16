@@ -15,8 +15,6 @@ KeyboardInput::KeyboardInput(Options* a2) {
 	this->options = a2;
 }
 
-KeyboardInput::~KeyboardInput() {
-}
 void KeyboardInput::tick(Player* a2) {
 	this->strafeInput = 0.0;
 	this->forwardInput = 0.0;

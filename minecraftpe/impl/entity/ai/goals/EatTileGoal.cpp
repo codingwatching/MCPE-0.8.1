@@ -12,8 +12,6 @@ EatTileGoal::EatTileGoal(Mob* a2) {
 	this->setRequiredControlFlags(7);
 }
 
-EatTileGoal::~EatTileGoal() {
-}
 bool_t EatTileGoal::canUse() {
 	Mob* holder; // r0
 	Random* p_random; // r7
@@ -83,7 +81,4 @@ void EatTileGoal::tick() {
 }
 int32_t EatTileGoal::getEatAnimationTick() {
 	return this->ticksLeft;
-}
-void EatTileGoal::setLevel(Level* level) {
-	this->level = level;
 }

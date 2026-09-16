@@ -16,8 +16,6 @@ Label::Label(std::string a2, Minecraft* a3, int32_t a4, int32_t a5, int32_t a6, 
 	this->setupPositions();
 }
 
-Label::~Label() {
-}
 void Label::render(Minecraft* mc, int32_t x, int32_t y) {
 	GuiElement::render(mc, x, y);
 	mc->font->drawWordWrap(this->text, (float)(this->widthBase + this->posX), (float)(this->posY + this->heightBase), (float)((float)this->width - (float)this->widthBase) + 1.0, this->textColor, this->textShadow, this->field_3A);
@@ -33,7 +31,7 @@ void Label::setupPositions() {
 	heightBase = this->heightBase;
 	this->height = heightBase + this->minecraft->font->height(this->text, this->width - this->widthBase);
 }
-std::string Label::getText() {
+std::string Label::getText() const{
 	return this->text;
 }
 void Label::setText(std::string a2) {

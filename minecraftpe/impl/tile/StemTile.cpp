@@ -99,20 +99,6 @@ float StemTile::getGrowthSpeed(Level* level, int32_t x, int32_t y, int32_t z) {
 	return v16;
 }
 
-StemTile::~StemTile() {
-}
-bool_t StemTile::onFertilized(Level* level, int32_t x, int32_t y, int32_t z) {
-	int32_t v8; // r8
-	int32_t v9; // r3
-
-	v8 = level->getData(x, y, z);
-	v9 = level->random.genrand_int32() % 3 + v8 + 2;
-	if(v9 >= 7) {
-		v9 = 7;
-	}
-	level->setData(x, y, z, v9, 2);
-	return 1;
-}
 int32_t StemTile::getRenderShape() {
 	return 19;
 }

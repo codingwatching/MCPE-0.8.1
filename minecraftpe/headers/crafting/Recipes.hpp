@@ -9,14 +9,6 @@ struct Item;
 struct Tile;
 struct Recipes
 {
-	struct Shape
-	{
-		std::vector<std::string> shape;
-
-		Shape(const std::string&);
-		Shape(const std::string&, const std::string&);
-		Shape(const std::string&, const std::string&, const std::string&);
-	};
 
 	struct Type
 	{
@@ -49,6 +41,11 @@ struct Recipes
 			this->chr = a2;
 		}
 	};
+
+	static std::vector<std::string> Shape(const std::string&);
+	static std::vector<std::string> Shape(const std::string&, const std::string&);
+	static std::vector<std::string> Shape(const std::string&, const std::string&, const std::string&);
+
 	static Recipes* instance;
 	std::vector<Recipe*> recipes;
 	Recipes();

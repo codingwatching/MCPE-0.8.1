@@ -8,10 +8,6 @@ BaseContainerMenu::BaseContainerMenu(int32_t a2) {
 	this->containerListener = 0;
 }
 
-BaseContainerMenu::~BaseContainerMenu() {
-}
-void BaseContainerMenu::setData(int32_t, int32_t) {
-}
 void BaseContainerMenu::setListener(IContainerListener* a2) {
 	this->containerListener = a2;
 	if(a2) {
@@ -39,7 +35,4 @@ void BaseContainerMenu::broadcastChanges() {
 			this->containerListener->refreshContainer(this, this->field_C);
 		}
 	}
-}
-bool_t BaseContainerMenu::isResultSlot(int32_t) {
-	return 0;
 }

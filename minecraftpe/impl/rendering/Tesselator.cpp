@@ -7,24 +7,6 @@
 
 Tesselator Tesselator::instance(0x800000);
 
-Tesselator::CurrentVertexPointers::CurrentVertexPointers(uint8_t* a2, const MeshBuffer::VertexFormat& a3) {
-	this->field_10 = &a3;
-	this->field_0 = 0;
-	this->hasColor = 0;
-	this->hasNormals = 0;
-	this->hasTexture = 0;
-	this->field_0 = &a2[a3.offsets[0]];
-	if(a3.offsets[2] != 255) this->hasColor = &a2[a3.offsets[2]];
-	if(a3.offsets[3] != 255) this->hasNormals = &a2[a3.offsets[3]];
-	if(a3.offsets[1] != 255) this->hasTexture = &a2[a3.offsets[1]];
-}
-Tesselator::CurrentVertexPointers::CurrentVertexPointers() {
-	this->field_0 = 0;
-	this->hasColor = 0;
-	this->hasNormals = 0;
-	this->hasTexture = 0;
-}
-
 Tesselator::Tesselator(int32_t size)
 	: field_4C(0), field_50(0), tmat4x4_2(1.0f)
 	, vec(0, 0, 0) {
@@ -60,22 +42,6 @@ void Tesselator::_buildQuadIndexBuffer() {
 		v2 += 4;
 		this->quad(v3, 0);
 	}
-}
-
-MeshBuffer::VertexFormat* Tesselator::_genVertexFormat() {
-	 //TODO check
-	uint32_t offsets = *(uint32_t*)this->meshBuffer_vf2.offsets;
-	auto&& pp = this->field_34.find(offsets);
-	if(pp != this->field_34.end()) {
-		return pp->second.get();
-	}
-
-	MeshBuffer::VertexFormat* v7 = new MeshBuffer::VertexFormat();
-	*(uint32_t*)&v7->offsets = *(uint32_t*)&this->meshBuffer_vf2.offsets;
-	v7->stride = this->meshBuffer_vf2.stride;
-	this->field_34[offsets] = std::unique_ptr<MeshBuffer::VertexFormat>(v7);
-
-	return v7;
 }
 
 void Tesselator::addOffset(const Vec3& v) {
@@ -118,11 +84,6 @@ void Tesselator::begin(int32_t mode, int32_t a3) {
 	}
 }
 
-void Tesselator::beginOverride() {
-	this->begin(0);
-	this->voidBeginAndEndCalls(true);
-}
-
 void Tesselator::cancel() {
 	this->isDrawing = 0;
 }
@@ -137,7 +98,7 @@ void Tesselator::clear() {
 	this->field_14.clear();
 }
 
-void Tesselator::color(int8_t r, int8_t g, int8_t b) {
+void Tesselator::color(char r, char g, char b) {
 	this->color((int32_t)r, (int32_t)g, (int32_t)b);
 }
 
@@ -261,11 +222,6 @@ MeshBuffer Tesselator::end(void) {
 	}
 }
 
-void Tesselator::endOverrideAndDraw(void) {
-	this->voidBeginAndEndCalls(0);
-	this->draw(1);
-}
-
 int32_t Tesselator::getColor(void) {
 	return this->color_int;
 }
@@ -277,9 +233,6 @@ void Tesselator::init() {
 }
 void Tesselator::noColor(void) {
 	this->isColorDisabled = 1;
-}
-void Tesselator::normal(const Vec3& v) {
-	this->normal(v.x, v.y, v.z);
 }
 void Tesselator::normal(float x, float y, float z) {
 	this->normX = (int8_t)(x * 127);
@@ -299,9 +252,6 @@ void Tesselator::offset(float x, float y, float z) {
 	this->vec.z = z;
 }
 
-void Tesselator::quad(bool_t b) {
-	this->quad(this->maxVertextNumber - 4, b);
-}
 void Tesselator::quad(uint16_t a2, bool_t a3) {
 	if(a3) this->quad(a2 + 3, a2 + 2, a2 + 1, a2);
 	else this->quad(a2, a2 + 1, a2 + 2, a2 + 3);
@@ -375,34 +325,6 @@ void Tesselator::tex(float u, float v) {
 }
 void Tesselator::tilt(void) {
 	this->isTilted = 1;
-}
-void Tesselator::triangle(uint16_t a2, uint16_t a3, uint16_t a4) { //TODO
-	unsigned int v8;											   // r5
-	int useDrawElementsOrDrawArrays;							   // r5
-	uint8_t* v12;												   // r0
-	uint8_t* v13;												   // r3
-	uint16_t* v14;												   // r3
-
-	if(!this->someSIzeMaybe) {
-		this->someSIzeMaybe = 2;
-	}
-	v8 = (this->useDrawElementsOrDrawArrays + 3) * this->someSIzeMaybe;
-	this->vertexes.resize(v8); //TODO check
-
-	useDrawElementsOrDrawArrays = this->useDrawElementsOrDrawArrays;
-	v12 = this->vertexes.data();
-	if(this->someSIzeMaybe == 1) {
-		v13 = &v12[useDrawElementsOrDrawArrays];
-		v12[useDrawElementsOrDrawArrays] = a2;
-		v13[1] = a3;
-		v13[2] = a4;
-	} else {
-		v14 = (uint16_t*)&v12[2 * useDrawElementsOrDrawArrays];
-		*v14 = a2;
-		v14[1] = a3;
-		v14[2] = a4;
-	}
-	this->useDrawElementsOrDrawArrays += 3;
 }
 void Tesselator::vertex(float x, float y, float z) {
 	++this->maxVertextNumber;

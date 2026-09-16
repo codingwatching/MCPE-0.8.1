@@ -1,11 +1,6 @@
 #include <rendering/tileentity/ChestRenderer.hpp>
 #include <tile/entity/ChestTileEntity.hpp>
 
-ChestRenderer::ChestRenderer() : TileEntityRenderer(), field_8(0), field_1A8(1){
-
-}
-ChestRenderer::~ChestRenderer() {
-}
 void ChestRenderer::render(struct TileEntity* tee, float x, float y, float z, float a6, bool_t a7) {
 	ChestTileEntity* te = (ChestTileEntity*)tee;
 	int32_t level;		// r5

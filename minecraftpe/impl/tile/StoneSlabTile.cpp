@@ -23,8 +23,6 @@ StoneSlabTile::StoneSlabTile(int32_t a2, bool_t a3)
 	this->field_15C = this->getTextureUVCoordinateSet("quartz_block", 0);
 }
 
-StoneSlabTile::~StoneSlabTile() {
-}
 TextureUVCoordinateSet* StoneSlabTile::getTexture(int32_t a2) {
 	return this->getTexture(a2, 0);
 }

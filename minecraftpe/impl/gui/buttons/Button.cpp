@@ -35,7 +35,7 @@ bool_t Button::isInside(int32_t x, int32_t y){
 	return y >= this->posY && x < (this->posX+this->width) && y < (this->posY+this->height);
 }
 
-bool_t Button::isOverrideScreenRendering(){
+bool_t Button::isOveridingScreenRendering(){
 	return this->overridingScreenRendering;
 }
 bool_t Button::isPressed(int32_t x, int32_t y){

@@ -266,14 +266,14 @@ void FurnaceScreen::updateItems() {
 			for(int j = 0; j < this->field_1CC.size(); ++j) {
 				if(v9->matches(&this->field_1CC[j]->field_0)) {
 					this->field_1E4.push_back(i);
-					this->field_1F0.emplace_back(v9);
+					this->field_1F0.push_back(v9);
 					goto LABEL_16;
 				}
 			}
 			for(int k = 0; k < this->field_1D8.size(); ++k){
 				if(v9->matches(&this->field_1D8[k]->field_0)) {
 					this->field_1E4.push_back(i);
-					this->field_1F0.emplace_back(v9);
+					this->field_1F0.push_back(v9);
 					goto LABEL_16;
 				}
 			}

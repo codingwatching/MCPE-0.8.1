@@ -61,7 +61,8 @@ struct LocalPlayer: Player, IContainerListener
 	virtual void openContainer(ChestTileEntity*);
 	virtual void openFurnace(FurnaceTileEntity*);
 	virtual void displayClientMessage(const std::string&);
-	virtual void animateRespawn();
+	virtual void animateRespawn() {
+	}
 	virtual int32_t startSleepInBed(int32_t, int32_t, int32_t);
 	virtual void stopSleepInBed(bool_t, bool_t, bool_t);
 	virtual void openTextEdit(TileEntity*);

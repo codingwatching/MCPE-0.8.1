@@ -12,11 +12,11 @@ struct LevelData{
 	int32_t field_3C, field_40, field_44, field_48;
 	int32_t field_4C, field_50;
 	std::string levelName;
-	int32_t seed;
+	long seed;
 	int32_t xSpawn, ySpawn, zSpawn;
-	int32_t time;
+	long time;
 	int32_t lastPlayed;
-	int32_t sizeOnDisk;
+	long sizeOnDisk;
 	struct CompoundTag* playerTag;
 	int32_t dimensionID;
 	int32_t gameType;
@@ -33,20 +33,20 @@ struct LevelData{
 	struct CompoundTag* createTag(const std::vector<struct Player*>&);
 	struct CompoundTag* createTag();
 	int32_t getDimension();
-	int32_t getGameType();
-	int32_t getGeneratorVersion();
-	int32_t getLastPlayed();
+	int32_t getGameType() const;
+	int32_t getGeneratorVersion() const;
+	int32_t getLastPlayed() const;
 	std::string getLevelName();
 	struct CompoundTag* getLoadedPlayerTag();
-	int32_t getSeed();
-	int32_t getSizeOnDisk();
-	bool_t getSpawnMobs();
-	int32_t getStorageVersion();
+	int32_t getSeed() const;
+	int32_t getSizeOnDisk() const;
+	bool_t getSpawnMobs() const;
+	int32_t getStorageVersion() const;
 	void getTagData(const struct CompoundTag*);
-	int32_t getTime();
-	int32_t getXSpawn();
-	int32_t getYSpawn();
-	int32_t getZSpawn();
+	int32_t getTime() const;
+	int32_t getXSpawn() const;
+	int32_t getYSpawn() const;
+	int32_t getZSpawn() const;
 	LevelData& operator=(const LevelData&);
 	void setDimension(int32_t);
 	void setGameType(int32_t);
@@ -55,14 +55,14 @@ struct LevelData{
 	void setLoadedPlayerTag(struct CompoundTag*);
 	void setLoadedPlayerTo(struct Player*);
 	void setPlayerTag(struct CompoundTag*);
-	void setSeed(int32_t); //long
-	void setSizeOnDisk(int32_t); //long
+	void setSeed(long);
+	void setSizeOnDisk(long);
 	void setSpawn(int32_t, int32_t, int32_t);
 	void setSpawnMobs(bool_t);
-	void setStopTime(int32_t); //long
+	void setStopTime(long);
 	void setStorageVersion(int32_t);
 	void setTagData(struct CompoundTag*, struct CompoundTag*);
-	void setTime(int32_t); //long
+	void setTime(long);
 	void setXSpawn(int32_t);
 	void setYSpawn(int32_t);
 	void setZSpawn(int32_t);

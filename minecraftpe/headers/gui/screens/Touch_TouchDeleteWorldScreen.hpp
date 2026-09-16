@@ -3,13 +3,14 @@
 #include <level/LevelSummary.hpp>
 
 namespace Touch {
-	struct DeleteWorldScreen: ConfirmScreen
+	struct TouchDeleteWorldScreen: ConfirmScreen
 	{
 		LevelSummary levelSummary;
 
-		DeleteWorldScreen(const LevelSummary&);
+		TouchDeleteWorldScreen(const LevelSummary&);
 
-		virtual ~DeleteWorldScreen();
+		virtual ~TouchDeleteWorldScreen() {
+		}
 		virtual void postResult(bool_t);
 	};
 }

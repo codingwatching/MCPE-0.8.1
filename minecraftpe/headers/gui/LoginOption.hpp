@@ -12,7 +12,8 @@ struct LoginOption: GuiElementContainer
 
 	LoginOption(Minecraft*);
 
-	virtual ~LoginOption();
+	virtual ~LoginOption() {
+	}
 	virtual void tick(Minecraft*);
 	virtual void setupPositions();
 	virtual void mouseClicked(Minecraft*, int32_t, int32_t, int32_t);

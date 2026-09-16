@@ -6,8 +6,9 @@ struct CarrotTile : CropTile{
 
 	CarrotTile(int32_t);
 
-	virtual ~CarrotTile();
-	virtual TextureUVCoordinateSet* getTexture(int32_t, int32_t);
+	virtual ~CarrotTile() {
+	}
+	virtual const TextureUVCoordinateSet* getTexture(int32_t, int32_t);
 	virtual void spawnResources(Level*, int32_t, int32_t, int32_t, int32_t, float);
 	virtual int32_t getBasePlantId();
 	virtual struct Item* getBaseSeed();

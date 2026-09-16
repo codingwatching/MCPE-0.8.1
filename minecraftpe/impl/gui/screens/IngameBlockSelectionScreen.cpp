@@ -132,8 +132,6 @@ void IngameBlockSelectionScreen::selectSlotAndClose() {
 	this->minecraft->setScreen(0);
 }
 
-IngameBlockSelectionScreen::~IngameBlockSelectionScreen() {
-}
 void IngameBlockSelectionScreen::render(int32_t a2, int32_t a3, float a4) {
 	glDisable(0xB71u);
 	this->fill(0, 0, this->width, this->height, 0x80000000);

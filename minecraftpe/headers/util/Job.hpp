@@ -12,7 +12,8 @@ struct Job
 
 	JobStatus getStatus();
 	JobStatus trySetStatus(JobStatus);
-	virtual ~Job();
+	virtual ~Job() {
+	}
 	virtual void stop() = 0;
 	virtual void run() = 0;
 	virtual void finish() = 0;

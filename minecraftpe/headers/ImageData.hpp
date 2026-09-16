@@ -15,4 +15,6 @@ UNK char field_1A;
 UNK char field_1B;
 	uint32_t glTexId;
 	std::vector<ImageData> images;
+
+	//TODO should have some kind of constructor?
 };

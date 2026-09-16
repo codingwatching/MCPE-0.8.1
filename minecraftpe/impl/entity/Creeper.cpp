@@ -40,8 +40,6 @@ void Creeper::setSwellDir(int32_t a2) {
 	this->synchedEntityData.set(16, a2);
 }
 
-Creeper::~Creeper() {
-}
 void Creeper::tick() {
 	int32_t v3; // r3
 
@@ -92,9 +90,7 @@ bool_t Creeper::interactWithPlayer(Player* a2) {
 int32_t Creeper::getEntityTypeId() const {
 	return 33;
 }
-float Creeper::getBaseSpeed() {
-	return 0.25;
-}
+
 int32_t Creeper::getMaxHealth() {
 	return 16;
 }

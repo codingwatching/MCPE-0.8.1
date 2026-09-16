@@ -28,9 +28,6 @@ float TripodCameraRenderer::getFlashTime(const TripodCamera* a1, float a2){
 	return (float)((float)v2 - a2) * 0.125;
 }
 
-TripodCameraRenderer::~TripodCameraRenderer(){
-
-}
 void TripodCameraRenderer::render(Entity* a2, float x, float y, float z, float a6, float a7) {
 	Entity* entity;	 // r6
 	float flashTime; // r0

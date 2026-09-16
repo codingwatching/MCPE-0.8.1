@@ -17,17 +17,12 @@ bool_t BaseRailTile::Rail::canConnectTo(BaseRailTile::Rail* a2) {
 	return this->connectsTo(a2) || this->connections.size() != 2;
 }
 void BaseRailTile::Rail::connectTo(BaseRailTile::Rail* a2) {
-	bool_t hasConnection; // r7
-	bool_t v6; // r6
-	bool_t v7; // r8
-	bool_t v8; // r0
 	int32_t v9; // r5
-	TilePos m{a2->x, a2->y, a2->z};
-	this->connections.emplace_back(m);
-	hasConnection = this->hasConnection(this->x, this->y, this->z - 1);
-	v6 = this->hasConnection(this->x, this->y, this->z + 1);
-	v7 = this->hasConnection(this->x - 1, this->y, this->z);
-	v8 = this->hasConnection(this->x + 1, this->y, this->z);
+	this->connections.emplace_back(TilePos{a2->x, a2->y, a2->z});
+	bool hasConnection = this->hasConnection(this->x, this->y, this->z - 1);
+	bool v6 = this->hasConnection(this->x, this->y, this->z + 1);
+	bool v7 = this->hasConnection(this->x - 1, this->y, this->z);
+	bool v8 = this->hasConnection(this->x + 1, this->y, this->z);
 	if(hasConnection) {
 		v9 = 0;
 	} else if(v6) {
@@ -330,143 +325,38 @@ void BaseRailTile::Rail::removeSoftConnections() {
 	}
 }
 void BaseRailTile::Rail::updateConnections(int32_t a2) {
-	int32_t y;		 // r3
-	int32_t x;		 // r2
-	int32_t v6;		 // r2
-	int32_t z;		 // r3
-	int32_t v8;		 // r2
-	int32_t v9;		 // r3
-	int32_t v10;	 // r2
-	int32_t v11;	 // r2
-	int32_t v12;	 // r3
-	int32_t v13;	 // r1
-	int32_t v14;	 // r3
-	int32_t v15;	 // r2
-	int32_t v16;	 // r3
-	int32_t v17;	 // r3
-	int32_t v18;	 // r2
-	int32_t v19;	 // r3
-	int32_t v20;	 // r2
-	int32_t v21;	 // r3
-	int32_t v22;	 // r2
-	int32_t v23;	 // r3
-	int32_t v24;	 // r1
-	int32_t v25;	 // r3
-	int32_t v26;	 // r1
-	int32_t v27;	 // r2
-	int32_t v28;	 // r3
-	int32_t v29;	 // r1
-	int32_t v30;	 // r2
-	TilePos tilePos; // [sp+4h] [bp-1Ch] BYREF
-
 	this->connections.clear();
-	switch(a2) {
-		case 0:
-			y = this->y;
-			x = this->x;
-			tilePos.z = this->z - 1;
-			tilePos.y = y;
-			tilePos.x = x;
-			goto LABEL_20;
-		case 1:
-			v6 = this->y;
-			z = this->z;
-			tilePos.x = this->x - 1;
-			tilePos.y = v6;
-LABEL_9:
-			tilePos.z = z;
-			this->connections.emplace_back(tilePos);
-			v10 = this->y;
-			goto LABEL_10;
-		case 2:
-			v8 = this->y;
-			v9 = this->z;
-			tilePos.x = this->x - 1;
-			tilePos.y = v8;
-			tilePos.z = v9;
-			this->connections.emplace_back(tilePos);
-			v10 = this->y + 1;
-LABEL_10:
-			v12 = this->z;
-			v13 = this->x;
-			tilePos.y = v10;
-			tilePos.z = v12;
-			tilePos.x = v13 + 1;
-			goto LABEL_27;
-		case 3:
-			z = this->z;
-			v11 = this->x - 1;
-			tilePos.y = this->y + 1;
-			tilePos.x = v11;
-			goto LABEL_9;
-		case 4:
-			v14 = this->z;
-			tilePos.y = this->y + 1;
-			v15 = v14 - 1;
-			v16 = this->x;
-			tilePos.z = v15;
-			tilePos.x = v16;
-			goto LABEL_20;
+	if(a2 == 0) {
+		this->connections.emplace_back(TilePos{this->x, this->y, this->z - 1});
+		this->connections.emplace_back(TilePos{this->x, this->y, this->z + 1});
+	} else if(a2 == 1) {
+		this->connections.emplace_back(TilePos{this->x - 1, this->y, this->z});
+		this->connections.emplace_back(TilePos{this->x + 1, this->y, this->z});
+	} else if(a2 == 2) {
+		this->connections.emplace_back(TilePos{this->x - 1, this->y, this->z});
+		this->connections.emplace_back(TilePos{this->x + 1, this->y + 1, this->z});
+	} else if(a2 == 3) {
+		this->connections.emplace_back(TilePos{this->x - 1, this->y + 1, this->z});
+		this->connections.emplace_back(TilePos{this->x + 1, this->y, this->z});
+	} else if(a2 == 4) {
+		this->connections.emplace_back(TilePos{this->x, this->y + 1, this->z - 1});
+		this->connections.emplace_back(TilePos{this->x, this->y, this->z + 1});
+	} else if(a2 == 5) {
+		this->connections.emplace_back(TilePos{this->x, this->y, this->z - 1});
+		this->connections.emplace_back(TilePos{this->x, this->y + 1, this->z + 1});
+	} else if(a2 == 6) {
+		this->connections.emplace_back(TilePos{this->x + 1, this->y, this->z});
+		this->connections.emplace_back(TilePos{this->x, this->y, this->z + 1});
+	} else if(a2 == 7) {
+		this->connections.emplace_back(TilePos{this->x - 1, this->y, this->z});
+		this->connections.emplace_back(TilePos{this->x, this->y, this->z + 1});
+	} else if(a2 == 8) {
+		this->connections.emplace_back(TilePos{this->x-1, this->y, this->z});
+		this->connections.emplace_back(TilePos{this->x, this->y, this->z-1});
+	} else if(a2 == 9) {
+		this->connections.emplace_back(TilePos{this->x+1, this->y, this->z});
+		this->connections.emplace_back(TilePos{this->x, this->y, this->z-1});
 	}
-	if(a2 != 5) {
-		if(a2 == 6) {
-			v22 = this->y;
-			v23 = this->z;
-			v24 = this->x + 1;
-		} else {
-			if(a2 != 7) {
-				if(a2 == 8) {
-					v27 = this->y;
-					v28 = this->z;
-					v29 = this->x - 1;
-				} else {
-					if(a2 != 9) {
-						return;
-					}
-					v27 = this->y;
-					v28 = this->z;
-					v29 = this->x + 1;
-				}
-				tilePos.x = v29;
-				tilePos.y = v27;
-				tilePos.z = v28;
-				this->connections.emplace_back(tilePos);
-				v25 = this->y;
-				v26 = this->z - 1;
-				goto LABEL_26;
-			}
-			v22 = this->y;
-			v23 = this->z;
-			v24 = this->x - 1;
-		}
-		tilePos.x = v24;
-		tilePos.y = v22;
-		tilePos.z = v23;
-LABEL_20:
-		this->connections.emplace_back(tilePos);
-		v25 = this->y;
-		v26 = this->z + 1;
-LABEL_26:
-		v30 = this->x;
-		tilePos.y = v25;
-		tilePos.z = v26;
-		tilePos.x = v30;
-		goto LABEL_27;
-	}
-	v17 = this->y;
-	v18 = this->x;
-	tilePos.z = this->z - 1;
-	tilePos.y = v17;
-	tilePos.x = v18;
-	this->connections.emplace_back(tilePos);
-	v19 = this->z;
-	tilePos.y = this->y + 1;
-	v20 = v19 + 1;
-	v21 = this->x;
-	tilePos.z = v20;
-	tilePos.x = v21;
-LABEL_27:
-	this->connections.emplace_back(tilePos);
 }
 
 BaseRailTile::BaseRailTile(int32_t a2, bool_t a3)

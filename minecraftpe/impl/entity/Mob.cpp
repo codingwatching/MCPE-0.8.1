@@ -728,12 +728,11 @@ void Mob::handleEntityEvent(char event) {
 		this->die(0);
 	}
 }
-SynchedEntityData* Mob::getEntityData() const{
+SynchedEntityData* Mob::getEntityData(){
 	return (SynchedEntityData*) &this->synchedEntityData;
 }
-//there are two getEntityData functions for some reason
-bool_t Mob::isMob() {
-	return 1;
+SynchedEntityData* Mob::getEntityData() const{
+	return (SynchedEntityData*) &this->synchedEntityData;
 }
 
 void Mob::setSize(float w, float h) {
@@ -886,7 +885,7 @@ void Mob::playAmbientSound() {
 int32_t Mob::getAmbientSoundInterval() {
 	return 160;
 }
-TextureUVCoordinateSet* Mob::getItemInHandIcon(const ItemInstance* a2, int32_t a3) {
+const TextureUVCoordinateSet* Mob::getItemInHandIcon(const ItemInstance* a2, int32_t a3) {
 	int32_t v4 = a2->itemClass->getAnimationFrameFor(this);
 	return a2->getIcon(v4, 0);
 }

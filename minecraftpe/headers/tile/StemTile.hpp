@@ -11,8 +11,19 @@ struct StemTile : Bush{
 	TextureUVCoordinateSet* getConnectedTexture();
 	float getGrowthSpeed(Level*, int32_t, int32_t, int32_t);
 
-	virtual ~StemTile();
-	virtual bool_t onFertilized(Level*, int32_t, int32_t, int32_t);
+	virtual ~StemTile() {
+	}
+	virtual bool_t onFertilized(Level* level, int32_t x, int32_t y, int32_t z) {
+		int32_t v8; // r8
+		int32_t v9; // r3
+		v8 = level->getData(x, y, z);
+		v9 = level->random.genrand_int32() % 3 + v8 + 2;
+		if (v9 >= 7) {
+			v9 = 7;
+		}
+		level->setData(x, y, z, v9, 2);
+		return 1;
+	}
 	virtual int32_t getRenderShape();
 	virtual void updateShape(LevelSource*, int32_t, int32_t, int32_t);
 	virtual void updateDefaultShape();

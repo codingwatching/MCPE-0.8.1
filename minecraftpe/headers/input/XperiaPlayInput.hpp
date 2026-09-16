@@ -15,7 +15,8 @@ struct XperiaPlayInput: KeyboardInput
 
 	XperiaPlayInput(Minecraft*, Options*);
 
-	virtual ~XperiaPlayInput();
+	virtual ~XperiaPlayInput() {
+	}
 	virtual void tick(Player*);
 	virtual void render(float);
 	virtual void onConfigChanged(const Config&);

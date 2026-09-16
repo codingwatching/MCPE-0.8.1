@@ -33,7 +33,9 @@ struct RestCaller
 	virtual ~RestCaller();
 	virtual void requestStop() = 0;
 	virtual void urlEscape(const std::string&);
-	virtual void update();
+	virtual void update() {
+		printf("RestCaller::update - not implemented\n");
+	}
 	virtual void makeRequest(RestCallerObject*) = 0;
 
 };

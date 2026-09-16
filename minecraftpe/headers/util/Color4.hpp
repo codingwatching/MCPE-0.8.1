@@ -23,7 +23,15 @@ struct Color4{
 		this->b = b;
 		this->a = a;
 	}
-	int32_t toARGB(void);
+	int32_t toARGB(void) const {
+		int ret;
+		//TODO this might break with the wrong endianness?
+		((unsigned char*) (&ret))[0] = (unsigned int) ((this->r * 255.0f));
+		((unsigned char*) (&ret))[1] = (unsigned int) ((this->g * 255.0f));
+		((unsigned char*) (&ret))[2] = (unsigned int) ((this->b * 255.0f));
+		((unsigned char*) (&ret))[3] = (unsigned int) ((this->a * 255.0f));
+		return ret;
+	}
 	static Color4 lerp(const Color4& a2, const Color4& a3, float a4){
 		return Color4((a4 * a3.r) + ((float)(1.0 - a4) * a2.r), (a4 * a3.g) + ((float)(1.0 - a4) * a2.g), (a4 * a3.b) + ((float)(1.0 - a4) * a2.b), (a4 * a3.a) + ((float)(1.0 - a4) * a2.a));
 	}

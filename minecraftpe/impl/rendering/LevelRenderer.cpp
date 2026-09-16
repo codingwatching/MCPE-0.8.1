@@ -30,6 +30,7 @@
 #include <util/DirtyChunkSorter.hpp>
 #include <perf/Stopwatch.hpp>
 #include <sstream>
+const int LevelRenderer::CHUNK_SIZE = 16;
 
 LevelRenderer::LevelRenderer(Minecraft* minecraft, std::shared_ptr<TextureAtlas> a3)
 	: field_164(Color4::BLACK) {
@@ -439,7 +440,7 @@ int32_t LevelRenderer::getLayerFeature(int32_t a1, bool_t a2) {
 			return 0;
 	}
 }
-void LevelRenderer::render(const AABB& a2) {
+void LevelRenderer::render(const AABB& a2) const{
 	this->textures->loadAndBindTexture("terrain-atlas.tga");
 	Vec3 v5 = this->minecraft->player->getPos(0.0);
 	Vec3 v6(-v5.x, -v5.y, -v5.z);
@@ -600,7 +601,7 @@ void LevelRenderer::renderClouds(float a2) {
 	//DisableState::~DisableState((DisableState *)&v28);
 	//EnableState::~EnableState((EnableState *)&v27);
 }
-void LevelRenderer::renderDebug(const AABB& a2, float a3) {
+void LevelRenderer::renderDebug(const AABB& a2, float a3) const{
 	float minX; // r11
 	float maxX; // r8
 	float minY; // r10

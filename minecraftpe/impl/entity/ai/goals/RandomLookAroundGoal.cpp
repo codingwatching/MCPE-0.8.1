@@ -12,8 +12,6 @@ RandomLookAroundGoal::RandomLookAroundGoal(Mob* a2) {
 	this->setRequiredControlFlags(3);
 }
 
-RandomLookAroundGoal::~RandomLookAroundGoal() {
-}
 bool_t RandomLookAroundGoal::canUse() {
 	return this->holder->level->random.nextFloat() < 0.02;
 }

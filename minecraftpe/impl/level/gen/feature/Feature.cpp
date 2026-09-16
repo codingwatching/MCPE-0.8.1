@@ -5,11 +5,6 @@ Feature::Feature(bool_t a2) {
 	this->update = a2;
 }
 
-Feature::~Feature() {
-}
-void Feature::init(float, float, float) {
-}
-
 void Feature::placeBlock(Level* level, int32_t x, int32_t y, int32_t z, int32_t id) {
 	this->placeBlock(level, x, y, z, id, 0);
 }

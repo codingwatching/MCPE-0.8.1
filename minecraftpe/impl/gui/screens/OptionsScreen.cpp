@@ -29,7 +29,7 @@ void OptionsScreen::closeScreen() {
 	}
 }
 int32_t OptionsScreen::createCategoryButton(int32_t a2, int32_t a3, struct ImageDef& a4, int32_t a5, int32_t a6, int32_t a7, int32_t a8) {
-	CategoryButton* v12 = new CategoryButton(a2, this->field_7C, this->field_80, (Button**)&this->field_5C);
+	ImageButton* v12 = new CategoryButton(a2, this->field_7C, this->field_80, (Button**)&this->field_5C);
 	a4.field_24 = 1;
 	a4.field_14 = a5;
 	a4.field_18 = a6;
@@ -40,7 +40,7 @@ int32_t OptionsScreen::createCategoryButton(int32_t a2, int32_t a3, struct Image
 	v12->setImageDef(a4, 1);
 	v12->height = a3;
 	v12->width = a3;
-	this->field_60.emplace_back(v12);
+	this->field_60.push_back(v12);
 	return a2 + 1;
 }
 void OptionsScreen::createCategoryButtons(void) {

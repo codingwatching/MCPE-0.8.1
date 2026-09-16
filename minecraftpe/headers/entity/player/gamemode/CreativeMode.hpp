@@ -6,7 +6,8 @@ struct CreativeMode: GameMode
 	CreativeMode(Minecraft*);
 	void creativeDestroyBlock(int32_t, int32_t, int32_t, int32_t);
 
-	virtual ~CreativeMode();
+	virtual ~CreativeMode() {
+	}
 	virtual void startDestroyBlock(int32_t, int32_t, int32_t, int32_t);
 	virtual void continueDestroyBlock(int32_t, int32_t, int32_t, int32_t);
 	virtual void stopDestroyBlock();

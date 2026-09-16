@@ -163,43 +163,52 @@ struct Item{
 	void setMaxDamage(int32_t);
 	void setStackedByData(bool_t);
 
-	virtual ~Item();
+	virtual ~Item() {
+		//~descriptionID
+		//~itemTextures
+	}
 	virtual int32_t getMaxStackSize(const struct ItemInstance*);
 	virtual Item* setMaxStackSize(int32_t);
 	virtual bool_t canBeDepleted();
-	virtual TextureUVCoordinateSet* getIcon(int32_t, int32_t, bool_t);
+	virtual const TextureUVCoordinateSet* getIcon(int32_t, int32_t, bool_t) const;
 	virtual Item* setIcon(const std::string&, int32_t);
 	virtual Item* setIcon(TextureUVCoordinateSet);
-	virtual bool_t isMirroredArt();
+	virtual bool_t isMirroredArt() const;
 	virtual ItemInstance* use(struct ItemInstance*, Level*, struct Player*);
 	virtual bool_t useOn(struct ItemInstance*, struct Level*, int32_t, int32_t, int32_t, int32_t);
 	virtual bool_t useOn(struct ItemInstance*, struct Player*, Level*, int32_t, int32_t, int32_t, int32_t, float, float, float);
-	virtual int32_t getMaxUseDuration();
+	virtual int32_t getMaxUseDuration() const;
 	virtual ItemInstance useTimeDepleted(struct ItemInstance*, Level*, struct Player*);
-	virtual int32_t getUseAnimation();
+	virtual int32_t getUseAnimation() const;
 	virtual void releaseUsing(struct ItemInstance*, Level*, struct Player*, int32_t);
 	virtual float getDestroySpeed(struct ItemInstance*, struct Tile*);
-	virtual bool_t canDestroySpecial(const struct Tile*);
-	virtual int32_t getLevelDataForAuxValue(int32_t);
-	virtual bool_t isStackedByData();
+	virtual bool_t canDestroySpecial(const struct Tile*) const;
+	virtual int32_t getLevelDataForAuxValue(int32_t) const;
+	virtual bool_t isStackedByData() const;
 	virtual int32_t getMaxDamage();
 	virtual int32_t getAttackDamage(struct Entity*);
 	virtual void hurtEnemy(struct ItemInstance*, Mob*, Mob*);
 	virtual void interactEnemy(struct ItemInstance*, Mob*, Player*);
 	virtual bool_t mineBlock(struct ItemInstance*, int32_t, int32_t, int32_t, int32_t, struct Mob*);
 	virtual Item* handEquipped();
-	virtual bool_t isHandEquipped();
-	virtual bool_t isFood();
-	virtual bool_t isSeed();
-	virtual bool_t isArmor();
-	virtual bool_t isLiquidClipItem(int32_t);
-	virtual std::string getName(const struct ItemInstance*);
-	virtual std::string getDescription(void);
-	virtual std::string getDescription(const struct ItemInstance*);
-	virtual std::string getDescriptionId();
-	virtual std::string getDescriptionId(const struct ItemInstance*);
+	virtual bool_t isHandEquipped() const;
+	virtual bool_t isFood() const;
+	virtual bool_t isSeed() const;
+	virtual bool_t isArmor() const;
+	virtual bool_t isLiquidClipItem(int32_t) const {
+		return 0;
+	}
+	virtual std::string getName(const struct ItemInstance*) const;
+	virtual std::string getDescription(void) const;
+	virtual std::string getDescription(const struct ItemInstance*) const;
+	virtual std::string getDescriptionId() const;
+	virtual std::string getDescriptionId(const struct ItemInstance*) const;
 	virtual Item* setDescriptionId(const std::string&);
-	virtual bool_t isEmissive(int32_t);
-	virtual int32_t getAnimationFrameFor(Mob*);
+	virtual bool_t isEmissive(int32_t) const {
+		return 0;
+	}
+	virtual int32_t getAnimationFrameFor(Mob*) const {
+		return 0;
+	}
 
 };

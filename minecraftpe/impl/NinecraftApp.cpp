@@ -228,7 +228,7 @@ void NinecraftApp::init(void){
 	this->particleEngine = new ParticleEngine(this->level, this->texturesPtr);
 	this->font = new Font(this->platform(), &this->options, "font/default8.png", this->texturesPtr);
 	this->perfRenderer = new PerfRenderer(this, this->font);
-	this->checkGLError("Init complete");
+	this->checkGlError("Init complete");
 	this->updateStatusUserAttributes();
 	this->options.validateVersion();
 	this->screenChooser.setScreen(START_MENU_SCREEN);

@@ -3,14 +3,24 @@
 #include "Tag.hpp"
 
 struct EndTag : public Tag{
-	EndTag();
+	EndTag() : Tag(""){}
 
-	virtual void write(IDataOutput*);
-	virtual void load(IDataInput*);
-	virtual int32_t getId(void) const;
-	virtual std::string toString(void);
-	virtual Tag* copy(void);
+	virtual void write(IDataOutput*) {
+	}
+	virtual void load(IDataInput*) {
+	}
+	virtual int32_t getId(void) const {
+		return 0;
+	}
+	virtual std::string toString(void) const {
+		return "END";
+	}
+	virtual Tag* copy(void) const {
+		return new EndTag();
+	}
 
-	bool_t equals(const Tag&);
+	bool_t equals(const Tag& a2) const {
+		return Tag::equals(a2);
+	}
 
 };

@@ -1,8 +1,8 @@
 #pragma once
-#include <_types.h>
+#include <rendering/textures/TextureData.hpp>
 #include <map>
 #include <string>
-#include <rendering/textures/TextureData.hpp>
+#include <unigl.hpp>
 
 struct Textures{
 	static int32_t textureChanges;
@@ -17,7 +17,15 @@ struct Textures{
 	void _loadTexImage(const ImageData&);
 	void addDynamicTexture(struct DynamicTexture*);
 	int32_t assignTexture(const std::string&, struct TextureData&, bool_t);
-	void bind(uint32_t);
+	void bind(uint32_t t) {
+		if (t) {
+			if (this->currentTexture != t) {
+				glBindTexture(GL_TEXTURE_2D, t);
+				this->currentTexture = t;
+				++Textures::textureChanges;
+			}
+		}
+	}
 	void clear(bool_t);
 	int32_t crispBlend(int32_t, int32_t);
 	int32_t loadAndBindTexture(const std::string&);

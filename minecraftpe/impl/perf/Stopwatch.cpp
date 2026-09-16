@@ -37,8 +37,7 @@ void Stopwatch::reset() {
 void Stopwatch::start() {
 	this->startTime = getTimeS();
 }
-Stopwatch::~Stopwatch() {
-}
+
 void Stopwatch::stop() {
 	double diffTime;	   // d7
 	double maxDiffTime; // d6

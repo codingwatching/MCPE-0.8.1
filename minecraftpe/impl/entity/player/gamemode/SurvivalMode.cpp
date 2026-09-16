@@ -16,8 +16,6 @@ SurvivalMode::SurvivalMode(Minecraft* a2)
 	this->zCurrent = -1;
 }
 
-SurvivalMode::~SurvivalMode() {
-}
 void SurvivalMode::startDestroyBlock(int32_t x, int32_t y, int32_t z, int32_t side) {
 	int32_t v9;	 // r0
 	int32_t v10; // r9
@@ -136,12 +134,6 @@ void SurvivalMode::continueDestroyBlock(int32_t x, int32_t y, int32_t z, int32_t
 void SurvivalMode::stopDestroyBlock() {
 	this->field_8 = 0;
 	this->delay = 0;
-}
-bool_t SurvivalMode::canHurtPlayer() {
-	return 1;
-}
-bool_t SurvivalMode::isSurvivalType() {
-	return 1;
 }
 void SurvivalMode::initAbilities(Abilities& a2){
 	a2.flying = 0;

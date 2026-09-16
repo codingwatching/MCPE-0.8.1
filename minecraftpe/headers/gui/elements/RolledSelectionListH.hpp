@@ -25,7 +25,8 @@ struct RolledSelectionListH: GuiComponent
 	void setRenderSelection(bool_t);
 
 
-	virtual ~RolledSelectionListH();
+	virtual ~RolledSelectionListH() {
+	}
 	virtual int32_t getItemAtPosition(int32_t, int32_t);
 	virtual bool capXPosition(void);
 	virtual void tick();
@@ -34,16 +35,24 @@ struct RolledSelectionListH: GuiComponent
 	virtual void setRenderHeader(bool_t, int32_t);
 	virtual void setComponentSelected(bool_t);
 	virtual int32_t getNumberOfItems() = 0;
-	virtual void selectStart(int32_t, int32_t, int32_t);
-	virtual void selectCancel(void);
+	//int32_t RolledSelectionListH::getNumberOfItems() = 0;
+	virtual void selectStart(int32_t, int32_t, int32_t) {
+	}
+	virtual void selectCancel(void) {
+	}
 	virtual void selectItem(int32_t, bool_t) = 0;
 	virtual bool_t isSelectedItem(int32_t) = 0;
 	virtual int32_t getMaxPosition();
 	virtual float getPos(float);
 	virtual void touched();
 	virtual void renderItem(int32_t, int32_t, int32_t, int32_t, Tesselator&) = 0;
-	virtual void renderHeader(int32_t, int32_t, Tesselator&);
+	//void RolledSelectionListH::renderItem(int32_t, int32_t, int32_t, int32_t, struct Tesselator&) = 0;
+	virtual void renderHeader(int32_t, int32_t, Tesselator&) {
+	}
 	virtual void renderBackground() = 0;
-	virtual void renderDecorations(int32_t, int32_t);
-	virtual void clickedHeader(int32_t, int32_t);
+	//void RolledSelectionListH::renderBackground() = 0;
+	virtual void renderDecorations(int32_t, int32_t) {
+	}
+	virtual void clickedHeader(int32_t, int32_t) {
+	}
 };

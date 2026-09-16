@@ -288,7 +288,7 @@ struct RandomLevelSource : ChunkSource{
 	int32_t field_82C8;
 	int32_t field_82CC;
 
-	RandomLevelSource(struct Level*, int32_t, int32_t, bool); //long, int, bool
+	RandomLevelSource(struct Level*, long, int32_t, bool); //long, int, bool
 	void buildSurfaces(int32_t, int32_t, uint8_t*, struct Biome**);
 	void calcWaterDepths(struct ChunkSource*, int32_t, int32_t);
 	float* getHeights(float*, int32_t, int32_t, int32_t, int32_t, int32_t, int32_t);

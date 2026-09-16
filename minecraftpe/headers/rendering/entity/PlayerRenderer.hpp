@@ -13,5 +13,7 @@ struct PlayerRenderer: HumanoidMobRenderer
 	virtual int32_t prepareArmor(Mob*, int32_t, float);
 	virtual void setupPosition(Entity*, float, float, float);
 	virtual void setupRotations(Entity*, float, float, float);
-	virtual int32_t getArmorTransparencyMode();
+	virtual int32_t getArmorTransparencyMode() const {
+		return 3008;
+	}
 };

@@ -228,7 +228,7 @@ std::vector<std::vector<std::string>> Font::getParagraphs(const std::string& a3)
 	}
 	return a1;
 }
-float Font::getPixelLength(const std::string& s){
+float Font::getPixelLength(const std::string& s) const{
 	float v5 = 0;
 	const char_t* start = s.data();
 	const char_t* end = s.data() + s.length();

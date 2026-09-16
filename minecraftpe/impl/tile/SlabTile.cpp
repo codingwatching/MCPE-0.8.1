@@ -12,11 +12,6 @@ bool_t SlabTile::isBottomSlab(LevelSource* level, int32_t x, int32_t y, int32_t 
 	return ((level->getData(x, y, z) ^ 8u) >> 3) & 1;
 }
 
-SlabTile::~SlabTile() {
-}
-int32_t SlabTile::getTileType() {
-	return 2;
-}
 bool_t SlabTile::isCubeShaped() {
 	return this->isFull;
 }

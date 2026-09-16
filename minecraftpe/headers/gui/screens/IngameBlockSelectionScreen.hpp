@@ -21,7 +21,8 @@ struct IngameBlockSelectionScreen: Screen
 	void renderSlots();
 	void selectSlotAndClose();
 
-	virtual ~IngameBlockSelectionScreen();
+	virtual ~IngameBlockSelectionScreen() {
+	}
 	virtual void render(int32_t, int32_t, float);
 	virtual void init();
 	virtual void removed();

@@ -2,6 +2,9 @@
 #include <entity/Mob.hpp>
 #include <entity/ai/JumpControl.hpp>
 #include <math.h>
+const float MoveControl::MIN_SPEED = 0.0005;
+const float MoveControl::MIN_SPEED_SQR = MoveControl::MIN_SPEED * MoveControl::MIN_SPEED;
+const float MoveControl::MAX_TURN = 75;
 
 MoveControl::MoveControl(Mob* a2) {
 	this->controlledEntity = a2;

@@ -72,7 +72,7 @@ void ServerSideNetworkHandler::allowIncomingConnections(bool_t a2) {
 ServerPlayer* ServerSideNetworkHandler::createNewPlayer(const RakNet::RakNetGUID& a2, LoginPacket* a3) {
 	Player* pp = this->findPendingPlayer(a2);
 	if(!pp) {
-		ServerPlayer* v7 = new ServerPlayer(this->minecraft, this->level);
+		Player* v7 = new ServerPlayer(this->minecraft, this->level);
 		v7->rakNetGUID = a2;
 		v7->username = a3->username.C_String();
 		v7->field_CA8 = a3->clientId;
@@ -81,7 +81,7 @@ ServerPlayer* ServerSideNetworkHandler::createNewPlayer(const RakNet::RakNetGUID
 		v7->field_CA4 = v15.str();
 		this->level->getLevelStorage()->load(v7);
 		this->minecraft->gameMode->initAbilities(v7->abilities);
-		this->players.emplace_back(v7);
+		this->players.push_back(v7);
 		while(v7->posY < 129) {
 			v7->setPos(v7->posX, v7->posY, v7->posZ);
 			if(this->level->getCubes(v7, v7->boundingBox, 0)->empty()) break;
@@ -89,7 +89,7 @@ ServerPlayer* ServerSideNetworkHandler::createNewPlayer(const RakNet::RakNetGUID
 		}
 		v7->moveTo(v7->posX, v7->posY - v7->ridingHeight, v7->posZ, v7->yaw, v7->pitch);
 		this->level->getCubes(v7, v7->boundingBox, 0);
-		return v7;
+		return (ServerPlayer*) v7;
 	}
 	return (ServerPlayer*) pp;
 }
@@ -703,8 +703,7 @@ void ServerSideNetworkHandler::tileChanged(int32_t x, int32_t y, int32_t z) {
 		}
 	}
 }
-void ServerSideNetworkHandler::tileBrightnessChanged(int32_t, int32_t, int32_t) {
-}
+
 Packet* ServerSideNetworkHandler::getAddPacketFromEntity(Entity* a2) {
 	if(!a2->isMob() || a2->isPlayer()) {
 		if(a2->isPlayer()) {

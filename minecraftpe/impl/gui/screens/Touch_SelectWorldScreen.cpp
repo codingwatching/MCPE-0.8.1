@@ -1,6 +1,6 @@
 #include <gui/screens/Touch_SelectWorldScreen.hpp>
 #include <gui/elements/Touch_TouchWorldSelectionList.hpp>
-#include <gui/screens/Touch_DeleteWorldScreen.hpp>
+#include <gui/screens/Touch_TouchDeleteWorldScreen.hpp>
 #include <Minecraft.hpp>
 #include <input/Mouse.hpp>
 #include <util/Util.hpp>
@@ -54,7 +54,7 @@ void Touch::SelectWorldScreen::loadLevelSource(){
 	for(int i = 0; i < this->field_19C.size(); ++i) {
 		LevelSummary* v9 = &this->field_19C[i];
 		if(v9->worldName != LevelStorageSource::TempLevelId) {
-			this->selectionList->items.emplace_back(LevelSummary(*v9));
+			this->selectionList->items.push_back(*v9);
 		}
 	}
 }
@@ -189,7 +189,7 @@ void Touch::SelectWorldScreen::buttonClicked(Button* a2) {
 	}
 	if(a2->buttonID == this->field_54.buttonID) {
 		if(this->isIndexValid(this->selectionList->selectedItem)) {
-			this->minecraft->setScreen(new Touch::DeleteWorldScreen(this->selectionList->items[this->selectionList->selectedItem]));
+			this->minecraft->setScreen(new Touch::TouchDeleteWorldScreen(this->selectionList->items[this->selectionList->selectedItem]));
 		}
 	}
 	if(a2->buttonID == this->backButton.buttonID) {

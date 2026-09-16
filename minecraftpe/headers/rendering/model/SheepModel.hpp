@@ -7,7 +7,9 @@ struct SheepModel: QuadrupedModel
 
 	SheepModel(bool_t);
 
-	virtual ~SheepModel();
+	virtual ~SheepModel() {
+	}
+
 	virtual void setupAnim(float, float, float, float, float, float);
 	virtual void prepareMobModel(Mob*, float, float, float);
 };

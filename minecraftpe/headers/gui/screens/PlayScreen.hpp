@@ -54,7 +54,7 @@ struct PlayScreen: Screen
 	std::shared_ptr<GuiElement> buildMCOServerList();
 	std::shared_ptr<GuiElement> buildMessageScreen();
 	void closeScreen();
-	PlayScreenState getState();
+	PlayScreenState getState() const;
 	PlayScreenStateSetting* getStateData(PlayScreenState a2);
 	bool_t isEditMode();
 	bool_t isLocalPlayScreen();

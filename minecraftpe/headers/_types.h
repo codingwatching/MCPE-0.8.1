@@ -1,6 +1,8 @@
 #pragma once
 #define UNK
-
+#if defined(PCTWEAKS) && defined(ANDROID)
+#error PCTWEAKS and ANDROID are defined at the same time.
+#endif
 #include <stdint.h>
 #include <stdbool.h>
 

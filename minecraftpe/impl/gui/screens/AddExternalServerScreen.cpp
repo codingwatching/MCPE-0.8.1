@@ -13,8 +13,6 @@ void AddExternalServerScreen::closeScreen() {
 	this->minecraft->setScreen(new PlayScreen(1));
 }
 
-AddExternalServerScreen::~AddExternalServerScreen() {
-}
 void AddExternalServerScreen::render(int32_t a2, int32_t a3, float a4) {
 	if(this->supppressedBySubWindow()) {
 		this->renderBackground(0);
@@ -31,12 +29,12 @@ void AddExternalServerScreen::init() {
 	this->closeScreenButton->width = 38;
 	this->closeScreenButton->height = 18;
 	this->serverNameLabel = std::shared_ptr<Label>(new Label("Server Name", this->minecraft, -1, 0, 0, 0, 1));
-	this->serverNameTextBox = std::shared_ptr<TextBox>(new TextBox(this->minecraft, "Server Name", 16, TextBox::extendedAcsii, strlen(TextBox::extendedAcsii), 0, 0, 0, 0));
+	this->serverNameTextBox = std::shared_ptr<TextBox>(new TextBox(this->minecraft, "Server Name", 16, TextBox::extendedAcsii, strlen(TextBox::extendedAcsii), 0, 0, 0));
 	this->addressLabel = std::shared_ptr<Label>(new Label("Address", this->minecraft, -1, 0, 0, 0, 1));
-	this->serverAddressTextBox = std::shared_ptr<TextBox>(new TextBox(this->minecraft, "Server Address", 256, TextBox::extendedAcsii, strlen(TextBox::extendedAcsii), 0, 0, 0, 0));
+	this->serverAddressTextBox = std::shared_ptr<TextBox>(new TextBox(this->minecraft, "Server Address", 256, TextBox::extendedAcsii, strlen(TextBox::extendedAcsii), 0, 0, 0));
 	this->serverAddressTextBox->setText("127.0.0.1");
 	this->portLabel = std::shared_ptr<Label>(new Label("Port", this->minecraft, -1, 0, 0, 0, 1));
-	this->field_94 = std::shared_ptr<TextBox>(new TextBox(this->minecraft, "Server Port", 6, TextBox::numberChars, strlen(TextBox::numberChars), 0, 0, 0, 0));
+	this->field_94 = std::shared_ptr<TextBox>(new TextBox(this->minecraft, "Server Port", 6, TextBox::numberChars, strlen(TextBox::numberChars), 0, 0, 0));
 	this->field_94->setText("19132");
 	this->field_9C = std::shared_ptr<Label>(new Label("Add server by IP/Address.", this->minecraft, -1, 0, 0, 0, 1));
 	NinePatchFactory factory(this->minecraft->texturesPtr, "gui/spritesheet.png");

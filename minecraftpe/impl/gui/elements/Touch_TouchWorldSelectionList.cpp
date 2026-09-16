@@ -84,8 +84,6 @@ void Touch::TouchWorldSelectionList::tweenInited(void) {
 	this->field_34 = v6 - v7;
 }
 
-Touch::TouchWorldSelectionList::~TouchWorldSelectionList() {
-}
 bool Touch::TouchWorldSelectionList::capXPosition() {
 	bool r = RolledSelectionListH::capXPosition();
 	if(r) this->field_C8 = 0;
@@ -189,9 +187,6 @@ float Touch::TouchWorldSelectionList::getPos(float a2) {
 	return v8 + (_sub_D65F85F8(v4 + 1, v5, v6, v7) - v8) * a2;
 }
 
-void Touch::TouchWorldSelectionList::touched() {
-	this->field_C8 = 0;
-}
 void Touch::TouchWorldSelectionList::renderItem(int32_t a2, int32_t a3, int32_t a4, int32_t a5, Tesselator& a6) {
 	int32_t v9 = a3 + this->field_10 / 2;
 	int32_t v10 = this->field_14 / 2 - v9;
@@ -236,6 +231,4 @@ void Touch::TouchWorldSelectionList::renderItem(int32_t a2, int32_t a3, int32_t 
 		a6.vertexUV(v16, v14, this->zLayer, 1, 0.125);
 		a6.draw(1);
 	}
-
 }
-void Touch::TouchWorldSelectionList::renderBackground() {}

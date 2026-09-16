@@ -30,12 +30,12 @@ struct AppPlatform{
 
 	};
 
-	bool_t keyboardShown;
-	int8_t a5, a6, a7;
-	std::multimap<float, AppPlatform::Listener*> listeners; //_Rb_tree, probably std::map(https://gcc.gnu.org/onlinedocs/gcc-4.8.5/libstdc++/api/a01251_source.html line 134), also weird that it uses float as a key
+	bool keyboardShown;
+	std::multimap<float, AppPlatform::Listener*> listeners;
 
 	static AppPlatform* _singleton;
 	static int32_t TEXTURE_MAX_LEVEL;
+	static int ANISOTROPIC_FILTER;
 	static GLfloat ANISOTROPIC_MAX_LEVEL;
 	//XXX might be not char_t
 	static char_t* preloadingHTML;
@@ -106,9 +106,9 @@ struct AppPlatform{
 	virtual int32_t getKeyFromKeyCode(int32_t, int32_t, int32_t) {
 		return 0;
 	}
-	void buyGame(void) {
+	virtual void buyGame(void) {
 	}
-	void finish(void) {
+	virtual void finish(void) {
 	}
 	virtual bool supportsTouchscreen(void) {
 		return 1;
@@ -124,7 +124,9 @@ struct AppPlatform{
 	virtual std::string getPlatformStringVar(int32_t){
 		return "<getPlatformStringVar NotImplemented>"; //this is actual return value
 	}
-	virtual void showKeyboard(std::string*, int32_t, bool_t);
+	virtual void showKeyboard(const std::string&, int32_t, bool_t){
+		this->keyboardShown = 1;
+	}
 	virtual void hideKeyboard(void) {
 		this->keyboardShown = 0;
 	}
@@ -146,8 +148,11 @@ struct AppPlatform{
 	}
 
 	void _fireAppSuspended(void){
-		for(auto& a: this->listeners) {
-			a.second->onAppSuspended();
+		std::multimap<float, AppPlatform::Listener*>::reverse_iterator it = this->listeners.rbegin();
+		std::multimap<float, AppPlatform::Listener*>::reverse_iterator end = this->listeners.rend();
+
+		for(;it != end;++it){
+			it->second->onAppSuspended();
 		}
 	}
 	void createUserInput(int32_t i){

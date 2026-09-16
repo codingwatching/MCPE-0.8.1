@@ -8,7 +8,7 @@ struct BeetrootTile : CropTile{
 	void spawnItem(Level*, int32_t, int32_t, int32_t, const struct ItemInstance&);
 
 	virtual ~BeetrootTile(){}
-	virtual TextureUVCoordinateSet* getTexture(int32_t, int32_t);
+	virtual const TextureUVCoordinateSet* getTexture(int32_t, int32_t);
 	virtual void spawnResources(Level*, int32_t, int32_t, int32_t, int32_t, float);
 	virtual struct Item* getBaseSeed();
 	virtual int32_t getBasePlantId();

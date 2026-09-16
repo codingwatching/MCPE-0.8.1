@@ -23,6 +23,7 @@
 #include <util/OffsetPosTranslator.hpp>
 #include <cpputils.hpp>
 #include <network/ServerCommandParser.hpp>
+#include <input/TouchscreenInput.hpp>
 
 float Gui::InvGuiScale = 0.333333;
 float Gui::GuiScale;
@@ -405,7 +406,7 @@ void Gui::render(float a2, bool_t a3, int32_t a4, int32_t a5) {
 				this->renderSleepAnimation(v15, v16);
 			}
 			if(!this->minecraftInst->currentScreen) {
-				this->renderToolBar(a2, 0.65);
+				this->renderToolBar(a2, TouchscreenInput::BUTTONS_TRANSPARENCY);
 			}
 			v18 = this->tipTimeLeft;
 			if(v18 > 0.0) {

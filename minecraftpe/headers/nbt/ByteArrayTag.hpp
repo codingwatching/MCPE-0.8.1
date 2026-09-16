@@ -3,12 +3,18 @@
 #include <nbt/Tag.hpp>
 #include <util/input/IDataInput.hpp>
 #include <util/output/IDataOutput.hpp>
+#include <util/input/IDataInput.hpp>
+#include <util/output/IDataOutput.hpp>
+#include <string.h>
 
 struct ByteArrayTag : public Tag{
 	int8_t* value;
 	int32_t count;
 
-	ByteArrayTag(const std::string&, int8_t*, int32_t);
+	ByteArrayTag(const std::string& n, int8_t* arr, int32_t length) : Tag(n){
+		this->value = arr;
+		this->count = length;
+	}
 	virtual void write(IDataOutput* out){
 		out->writeInt(this->count);
 		out->writeBytes(this->value, this->count);
@@ -24,7 +30,24 @@ struct ByteArrayTag : public Tag{
 	virtual int32_t getId(void) const{
 		return 7;
 	}
-	virtual std::string toString(void);
-	virtual Tag* copy(void);
-	bool_t equals(const Tag&);
+	virtual std::string toString() const{
+		std::string result = "[";
+		result += this->count;
+		result += " bytes]";
+		return result;
+	}
+	virtual Tag* copy(void) const {
+		int8_t* arr = new int8_t[this->count];
+		memcpy(arr, this->value, this->count);
+		return new ByteArrayTag(this->getName(), arr, 0); //XXX count is 0??????
+	}
+	bool_t equals(const Tag& t) const {
+		const ByteArrayTag* tg = (const ByteArrayTag*) (&t);
+		bool_t eq = Tag::equals(t);
+		if (eq) {
+			int32_t count = this->count;
+			return count == tg->count && memcmp(this->value, tg->value, count) == 0;
+		}
+		return eq;
+	}
 };

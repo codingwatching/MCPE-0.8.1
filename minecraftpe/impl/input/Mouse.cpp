@@ -2,10 +2,10 @@
 
 MouseDevice Mouse::_instance;
 
-void Mouse::feed(int8_t a2, int8_t a3, int16_t a4, int16_t a5){
+void Mouse::feed(char a2, char a3, int16_t a4, int16_t a5){
 	Mouse::feed(a2, a3, a4, a5, 0, 0);
 }
-void Mouse::feed(int8_t a2, int8_t a3, int16_t a4, int16_t a5, int16_t a6, int16_t a7){
+void Mouse::feed(char a2, char a3, int16_t a4, int16_t a5, int16_t a6, int16_t a7){
 	Mouse::_instance.feed(a2, a3, a4, a5, a6, a7);
 }
 int32_t Mouse::getButtonState(int32_t b){

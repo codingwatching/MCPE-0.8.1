@@ -16,7 +16,9 @@ struct NetEventCallback{
 	virtual void onUnableToConnect(void){}
 	virtual void onNewClient(const RakNet::RakNetGUID&){}
 	virtual void onDisconnect(const RakNet::RakNetGUID&){}
-	virtual bool_t allowIncomingPacketId(const RakNet::RakNetGUID&, int32_t);
+	virtual bool_t allowIncomingPacketId(const RakNet::RakNetGUID&, int32_t) {
+		return 0;
+	}
 	virtual void handle(const RakNet::RakNetGUID&, struct LoginPacket*){}
 	virtual void handle(const RakNet::RakNetGUID&, struct ReadyPacket*){}
 	virtual void handle(const RakNet::RakNetGUID&, struct LoginStatusPacket*){}
@@ -56,7 +58,8 @@ struct NetEventCallback{
 	virtual void handle(const RakNet::RakNetGUID&, struct HurtArmorPacket*){}
 	virtual void handle(const RakNet::RakNetGUID&, struct SendInventoryPacket*){}
 	virtual void handle(const RakNet::RakNetGUID&, struct DropItemPacket*){}
-	virtual void handle(const RakNet::RakNetGUID&, struct ContainerOpenPacket*);
+	virtual void handle(const RakNet::RakNetGUID&, struct ContainerOpenPacket*) {
+	}
 	virtual void handle(const RakNet::RakNetGUID&, struct ContainerClosePacket*){}
 	virtual void handle(const RakNet::RakNetGUID&, struct ContainerAckPacket*){}
 	virtual void handle(const RakNet::RakNetGUID&, struct ContainerSetDataPacket*){}

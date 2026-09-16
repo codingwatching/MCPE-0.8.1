@@ -7,7 +7,7 @@ struct WaterAnimal: PathfinderMob
 	int32_t getExperienceReward(Player*); //release feature leaks :scream:
 
 	virtual ~WaterAnimal(){}
-	virtual int32_t getCreatureBaseType();
+	virtual int32_t getCreatureBaseType() const;
 	virtual void readAdditionalSaveData(CompoundTag*);
 	virtual void addAdditonalSaveData(CompoundTag*);
 	virtual bool_t isWaterMob();

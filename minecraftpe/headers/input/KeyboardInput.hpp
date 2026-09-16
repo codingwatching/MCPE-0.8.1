@@ -11,7 +11,8 @@ struct KeyboardInput: IMoveInput
 
 	KeyboardInput(Options*);
 
-	virtual ~KeyboardInput();
+	virtual ~KeyboardInput() {
+	}
 	virtual void tick(Player*);
 	virtual void setKey(int32_t, bool_t);
 	virtual void releaseAllKeys();

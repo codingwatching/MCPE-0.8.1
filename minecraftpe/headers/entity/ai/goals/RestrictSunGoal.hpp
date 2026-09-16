@@ -6,9 +6,10 @@ struct RestrictSunGoal: Goal
 {
 	PathfinderMob* holder;
 
-	RestrictSunGoal(PathfinderMob*);
+	RestrictSunGoal(PathfinderMob* a2);
 
-	virtual ~RestrictSunGoal();
+	virtual ~RestrictSunGoal() {
+	}
 	virtual bool_t canUse();
 	virtual void start();
 	virtual void stop();

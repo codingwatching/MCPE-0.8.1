@@ -12,8 +12,6 @@ MelonTile::MelonTile(int32_t id)
 	this->field_94 = *texItem.getUV(1);
 }
 
-MelonTile::~MelonTile() {
-}
 TextureUVCoordinateSet* MelonTile::getTexture(int32_t a2) {
 	if(a2 > 1) {
 		return &this->field_7C;

@@ -68,8 +68,6 @@ void TrapDoorTile::setOpen(Level* level, int32_t x, int32_t y, int32_t z, bool_t
 	}
 }
 
-TrapDoorTile::~TrapDoorTile() {
-}
 bool_t TrapDoorTile::isCubeShaped() {
 	return 0;
 }

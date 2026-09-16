@@ -26,8 +26,7 @@ void ServerLevel::awakenAllPlayers() {
 	SetHealthPacket v6(20);
 	this->rakNetInstance->send(v6);
 }
-ServerLevel::~ServerLevel() {
-}
+
 void ServerLevel::tick() {
 	Level::tick();
 	if(this->allPlayersSleeping()) {

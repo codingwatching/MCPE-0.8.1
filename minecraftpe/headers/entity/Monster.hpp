@@ -12,7 +12,7 @@ struct Monster: PathfinderMob
 	virtual void tick();
 	virtual bool_t hurt(Entity*, int32_t);
 
-	virtual int32_t getCreatureBaseType();
+	virtual int32_t getCreatureBaseType() const;
 	virtual float getBaseSpeed() = 0;
 	virtual void aiStep();
 	virtual bool_t canSpawn();

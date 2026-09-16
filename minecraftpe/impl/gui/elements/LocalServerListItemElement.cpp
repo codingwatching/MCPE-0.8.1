@@ -13,7 +13,7 @@
 #include <gui/buttons/ImageWithBackground.hpp>
 #include <ExternalServerFile.hpp>
 #include <gui/screens/PlayScreen.hpp>
-#include <gui/screens/Touch_DeleteWorldScreen.hpp>
+#include <gui/screens/Touch_TouchDeleteWorldScreen.hpp>
 #include <gui/screens/DisconnectionScreen.hpp>
 #include <gui/screens/ProgressScreen.hpp>
 #include <sstream>
@@ -347,10 +347,10 @@ void LocalServerListItemElement::mouseReleased(Minecraft* a2, int32_t a3, int32_
 	if(this->deleteElementButton && this->field_30 == this->deleteElementButton) {
 		if(this->deleteElementButton->clicked(a2, a3, a4)) {
 			if(this->server) {
-				a2->externalServerFile->removeServer(this->server->field_0);
+				a2->externalServerFile->removeSevrer(this->server->field_0);
 				this->field_54->field_50 = 1;
 			} else {
-				a2->setScreen(new Touch::DeleteWorldScreen(*this->levelSummary));
+				a2->setScreen(new Touch::TouchDeleteWorldScreen(*this->levelSummary));
 			}
 			return;
 		}

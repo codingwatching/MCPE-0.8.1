@@ -1,13 +1,12 @@
 #include <network/RestService.hpp>
 #include <sstream>
 
-RestService::RestService(const std::string& a2) {
-	this->serviceURL = a2;
+RestService::RestService(const std::string& a2) : serviceURL(a2) {
 }
-std::map<std::string, std::string> RestService::getCookieData() {
+std::map<std::string, std::string> RestService::getCookieData() const{
 	return this->cookieData;
 }
-std::string RestService::getCookieDataAsString() {
+std::string RestService::getCookieDataAsString() const{
 	std::stringstream str;
 	for(auto&& data: this->cookieData) {
 		//TODO check
@@ -15,7 +14,7 @@ std::string RestService::getCookieDataAsString() {
 	}
 	return str.str();
 }
-std::string* RestService::getServiceURL() {
+const std::string* RestService::getServiceURL() const{
 	return &this->serviceURL;
 }
 void RestService::setCookieData(const std::string& a2, const std::string& a3) {

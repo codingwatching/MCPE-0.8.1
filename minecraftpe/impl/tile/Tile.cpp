@@ -165,10 +165,10 @@ Tile* Tile::pumpkin;
 Tile* Tile::netherrack;
 Tile* Tile::lightGem;
 Tile* Tile::litPumpkin;
-Tile* Tile::cake;
+Tile* Tile::cake, *Tile::redStoneDust;
 Tile* Tile::invisible_bedrock;
 Tile* Tile::trapdoor;
-Tile* Tile::stoneBrickSmooth;
+Tile* Tile::stoneBrickSmooth, *Tile::netherFence;
 Tile* Tile::ironFence;
 Tile* Tile::thinGlass;
 Tile* Tile::melon;
@@ -340,7 +340,7 @@ void Tile::initTiles(std::shared_ptr<TextureAtlas> a1) {
 	Item::items[Tile::sapling->blockID] = (new SaplingTileItem(Tile::sapling->blockID - 256))->setCategory(2, 1)->setDescriptionId("sapling");
 	Item::items[Tile::leaves->blockID] = (new LeafTileItem(Tile::leaves->blockID - 256))->setCategory(2, 8)->setDescriptionId("leaves");
 	Item::items[Tile::sandStone->blockID] = (new AuxDataTileItem(Tile::sandStone->blockID - 256, Tile::sandStone))->setCategory(1, 1)->setDescriptionId("sandStone");
-	Item::items[Tile::woodSlabHalf->blockID] = (new AuxDataTileItem(Tile::woodSlabHalf->blockID - 256, Tile::woodSlabHalf))->setCategory(1, 1)->setDescriptionId("woodSlab");
+	Item::items[Tile::woodSlabHalf->blockID] = (new WoodSlabTile::Item(Tile::woodSlabHalf->blockID - 256, Tile::woodSlabHalf))->setCategory(1, 1)->setDescriptionId("woodSlab");
 	Item::items[Tile::wood->blockID] = (new AuxDataTileItem(Tile::wood->blockID - 256, Tile::wood))->setCategory(1, 1)->setDescriptionId("wood");
 	Item::items[Tile::quartzBlock->blockID] = (new AuxDataTileItem(Tile::quartzBlock->blockID - 256, Tile::quartzBlock))->setCategory(1, 1)->setDescriptionId("quartzBlock");
 	Item::items[Tile::cobbleWall->blockID] = (new AuxDataTileItem(Tile::cobbleWall->blockID - 256, Tile::cobbleWall))->setCategory(2, 1)->setDescriptionId("cobbleWall");
@@ -370,20 +370,6 @@ void Tile::teardownTiles() {
 		delete Tile::tiles[i];
 		Tile::tiles[i] = 0;
 	}
-}
-
-Tile::SoundType::SoundType(const std::string& s, float a, float b) {
-	this->field_4 = b;
-	this->field_0 = a;
-	this->field_8 = "step." + s;
-	this->field_C = "step." + s;
-}
-
-Tile::SoundType::SoundType(const std::string& f8, const std::string& s, float a, float b) {
-	this->field_4 = b;
-	this->field_0 = a;
-	this->field_8 = f8;
-	this->field_C = "step." + s;
 }
 
 Tile::Tile(int32_t blockID, const Material* mat) {
@@ -582,15 +568,11 @@ int32_t Tile::transformToValidBlockId(int32_t oldid, int32_t x, int32_t y, int32
 	}
 	return oldid;
 }
-Tile::~Tile() {
-}
 
 int32_t Tile::getTileType() {
 	return 0;
 }
-bool_t Tile::onFertilized(Level*, int32_t, int32_t, int32_t) {
-	return 0;
-}
+
 bool_t Tile::isCubeShaped() {
 	return 1;
 }
@@ -606,12 +588,7 @@ Tile* Tile::setShape(float a2, float a3, float a4, float a5, float a6, float a7)
 	this->maxZ = a7;
 	return this;
 }
-void Tile::updateShape(LevelSource*, int32_t, int32_t, int32_t) {
-}
-void Tile::updateDefaultShape(void) {
-}
-void Tile::addLights(Level*, int32_t, int32_t, int32_t) {
-}
+
 float Tile::getBrightness(LevelSource* level, int32_t x, int32_t y, int32_t z) {
 	return level->getBrightness(x, y, z);
 }
@@ -639,17 +616,17 @@ bool_t Tile::shouldRenderFace(LevelSource* level, int32_t x, int32_t y, int32_t 
 	}
 	return 1;
 }
-TextureUVCoordinateSet* Tile::getTexture(int32_t) {
+const TextureUVCoordinateSet* Tile::getTexture(int32_t) {
 	return &this->textureUV;
 }
-TextureUVCoordinateSet* Tile::getTexture(int32_t a2, int32_t a3) {
+const TextureUVCoordinateSet* Tile::getTexture(int32_t a2, int32_t a3) {
 	return this->getTexture(a2);
 }
-TextureUVCoordinateSet* Tile::getTexture(LevelSource* level, int32_t x, int32_t y, int32_t z, int32_t a6) {
+const TextureUVCoordinateSet* Tile::getTexture(LevelSource* level, int32_t x, int32_t y, int32_t z, int32_t a6) {
 	int32_t meta = level->getData(x, y, z);
 	return this->getTexture(a6, meta);
 }
-TextureUVCoordinateSet* Tile::getCarriedTexture(int32_t a2, int32_t a3) {
+const TextureUVCoordinateSet* Tile::getCarriedTexture(int32_t a2, int32_t a3) {
 	return this->getTexture(a2, a3);
 }
 AABB* Tile::getAABB(Level* level, int32_t x, int32_t y, int32_t z) {
@@ -665,7 +642,7 @@ void Tile::addAABBs(Level* level, int32_t x, int32_t y, int32_t z, const AABB* e
 	AABB* bb = this->getAABB(level, x, y, z);
 	if(bb) {
 		if(bb->maxX > entBB->minX && bb->minX < entBB->maxX && bb->maxY > entBB->minY && bb->minY < entBB->maxY && bb->maxZ > entBB->minZ && bb->minZ < entBB->maxZ) {
-			vec.emplace_back(*bb);
+			vec.push_back(*bb);
 		}
 	}
 }
@@ -686,15 +663,6 @@ bool_t Tile::isSolidRender() {
 bool_t Tile::isPathfindable(LevelSource* level, int32_t x, int32_t y, int32_t z) {
 	return !this->material->blocksMotion();
 }
-bool_t Tile::isUnbreakable() {
-	return this->blockHardness < 0;
-}
-bool_t Tile::isLiquidTile() {
-	return 0;
-}
-int32_t Tile::getTileEntityType(void) {
-	return 0;
-}
 bool_t Tile::mayPick() {
 	return 1;
 }
@@ -713,10 +681,7 @@ bool_t Tile::mayPlace(Level* level, int32_t x, int32_t y, int32_t z) {
 int32_t Tile::getTickDelay() {
 	return 10;
 }
-void Tile::tick(Level* level, int32_t x, int32_t y, int32_t z, Random* rng) {
-}
-void Tile::animateTick(Level*, int32_t, int32_t, int32_t, Random*) {
-}
+
 void Tile::destroy(Level*, int32_t, int32_t, int32_t, int32_t) {
 }
 void Tile::playerWillDestroy(Level*, int32_t, int32_t, int32_t, int32_t, Player*) {
@@ -727,13 +692,7 @@ void Tile::neighborChanged(Level* level, int32_t x, int32_t y, int32_t z, int32_
 		te->onNeighborChanged(nx, ny, nz);
 	}
 }
-void Tile::onPlace(Level*, int32_t, int32_t, int32_t) {
-}
-void Tile::onRemove(Level*, int32_t, int32_t, int32_t) {
-}
-void Tile::onGraphicsModeChanged(bool_t a2) {
-	this->goodGraphics = a2;
-}
+
 int32_t Tile::getResource(int32_t, Random*) {
 	return this->blockID;
 }
@@ -978,36 +937,17 @@ LABEL_67:
 	return HitResult();
 }
 
-void Tile::wasExploded(Level*, int32_t, int32_t, int32_t) {
-}
 int32_t Tile::getRenderLayer() {
 	return 0;
 }
 bool_t Tile::use(Level*, int32_t, int32_t, int32_t, Player*) {
 	return 0;
 }
-void Tile::stepOn(Level*, int32_t, int32_t, int32_t, Entity*) {
-}
-void Tile::fallOn(Level*, int32_t, int32_t, int32_t, Entity*, float) {
-}
-int32_t Tile::getPlacementDataValue(Level* level, int32_t x, int32_t y, int32_t z, int32_t a6, float a7, float a8, float a9, struct Mob* a10, int32_t a11) {
-	return a11;
-}
-void Tile::prepareRender(Level*, int32_t, int32_t, int32_t) {
-}
-void Tile::attack(Level*, int32_t, int32_t, int32_t, Player*) {
-}
-void Tile::handleEntityInside(Level*, int32_t, int32_t, int32_t, Entity*, Vec3&) {
-}
-int32_t Tile::getColor(int32_t) {
-	return 0xffffffff;
-}
+
 int32_t Tile::getColor(LevelSource*, int32_t, int32_t, int32_t) {
 	return 0xffffff;
 }
-float Tile::getThickness(){
-	return 0;
-}
+
 bool_t Tile::isSignalSource() {
 	return 0;
 }
@@ -1020,21 +960,19 @@ int32_t Tile::getSignal(LevelSource*, int32_t, int32_t, int32_t, int32_t) {
 int32_t Tile::getDirectSignal(Level*, int32_t, int32_t, int32_t, int32_t) {
 	return 0;
 }
-void Tile::entityInside(Level*, int32_t, int32_t, int32_t, Entity*) {
-}
 void Tile::playerDestroy(Level* level, Player* player, int32_t x, int32_t y, int32_t z, int32_t a7) {
 	return this->spawnResources(level, x, y, z, a7);
 }
 bool_t Tile::canSurvive(Level*, int32_t, int32_t, int32_t) {
 	return 1;
 }
-std::string Tile::getName() {
+std::string Tile::getName() const{
 	return I18n::get(this->getDescriptionId() + ".name");
 }
-std::string Tile::getDescriptionId(void) {
+std::string Tile::getDescriptionId(void) const{
 	return this->descriptionId;
 }
-std::string Tile::getDescriptionId(const struct ItemInstance*) {
+std::string Tile::getDescriptionId(const struct ItemInstance*) const{
 	return this->getDescriptionId();
 }
 std::string Tile::getTypeDescriptionId(int32_t) {
@@ -1046,9 +984,8 @@ Tile* Tile::setDescriptionId(const std::string& a2) {
 	this->descriptionId = v6;
 	return this;
 }
-void Tile::triggerEvent(Level*, int32_t, int32_t, int32_t, int32_t, int32_t) {
-}
-TextureUVCoordinateSet* Tile::getTextureNum(int32_t) {
+
+const TextureUVCoordinateSet* Tile::getTextureNum(int32_t) {
 	return &this->textureUV;
 }
 Tile* Tile::setSoundType(const Tile::SoundType& st) {

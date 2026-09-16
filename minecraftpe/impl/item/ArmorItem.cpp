@@ -32,8 +32,6 @@ ArmorItem::ArmorItem(int32_t id, const ArmorItem::ArmorMaterial& m, int32_t a4, 
 	this->maxStackSize = 1;
 }
 
-ArmorItem::~ArmorItem() {
-}
-bool_t ArmorItem::isArmor() {
+bool_t ArmorItem::isArmor() const {
 	return 1;
 }

@@ -10,7 +10,8 @@ struct StoneSlabTile : SlabTile{
 
 	StoneSlabTile(int32_t, bool_t);
 
-	virtual ~StoneSlabTile();
+	virtual ~StoneSlabTile() {
+	}
 	virtual TextureUVCoordinateSet* getTexture(int32_t);
 	virtual TextureUVCoordinateSet* getTexture(int32_t, int32_t);
 	virtual int32_t getResource(int32_t, Random*);

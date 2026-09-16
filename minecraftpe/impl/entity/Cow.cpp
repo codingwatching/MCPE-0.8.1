@@ -29,12 +29,7 @@ Cow::Cow(Level* a2)
 	this->goalSelector.addGoal(7, new RandomLookAroundGoal(this), 1);
 }
 
-Cow::~Cow() {
-}
-void Cow::tick() {
-	++this->milkedTicks;
-	Mob::tick();
-}
+
 bool_t Cow::interactWithPlayer(Player* a2) {
 	ItemInstance* sel; // r0
 	ItemInstance* v5;  // r4
@@ -65,9 +60,7 @@ void Cow::readAdditionalSaveData(CompoundTag* a2) {
 void Cow::addAdditonalSaveData(CompoundTag* a2) {
 	Animal::addAdditonalSaveData(a2);
 }
-float Cow::getBaseSpeed() {
-	return 0.2;
-}
+
 int32_t Cow::getMaxHealth() {
 	return 10;
 }

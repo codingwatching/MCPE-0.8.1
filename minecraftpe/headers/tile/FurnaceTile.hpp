@@ -14,10 +14,14 @@ struct FurnaceTile : EntityTile{
 	FurnaceTile(int32_t, bool_t);
 	static void setLit(bool_t, Level*, int32_t, int32_t, int32_t);
 
-	virtual ~FurnaceTile();
+	virtual ~FurnaceTile() {
+	}
+
 	virtual TextureUVCoordinateSet* getTexture(int32_t);
 	virtual TextureUVCoordinateSet* getTexture(LevelSource*, int32_t, int32_t, int32_t, int32_t);
-	virtual int32_t getTileEntityType();
+	virtual int32_t getTileEntityType() {
+		return 1;
+	}
 	virtual void animateTick(Level*, int32_t, int32_t, int32_t, Random*);
 	virtual void onRemove(Level*, int32_t, int32_t, int32_t);
 	virtual int32_t getResource(int32_t, Random*);

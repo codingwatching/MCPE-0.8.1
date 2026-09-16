@@ -111,6 +111,3 @@ void PlayerRenderer::setupRotations(Entity* a2_, float a3, float a4, float a5) {
 		MobRenderer::setupRotations(a2, a3, a4, a5);
 	}
 }
-int32_t PlayerRenderer::getArmorTransparencyMode() {
-	return 3008;
-}

@@ -192,11 +192,11 @@ void ChestScreen::handleRenderPane(Touch::InventoryPane* a2, Tesselator& a3, int
 void ChestScreen::setupPane() {
 	this->field_150.clear();
 	for(int32_t v2 = 9; v2 < this->minecraft->player->inventory->getContainerSize(); ++v2) {
-		this->field_150.emplace_back(this->minecraft->player->inventory->getItem(v2));
+		this->field_150.push_back(this->minecraft->player->inventory->getItem(v2));
 	}
 	this->field_15C.clear();
 	for(int32_t v7 = 0; v7 < this->tileEntity->getContainerSize(); ++v7) {
-		this->field_15C.emplace_back(this->tileEntity->getItem(v7));
+		this->field_15C.push_back(this->tileEntity->getItem(v7));
 	}
 	if(this->field_138) {
 		delete this->field_138;

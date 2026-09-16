@@ -2,6 +2,9 @@
 #include <tile/Tile.hpp>
 
 struct DirectionalTile : Tile{
-	DirectionalTile(int32_t, const Material*);
-	virtual ~DirectionalTile();
+	DirectionalTile(int32_t id, const Material* mat) :
+			Tile(id, mat) {
+	}
+	virtual ~DirectionalTile() {
+	}
 };

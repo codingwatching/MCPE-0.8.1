@@ -36,11 +36,6 @@ Player* NetEventCallback::findPlayer(Level* a2, int32_t a3, const RakNet::RakNet
 	return res;
 }
 
-bool_t NetEventCallback::allowIncomingPacketId(const RakNet::RakNetGUID&, int32_t) {
-	return 0;
-}
-void NetEventCallback::handle(const RakNet::RakNetGUID&, struct ContainerOpenPacket*) {
-}
 void NetEventCallback::handle(Level* a2, const RakNet::RakNetGUID& a3, struct RespawnPacket* a4) {
 	Entity* e = this->findPlayer(a2, a4->eid, 0);
 	if(e) {

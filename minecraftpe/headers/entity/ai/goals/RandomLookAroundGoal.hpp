@@ -9,9 +9,10 @@ struct RandomLookAroundGoal: Goal
 	float xOff, zOff;
 	int32_t ticksLeft;
 
-	RandomLookAroundGoal(Mob*);
+	RandomLookAroundGoal(Mob* a2);
 
-	virtual ~RandomLookAroundGoal();
+	virtual ~RandomLookAroundGoal() {
+	}
 	virtual bool_t canUse();
 	virtual bool_t canContinueToUse();
 	virtual void start();

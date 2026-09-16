@@ -238,6 +238,3 @@ void MobRenderer::scale(Mob*, float) {
 }
 void MobRenderer::additionalRendering(Mob*, float) {
 }
-int32_t MobRenderer::getArmorTransparencyMode() {
-	return 3042;
-}

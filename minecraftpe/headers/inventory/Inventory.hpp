@@ -13,7 +13,7 @@ struct Inventory: FillingContainer
 	int32_t getAttackDamage(Entity*);
 	float getDestroySpeed(Tile*);
 	int32_t getLinkedSlotForItem(int32_t);
-	int32_t getLinkedSlotForItemAndAux(int32_t, int32_t);
+	int32_t getLinkedSlotForItemIdAndAux(int32_t, int32_t);
 	ItemInstance* getSelected();
 	int32_t getSelectionSize();
 	bool_t moveToEmptySelectionSlot(int32_t);
@@ -24,8 +24,8 @@ struct Inventory: FillingContainer
 	void setupDefault();
 
 	virtual ~Inventory();
-	virtual int32_t getContainerSize();
-	virtual bool_t stilValid(Player*);
+	virtual int32_t getContainerSize() const;
+	virtual bool_t stillValid(Player*);
 	virtual bool_t add(ItemInstance*);
 	virtual void doDrop(ItemInstance*, bool_t);
 };

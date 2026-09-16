@@ -8,13 +8,15 @@ struct ChestTile : EntityTile{
 
 	ChestTile(int32_t);
 
-	virtual ~ChestTile();
+	virtual ~ChestTile(){}
 	virtual bool_t isCubeShaped();
 	virtual int32_t getRenderShape();
 	virtual TextureUVCoordinateSet* getTexture(int32_t);
 	virtual TextureUVCoordinateSet* getTexture(LevelSource*, int32_t, int32_t, int32_t, int32_t);
 	virtual bool_t isSolidRender();
-	virtual int32_t getTileEntityType();
+	virtual int32_t getTileEntityType() {
+		return 2;
+	}
 	virtual void onRemove(Level*, int32_t, int32_t, int32_t);
 	virtual bool_t use(Level*, int32_t, int32_t, int32_t, Player*);
 	virtual int32_t getPlacementDataValue(Level*, int32_t, int32_t, int32_t, int32_t, float, float, float, struct Mob*, int32_t);

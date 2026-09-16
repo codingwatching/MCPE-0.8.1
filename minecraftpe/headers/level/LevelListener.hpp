@@ -20,7 +20,9 @@ struct LevelListener
 	virtual void skyColorChanged(){}
 	virtual void allChanged(){}
 	virtual void takePicture(TripodCamera*, Entity*){}
-	virtual Particle* addParticle(ParticleType, float, float, float, float, float, float, int32_t);
+	virtual Particle* addParticle(ParticleType, float, float, float, float, float, float, int32_t) {
+		return 0;
+	}
 	virtual void playSound(const std::string&, float, float, float, float, float){}
 	virtual void playMusic(const std::string&, float, float, float, float){}
 	virtual void playStreamingMusic(const std::string&, int32_t, int32_t, int32_t){}

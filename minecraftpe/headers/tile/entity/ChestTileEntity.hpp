@@ -42,9 +42,9 @@ struct ChestTileEntity: TileEntity, FillingContainer, EntityTileRenderer
 	virtual void triggerEvent(int32_t, int32_t);
 	virtual void clearCache();
 	virtual void onNeighborChanged(int32_t, int32_t, int32_t);
-	virtual int32_t getContainerSize();
-	virtual int32_t getMaxStackSize();
-	virtual std::string getName();
+	virtual int32_t getContainerSize() const;
+	virtual int32_t getMaxStackSize() const;
+	virtual std::string getName() const;
 	virtual ItemInstance* getItem(int32_t);
 	virtual void setItem(int32_t, ItemInstance*);
 	virtual bool_t stillValid(Player*);

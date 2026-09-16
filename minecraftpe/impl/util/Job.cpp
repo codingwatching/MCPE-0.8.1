@@ -14,5 +14,3 @@ JobStatus Job::trySetStatus(JobStatus a2) {
 	}
 	return this->status;
 }
-Job::~Job() {
-}

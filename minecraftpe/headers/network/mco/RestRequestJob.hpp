@@ -7,6 +7,8 @@
 #include <network/mco/RestRequestType.hpp>
 #include <RakNetTypes.h>
 #include <network/mco/RestCallTagData.hpp>
+#include <util/Util.hpp>
+#include <util/ParameterStringify.hpp>
 
 struct RestService;
 struct Minecraft;
@@ -31,7 +33,12 @@ struct RestRequestJob: Job
 	void setBody(const std::string&);
 
 	template<typename... _args>
-	void setMethod(const std::string&, _args... args);
+	void setMethod(const std::string& fmt, _args... args) {
+		std::vector<std::string> v4;
+		ParameterStringify::stringifyNext(v4, args...);
+		this->field_30 = Util::simpleFormat(fmt, v4);
+	}
+
 	void setTagData(const RestCallTagData&);
 
 	virtual ~RestRequestJob();
@@ -39,3 +46,4 @@ struct RestRequestJob: Job
 	virtual void run();
 	virtual void finish();
 };
+

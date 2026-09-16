@@ -11,13 +11,19 @@ struct TripodCamera: Mob
 
 	TripodCamera(Level*, Player*, float, float, float);
 
-	virtual ~TripodCamera();
+	virtual ~TripodCamera() {
+	}
+
 	virtual void tick();
 	virtual float getShadowHeightOffs();
 	virtual bool_t interactPreventDefault();
 	virtual bool_t interactWithPlayer(Player*);
 	virtual bool_t isPickable();
 	virtual bool_t isPushable();
-	virtual int32_t getEntityTypeId() const;
-	virtual float getBaseSpeed();
+	virtual int32_t getEntityTypeId() const {
+		return 0;
+	}
+	virtual float getBaseSpeed() {
+		return 0;
+	}
 };

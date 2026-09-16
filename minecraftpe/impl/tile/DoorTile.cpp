@@ -71,8 +71,6 @@ void DoorTile::setOpen(Level* level, int32_t x, int32_t y, int32_t z, bool_t ope
 	}
 }
 
-DoorTile::~DoorTile() {
-}
 bool_t DoorTile::isCubeShaped() {
 	return 0;
 }

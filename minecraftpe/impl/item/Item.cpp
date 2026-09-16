@@ -148,7 +148,7 @@ Item* Item::beetrootSoup;
 Item* Item::items[512];
 std::string Item::ICON_DESCRIPTION_PREFIX = "item.";
 Random Item::random;
-bool_t Item::_D6E4C850_ItemsInitialized = 0;
+
 std::shared_ptr<TextureAtlas> Item::_itemTextureAtlas;
 Item::Tier Item::Tier::GOLD{0, 32, 12.0, 0};
 Item::Tier Item::Tier::EMERALD{3, 1561, 8.0, 3};
@@ -157,10 +157,11 @@ Item::Tier Item::Tier::STONE{1, 131, 4.0, 1};
 Item::Tier Item::Tier::WOOD{0, 59, 2.0, 0};
 
 void Item::initItems(std::shared_ptr<TextureAtlas> a2){
+	static bool initialized = 0;
 	Item::_itemTextureAtlas = a2;
 
-	if(Item::_D6E4C850_ItemsInitialized) return;
-	Item::_D6E4C850_ItemsInitialized = 1;
+	if(initialized) return;
+	initialized = 1;
 
 	Item::shovel_iron = (new ShovelItem(0, Item::Tier::IRON))->setIcon("shovel", 2)->setCategory(3, 2)->setDescriptionId("shovelIron");
 	Item::pickAxe_iron = (new PickaxeItem(1, Item::Tier::IRON))->setIcon("pickaxe", 2)->setCategory(3, 2)->setDescriptionId("pickaxeIron");
@@ -348,10 +349,6 @@ void Item::setStackedByData(bool_t a2) {
 	this->stackedByData = a2;
 }
 
-Item::~Item() {
-	//~descriptionID
-	//~itemTextures
-}
 int32_t Item::getMaxStackSize(const struct ItemInstance*) {
 	return this->maxStackSize;
 }
@@ -363,7 +360,7 @@ bool_t Item::canBeDepleted() {
 	if(this->maxItemdamage <= 0) return 0;
 	return !this->stackedByData;
 }
-TextureUVCoordinateSet* Item::getIcon(int32_t, int32_t, bool_t) {
+const TextureUVCoordinateSet* Item::getIcon(int32_t, int32_t, bool_t) const{
 	return &this->iconUV;
 }
 Item* Item::setIcon(const std::string& a2, int32_t a3) {
@@ -374,7 +371,7 @@ Item* Item::setIcon(TextureUVCoordinateSet a) {
 	this->iconUV = a;
 	return this;
 }
-bool_t Item::isMirroredArt() {
+bool_t Item::isMirroredArt() const{
 	return 0;
 }
 ItemInstance* Item::use(struct ItemInstance* r, Level*, struct Player*) {
@@ -386,13 +383,13 @@ bool_t Item::useOn(struct ItemInstance*, struct Level*, int32_t, int32_t, int32_
 bool_t Item::useOn(struct ItemInstance*, struct Player*, Level*, int32_t, int32_t, int32_t, int32_t, float, float, float) {
 	return 0;
 }
-int32_t Item::getMaxUseDuration() {
+int32_t Item::getMaxUseDuration() const{
 	return 0;
 }
 ItemInstance Item::useTimeDepleted(ItemInstance* a3, Level*, struct Player*) {
 	return ItemInstance(*a3);
 }
-int32_t Item::getUseAnimation() {
+int32_t Item::getUseAnimation() const{
 	return 0;
 }
 void Item::releaseUsing(struct ItemInstance*, Level*, struct Player*, int32_t) {
@@ -400,13 +397,13 @@ void Item::releaseUsing(struct ItemInstance*, Level*, struct Player*, int32_t) {
 float Item::getDestroySpeed(struct ItemInstance*, struct Tile*) {
 	return 1;
 }
-bool_t Item::canDestroySpecial(const struct Tile*) {
+bool_t Item::canDestroySpecial(const struct Tile*) const{
 	return 0;
 }
-int32_t Item::getLevelDataForAuxValue(int32_t a2) {
+int32_t Item::getLevelDataForAuxValue(int32_t a2) const{
 	return 0;
 }
-bool_t Item::isStackedByData() {
+bool_t Item::isStackedByData() const{
 	return this->stackedByData;
 }
 int32_t Item::getMaxDamage() {
@@ -426,44 +423,36 @@ Item* Item::handEquipped() {
 	this->handEquipped_ = 1;
 	return this;
 }
-bool_t Item::isHandEquipped() {
+bool_t Item::isHandEquipped() const{
 	return this->handEquipped_;
 }
-bool_t Item::isFood() {
+bool_t Item::isFood() const{
 	return 0;
 }
-bool_t Item::isSeed() {
+bool_t Item::isSeed() const{
 	return 0;
 }
-bool_t Item::isArmor() {
+bool_t Item::isArmor() const{
 	return 0;
 }
-bool_t Item::isLiquidClipItem(int32_t) {
-	return 0;
-}
-std::string Item::getName(const struct ItemInstance* a2) {
+
+std::string Item::getName(const struct ItemInstance* a2) const{
 	return I18n::get(this->getDescriptionId(a2) + ".name");
 }
-std::string Item::getDescription(void) {
+std::string Item::getDescription(void) const{
 	return I18n::get(this->getDescriptionId());
 }
-std::string Item::getDescription(const struct ItemInstance* a2) {
+std::string Item::getDescription(const struct ItemInstance* a2) const{
 	return I18n::get(this->getDescriptionId(a2));
 }
-std::string Item::getDescriptionId() {
+std::string Item::getDescriptionId() const{
 	return this->descriptionID;
 }
-std::string Item::getDescriptionId(const struct ItemInstance*) {
+std::string Item::getDescriptionId(const struct ItemInstance*) const{
 	return this->descriptionID;
 }
 Item* Item::setDescriptionId(const std::string& a2) {
 	std::string v5 = Item::ICON_DESCRIPTION_PREFIX + a2;
 	this->descriptionID = v5;
 	return this;
-}
-bool_t Item::isEmissive(int32_t) {
-	return 0;
-}
-int32_t Item::getAnimationFrameFor(Mob*) {
-	return 0;
 }

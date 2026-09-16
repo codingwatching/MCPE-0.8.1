@@ -56,16 +56,12 @@ void NetherReactor::setPhase(Level* level, int32_t x, int32_t y, int32_t z, int3
 	}
 }
 
-NetherReactor::~NetherReactor() {
-}
 TextureUVCoordinateSet* NetherReactor::getTexture(int32_t a2, int32_t a3) {
 	if(a3 == 1) return &this->field_98;
 	if(a3 == 2) return &this->field_B0;
 	return &this->field_80;
 }
-int32_t NetherReactor::getTileEntityType() {
-	return 3;
-}
+
 bool_t NetherReactor::use(Level* level, int32_t x, int32_t y, int32_t z, Player* player) {
 	int32_t yy;					 // r6
 	int32_t i;					 // r0

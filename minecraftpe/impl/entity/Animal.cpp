@@ -11,7 +11,7 @@ Animal::Animal(Level* a2)
 	: AgableMob(a2) {
 	this->inLove = 0;
 }
-bool_t Animal::canMate(const Animal* a2) {
+bool_t Animal::canMate(const Animal* a2) const{
 	int32_t v4; // r6
 
 	if(a2 != this && (v4 = a2->getEntityTypeId(), v4 == this->getEntityTypeId()) && this->isInLove()) {
@@ -82,7 +82,7 @@ bool_t Animal::hurt(Entity* a2, int32_t a3) {
 	this->inLove = 0;
 	return Mob::hurt(a2, a3);
 }
-int32_t Animal::getCreatureBaseType() {
+int32_t Animal::getCreatureBaseType() const{
 	return 2;
 }
 void Animal::readAdditionalSaveData(CompoundTag* a2) {
@@ -183,6 +183,6 @@ float Animal::getWalkTargetValue(int32_t x, int32_t y, int32_t z) {
 Entity* Animal::findAttackTarget() {
 	return 0;
 }
-bool_t Animal::isFood(const ItemInstance* a2) {
+bool_t Animal::isFood(const ItemInstance* a2) const{
 	return a2->getId() == Item::wheat->itemID;
 }

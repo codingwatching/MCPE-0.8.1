@@ -23,8 +23,6 @@ SheepModel::SheepModel(bool_t a2)
 	}
 }
 
-SheepModel::~SheepModel() {
-}
 void SheepModel::setupAnim(float a2, float a3, float a4, float a5, float a6, float a7) {
 	QuadrupedModel::setupAnim(a2, a3, a4, a5, a6, a7);
 	this->field_18.xRotAngle = this->headEatAngleScale;

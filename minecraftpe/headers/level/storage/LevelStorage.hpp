@@ -10,15 +10,24 @@ struct LevelChunk;
 struct ChunkStorage;
 struct LevelStorage{
 
-	virtual ~LevelStorage();
+	virtual ~LevelStorage() {
+	}
 	virtual LevelData* prepareLevel(Level*) = 0;
 	virtual ChunkStorage* createChunkStorage(Dimension*) = 0;
 	virtual void saveLevelData(LevelData&, std::vector<Player*>*) = 0;
-	virtual void saveLevelData(LevelData&);
-	virtual bool_t load(Player*);
-	virtual bool_t save(Player*);
+	virtual void saveLevelData(LevelData& a2) {
+		this->saveLevelData(a2, 0);
+	}
+	virtual bool_t load(Player*) {
+		return 0;
+	}
+	virtual bool_t save(Player*) {
+		return 0;
+	}
 	virtual void closeAll() = 0;
-	virtual void saveGame(Level*);
-	virtual void loadEntities(Level*, LevelChunk*);
+	virtual void saveGame(Level*) {
+	}
+	virtual void loadEntities(Level*, LevelChunk*) {
+	}
 
 };

@@ -13,5 +13,6 @@ struct JumpControl
 	void jump();
 
 	virtual void tick();
-	virtual ~JumpControl();
+	virtual ~JumpControl() {
+	}
 };

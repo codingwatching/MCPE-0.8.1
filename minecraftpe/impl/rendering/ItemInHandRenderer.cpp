@@ -87,13 +87,7 @@ RenderCall* ItemInHandRenderer::rebuildItem(struct Mob* a2, ItemInstance& a3) {
 	} else {
 		v7->field_2C = a3.itemClass->itemTexture;
 	}
-	TextureUVCoordinateSet* icon;
-	if(a2) {
-		icon = a2->getItemInHandIcon(&a3, 0);
-	} else {
-		icon = a3.getIcon(0, 0);
-	}
-
+	const TextureUVCoordinateSet* icon = a2 ? a2->getItemInHandIcon(&a3, 0) : a3.getIcon(0, 0);
 
 	float width = icon->width;
 	float v16 = width * icon->minX;

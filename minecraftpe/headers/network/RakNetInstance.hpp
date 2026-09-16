@@ -35,7 +35,9 @@ struct RakNetInstance : IRakNetInstance{
 	virtual void send(const RakNet::RakNetGUID&, Packet&);
 	virtual void send(Packet*);
 	virtual void send(const RakNet::RakNetGUID&, Packet*);
-	virtual bool_t isServer();
+	virtual bool_t isServer() {
+		return this->_isServer;
+	}
 	virtual bool_t isProbablyBroken();
 	virtual void resetIsBroken();
 

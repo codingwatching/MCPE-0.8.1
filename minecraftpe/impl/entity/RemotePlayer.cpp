@@ -1,13 +1,11 @@
 #include <entity/RemotePlayer.hpp>
 #include <inventory/Inventory.hpp>
 
-RemotePlayer::RemotePlayer(Level* a2, bool_t a3) : Player(a2, a3){
+RemotePlayer::RemotePlayer(Level* a2, bool_t a3) : Player(a2, a3) {
 	this->_usingItem = 0;
 	this->field_CB4 = 1;
 }
 
-RemotePlayer::~RemotePlayer() {
-}
 void RemotePlayer::tick() {
 	const ItemInstance* v3; // r0
 	ItemInstance* v4;		// r5

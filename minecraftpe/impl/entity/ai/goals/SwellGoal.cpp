@@ -10,8 +10,6 @@ SwellGoal::SwellGoal(Creeper* a2)
 	this->setRequiredControlFlags(1);
 }
 
-SwellGoal::~SwellGoal() {
-}
 bool_t SwellGoal::canUse() {
 	if(this->holder->getSwellDir() > 0) return 1;
 	Entity* res = this->holder->getTarget();

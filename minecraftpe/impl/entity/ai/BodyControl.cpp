@@ -1,7 +1,9 @@
 #include <entity/ai/BodyControl.hpp>
+#include <entity/ai/MoveControl.hpp>
 #include <entity/Mob.hpp>
 #include <math/Mth.hpp>
 #include <math.h>
+const float BodyControl::maxClampAngle = 75.0;
 
 BodyControl::BodyControl(Mob* a2) {
 	this->controlledEntity = a2;
@@ -27,8 +29,10 @@ void BodyControl::clientTick() {
 
 	controlledEntity = this->controlledEntity;
 	v3 = this->controlledEntity->posX - this->controlledEntity->prevX;
-	if((float)((float)((float)(this->controlledEntity->posZ - this->controlledEntity->prevZ) * (float)(this->controlledEntity->posZ - this->controlledEntity->prevZ)) + (float)(v3 * v3)) <= 0.00000025) {
-		v11 = 75.0;
+	//i wonder what else was removed by idas decompiler - BodyControl::MIN_SPEED_SQR is one of the things
+	//(ah yeah also it completely ignores s<> and d<> registers meaning half of the codebase (as of now(now=2026/09/16)) is incorrect)
+	if((float)((float)((float)(this->controlledEntity->posZ - this->controlledEntity->prevZ) * (float)(this->controlledEntity->posZ - this->controlledEntity->prevZ)) + (float)(v3 * v3)) <= MoveControl::MIN_SPEED_SQR) {
+		v11 = BodyControl::maxClampAngle;
 		if(fabsf(controlledEntity->headYaw - this->field_8) <= 15.0) {
 			v12 = this->field_4;
 			this->field_4 = v12 + 1;
@@ -37,7 +41,7 @@ void BodyControl::clientTick() {
 				if(v13 < 0.0) {
 					v13 = 0.0;
 				}
-				v11 = v13 * 75.0;
+				v11 = v13 * BodyControl::maxClampAngle;
 			}
 		} else {
 			this->field_4 = 0;
@@ -68,10 +72,10 @@ void BodyControl::clientTick() {
 		v8 = this->controlledEntity->field_124;
 		v9 = Mth::wrapDegrees(v8 - this->controlledEntity->headYaw);
 		v10 = v9;
-		if(v9 < -75.0) {
-			v10 = -75.0;
-		} else if(v9 >= 75.0) {
-			v10 = 75.0;
+		if(v9 < -BodyControl::maxClampAngle) {
+			v10 = -BodyControl::maxClampAngle;
+		} else if(v9 >= BodyControl::maxClampAngle) {
+			v10 = BodyControl::maxClampAngle;
 		}
 		v7->headYaw = v8 - v10;
 		this->field_8 = this->controlledEntity->headYaw;

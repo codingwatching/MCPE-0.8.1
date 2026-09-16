@@ -1,5 +1,5 @@
 #pragma once
-#include <_types.h>
+#include <util/OffsetPosTranslator.hpp>
 #include <sstream>
 
 struct IPosTranslator;
@@ -11,7 +11,13 @@ struct ICreator
 		int field_0, field_4, field_8, field_C;
 		int field_10;
 
-		void write(std::stringstream&, IPosTranslator&);
+		void write(std::stringstream& a2, IPosTranslator& a3) const {
+			int32_t v13 = this->field_4;
+			int32_t v14 = this->field_8;
+			int32_t v15 = this->field_C;
+			a3.to(v13, v14, v15);
+			a2 << v13 << "," << v14 << "," << v15 << "," << this->field_10 << "," << this->field_0;
+		}
 	};
 
 	//0.7.2:

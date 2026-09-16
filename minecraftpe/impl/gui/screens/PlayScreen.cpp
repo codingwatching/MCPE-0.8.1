@@ -122,7 +122,7 @@ void PlayScreen::closeScreen() {
 	this->minecraft->cancelLocateMultiplayer();
 	this->minecraft->screenChooser.setScreen(ScreenId::START_MENU_SCREEN);
 }
-PlayScreenState PlayScreen::getState() {
+PlayScreenState PlayScreen::getState() const{
 	return this->field_114;
 }
 PlayScreenStateSetting* PlayScreen::getStateData(PlayScreenState a2) {

@@ -89,8 +89,6 @@ void RolledSelectionListV::setRenderHeader(bool_t a2, int32_t a3) {
 	this->field_50 = a3;
 }
 
-RolledSelectionListV::~RolledSelectionListV() {
-}
 int32_t RolledSelectionListV::getItemAtPosition(int32_t a2, int32_t a3) {
 	if((float)a2 < this->field_8 || (float)a2 > this->field_C) {
 		return -1;
@@ -283,10 +281,7 @@ void RolledSelectionListV::setRenderSelection(bool_t a2) {
 void RolledSelectionListV::setComponentSelected(bool_t a2) {
 	this->componentSelected = a2;
 }
-void RolledSelectionListV::selectStart(int32_t) {
-}
-void RolledSelectionListV::selectCancel() {
-}
+
 int32_t RolledSelectionListV::getMaxPosition() {
 	return this->field_50 + this->field_10 * this->getNumberOfItems();
 }
@@ -295,17 +290,10 @@ float RolledSelectionListV::getPos(float a2) {
 }
 void RolledSelectionListV::touched() {
 }
-void RolledSelectionListV::renderHeader(int32_t, int32_t, Tesselator&) {
-}
-void RolledSelectionListV::renderForeground() {
-}
+
 void RolledSelectionListV::renderDecoration(int32_t, int32_t) {
 }
-void RolledSelectionListV::clickedHeader(int32_t, int32_t) {
-}
-int32_t RolledSelectionListV::convertSelection(int32_t a2, int32_t a3, int32_t) {
-	return a2;
-}
+
 void RolledSelectionListV::onPreRender() {
 }
 void RolledSelectionListV::onPostRender() {

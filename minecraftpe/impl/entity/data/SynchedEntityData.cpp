@@ -79,21 +79,21 @@ void SynchedEntityData::assignValues(std::vector<DataItem*>* a2) {
 		}
 	}
 }
-int8_t SynchedEntityData::getByte(int32_t a2) {
+int8_t SynchedEntityData::getByte(int32_t a2) const{
 	auto&& v = this->data.find(a2);
 	if(v == this->data.end() || v->second->typeId != 0) {
 		return 0;
 	}
 	return ((DataItem2<int8_t>*)v->second)->value;
 }
-float SynchedEntityData::getFloat(int32_t a2) {
+float SynchedEntityData::getFloat(int32_t a2) const{
 	auto&& v = this->data.find(a2);
 	if(v == this->data.end() || v->second->typeId != 3) {
 		return 0;
 	}
 	return ((DataItem2<float>*)v->second)->value;
 }
-int32_t SynchedEntityData::getInt(int32_t a2) {
+int32_t SynchedEntityData::getInt(int32_t a2) const{
 	auto&& v = this->data.find(a2);
 	if(v == this->data.end() || v->second->typeId != 2) {
 		return 0;
@@ -107,21 +107,21 @@ ItemInstance SynchedEntityData::getItemInstance(int32_t a2) {
 	}
 	return ItemInstance(((DataItem2<ItemInstance>*)v->second)->value);
 }
-Pos SynchedEntityData::getPos(int32_t a2) {
+Pos SynchedEntityData::getPos(int32_t a2) const{
 	auto&& v = this->data.find(a2);
 	if(v == this->data.end() || v->second->typeId != 6) {
 		return {0, 0, 0};
 	}
 	return ((DataItem2<Pos>*)v->second)->value;
 }
-int16_t SynchedEntityData::getShort(int32_t a2) {
+int16_t SynchedEntityData::getShort(int32_t a2) const{
 	auto&& v = this->data.find(a2);
 	if(v == this->data.end() || v->second->typeId != 1) {
 		return 0;
 	}
 	return ((DataItem2<int16_t>*)v->second)->value;
 }
-std::string SynchedEntityData::getString(int32_t a2) {
+std::string SynchedEntityData::getString(int32_t a2) const{
 	auto&& v = this->data.find(a2);
 	if(v == this->data.end() || v->second->typeId != 4) {
 		return "";
@@ -158,14 +158,14 @@ std::vector<DataItem*> SynchedEntityData::packDirty() {
 
 //TODO get rid of this
 #define _SynchedEntityData_set_base(T, Tid) \
-	DataItem* di = this->data[a2]; \
+DataItem* di = this->data[a2]; \
 	if(di) { \
 		if((di->typeId == (Tid)) && !(((DataItem2<T>*)di)->value == a3)) { \
 			((DataItem2<T>*)di)->value = a3; \
 			((DataItem2<T>*)di)->dirty = 1; \
 			this->isDirty = 1; \
-		} \
-	}
+	} \
+}
 
 template<>
 void SynchedEntityData::set(int32_t a2, const int8_t& a3) {
@@ -196,6 +196,7 @@ template<>
 void SynchedEntityData::set(int32_t a2, const Pos& a3) {
 	_SynchedEntityData_set_base(Pos, 6)
 }
+
 
 template<> //exists only for char in 0.8
 void SynchedEntityData::setFlag<char>(int32_t a2, int32_t a3) {

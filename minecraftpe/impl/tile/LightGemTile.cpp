@@ -7,8 +7,6 @@ LightGemTile::LightGemTile(int32_t a2, const std::string& a3, const struct Mater
 	this->field_5C = 255;
 }
 
-LightGemTile::~LightGemTile() {
-}
 int32_t LightGemTile::getResource(int32_t, Random*) {
 	return Item::yellowDust->itemID;
 }

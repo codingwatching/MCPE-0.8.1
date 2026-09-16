@@ -26,7 +26,7 @@ struct RenderChunk
 	int8_t field_103;
 
 	RenderChunk(struct Level*, int32_t, int32_t, int32_t, int32_t, int32_t);
-	float distanceToSqr(const struct Entity*);
+	float distanceToSqr(const struct Entity*) const;
 	int32_t getAllLists(int32_t*, int32_t, int32_t);
 	int32_t getList(int32_t);
 	MeshBuffer* getRenderChunk(int32_t);
@@ -38,6 +38,6 @@ struct RenderChunk
 	void setClean(void);
 	void setDirty(void);
 	void setPos(int32_t, int32_t, int32_t);
-	float squishedDistanceToSqr(const struct Entity*);
+	float squishedDistanceToSqr(const struct Entity*) const;
 	void translateToPos(void);
 };

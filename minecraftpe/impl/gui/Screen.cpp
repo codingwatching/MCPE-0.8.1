@@ -67,7 +67,7 @@ void Screen::render(int32_t x, int32_t y, float){
 
 		for(int i = 0; i < this->buttons.size(); ++i){
 			Button* b = this->buttons[i];
-			if(!b->isOverrideScreenRendering()){
+			if(!b->isOveridingScreenRendering()){
 				b->render(this->minecraft, x, y);
 			}
 		}
@@ -133,7 +133,7 @@ void Screen::tick(){
 		(*start)->tick(this->minecraft);
 	}
 }
-void Screen::removed(){}
+
 void Screen::renderBackground(int32_t a2){
 	if(this->renderGameBehind()){
 		this->fill(0, 0, this->width, this->height, 0x7f000000);
@@ -223,7 +223,7 @@ bool_t Screen::isInGameScreen(){
 bool_t Screen::closeOnPlayerHurt(){
 	return 0;
 }
-void Screen::confirmResult(bool_t, int32_t){}
+
 void Screen::lostFocus(){
 	for(TextBox* tb: this->field_20) {
 		tb->loseFocus(this->minecraft);
@@ -233,7 +233,7 @@ void Screen::toGUICoordinate(int32_t& x, int32_t& y){
 	x = this->width*x / this->minecraft->width;
 	y = this->height*y / this->minecraft->height - 1;
 }
-void Screen::feedMCOEvent(MCOEvent){}
+
 bool_t Screen::supppressedBySubWindow(){
 	int32_t v3 = 0;
 	for(GuiElement** start = this->elements.data(); start != (this->elements.data()+this->elements.size()); ++start){
@@ -241,8 +241,7 @@ bool_t Screen::supppressedBySubWindow(){
 	}
 	return v3;
 }
-void Screen::onTextBoxUpdated(int32_t){}
-void Screen::onMojangConnectorStatus(MojangConnectionStatus){}
+
 void Screen::setTextboxText(const std::string& a2){
 	for(auto&& e : this->elements){
 		if(e->suppressOtherGUI()){
@@ -250,8 +249,7 @@ void Screen::setTextboxText(const std::string& a2){
 		}
 	}
 }
-void Screen::onInternetUpdate(){}
-void Screen::buttonClicked(struct Button*){}
+
 void Screen::mouseClicked(int32_t a2, int32_t a3, int32_t a4) {
 	GuiElement** elements = this->elements.data();
 	if(this->supppressedBySubWindow()) {
@@ -353,6 +351,4 @@ void Screen::keyboardNewChar(const std::string& a2, bool_t a3) {
 			e->keyboardNewChar(this->minecraft, a2, a3);
 		}
 	}
-}
-Screen::~Screen(){
 }

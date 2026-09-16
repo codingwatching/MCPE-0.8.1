@@ -3,11 +3,6 @@
 #include <level/Level.hpp>
 #include <entity/Player.hpp>
 
-BedItem::BedItem(int32_t id)
-	: Item(id) {
-}
-BedItem::~BedItem() {
-}
 bool_t BedItem::useOn(ItemInstance* a2, Player* a3, Level* a4, int32_t a5, int32_t a6, int32_t a7, int32_t a8, float a9, float a10, float a11) {
 	int32_t v12;   // r6
 	float v13;	   // s15

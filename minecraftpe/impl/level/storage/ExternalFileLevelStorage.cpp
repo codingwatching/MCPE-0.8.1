@@ -199,9 +199,7 @@ LevelData* ExternalFileLevelStorage::prepareLevel(Level* a2) {
 	this->level = a2;
 	return this->levelData;
 }
-ChunkStorage* ExternalFileLevelStorage::createChunkStorage(Dimension*) {
-	return this;
-}
+
 void ExternalFileLevelStorage::saveLevelData(LevelData& a2, std::vector<Player*>* a3) {
 	ExternalFileLevelStorage::saveLevelData(this->anotherDataFolder, a2, a3);
 }
@@ -270,8 +268,7 @@ bool_t ExternalFileLevelStorage::save(Player* a2) {
 	}
 	return 0;
 }
-void ExternalFileLevelStorage::closeAll() {
-}
+
 void ExternalFileLevelStorage::saveGame(Level* a2) {
 	return this->saveEntities(a2, 0);
 }
@@ -505,6 +502,4 @@ LABEL_12:
 			this->level->savePlayers();
 		}
 	}
-}
-void ExternalFileLevelStorage::flush() {
 }

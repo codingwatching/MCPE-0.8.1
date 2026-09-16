@@ -22,7 +22,7 @@ struct NetherReactorTileEntity: TileEntity
 	void deterioateDome(int32_t, int32_t, int32_t);
 	void deterioateHollowedVolume(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t);
 	void finishReactorRun();
-	std::string getName();
+	std::string getName() const;
 	int32_t getNumEnemiesPerLevel(int32_t);
 	int32_t getNumItemsPerLevel(int32_t);
 	ItemInstance getSpawnItem();

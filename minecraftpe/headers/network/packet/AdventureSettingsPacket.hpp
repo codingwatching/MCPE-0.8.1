@@ -1,6 +1,7 @@
 #pragma once
 #include <_types.h>
 #include <network/Packet.hpp>
+#include <network/NetEventCallback.hpp>
 
 struct AdventureSettingsPacket: Packet
 {
@@ -15,12 +16,22 @@ struct AdventureSettingsPacket: Packet
 
 	int32_t flags;
 
-	//TODO constructor
-	AdventureSettingsPacket();
-	void set(AdventureSettingsPacket::Flags, bool_t);
+	AdventureSettingsPacket() {
+	}
+	void set(AdventureSettingsPacket::Flags a2, bool_t a3) {
+		this->flags = a3 ? (this->flags | a2) : (this->flags & ~a2);
+	}
 
-	virtual ~AdventureSettingsPacket();
-	virtual void write(RakNet::BitStream*);
-	virtual void read(RakNet::BitStream*);
-	virtual void handle(const RakNet::RakNetGUID&, NetEventCallback*);
+	virtual ~AdventureSettingsPacket(){}
+	virtual void write(RakNet::BitStream* stream) {
+		stream->Write<uint8_t>(PID_ADVENTURE_SETTINGS_PACKET);
+		stream->Write<int32_t>(this->flags);
+
+	}
+	virtual void read(RakNet::BitStream* stream) {
+		stream->Read<int32_t>(this->flags);
+	}
+	virtual void handle(const RakNet::RakNetGUID& a2, NetEventCallback* a3) {
+		a3->handle(a2, this);
+	}
 };

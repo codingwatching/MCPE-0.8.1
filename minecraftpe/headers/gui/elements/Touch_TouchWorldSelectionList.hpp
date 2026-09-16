@@ -23,7 +23,9 @@ namespace Touch {
 		void stepRight(void);
 		void tweenInited(void);
 
-		virtual ~TouchWorldSelectionList();
+		virtual ~TouchWorldSelectionList() {
+		}
+
 		virtual bool capXPosition();
 		virtual void tick();
 		virtual int32_t getNumberOfItems();
@@ -32,8 +34,12 @@ namespace Touch {
 		virtual void selectItem(int32_t, bool_t);
 		virtual bool_t isSelectedItem(int32_t);
 		virtual float getPos(float);
-		virtual void touched();
+		virtual void touched() {
+			this->field_C8 = 0;
+		}
+
 		virtual void renderItem(int32_t, int32_t, int32_t, int32_t, Tesselator&);
-		virtual void renderBackground();
+		virtual void renderBackground() {
+		}
 	};
 }

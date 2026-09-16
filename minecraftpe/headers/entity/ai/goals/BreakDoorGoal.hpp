@@ -7,7 +7,8 @@ struct BreakDoorGoal: DoorInteractGoal
 
 	BreakDoorGoal(Mob*);
 
-	virtual ~BreakDoorGoal();
+	virtual ~BreakDoorGoal() {
+	}
 	virtual bool_t canUse();
 	virtual bool_t canContinueToUse();
 	virtual void start();

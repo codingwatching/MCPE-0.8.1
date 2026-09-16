@@ -63,8 +63,8 @@ struct AddMobPacket : Packet{
 	}
 	virtual void read(RakNet::BitStream* stream) {
 		int32_t v4;
-		int8_t v5, v6;
-		int8_t rotDegC;
+		char v5, v6;
+		char rotDegC;
 		RakDataInput input;
 
 		stream->Read<int32_t>(this->eid);
@@ -72,8 +72,8 @@ struct AddMobPacket : Packet{
 		stream->Read<float>(this->x);
 		stream->Read<float>(this->y);
 		stream->Read<float>(this->z);
-		stream->Read<int8_t>(rotDegC);
-		stream->Read<int8_t>(v6);
+		stream->Read<char>(rotDegC);
+		stream->Read<char>(v6);
 		input.stream = stream;
 		this->readData = SynchedEntityData::unpack(&input);
 		this->pitch = PacketUtil::Rot_degreesToChar((float)rotDegC);

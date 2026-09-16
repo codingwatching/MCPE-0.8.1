@@ -62,9 +62,7 @@ bool_t Dimension::isValidSpawn(int32_t x, int32_t z) {
 		return Tile::tiles[topTile]->isSolidRender();
 	}
 }
-bool_t Dimension::isNaturalDimension() {
-	return 0;
-}
+
 float Dimension::getTimeOfDay(long, float) { //long, float
 	return 1.0;
 }

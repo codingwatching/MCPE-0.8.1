@@ -6,8 +6,6 @@ Mushroom::Mushroom(int32_t id, const std::string& name) : Bush(id, name){
 	this->setTicking(1);
 }
 
-Mushroom::~Mushroom() {
-}
 bool_t Mushroom::mayPlace(Level* level, int32_t x, int32_t y, int32_t z, uint8_t a6) {
 	if(Tile::mayPlace(level, x, y, z, a6)) {
 		return this->canSurvive(level, x, y, z);

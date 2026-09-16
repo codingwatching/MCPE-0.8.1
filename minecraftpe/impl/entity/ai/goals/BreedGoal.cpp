@@ -112,8 +112,6 @@ Animal* BreedGoal::getFreePartner() {
 	return 0;
 }
 
-BreedGoal::~BreedGoal() {
-}
 bool_t BreedGoal::canUse() {
 	bool_t result;	   // r0
 	Animal* freeCliff; // r0
@@ -173,7 +171,4 @@ void BreedGoal::tick() {
 	if(v7 == 60) {
 		this->breed();
 	}
-}
-void BreedGoal::setLevel(Level* l) {
-	this->level = l;
 }

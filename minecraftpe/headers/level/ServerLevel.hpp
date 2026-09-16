@@ -10,7 +10,8 @@ struct ServerLevel: Level
 	bool_t allPlayersSleeping();
 	void awakenAllPlayers();
 
-	virtual ~ServerLevel();
+	virtual ~ServerLevel() {
+	}
 	virtual void tick();
 	virtual void updateSleepingPlayerList();
 };

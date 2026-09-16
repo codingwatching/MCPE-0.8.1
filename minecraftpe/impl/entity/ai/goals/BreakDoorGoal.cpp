@@ -7,8 +7,6 @@ BreakDoorGoal::BreakDoorGoal(Mob* a2) : DoorInteractGoal(a2){
 
 }
 
-BreakDoorGoal::~BreakDoorGoal() {
-}
 bool_t BreakDoorGoal::canUse() {
 	if(DoorInteractGoal::canUse()) {
 		return !DoorTile::isOpen(this->holder->level, this->doorX, this->doorY, this->doorZ);

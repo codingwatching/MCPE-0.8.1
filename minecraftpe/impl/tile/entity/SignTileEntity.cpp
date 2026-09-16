@@ -16,8 +16,7 @@ bool_t SignTileEntity::isEditable() {
 void SignTileEntity::setEditable(bool_t a2) {
 	this->editable = a2;
 }
-SignTileEntity::~SignTileEntity() {
-}
+
 bool_t SignTileEntity::shouldSave() {
 	return 1;
 }
@@ -60,8 +59,4 @@ Packet* SignTileEntity::getUpdatePacket() {
 
 void SignTileEntity::onUpdatePacket(struct CompoundTag* a2) {
 	this->load(a2);
-}
-float SignTileEntity::getShadowRadius() {
-	if(this->getTile() == Tile::sign) return 0.2;
-	return 0;
 }

@@ -8,8 +8,6 @@ TntRenderer::TntRenderer()
 	, tileRenderer(0) {
 }
 
-TntRenderer::~TntRenderer() {
-}
 void TntRenderer::render(Entity* a2_, float a3, float a4, float a5, float a6, float a7) {
 	PrimedTnt* a2 = (PrimedTnt*)a2_;
 	float v11;	 // s15

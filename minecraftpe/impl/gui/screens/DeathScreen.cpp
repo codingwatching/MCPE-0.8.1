@@ -50,9 +50,7 @@ void DeathScreen::setupPositions() {
 void DeathScreen::tick() {
 	++this->tickCounter;
 }
-bool_t DeathScreen::renderGameBehind() {
-	return 1;
-}
+
 void DeathScreen::buttonClicked(Button* a2) {
 	if(this->tickCounter > 29) {
 		if(a2 == this->respawnButton) {

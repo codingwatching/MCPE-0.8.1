@@ -45,20 +45,13 @@ void ScrolledSelectionList::setRenderHeader(bool_t a2, int32_t a3) {
 	this->field_44 = a3;
 }
 
-ScrolledSelectionList::~ScrolledSelectionList() {
-}
 void ScrolledSelectionList::setRenderSelection(bool_t a2) {
 	this->renderSelection = a2;
 }
 int32_t ScrolledSelectionList::getMaxPosition() {
 	return this->field_44 + this->field_10 * this->getNumberOfItems();
 }
-void ScrolledSelectionList::renderHeader(int32_t, int32_t, Tesselator&) {
-}
-void ScrolledSelectionList::renderDecorations(int32_t, int32_t) {
-}
-void ScrolledSelectionList::clickedHeader(int32_t, int32_t) {
-}
+
 int32_t ScrolledSelectionList::getItemAtPosition(int32_t a2, int32_t a3) {
 	float v4;	 // s12
 	int32_t v6;	 // s13

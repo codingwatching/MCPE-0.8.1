@@ -1,5 +1,7 @@
 #include <rendering/textures/FireTexture.hpp>
 #include <tile/Tile.hpp>
+const float FireTexture::fireDieRate = 1.05f;
+
 
 FireTexture::FireTexture()
 	: DynamicTexture(Tile::fire->textureUV, 1) {

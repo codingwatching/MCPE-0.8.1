@@ -131,8 +131,8 @@ void PaneCraftingScreen::initCategories() {
 	int v2 = this->field_194;
 	this->field_6C.resize(v2);
 	for(int i = 0; i < this->field_194; ++i) {
-		CategoryButton* v8 = new CategoryButton(i + 100, this->field_1B8, this->field_1BC, &this->field_1B0);
-		this->field_54.emplace_back(v8);
+		ImageButton* v8 = new CategoryButton(i + 100, this->field_1B8, this->field_1BC, &this->field_1B0);
+		this->field_54.push_back(v8);
 		this->buttons.emplace_back(v8);
 	}
 
@@ -141,7 +141,7 @@ void PaneCraftingScreen::initCategories() {
 	a3.reserve(vec->size());
 	for(int j = 0; j < vec->size(); ++j) {
 		if(this->field_17C >= vec->at(j)->getCraftingSize()) {
-			a3.emplace_back(vec->at(j));
+			a3.push_back(vec->at(j));
 		}
 	}
 	this->filterRecipes(a3);

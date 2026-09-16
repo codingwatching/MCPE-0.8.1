@@ -10,11 +10,7 @@ Touch::AvailableGamesList::AvailableGamesList(Minecraft* mc, int32_t w, int32_t 
 	this->field_6C = -1;
 	this->selectedItem = -1;
 }
-Touch::AvailableGamesList::~AvailableGamesList() {
-}
-int32_t Touch::AvailableGamesList::getNumberOfItems() {
-	return this->servers.size();
-}
+
 void Touch::AvailableGamesList::selectStart(int32_t a2) {
 	this->field_6C = a2;
 }
@@ -24,9 +20,7 @@ void Touch::AvailableGamesList::selectCancel() {
 void Touch::AvailableGamesList::selectItem(int32_t a2, bool_t) {
 	this->selectedItem = a2;
 }
-bool_t Touch::AvailableGamesList::isSelectedItem(int32_t a2) {
-	return a2 == this->selectedItem;
-}
+
 void Touch::AvailableGamesList::renderItem(int32_t a2, int32_t a3, int32_t a4, int32_t a5, Tesselator& a6) {
 	int32_t v9;			  // r6
 	int32_t isButtonDown; // r0
@@ -73,6 +67,4 @@ LABEL_7:
 	}
 	this->drawString(this->minecraft->font, this->servers[v12].field_0.C_String(), v16, a4 + 6, v14);
 	this->drawString(this->minecraft->font, this->servers[v12].field_4.ToString(0, '|'), v15, a4 + 18, 16777120);
-}
-void Touch::AvailableGamesList::renderBackground() {
 }

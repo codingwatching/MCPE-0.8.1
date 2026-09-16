@@ -3,7 +3,11 @@
 #include <tile/material/Material.hpp>
 
 struct WebMaterial : Material{
-	WebMaterial(void);
+	WebMaterial(void){
+		this->alwaysDestroyable = 0;
+	}
 
-	virtual bool_t blocksMotion(void) const;
+	virtual bool_t blocksMotion(void) const{
+		return 0;
+	}
 };

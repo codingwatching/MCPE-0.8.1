@@ -13,7 +13,10 @@ struct Zombie: Monster
 	virtual ~Zombie();
 	virtual int32_t getEntityTypeId() const;
 	virtual void die(Entity*);
-	virtual float getBaseSpeed();
+	virtual float getBaseSpeed() {
+		return 0.23;
+	}
+
 	virtual int32_t getMaxHealth();
 	virtual int32_t getArmorValue();
 	virtual void aiStep();

@@ -19,18 +19,19 @@ Tag::Tag(const std::string& name) : field_0(0), tagName(name) {
 
 }
 
-bool_t Tag::equals(const Tag& tag){
+bool_t Tag::equals(const Tag& tag) const{
 	return (this->getId() == tag.getId()) && (this->tagName == tag.tagName);
 }
-void Tag::print(PrintStream& ps){
+void Tag::print(PrintStream& ps) const{
 	std::string result = "";
 	this->print(result, ps);
 }
-void Tag::print(const std::string& s, PrintStream& ps){
+void Tag::print(const std::string& s, PrintStream& ps) const{
 	//doesnt seem to do anything with params?
 }
-void Tag::setName(const std::string& name){
+Tag* Tag::setName(const std::string& name){
 	this->tagName = name;
+	return this;
 }
 std::string Tag::getName(void) const{
 	return this->tagName;

@@ -57,6 +57,8 @@
 #include <util/Util.hpp>
 #include <cpputils.hpp>
 
+char Minecraft::customDebugId[8];
+
 char_t* Minecraft::progressMessages[] = {"Locating server", "Building terrain", "Preparing", "Saving chunks", "Waiting for Minecraft Realms"};
 
 Minecraft::Minecraft()
@@ -212,7 +214,7 @@ void Minecraft::cancelLocateMultiplayer(void) {
 	if(this->serverSideNetworkHandler) delete this->serverSideNetworkHandler;
 	this->serverSideNetworkHandler = 0;
 }
-void Minecraft::checkGLError(const char_t*) {
+void Minecraft::checkGlError(const char_t*) {
 }
 void Minecraft::connectToMCOServer(const std::string& a2, const std::string& a3, uint16_t a4) {
 	PingedCompatibleServer v8;
@@ -253,9 +255,7 @@ int32_t Minecraft::getProgressStageStatus(void) {
 int32_t Minecraft::getProgressStatusId(void) {
 	return this->progressMessageIndex;
 }
-std::shared_ptr<TextureAtlas> Minecraft::getTextureAtlas(TextureAtlasId) {
-	return 0;
-}
+
 void Minecraft::grabMouse(void) {
 	if(!this->mouseGrabbed) {
 		this->mouseGrabbed = 1;
@@ -429,7 +429,7 @@ void Minecraft::init(void) {
 	this->options.update();
 	this->externalServerFile = std::shared_ptr<ExternalServerFile>(new ExternalServerFile(this->field_D00));
 	this->externalServerFile->load();
-	this->checkGLError("Init enter");
+	this->checkGlError("Init enter");
 	this->platform()->supportsTouchscreen(); //calls it again for some reason
 	this->user = new User(this->options.username, "");
 	this->setIsCreativeMode(0);
@@ -439,7 +439,7 @@ void Minecraft::init(void) {
 	std::shared_ptr<LoginInformation> v20 = this->mojangConnector->getLoginInformation();
 	if(v20->accessToken != "") {
 		std::string v18 = MCOStringify::stringifyRefresh(v20->accessToken, v20->clientId, v20->profileId, Common::getGameVersionStringNet());
-		std::shared_ptr<RestRequestJob> v21 = RestRequestJob::CreateJob(RRT_POST, this->mojangConnector->getAccountSercice(), this);
+		std::shared_ptr<RestRequestJob> v21 = RestRequestJob::CreateJob(RRT_POST, this->mojangConnector->getAccountService(), this);
 		this->field_30 = Util::simpleFormat("/refresh", {});
 		v21->setBody(v18);
 		//something weird happens with v21 here
@@ -897,7 +897,7 @@ CALCULATE_INVERSE:
 void Minecraft::setTextboxText(const std::string& a2) {
 	if(this->currentScreen) this->currentScreen->setTextboxText(a2);
 }
-bool_t Minecraft::supportNonTouchscreen(void) {
+bool_t Minecraft::supportNonTouchScreen(void) {
 	return this->supportsNonTouchScreen;
 }
 void Minecraft::teardown(void) {
@@ -1229,7 +1229,7 @@ void Minecraft::update(void) {
 
 	this->soundEngine->update(this->player, this->timer.field_8);
 	this->gameRenderer->render(this->timer.field_8);
-	this->checkGLError("Update finished");
+	this->checkGlError("Update finished");
 
 	if(this->options.field_EE) {
 		if(!PerfTimer::enabled) {
@@ -1237,7 +1237,7 @@ void Minecraft::update(void) {
 			PerfTimer::enabled = 1;
 		}
 		this->perfRenderer->renderFpsMeter(1);
-		this->checkGLError("render debug");
+		this->checkGlError("render debug");
 	} else {
 		PerfTimer::enabled = 0;
 	}

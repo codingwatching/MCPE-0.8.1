@@ -16,6 +16,7 @@
 #include <util/IntRectangle.hpp>
 #include <gui/elements/Label.hpp>
 #include <gui/NinePatchFactory.hpp>
+#include <network/mco/MojangConnector.hpp>
 
 CreateWorldScreen::CreateWorldScreen(CreateWorldScreenType a2, const MCOServerListItem& a3)
 	: SelectWorldScreen() {
@@ -74,7 +75,21 @@ void CreateWorldScreen::generateLocalGame() {
 	}
 	this->minecraft->platform()->statsTrackData("create_world", v16);
 }
-void CreateWorldScreen::generateMCOGame(bool_t) {
+void CreateWorldScreen::generateMCOGame(bool_t a2) {
+	this->waitForMCO();
+	this->field_13C->setActiveAndVisibility(0, 0);
+	std::shared_ptr<Screen> v24(this->minecraft->currentScreen);
+	const char* gm = this->isCreative() ? "creative" : "survival";
+	std::shared_ptr<RestService> v27 = this->minecraft->mojangConnector->getMCOService();
+	if(a2) {
+		this->field_1B8 = RestRequestJob::CreateJob(RRT_PUT, v27, this->minecraft);
+		this->field_1B8->setMethod("/server/%/recreate?type=%&seed=%&name=%", this->field_170.field_0, std::string(gm), this->getSeed(), this->minecraft->mojangConnector->urlEncode(this->getLevelName()));
+	}else{
+		this->field_1B8 = RestRequestJob::CreateJob(RRT_POST, v27, this->minecraft);
+		//TODO inlined setMethod
+	}
+
+
 	printf("CreateWorldScreen::generateMCOGame - not implemented\n");
 	//TODO
 }
@@ -165,9 +180,9 @@ void CreateWorldScreen::init() {
 	std::string v48 = this->field_16C == WST_MCOGAME_RECREATE ? "Reset Realm" : "Generate World";
 	this->field_138 = new Touch::TButton(2, v48, 0);
 	((Touch::TButton*)this->field_138)->init(this->minecraft, "gui/spritesheet.png", {8, 32, 8, 8}, {0, 32, 8, 8}, 2, 2, this->field_138->width, this->field_138->height);
-	this->field_144 = new TextBox(this->minecraft, "Name", 16, TextBox::extendedAcsii, strlen(TextBox::extendedAcsii), 0, 0, 0, 0);
+	this->field_144 = new TextBox(this->minecraft, "Name", 16, TextBox::extendedAcsii, strlen(TextBox::extendedAcsii), 0, 0, 0);
 	this->field_144->text = this->field_170.worldName;
-	this->field_148 = new TextBox(this->minecraft, "Seed", 32, TextBox::extendedAcsii, strlen(TextBox::extendedAcsii), 0, 0, 0, 0);
+	this->field_148 = new TextBox(this->minecraft, "Seed", 32, TextBox::extendedAcsii, strlen(TextBox::extendedAcsii), 0, 0, 0);
 	this->field_13C = new Touch::TButton(3, "Back", 0);
 	this->field_13C->width = 38;
 	this->field_13C->height = 18;

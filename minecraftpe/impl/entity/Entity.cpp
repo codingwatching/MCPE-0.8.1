@@ -1228,9 +1228,7 @@ bool_t Entity::isUnderLiquid(const Material* a2) {
 	}
 	return 0;
 }
-float Entity::getShadowRadius() {
-	return this->entityWidth;
-}
+
 void Entity::makeStuckInWeb() {
 	this->maybeIsInWeb = 1;
 	this->fallDistance = 0;
@@ -1376,8 +1374,7 @@ bool_t Entity::hurt(Entity* a2, int32_t a3) {
 }
 void Entity::animateHurt() {
 }
-void Entity::handleEntityEvent(char) {
-}
+
 float Entity::getPickRadius() {
 	return 0.1;
 }
@@ -1506,20 +1503,13 @@ bool_t Entity::load(CompoundTag* a2) {
 	this->readAdditionalSaveData(a2);
 	return a2->field_0 == 0;
 }
+SynchedEntityData* Entity::getEntityData() {
+	return 0;
+}
 SynchedEntityData* Entity::getEntityData() const {
 	return 0;
 }
-//TODO there are 2 getEntityData: _ZNK6 and _ZN6
 
-int32_t Entity::getCreatureBaseType() {
-	return 0;
-}
-EntityRendererId Entity::queryEntityRenderer() {
-	return ER_NONE;
-}
-bool_t Entity::isMob() {
-	return 0;
-}
 bool_t Entity::isItemEntity() {
 	return 0;
 }

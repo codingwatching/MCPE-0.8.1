@@ -37,7 +37,7 @@ RenderChunk::RenderChunk(Level* level, int32_t x, int32_t y, int32_t z, int32_t 
 	this->field_2C = v14 * 0.5;
 	this->setPos(x, y, z);
 }
-float RenderChunk::distanceToSqr(const struct Entity* a2) {
+float RenderChunk::distanceToSqr(const struct Entity* a2) const{
 	float v2; // s13
 	float v3; // s15
 	float v4; // s14
@@ -230,7 +230,7 @@ void RenderChunk::setPos(int32_t x, int32_t y, int32_t z) {
 		this->setDirty();
 	}
 }
-float RenderChunk::squishedDistanceToSqr(const struct Entity* a2) {
+float RenderChunk::squishedDistanceToSqr(const struct Entity* a2) const{
 	float v2; // s13
 	float v3; // s15
 	float v4; // s14

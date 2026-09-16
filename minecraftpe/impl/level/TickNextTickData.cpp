@@ -11,7 +11,7 @@ TickNextTickData::TickNextTickData(int32_t x, int32_t y, int32_t z, int32_t a5){
 	this->id = TickNextTickData::C;
 }
 
-int32_t TickNextTickData::hashCode(){
+int32_t TickNextTickData::hashCode() const{
 	return this->field_10 + ((this->y + ((this->z + (this->x << 10)) << 7)) << 8);
 }
 
@@ -28,6 +28,6 @@ bool_t TickNextTickData::operator==(const TickNextTickData& a2) const{
 	return 0;
 }
 
-void TickNextTickData::setDelay(int32_t d){
+void TickNextTickData::setDelay(long d){
 	this->delay = d;
 }

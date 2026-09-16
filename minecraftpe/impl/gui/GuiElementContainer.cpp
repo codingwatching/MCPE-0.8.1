@@ -87,7 +87,7 @@ void GuiElementContainer::setTextboxText(const std::string& a2) {
 void GuiElementContainer::addChild(std::shared_ptr<GuiElement> a2) {
 	a2->posX += this->posX;
 	a2->posY += this->posY;
-	this->children.emplace_back(a2);
+	this->children.push_back(a2);
 }
 void GuiElementContainer::removeChild(std::shared_ptr<GuiElement> a2) {
 	auto&& it = std::find(this->children.begin(), this->children.end(), a2);

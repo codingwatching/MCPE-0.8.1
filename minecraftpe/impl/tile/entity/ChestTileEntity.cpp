@@ -319,14 +319,14 @@ void ChestTileEntity::onNeighborChanged(int32_t a2, int32_t a3, int32_t a4) {
 		}
 	}
 }
-int32_t ChestTileEntity::getContainerSize() {
+int32_t ChestTileEntity::getContainerSize() const{
 	if(this->pair) return 54;
 	return 27;
 }
-int32_t ChestTileEntity::getMaxStackSize() {
+int32_t ChestTileEntity::getMaxStackSize() const{
 	return 64;
 }
-std::string ChestTileEntity::getName() {
+std::string ChestTileEntity::getName() const{
 	return this->pair ? "container.largechest" : "container.chest";
 }
 ItemInstance* ChestTileEntity::getItem(int32_t a2) {

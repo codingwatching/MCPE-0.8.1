@@ -9,17 +9,6 @@ Color4 Color4::GREEN(0.0, 1.0, 0.0, 1.0);
 Color4 Color4::BLUE(0.0, 0.0, 1.0, 1.0);
 Color4 Color4::NIL(0.0, 0.0, 0.0, 0.0);
 
-int32_t Color4::toARGB(void){
-	int ret;
-	//TODO this might break with the wrong endianness?
-	((unsigned char*)&ret)[0] = (unsigned int)(this->r * 255.0f);
-	((unsigned char*)&ret)[1] = (unsigned int)(this->g * 255.0f);
-	((unsigned char*)&ret)[2] = (unsigned int)(this->b * 255.0f);
-	((unsigned char*)&ret)[3] = (unsigned int)(this->a * 255.0f);
-
-	return ret;
-}
-
 Color4 Color4::fromHSB(float h, float s, float b){
 	float v7, v8, v9, v10, v11, g, v13, a;
 

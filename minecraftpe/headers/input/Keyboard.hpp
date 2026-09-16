@@ -14,7 +14,17 @@ struct Keyboard
 	static int32_t _textIndex;
 	static int32_t _index;
 
-	static void feed(uint8_t, int32_t);
-	static void feedText(const std::string&, bool_t);
-	static void reset();
+	static void feed(uint8_t a1, int32_t a2) {
+		Keyboard::_inputs.emplace_back(KeyboardAction { a2, a1 });
+		Keyboard::_states[a1] = a2;
+	}
+	static void feedText(const std::string& a2, bool_t a3) {
+		Keyboard::_inputText.emplace_back(KeyboardInputText { a2, a3 });
+	}
+	static void reset() {
+		Keyboard::_inputs.clear();
+		Keyboard::_inputText.clear();
+		Keyboard::_index = -1;
+		Keyboard::_textIndex = -1;
+	}
 };

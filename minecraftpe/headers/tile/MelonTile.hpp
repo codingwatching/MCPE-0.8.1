@@ -6,7 +6,8 @@ struct MelonTile : Tile{
 
 	MelonTile(int32_t);
 
-	virtual ~MelonTile();
+	virtual ~MelonTile() {
+	}
 	virtual TextureUVCoordinateSet* getTexture(int32_t);
 	virtual TextureUVCoordinateSet* getTexture(LevelSource*, int32_t, int32_t, int32_t, int32_t);
 	virtual int32_t getResource(int32_t, Random*);

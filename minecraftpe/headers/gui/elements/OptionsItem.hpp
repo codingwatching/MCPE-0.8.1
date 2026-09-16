@@ -8,7 +8,8 @@ struct OptionsItem: GuiElementContainer
 
 	OptionsItem(const Options::Option*, std::shared_ptr<GuiElement>);
 
-	virtual ~OptionsItem();
+	virtual ~OptionsItem() {
+	}
 	virtual void render(Minecraft*, int32_t, int32_t);
 	virtual void setupPositions();
 };

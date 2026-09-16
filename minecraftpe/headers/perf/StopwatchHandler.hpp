@@ -16,5 +16,7 @@ struct StopwatchHandler
 	void print();
 	void printEvery(int32_t);
 
-	~StopwatchHandler();
+	~StopwatchHandler() {
+		this->clearAll();
+	}
 };

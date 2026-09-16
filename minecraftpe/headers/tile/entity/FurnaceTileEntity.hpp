@@ -35,9 +35,9 @@ struct FurnaceTileEntity: TileEntity, Container
 	virtual ItemInstance* getItem(int32_t);
 	virtual void setItem(int32_t, ItemInstance*);
 	virtual ItemInstance removeItem(int32_t, int32_t);
-	virtual std::string getName();
-	virtual int32_t getMaxStackSize();
-	virtual int32_t getContainerSize();
+	virtual std::string getName() const;
+	virtual int32_t getMaxStackSize() const;
+	virtual int32_t getContainerSize() const;
 	virtual bool_t stillValid(Player*);
 	virtual void startOpen();
 	virtual void stopOpen();

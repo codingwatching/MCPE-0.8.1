@@ -51,6 +51,7 @@ struct GameRenderer{
 	void setupGuiScreen(bool_t);
 	void tick(int32_t, int32_t);
 	void tickFov();
+	void zoomRegion(float, float, float);
 	void unZoomRegion();
 	void updateAllChunks();
 	bool_t updateFreeformPickDirection(float, struct Vec3&, struct Vec3&);

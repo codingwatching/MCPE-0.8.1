@@ -5,11 +5,6 @@
 #include <util/Color4.hpp>
 #include <cpputils.hpp>
 
-SignRenderer::SignRenderer() : TileEntityRenderer(){
-
-}
-SignRenderer::~SignRenderer() {
-}
 void SignRenderer::render(TileEntity* tee, float x, float y, float z, float a6, bool_t a7) {
 	SignTileEntity* te = (SignTileEntity*)tee;
 	Tile* tile;	 // r8

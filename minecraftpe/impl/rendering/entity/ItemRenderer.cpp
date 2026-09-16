@@ -226,7 +226,6 @@ void ItemRenderer::renderGuiItem(Font* a1, Textures* a2, const ItemInstance* a3,
 }
 void ItemRenderer::renderGuiItemCorrect(Font* a1, Textures* a2, const ItemInstance* a3, int32_t a4, int32_t a5) {
 	int32_t v9; // r0
-	TextureUVCoordinateSet* icon; // r0
 	if(a3) {
 		if(a3->tileClass && (v9 = a3->tileClass->getRenderShape(), TileRenderer::canRender(v9))) {
 			a2->loadAndBindTexture("terrain.png");
@@ -241,7 +240,7 @@ void ItemRenderer::renderGuiItemCorrect(Font* a1, Textures* a2, const ItemInstan
 			glPopMatrix();
 		} else if(a3->itemClass) {
 			a2->loadAndBindTexture(a3->tileClass ? "terrain.png" : "gui/items.png");
-			icon = a3->getIcon(0, 0);
+			const TextureUVCoordinateSet* icon = a3->getIcon(0, 0);
 			ItemRenderer::blit((float)a4, (float)a5, icon->minX * icon->width, icon->minY * icon->height, 16.0, 16.0);
 		}
 	}
@@ -359,8 +358,6 @@ void ItemRenderer::teardown_static() {
 	}
 }
 
-ItemRenderer::~ItemRenderer() {
-}
 void ItemRenderer::render(Entity* e_, float x, float y, float z, float a6, float a7) {
 	ItemEntity* e = (ItemEntity*)e_;
 	ItemInstance* p_itemInstance; // r9
@@ -372,7 +369,6 @@ void ItemRenderer::render(Entity* e_, float x, float y, float z, float a6, float
 	int32_t v18;					  // r0
 	int32_t v19;					  // r6
 	float* v20;					  // r5
-	TextureUVCoordinateSet* Icon; // r0
 	float minX;					  // s18
 	float minY;					  // s17
 	float maxX;					  // s19
@@ -429,11 +425,11 @@ void ItemRenderer::render(Entity* e_, float x, float y, float z, float a6, float
 		} while(v19 < v16);
 	} else if(e->itemInstance.isValid) {
 		v34 = 0;
-		Icon = p_itemInstance->getIcon(0, 0);
-		minX = Icon->minX;
-		minY = Icon->minY;
-		maxX = Icon->maxX;
-		maxY = Icon->maxY;
+		const TextureUVCoordinateSet* icon = p_itemInstance->getIcon(0, 0);
+		minX = icon->minX;
+		minY = icon->minY;
+		maxX = icon->maxX;
+		maxY = icon->maxY;
 		Tesselator::instance.begin(4 * v16);
 		Tesselator::instance.normal(Vec3::UNIT_Z.x, Vec3::UNIT_Z.y, Vec3::UNIT_Z.z);
 		v30 = &ItemRenderer::rndFloats[3];

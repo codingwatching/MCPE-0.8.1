@@ -57,7 +57,7 @@ void TallGrass::playerDestroy(Level* level, Player* player, int32_t x, int32_t y
 		Tile::playerDestroy(level, player, x, y, z, meta);
 	}
 }
-std::string TallGrass::getDescriptionId(const ItemInstance* a3) {
+std::string TallGrass::getDescriptionId(const ItemInstance* a3) const{
 	if(a3->getAuxValue() == 1) {
 		return "tile.tallgrass.grass";
 	} else {

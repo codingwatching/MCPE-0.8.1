@@ -18,10 +18,21 @@ struct CreativeInventoryScreen: Screen, Touch::IInventoryPaneCallback
 	{
 		int32_t field_0;
 		std::shared_ptr<ImageButton> field_4;
-		TabButtonWithMeta(int f0, std::shared_ptr<ImageButton> f4);
-		TabButtonWithMeta(const CreativeInventoryScreen::TabButtonWithMeta&);
-		TabButtonWithMeta(CreativeInventoryScreen::TabButtonWithMeta&&);
-		~TabButtonWithMeta();
+		TabButtonWithMeta(int f0, std::shared_ptr<ImageButton> f4) {
+			this->field_0 = f0;
+			this->field_4 = f4;
+		}
+		TabButtonWithMeta(const CreativeInventoryScreen::TabButtonWithMeta& a2) :
+				field_4(a2.field_4) {
+			this->field_0 = a2.field_0;
+		}
+		TabButtonWithMeta(CreativeInventoryScreen::TabButtonWithMeta&& a2) {
+			this->field_0 = a2.field_0;
+			this->field_4 = a2.field_4;
+			a2.field_4 = 0;
+		}
+		~TabButtonWithMeta() {
+		}
 	};
 	static std::vector<ItemInstance> filteredItems[4];
 	static std::vector<ItemInstance> items;

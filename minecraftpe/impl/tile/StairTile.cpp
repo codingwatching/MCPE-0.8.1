@@ -1,40 +1,9 @@
 #include <tile/StairTile.hpp>
-#include <level/Level.hpp>
 #include <entity/Mob.hpp>
 #include <math/HitResult.hpp>
 
 int StairTile::DEAD_SPACES[8][2] = {{2, 6}, {3, 7}, {2, 3}, {6, 7}, {0, 4}, {1, 5}, {0, 1}, {4, 5}};
-StairTile::StairTile(int32_t a2, Tile* a3, int32_t a4)
-	: Tile(a2, a3->material) {
-	this->block = a3;
-	this->meta = a4;
-	this->field_84 = 0;
-	this->field_88 = 0;
-	this->setDestroyTime(a3->blockHardness);
-	this->setExplodeable(a3->blockResistance / 3.0);
-	this->setSoundType(*a3->soundType);
-	this->setLightBlock(255);
-	this->field_5C = a3->field_5C;
-}
-bool_t StairTile::isLockAttached(LevelSource* level, int32_t x, int32_t y, int32_t z, int32_t a6) {
-	int32_t v9; // r0
 
-	v9 = level->getTile(x, y, z);
-	return StairTile::isStairs(v9) && level->getData(x, y, z) == a6;
-}
-bool_t StairTile::isStairs(int32_t id) {
-	return id > 0 && Tile::tiles[id]->getRenderShape() == 10;
-}
-void StairTile::setBaseShape(LevelSource* level, int32_t x, int32_t y, int32_t z) {
-	int32_t v6; // r0
-
-	v6 = level->getData(x, y, z); //lobyte = ...
-	if((v6 & 4) != 0) {
-		this->setShape(0.0, 0.5, 0.0, 1.0, 1.0, 1.0);
-	} else {
-		this->setShape(0.0, 0.0, 0.0, 1.0, 0.5, 1.0);
-	}
-}
 bool_t StairTile::setInnerPieceShape(LevelSource* level, int32_t x, int32_t y, int32_t z) {
 	float v5;			   // s17
 	float v10;			   // s16
@@ -336,96 +305,6 @@ _setAndReturn:
 	return metaAnd3;
 }
 
-StairTile::~StairTile() {
-}
-int32_t StairTile::getTileType() {
-	return 1;
-}
-bool_t StairTile::isCubeShaped() {
-	return 0;
-}
-int32_t StairTile::getRenderShape() {
-	return 10;
-}
-void StairTile::updateShape(LevelSource*, int32_t, int32_t, int32_t) {
-	int v5; // r1
-
-	if(this->field_84) {
-		v5 = this->field_88;
-		this->setShape((float)(v5 % 2) * 0.5, (float)(v5 / 2 % 2) * 0.5, (float)(v5 / 4 % 2) * 0.5, (float)((float)(v5 % 2) * 0.5) + 0.5, (float)((float)(v5 / 2 % 2) * 0.5) + 0.5, (float)((float)(v5 / 4 % 2) * 0.5) + 0.5);
-	} else {
-		this->setShape(0.0, 0.0, 0.0, 1.0, 1.0, 1.0);
-	}
-}
-void StairTile::addLights(Level* level, int32_t x, int32_t y, int32_t z) {
-	this->block->addLights(level, x, y, z);
-}
-float StairTile::getBrightness(LevelSource* level, int32_t x, int32_t y, int32_t z) {
-	return this->block->getBrightness(level, x, y, z);
-}
-TextureUVCoordinateSet* StairTile::getTexture(int32_t a2) {
-	return this->block->getTexture(a2, this->meta);
-}
-TextureUVCoordinateSet* StairTile::getTexture(int32_t a2, int32_t) {
-	return this->block->getTexture(a2, this->meta);
-}
-TextureUVCoordinateSet* StairTile::getTexture(LevelSource*, int32_t, int32_t, int32_t, int32_t a6) {
-	return this->block->getTexture(a6, this->meta);
-}
-void StairTile::addAABBs(Level* level, int32_t x, int32_t y, int32_t z, const AABB* aabb, std::vector<AABB>& vec) {
-	bool_t v11; // r11
-
-	this->setBaseShape(level, x, y, z);
-	Tile::addAABBs(level, x, y, z, aabb, vec);
-	v11 = this->setStepShape(level, x, y, z);
-	Tile::addAABBs(level, x, y, z, aabb, vec);
-	if(v11) {
-		if(this->setInnerPieceShape(level, x, y, z)) {
-			Tile::addAABBs(level, x, y, z, aabb, vec);
-		}
-	}
-	this->setShape(0.0, 0.0, 0.0, 1.0, 1.0, 1.0);
-}
-AABB StairTile::getTileAABB(Level* level, int32_t x, int32_t y, int32_t z) {
-	return this->block->getTileAABB(level, x, y, z);
-}
-bool_t StairTile::isSolidRender() {
-	return 0;
-}
-bool_t StairTile::mayPick() {
-	return this->block->mayPick();
-}
-bool_t StairTile::mayPick(int32_t a2, bool_t a3) {
-	return this->block->mayPick(a2, a3);
-}
-bool_t StairTile::mayPlace(Level* level, int32_t x, int32_t y, int32_t z, uint8_t) {
-	return this->block->mayPlace(level, x, y, z);
-}
-int32_t StairTile::getTickDelay() {
-	return this->block->getTickDelay();
-}
-void StairTile::tick(Level* level, int32_t x, int32_t y, int32_t z, Random* rng) {
-	return this->block->tick(level, x, y, z, rng);
-}
-void StairTile::animateTick(Level* level, int32_t x, int32_t y, int32_t z, Random* rng) {
-	return this->block->animateTick(level, x, y, z, rng);
-}
-void StairTile::destroy(Level* level, int32_t x, int32_t y, int32_t z, int32_t a6) {
-	return this->block->destroy(level, x, y, z, a6);
-}
-void StairTile::onPlace(Level* level, int32_t x, int32_t y, int32_t z) {
-	this->neighborChanged(level, x, y, z, x, y, z, 0);
-	return this->block->onPlace(level, x, y, z);
-}
-void StairTile::onRemove(Level* level, int32_t x, int32_t y, int32_t z) {
-	return this->block->onRemove(level, x, y, z);
-}
-int32_t StairTile::getResourceCount(Random* rng) {
-	return this->block->getResourceCount(rng);
-}
-float StairTile::getExplosionResistance(Entity* e) {
-	return this->block->getExplosionResistance(e);
-}
 HitResult StairTile::clip(Level* level, int32_t x, int32_t y, int32_t z, const Vec3& a7, const Vec3& a8) {
 	HitResult a1_40[8];
 	int v14 = level->getData(x, y, z);
@@ -464,18 +343,7 @@ HitResult StairTile::clip(Level* level, int32_t x, int32_t y, int32_t z, const V
 	return HitResult();
 
 }
-void StairTile::wasExploded(Level* level, int32_t x, int32_t y, int32_t z) {
-	this->block->wasExploded(level, x, y, z);
-}
-int32_t StairTile::getRenderLayer() {
-	return this->block->getRenderLayer();
-}
-bool_t StairTile::use(Level* level, int32_t x, int32_t y, int32_t z, Player* p) {
-	return this->block->use(level, x, y, z, p);
-}
-void StairTile::stepOn(Level* a2, int32_t x, int32_t y, int32_t z, Entity* e) {
-	this->block->stepOn(a2, x, y, z, e);
-}
+
 int32_t StairTile::getPlacementDataValue(Level* level, int32_t x, int32_t y, int32_t z, int32_t data, float a7, float a8, float a9, Mob* a10, int32_t a11) {
 	int8_t v11; // r0
 	int32_t result; // r0
@@ -503,13 +371,4 @@ int32_t StairTile::getPlacementDataValue(Level* level, int32_t x, int32_t y, int
 			return result | 3;
 	}
 	return result;
-}
-void StairTile::prepareRender(Level* level, int32_t x, int32_t y, int32_t z) {
-	this->block->prepareRender(level, x, y, z);
-}
-void StairTile::attack(Level* level, int32_t x, int32_t y, int32_t z, Player* p) {
-	this->block->attack(level, x, y, z, p);
-}
-void StairTile::handleEntityInside(Level* level, int32_t x, int32_t y, int32_t z, Entity* e, Vec3& v) {
-	this->block->handleEntityInside(level, x, y, z, e, v);
 }

@@ -100,7 +100,7 @@ float LocalPlayer::getFieldOfViewModifier(){
 	}
 	v3 = this->getBaseSpeed();
 	v4 = v1
-		 * (float)((float)((float)((float)(v3 * this->getWalkingSpeedModifier()) / 0.1)
+		 * (float)((float)((float)((float)(v3 * this->getWalkingSpeedModifier()) / Player::DEFAULT_WALK_SPEED)
 						   + 1.0)
 				   * 0.5);
 	if ( this->isUsingItem() && Item::bow == this->getUseItem()->itemClass )
@@ -513,8 +513,7 @@ void LocalPlayer::openFurnace(FurnaceTileEntity* a2) {
 void LocalPlayer::displayClientMessage(const std::string& a2) {
 	this->minecraft->gui.displayClientMessage(a2);
 }
-void LocalPlayer::animateRespawn() {
-}
+
 int32_t LocalPlayer::startSleepInBed(int32_t a2, int32_t a3, int32_t a4) {
 	int32_t r = Player::startSleepInBed(a2, a3, a4);
 	if(!r) {

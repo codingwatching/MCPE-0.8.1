@@ -11,20 +11,7 @@ TextureAtlasTextureItem::TextureAtlasTextureItem(void){
 	this->uv.push_back(this->uvCoords);
 	this->uvCount = this->uv.size();
 }
-TextureAtlasTextureItem::TextureAtlasTextureItem(const TextureAtlasTextureItem& a2) {
-	this->name = a2.name;
-	this->uvCoords = a2.uvCoords;
-	this->uv = a2.uv; //TODO check
-	this->uvCount = a2.uvCount;
-}
 
-TextureAtlasTextureItem::TextureAtlasTextureItem(TextureAtlasTextureItem&& a2)
-	: uv(a2.uv) {
-	this->name = a2.name;
-	a2.name = "";
-	this->uvCoords = a2.uvCoords;
-	this->uvCount = a2.uvCount;
-}
 TextureAtlasTextureItem::TextureAtlasTextureItem(const std::string& a2, const TextureUVCoordinateSet& a3, const std::vector<TextureUVCoordinateSet>& a4) {
 	this->name = a2;
 	this->uvCoords = a3;
@@ -35,27 +22,15 @@ TextureAtlasTextureItem::TextureAtlasTextureItem(const std::string& a2, const Te
 	}
 	this->uvCount = this->uv.size();
 }
-void TextureAtlasTextureItem::getName(void) {}
+void TextureAtlasTextureItem::getName(void) const{}
 
-TextureUVCoordinateSet* TextureAtlasTextureItem::getUV(int32_t a2) {
+const TextureUVCoordinateSet* TextureAtlasTextureItem::getUV(int32_t a2) const{
 	if(a2 <= 0)
 		return &this->uvCoords;
 	if(a2 > this->uvCount) a2 = this->uvCount - 1;
 	return this->uv.data() + a2;
 }
 
-int32_t TextureAtlasTextureItem::getUVCount(void) {
+int32_t TextureAtlasTextureItem::getUVCount(void) const{
 	return this->uvCount;
-}
-
-TextureAtlasTextureItem* TextureAtlasTextureItem::operator=(const TextureAtlasTextureItem & a2) {
-	this->name = a2.name;
-	this->uvCoords = a2.uvCoords;
-	this->uv = a2.uv;
-	this->uvCount = a2.uvCount;
-	return this;
-}
-
-TextureAtlasTextureItem::~TextureAtlasTextureItem(){
-
 }

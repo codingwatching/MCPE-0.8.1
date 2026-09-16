@@ -7,7 +7,8 @@ namespace Touch {
 		Button* playButton2;
 		Button* realmsButton2;
 
-		virtual ~PromotionStartMenuScreen();
+		virtual ~PromotionStartMenuScreen() {
+		}
 		virtual void init();
 		virtual void buttonClicked(Button*);
 	};

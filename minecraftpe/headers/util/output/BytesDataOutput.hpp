@@ -11,7 +11,9 @@ struct BytesDataOutput: IDataOutput
 	virtual void writeDouble(double a2){
 		this->writeBytes(&a2, 8);
 	}
-	virtual void writeByte(int8_t);
+	virtual void writeByte(char a2) {
+		this->writeBytes(&a2, 1);
+	}
 	virtual void writeShort(int16_t a2) {
 		this->writeBytes(&a2, 2);
 	}

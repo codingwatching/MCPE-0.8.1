@@ -246,9 +246,6 @@ void RakNetInstance::send(const RakNet::RakNetGUID& a2, Packet* a3) {
 		delete a3;
 	}
 }
-bool_t RakNetInstance::isServer() {
-	return this->_isServer;
-}
 
 //TODO used instead of field_4 of RakNet::RakPeer
 //which does not seem to exist - mojang modifed raknet?

@@ -20,7 +20,7 @@ struct FillingContainer: Container
 	void clearInventory(int32_t);
 	void clearSlot(int32_t);
 	void compressLinkedSlotList(int32_t);
-	bool_t contains(ItemInstance*);
+	bool_t contains(ItemInstance*) const;
 	void dropAll(bool_t);
 	void dropSlot(int32_t, bool_t, bool_t);
 	void fixBackwardCompabilityItem(ItemInstance&);
@@ -54,12 +54,14 @@ struct FillingContainer: Container
 	virtual ItemInstance* getItem(int32_t);
 	virtual void setItem(int32_t, ItemInstance*);
 	virtual ItemInstance removeItem(int32_t, int32_t);
-	virtual std::string getName();
-	virtual int32_t getContainerSize() = 0;
-	virtual int32_t getMaxStackSize();
+	virtual std::string getName() const;
+	virtual int32_t getContainerSize() const = 0;
+	virtual int32_t getMaxStackSize() const;
 	virtual bool_t stillValid(Player*);
-	virtual void startOpen();
-	virtual void stopOpen();
+	virtual void startOpen() {
+	}
+	virtual void stopOpen() {
+	}
 
 	virtual bool_t add(ItemInstance*);
 	virtual void doDrop(ItemInstance*, bool_t);

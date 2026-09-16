@@ -21,7 +21,9 @@ struct ModelPart
 	MeshBuffer meshBuffer;
 	struct Model* parent;
 
-	ModelPart(); //TODO doesnt exist?
+	ModelPart() : ModelPart(0, 0, 64, 32){
+
+	}
 	ModelPart(struct Model*, int32_t, int32_t, int32_t, int32_t);
 	ModelPart(int32_t, int32_t, int32_t, int32_t);
 	ModelPart(const std::string&);

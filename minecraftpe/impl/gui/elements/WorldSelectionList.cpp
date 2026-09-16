@@ -89,8 +89,6 @@ void WorldSelectionList::tweenInited() {
 	this->field_34 = v6 - sub_D65F560E(v1 + 1.0, v2, v3, v4);
 }
 
-WorldSelectionList::~WorldSelectionList() {
-}
 bool WorldSelectionList::capXPosition() {
 	int32_t result; // r0
 
@@ -220,9 +218,7 @@ float WorldSelectionList::getPos(float a2) {
 	v8 = sub_D65F560E(v4, v5, v6, v7);
 	return v8 + (float)((float)(sub_D65F560E(v4 + 1.0, v5, v6, v7) - v8) * a2);
 }
-void WorldSelectionList::touched() {
-	this->field_C0 = 0;
-}
+
 void WorldSelectionList::renderItem(int32_t a2, int32_t a3, int32_t a4, int32_t a5, Tesselator& a6) {
 	int32_t v9;	 // r8
 	int32_t v10; // r3
@@ -273,6 +269,4 @@ void WorldSelectionList::renderItem(int32_t a2, int32_t a3, int32_t a4, int32_t 
 	a6.vertexUV((float)v16, v14 + 48.0, this->zLayer, 1.0, 1.0);
 	a6.vertexUV((float)v16, v14, this->zLayer, 1.0, 0.0);
 	a6.draw(1);
-}
-void WorldSelectionList::renderBackground() {
 }

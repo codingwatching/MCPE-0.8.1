@@ -1,6 +1,5 @@
 #pragma once
 #include <App.hpp>
-#include <_types.h>
 #include <memory>
 #include <rendering/TextureAtlas.hpp>
 #include <rendering/TextureAtlasId.hpp>
@@ -16,6 +15,7 @@
 struct CThread;
 struct User;
 struct Minecraft : App{
+	static char customDebugId[];
 	static char_t* progressMessages[];
 
 	Options options;
@@ -85,7 +85,7 @@ struct Minecraft : App{
 	virtual void audioEngineOff(void);
 	virtual void audioEngineOn(void);
 	void cancelLocateMultiplayer(void);
-	void checkGLError(const char_t*);
+	void checkGlError(const char_t*);
 	void connectToMCOServer(const std::string&, const std::string&, uint16_t);
 	void gameLostFocus(void);
 	void generateLevel(const std::string&, struct Level*);
@@ -95,7 +95,9 @@ struct Minecraft : App{
 	char_t* getProgressMessage(void);
 	int32_t getProgressStageStatus(void);
 	int32_t getProgressStatusId(void);
-	virtual std::shared_ptr<TextureAtlas> getTextureAtlas(TextureAtlasId);
+	virtual std::shared_ptr<TextureAtlas> getTextureAtlas(TextureAtlasId) {
+		return 0;
+	}
 	void grabMouse(void);
 	void handleBuildAction(struct BuildActionIntention*);
 	void handleMouseClick(int32_t);
@@ -133,7 +135,7 @@ struct Minecraft : App{
 	void setScreen(struct Screen*);
 	virtual void setSize(int32_t, int32_t);
 	virtual void setTextboxText(const std::string&);
-	bool_t supportNonTouchscreen(void);
+	bool_t supportNonTouchScreen(void);
 	virtual void teardown(void);
 	void tick(int32_t, int32_t);
 	void tickInput(void);

@@ -8,8 +8,9 @@ struct WoodTile : Tile{
 
 	WoodTile(int32_t);
 
-	virtual ~WoodTile();
-	virtual TextureUVCoordinateSet* getTexture(int32_t, int32_t);
+	virtual ~WoodTile() {
+	}
+	virtual const TextureUVCoordinateSet* getTexture(int32_t, int32_t);
 	virtual std::string getTypeDescriptionId(int32_t);
 	virtual int32_t getSpawnResourcesAuxValue(int32_t);
 };

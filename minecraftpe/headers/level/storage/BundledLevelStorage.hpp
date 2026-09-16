@@ -19,8 +19,12 @@ struct BundledLevelStorage: MemoryLevelStorage, ChunkStorage
 
 	virtual ~BundledLevelStorage();
 	virtual LevelData* prepareLevel(Level*);
-	virtual ChunkStorage* createChunkStorage(Dimension*);
-	virtual bool_t load(Player*);
+	virtual ChunkStorage* createChunkStorage(Dimension*) {
+		return this;
+	}
+	virtual bool_t load(Player*) {
+		return 0;
+	}
 	virtual struct LevelChunk* load(Level*, int32_t, int32_t);
 	virtual void save2(Level*, LevelChunk*);
 	virtual BinaryBlob getChunkData(int32_t, int32_t);

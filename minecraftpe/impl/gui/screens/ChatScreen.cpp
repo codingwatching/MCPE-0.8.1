@@ -69,7 +69,7 @@ void ChatScreen::updateGuiMessages() {
 }
 void ChatScreen::updateKeyboardVisibility() {
 	if(this->keyboardVisible) {
-		this->minecraft->platform()->showKeyboard(&this->field_54, 160, 0);
+		this->minecraft->platform()->showKeyboard(this->field_54, 160, 0);
 		this->updateToggleKeyboardButton();
 		this->sendChatMessageButton->setActiveAndVisibility(1, 1);
 		this->field_60->active = 0;
@@ -226,21 +226,7 @@ void ChatScreen::removed() {
 	this->keyboardVisible = 0;
 	this->updateKeyboardVisibility();
 }
-bool_t ChatScreen::renderGameBehind() {
-	return 1;
-}
-bool_t ChatScreen::isPauseScreen() {
-	return 0;
-}
-bool_t ChatScreen::isErrorScreen() {
-	return 0;
-}
-bool_t ChatScreen::isInGameScreen() {
-	return 1;
-}
-bool_t ChatScreen::closeOnPlayerHurt() {
-	return 1;
-}
+
 void ChatScreen::setTextboxText(const std::string& a2) {
 	this->field_54 = a2;
 }

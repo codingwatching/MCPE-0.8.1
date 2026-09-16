@@ -1,6 +1,5 @@
 #include <tile/CropTile.hpp>
 #include <item/Item.hpp>
-#include <level/Level.hpp>
 #include <entity/ItemEntity.hpp>
 #include <tile/material/Material.hpp>
 
@@ -72,23 +71,14 @@ float CropTile::getGrowthSpeed(Level* level, int32_t x, int32_t y, int32_t z){
 	return v16;
 }
 
-CropTile::~CropTile() {
-}
-bool_t CropTile::onFertilized(Level* level, int32_t x, int32_t y, int32_t z) {
-	int32_t data = level->getData(x, y, z);
-	int32_t v9 = level->random.genrand_int32() % 3 + data + 2;
-	if(v9 >= 7) v9 = 7;
-	level->setData(x, y, z, v9, 2);
-	return 1;
-}
 int32_t CropTile::getRenderShape() {
 	return 6;
 }
-TextureUVCoordinateSet* CropTile::getTexture(int32_t a2, int32_t a3) {
+const TextureUVCoordinateSet* CropTile::getTexture(int32_t a2, int32_t a3) {
 	if(a3 < 0) a3 = 0;
 	return this->texture2.getUV(a3);
 }
-TextureUVCoordinateSet* CropTile::getTexture(LevelSource* level, int32_t x, int32_t y, int32_t z, int32_t a6) {
+const TextureUVCoordinateSet* CropTile::getTexture(LevelSource* level, int32_t x, int32_t y, int32_t z, int32_t a6) {
 	int32_t v7 = level->getData(x, y, z);
 	if(v7 < 0) v7 = 7;
 	return this->texture2.getUV(v7);

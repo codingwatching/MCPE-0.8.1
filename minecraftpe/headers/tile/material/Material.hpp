@@ -48,6 +48,8 @@ struct Material{
 		return this->replaceable;
 	}
 
+	virtual ~Material(){}
+
 	Material(void){
 		this->alwaysDestroyable = 1;
 		this->flammable = this->translucent = this->replaceable = 0;

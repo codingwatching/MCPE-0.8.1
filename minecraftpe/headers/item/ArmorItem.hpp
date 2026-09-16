@@ -20,6 +20,7 @@ struct ArmorItem: Item
 
 	ArmorItem(int32_t, const ArmorItem::ArmorMaterial&, int32_t, int32_t);
 
-	virtual ~ArmorItem();
-	virtual bool_t isArmor();
+	virtual ~ArmorItem() {
+	}
+	virtual bool_t isArmor() const;
 };

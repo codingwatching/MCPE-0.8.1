@@ -784,7 +784,7 @@ void GameRenderer::saveMatrices(void) {
 	glGetFloatv(0xBA7u, this->projectionMat);
 	glGetFloatv(0xBA6u, this->modelViewMat);
 }
-static float _d67239c8[] = {192, 128, 64, 32};
+static float _d67239c8[] = {192, 128, 64, 32}; //this thing should follow right after TouchscreenInput::BUTTONS_TRANSPARENCY
 
 void GameRenderer::setupCamera(float a2, int32_t a3) {
 	Minecraft* minecraft; // r3
@@ -1047,6 +1047,11 @@ void GameRenderer::tickFov() {
 }
 void GameRenderer::unZoomRegion() {
 	this->field_4C = 1.0;
+}
+void GameRenderer::zoomRegion(float a2, float a3, float a4){
+	this->field_4C = a2;
+	this->field_50 = a3;
+	this->field_54 = a4;
 }
 void GameRenderer::updateAllChunks() {
 	this->minecraft->levelRenderer->updateDirtyChunks(this->minecraft->viewEntityMaybe, 1);

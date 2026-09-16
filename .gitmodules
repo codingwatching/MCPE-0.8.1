@@ -3,7 +3,7 @@
 	url = https://github.com/g-truc/glm
 [submodule "jsoncpp"]
 	path = jsoncpp
-	url = https://chromium.googlesource.com/external/jsoncpp
+	url = https://github.com/oldminecraftcommunity/jsoncpp
 [submodule "RakNet"]
 	path = RakNet
 	url = https://github.com/oldminecraftcommunity/RakNet

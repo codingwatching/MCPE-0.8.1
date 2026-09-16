@@ -17,7 +17,7 @@ else()
 endif()
 
 find_package(ZLIB REQUIRED)
-add_compile_options(-fpermissive -Wno-out-of-line-declaration -Wno-write-strings -Werror=infinite-recursion -Werror=return-type)
+add_compile_options(-Wno-out-of-line-declaration -Wno-write-strings -Werror=infinite-recursion -Werror=return-type)
 add_compile_options(-DDIFFERENTTWEAKS)
 if(ANDROID)
 	add_compile_options(-DUSEGLES -DIMTOOLAZYTOFIX16ERRS)

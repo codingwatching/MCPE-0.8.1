@@ -134,7 +134,9 @@ struct Entity{
 	virtual bool_t isInWater();
 	virtual bool_t isInLava();
 	virtual bool_t isUnderLiquid(const Material*);
-	virtual float getShadowRadius();
+	virtual float getShadowRadius() {
+		return this->entityWidth;
+	}
 	virtual void makeStuckInWeb();
 	virtual float getHeadHeight();
 	virtual float getShadowHeightOffs();
@@ -157,7 +159,8 @@ struct Entity{
 	virtual bool_t shouldRenderAtSqrDistance(float);
 	virtual bool_t hurt(Entity*, int32_t);
 	virtual void animateHurt();
-	virtual void handleEntityEvent(char);
+	virtual void handleEntityEvent(char) {
+	}
 	virtual float getPickRadius();
 	virtual Entity* spawnAtLocation(int32_t, int32_t);
 	virtual Entity* spawnAtLocation(int32_t, int32_t, float);
@@ -167,12 +170,19 @@ struct Entity{
 	virtual bool_t save(CompoundTag*);
 	virtual void saveWithoutId(CompoundTag*);
 	virtual bool_t load(CompoundTag*);
+	virtual SynchedEntityData* getEntityData();
 	virtual SynchedEntityData* getEntityData() const;
-	//TODO there are 2 getEntityData: _ZNK6 and _ZN6
+
 	virtual int32_t getEntityTypeId() const = 0;
-	virtual int32_t getCreatureBaseType();
-	virtual EntityRendererId queryEntityRenderer();
-	virtual bool_t isMob();
+	virtual int32_t getCreatureBaseType() const {
+		return 0;
+	}
+	virtual EntityRendererId queryEntityRenderer() {
+		return ER_NONE;
+	}
+	virtual bool_t isMob() const {
+		return 0;
+	}
 	virtual bool_t isItemEntity();
 	virtual bool_t isHangingEntity();
 	virtual int32_t getAuxData();

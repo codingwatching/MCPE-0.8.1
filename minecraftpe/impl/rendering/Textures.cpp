@@ -92,16 +92,6 @@ int32_t Textures::assignTexture(const std::string& s, TextureData& d, bool_t b){
 	return d.glTexId;
 }
 
-void Textures::bind(uint32_t t){
-	if(t){
-		if(this->currentTexture != t){
-			glBindTexture(GL_TEXTURE_2D, t);
-			this->currentTexture = t;
-			++Textures::textureChanges;
-		}
-	}
-}
-
 void Textures::clear(bool_t a2){
 	//XXX pain (need to check)
 	for(auto&& p: this->textures) {

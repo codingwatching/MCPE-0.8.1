@@ -120,13 +120,13 @@ struct CompoundTag* LevelData::createTag() {
 int32_t LevelData::getDimension() {
 	return this->dimensionID;
 }
-int32_t LevelData::getGameType() {
+int32_t LevelData::getGameType() const{
 	return this->gameType;
 }
-int32_t LevelData::getGeneratorVersion() {
+int32_t LevelData::getGeneratorVersion() const{
 	return this->generatorVersion;
 }
-int32_t LevelData::getLastPlayed() {
+int32_t LevelData::getLastPlayed() const{
 	return this->lastPlayed;
 }
 std::string LevelData::getLevelName() {
@@ -136,16 +136,16 @@ struct CompoundTag* LevelData::getLoadedPlayerTag() {
 	return this->playerTag;
 }
 
-int32_t LevelData::getSeed() {
+int32_t LevelData::getSeed() const{
 	return this->seed;
 }
-int32_t LevelData::getSizeOnDisk() {
+int32_t LevelData::getSizeOnDisk() const{
 	return this->sizeOnDisk;
 }
-bool_t LevelData::getSpawnMobs() {
+bool_t LevelData::getSpawnMobs() const{
 	return this->spawnMobs;
 }
-int32_t LevelData::getStorageVersion() {
+int32_t LevelData::getStorageVersion() const{
 	return this->storageVersion;
 }
 void LevelData::getTagData(const CompoundTag* a2) {
@@ -188,16 +188,16 @@ FINALS:
 		}
 	}
 }
-int32_t LevelData::getTime() {
+int32_t LevelData::getTime() const{
 	return this->time;
 }
-int32_t LevelData::getXSpawn() {
+int32_t LevelData::getXSpawn() const{
 	return this->xSpawn;
 }
-int32_t LevelData::getYSpawn() {
+int32_t LevelData::getYSpawn() const{
 	return this->ySpawn;
 }
-int32_t LevelData::getZSpawn() {
+int32_t LevelData::getZSpawn() const{
 	return this->zSpawn;
 }
 LevelData& LevelData::operator=(const LevelData& a2) {
@@ -265,10 +265,10 @@ void LevelData::setPlayerTag(struct CompoundTag* a2) {
 		this->playerTag = (CompoundTag*)a2->copy();
 	}
 }
-void LevelData::setSeed(int32_t a2) { //long
+void LevelData::setSeed(long a2) {
 	this->seed = a2;
 }
-void LevelData::setSizeOnDisk(int32_t a2) { //long
+void LevelData::setSizeOnDisk(long a2) {
 	this->sizeOnDisk = a2;
 }
 void LevelData::setSpawn(int32_t x, int32_t y, int32_t z) {
@@ -279,7 +279,7 @@ void LevelData::setSpawn(int32_t x, int32_t y, int32_t z) {
 void LevelData::setSpawnMobs(bool_t a2) {
 	this->spawnMobs = a2;
 }
-void LevelData::setStopTime(int32_t a2) { //long
+void LevelData::setStopTime(long a2) {
 	this->stopTime = a2;
 }
 void LevelData::setStorageVersion(int32_t a2) {
@@ -303,7 +303,7 @@ void LevelData::setTagData(struct CompoundTag* a2, struct CompoundTag* a3) {
 		a2->put("Player", a3);
 	}
 }
-void LevelData::setTime(int32_t a2) { //long
+void LevelData::setTime(long a2) {
 	this->time = a2;
 }
 void LevelData::setXSpawn(int32_t x) {
@@ -317,12 +317,12 @@ void LevelData::setZSpawn(int32_t z) {
 }
 void LevelData::v1_read(RakNet::BitStream& a2, int32_t a3) {
 	this->storageVersion = a3;
-	a2.Read<int32_t>(this->seed); //long
+	a2.Read<long>(this->seed);
 	a2.Read<int32_t>(this->xSpawn);
 	a2.Read<int32_t>(this->ySpawn);
 	a2.Read<int32_t>(this->zSpawn);
-	a2.Read<int32_t>(this->time);		//long
-	a2.Read<int32_t>(this->sizeOnDisk); //long
+	a2.Read<long>(this->time);
+	a2.Read<long>(this->sizeOnDisk);
 	a2.Read<int32_t>(this->lastPlayed);
 	{
 		RakNet::RakString s;

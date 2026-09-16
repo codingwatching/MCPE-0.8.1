@@ -16,21 +16,6 @@
 std::vector<ItemInstance> CreativeInventoryScreen::items;
 std::vector<ItemInstance> CreativeInventoryScreen::filteredItems[4];
 
-CreativeInventoryScreen::TabButtonWithMeta::TabButtonWithMeta(int f0, std::shared_ptr<ImageButton> f4) {
-	this->field_0 = f0;
-	this->field_4 = f4;
-}
-CreativeInventoryScreen::TabButtonWithMeta::TabButtonWithMeta(const CreativeInventoryScreen::TabButtonWithMeta& a2)
-	: field_4(a2.field_4) {
-	this->field_0 = a2.field_0;
-}
-CreativeInventoryScreen::TabButtonWithMeta::TabButtonWithMeta(CreativeInventoryScreen::TabButtonWithMeta&& a2) {
-	this->field_0 = a2.field_0;
-	this->field_4 = a2.field_4;
-	a2.field_4 = 0;
-}
-CreativeInventoryScreen::TabButtonWithMeta::~TabButtonWithMeta() {
-}
 CreativeInventoryScreen::CreativeInventoryScreen() {
 	this->field_58 = 24;
 	this->field_5C = 2;
@@ -416,7 +401,7 @@ bool_t CreativeInventoryScreen::addItem(const Touch::InventoryPane* a2, int32_t 
 	const ItemInstance* v8 = &v7->at(a3);
 	int32_t id = v8->getId();
 	int32_t auxv = v8->getAuxValue();
-	int32_t slot = this->minecraft->player->inventory->getLinkedSlotForItemAndAux(id, auxv);
+	int32_t slot = this->minecraft->player->inventory->getLinkedSlotForItemIdAndAux(id, auxv);
 	if(slot < 0 || slot >= this->minecraft->gui.getNumSlots() - 1) {
 		ItemInstance v15(*v8);
 		int32_t v14 = this->minecraft->player->inventory->selectedSlot + 9;

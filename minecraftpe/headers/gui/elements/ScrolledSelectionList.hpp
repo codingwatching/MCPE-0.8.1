@@ -20,17 +20,21 @@ struct ScrolledSelectionList: GuiComponent
 	void renderDirtBackground();
 	void setRenderHeader(bool_t, int32_t);
 
-	virtual ~ScrolledSelectionList();
+	virtual ~ScrolledSelectionList() {
+	}
 	virtual void setRenderSelection(bool_t);
 	virtual int32_t getNumberOfItems() = 0;
 	virtual void selectItem(int32_t, bool_t) = 0;
 	virtual bool_t isSelectedItem(int32_t) = 0;
 	virtual int32_t getMaxPosition();
 	virtual void renderItem(int32_t, int32_t, int32_t, int32_t, Tesselator&) = 0;
-	virtual void renderHeader(int32_t, int32_t, Tesselator&);
+	virtual void renderHeader(int32_t, int32_t, Tesselator&) {
+	}
 	virtual void renderBackground() = 0;
-	virtual void renderDecorations(int32_t, int32_t);
-	virtual void clickedHeader(int32_t, int32_t);
+	virtual void renderDecorations(int32_t, int32_t) {
+	}
+	virtual void clickedHeader(int32_t, int32_t) {
+	}
 	virtual int32_t getItemAtPosition(int32_t, int32_t);
 	virtual float capYPosition();
 	virtual void render(int32_t, int32_t, float);

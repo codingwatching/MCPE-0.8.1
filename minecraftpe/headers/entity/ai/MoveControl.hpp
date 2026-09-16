@@ -5,6 +5,9 @@ struct Mob;
 
 struct MoveControl
 {
+	static const float MIN_SPEED;
+	static const float MIN_SPEED_SQR;
+	static const float MAX_TURN;
 	Mob* controlledEntity;
 	float posX, posY, posZ;
 	float speedMultiplier;

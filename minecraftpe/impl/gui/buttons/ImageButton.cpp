@@ -34,10 +34,6 @@ void ImageButton::setImageDef(const ImageDef& a4, bool_t b){
 	}
 }
 
-//do i even have to fill then somehow~?
-ImageButton::~ImageButton(){
-
-}
 void ImageButton::render(struct Minecraft* mc, int32_t x, int32_t y){
 	if(this->visible){
 		glColor4f(this->color.r, this->color.g, this->color.b, this->color.a);
@@ -125,7 +121,7 @@ void ImageButton::render(struct Minecraft* mc, int32_t x, int32_t y){
 		}
 	}
 }
-void ImageButton::renderBg(struct Minecraft*, int32_t, int32_t){}
+
 void ImageButton::setYOffset(int32_t a2){
 	this->yOffset = a2;
 }
@@ -133,7 +129,4 @@ void ImageButton::setupDefault(void){
 	this->width = 48;
 	this->height = 48;
 	this->field_64 = 1;
-}
-bool_t ImageButton::isSecondImage(bool_t a2){
-	return a2;
 }

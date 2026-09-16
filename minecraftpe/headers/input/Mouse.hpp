@@ -4,8 +4,8 @@
 struct Mouse{
 	static MouseDevice _instance;
 
-	static void feed(int8_t, int8_t, int16_t, int16_t);
-	static void feed(int8_t, int8_t, int16_t, int16_t, int16_t, int16_t);
+	static void feed(char, char, int16_t, int16_t);
+	static void feed(char, char, int16_t, int16_t, int16_t, int16_t);
 	static int32_t getButtonState(int32_t);
 	static int16_t getDX();
 	static int16_t getDY();

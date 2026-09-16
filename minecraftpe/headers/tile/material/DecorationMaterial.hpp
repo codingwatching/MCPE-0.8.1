@@ -4,9 +4,17 @@
 
 struct DecorationMaterial : Material{
 
-	DecorationMaterial(void);
+	DecorationMaterial(void) :
+			Material() {
+	}
 
-	virtual bool_t isSolid(void) const;
-	virtual bool_t blocksLight(void) const;
-	virtual bool_t blocksMotion(void) const;
+	virtual bool_t isSolid(void) const {
+		return 0;
+	}
+	virtual bool_t blocksLight(void) const {
+		return 0;
+	}
+	virtual bool_t blocksMotion(void) const {
+		return 0;
+	}
 };

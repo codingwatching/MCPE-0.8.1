@@ -26,17 +26,21 @@ struct SoundSystemSL : public SoundSystem{
 
 	SoundSystemSL(void);
 	virtual ~SoundSystemSL();
-	bool_t checkErr(uint32_t);
+	bool_t checkErr(unsigned long);
 	void destroy(void);
 	void init(void);
 	static void removePlayer(SLAndroidSimpleBufferQueueItf, void*); //XXX SoundSystemSL::removePlayer(SLAndroidSimpleBufferQueueItf_ const* const*,void *)
 	void removeStoppedSounds(void);
 	virtual void setListenerPos(float, float, float);
 	virtual void setListenerAngle(float);
-	virtual void load(const std::string&);
-	virtual void play(const std::string&);
-	virtual void pause(const std::string&);
-	virtual void stop(const std::string&);
+	virtual void load(const std::string&) {
+	}
+	virtual void play(const std::string&) {
+	}
+	virtual void pause(const std::string&) {
+	}
+	virtual void stop(const std::string&) {
+	}
 	virtual void playAt(const struct SoundDesc&, float, float, float, float, float);
 };
 #endif

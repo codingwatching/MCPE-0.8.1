@@ -55,8 +55,6 @@ void ArrowAttackGoal::fireAtTarget() {
 	this->level->addEntity(v5);
 }
 
-ArrowAttackGoal::~ArrowAttackGoal() {
-}
 bool_t ArrowAttackGoal::canUse() {
 	Level* level; // r0
 
@@ -120,7 +118,4 @@ void ArrowAttackGoal::tick() {
 		this->fireAtTarget();
 		this->attackTimeout = this->delayBetweenAttack;
 	}
-}
-void ArrowAttackGoal::setLevel(Level* l) {
-	this->level = l;
 }

@@ -15,11 +15,11 @@ MouseDevice::MouseDevice(){
 	this->field_13 = 0;
 }
 
-void MouseDevice::feed(int8_t a2, int8_t a3, int16_t a4, int16_t a5){
+void MouseDevice::feed(char a2, char a3, int16_t a4, int16_t a5){
 	this->feed(a2, a3, a4, a5, 0, 0);
 }
 
-void MouseDevice::feed(int8_t a2, int8_t a3, int16_t mx, int16_t my, int16_t a6, int16_t a7){
+void MouseDevice::feed(char a2, char a3, int16_t mx, int16_t my, int16_t a6, int16_t a7){
 	int32_t v9 = a2;
 	int32_t v13;
 	MouseAction v22(a2, a3, mx, my, a6, a7, 0);

@@ -4,9 +4,7 @@
 #include <rendering/model/Cube.hpp>
 #include <rendering/model/Model.hpp>
 #include <algorithm>
-ModelPart::ModelPart() : ModelPart(0, 0, 64, 32){
 
-}
 ModelPart::ModelPart(struct Model* a2, int32_t a3, int32_t a4, int32_t a5, int32_t a6) {
 	this->field_0 = 0;
 	this->texOffsetX = a3;

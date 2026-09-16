@@ -27,7 +27,8 @@ struct ItemRenderer: EntityRenderer
 	static void renderGuiItemNew(Textures*, const ItemInstance*, int32_t, float, float, float, float, float);
 	static void teardown_static();
 
-	virtual ~ItemRenderer();
+	virtual ~ItemRenderer() {
+	}
 	virtual void render(Entity*, float, float, float, float, float);
 
 };

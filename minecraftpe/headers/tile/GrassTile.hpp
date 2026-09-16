@@ -7,7 +7,8 @@ struct GrassTile : Tile{
 	GrassTile(int32_t);
 	bool_t _randomWalk(Level*, int32_t&, int32_t&, int32_t&, int32_t);
 
-	virtual ~GrassTile();
+	virtual ~GrassTile() {
+	}
 	virtual bool_t onFertilized(Level*, int32_t, int32_t, int32_t);
 	virtual TextureUVCoordinateSet* getTexture(int32_t, int32_t);
 	virtual TextureUVCoordinateSet* getTexture(LevelSource*, int32_t, int32_t, int32_t, int32_t);

@@ -29,7 +29,7 @@ SoundSystemSL::~SoundSystemSL(){
 	}
 
 }
-bool_t SoundSystemSL::checkErr(uint32_t a2) {
+bool_t SoundSystemSL::checkErr(unsigned long a2) {
 	if(a2) {
 		return 1;
 	}
@@ -97,15 +97,6 @@ void SoundSystemSL::setListenerAngle(float a) {
 		this->checkErr((*this->field_10)->SetOrientationAngles(this->field_10, (a * 1000), 0, 0));
 	}
 }
-void SoundSystemSL::load(const std::string&) {
-}
-void SoundSystemSL::play(const std::string&) {
-}
-void SoundSystemSL::pause(const std::string&) {
-}
-void SoundSystemSL::stop(const std::string&) {
-}
-
 
 static SLboolean _d6e04a20[2];
 static SLInterfaceID _d6e04a28[2];

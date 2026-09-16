@@ -21,6 +21,6 @@ struct Pig: Animal
 	virtual std::string getHurtSound();
 	virtual std::string getDeathSound();
 	virtual bool_t useNewAi();
-	virtual bool_t isFood(const ItemInstance*);
+	virtual bool_t isFood(const ItemInstance*) const;
 	virtual Mob* getBreedOffspring(Animal*);
 };

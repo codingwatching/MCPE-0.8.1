@@ -17,7 +17,12 @@ struct MobCategory{
 	int8_t field_10;
 	char a11, a12, a13;
 
-	MobCategory(int32_t, int32_t, int32_t, int8_t);
-
+	MobCategory(int32_t id, int32_t minCnt, int32_t maxCnt, int8_t f10){
+		this->id = id;
+		this->minCountInChunkMaybe = minCnt;
+		this->maxCountInChunkMaybe = maxCnt;
+		this->material = 0;
+		this->field_10 = f10;
+	}
 	static void initMobCategories(void);
 };

@@ -1,10 +1,9 @@
 #include <tile/RotatedPillarTile.hpp>
 
-RotatedPillarTile::RotatedPillarTile(int32_t id, const struct Material* mat) : Tile(id, mat){
+RotatedPillarTile::RotatedPillarTile(int32_t id, const struct Material* mat) :
+		Tile(id, mat) {
+}
 
-}
-RotatedPillarTile::~RotatedPillarTile() {
-}
 int32_t RotatedPillarTile::getRenderShape() {
 	return 31;
 }

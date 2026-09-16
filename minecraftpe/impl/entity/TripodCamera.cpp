@@ -19,8 +19,6 @@ TripodCamera::TripodCamera(Level* a2, Player* p, float x, float y, float z)
 	this->prevZ = z;
 }
 
-TripodCamera::~TripodCamera() {
-}
 void TripodCamera::tick() {
 	float v1;		 // s15
 	float motionX;	 // r1
@@ -82,11 +80,5 @@ bool_t TripodCamera::isPickable() {
 	return !this->isDead;
 }
 bool_t TripodCamera::isPushable() {
-	return 0;
-}
-int32_t TripodCamera::getEntityTypeId() const {
-	return 0;
-}
-float TripodCamera::getBaseSpeed() {
 	return 0;
 }

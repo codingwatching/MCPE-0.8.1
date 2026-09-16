@@ -12,5 +12,9 @@ struct EnableClientState{
 		this->enabled = s;
 		if(this->enabled) glEnableClientState(this->enabled);
 	}
-	~EnableClientState();
+	~EnableClientState() {
+		if (this->enabled) {
+			glDisableClientState(this->enabled);
+		}
+	}
 };

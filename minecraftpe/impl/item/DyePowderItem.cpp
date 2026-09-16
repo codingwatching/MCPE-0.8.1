@@ -4,7 +4,10 @@
 #include <tile/Tile.hpp>
 #include <entity/Sheep.hpp>
 #include <I18n.hpp>
-
+const int DyePowderItem::COLOR_RGB[] = {
+	0x1E1B1B, 0xB3312C, 0x3B511A, 0x51301A, 0x253192, 0x7B2FBE, 0x287697, 0x287697,
+	0x434343, 0xD88198, 0x41CD34, 0xDECF2A, 0x6689D3, 0xC354CD, 0xEB8844, 0xF0F0F0
+};
 std::string DyePowderItem::COLOR_DESCS[] = {"black", "red", "green", "brown", "blue", "purple", "cyan", "silver", "gray", "pink", "lime", "yellow", "lightBlue", "magenta", "orange", "white"};
 
 DyePowderItem::DyePowderItem(int32_t a2)
@@ -15,9 +18,7 @@ DyePowderItem::DyePowderItem(int32_t a2)
 	this->field_48 = *this->getTextureItem("dye_powder");
 }
 
-DyePowderItem::~DyePowderItem() {
-}
-TextureUVCoordinateSet* DyePowderItem::getIcon(int32_t a2, int32_t, bool_t) {
+const TextureUVCoordinateSet* DyePowderItem::getIcon(int32_t a2, int32_t, bool_t) const{
 	if(a2 > 0b1111) a2 = 0b1111; //usat(4, v);
 	return this->field_48.getUV(a2);
 }
@@ -55,7 +56,7 @@ void DyePowderItem::interactEnemy(ItemInstance* a2, Mob* a3, Player* a4) {
 		}
 	}
 }
-std::string DyePowderItem::getName(const ItemInstance* a2) {
+std::string DyePowderItem::getName(const ItemInstance* a2) const{
 	int32_t meta = a2->getAuxValue();
 	int32_t v6 = meta & ~(meta >> 31);
 	int32_t v7;
@@ -66,7 +67,7 @@ std::string DyePowderItem::getName(const ItemInstance* a2) {
 	}
 	return I18n::get(Item::getDescriptionId() + "." + DyePowderItem::COLOR_DESCS[v7] + ".name");
 }
-std::string DyePowderItem::getDescriptionId(const ItemInstance* a2) {
+std::string DyePowderItem::getDescriptionId(const ItemInstance* a2) const{
 	int32_t meta = a2->getAuxValue();
 	int32_t v6 = meta & ~(meta >> 31);
 	int32_t v7;

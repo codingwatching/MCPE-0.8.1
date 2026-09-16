@@ -8,7 +8,8 @@ struct InventoryMenu: BaseContainerMenu
 
 	InventoryMenu(Container*);
 
-	virtual ~InventoryMenu();
+	virtual ~InventoryMenu() {
+	}
 	virtual std::vector<ItemInstance> getItems();
 	virtual void setSlot(int32_t, ItemInstance*);
 	virtual bool_t tileEntityDestroyedIsInvalid(int32_t);

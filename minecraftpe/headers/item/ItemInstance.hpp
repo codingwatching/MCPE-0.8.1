@@ -39,12 +39,12 @@ struct ItemInstance{
 	int32_t getDamageValue() const;
 	std::string getDescriptionId() const;
 	float getDestroySpeed(Tile*);
-	TextureUVCoordinateSet* getIcon(int32_t, bool_t) const;
+	const TextureUVCoordinateSet* getIcon(int32_t, bool_t) const;
 	int32_t getId() const;
 	int32_t getMaxDamage() const;
 	int32_t getMaxStackSize() const;
-	int32_t getMaxUseDuration();
-	std::string getName();
+	int32_t getMaxUseDuration() const;
+	std::string getName() const;
 	int32_t getUseAnimation() const;
 	void hurtAndBreak(int32_t, Mob*);
 	void hurtEnemy(Mob*, Mob*);
@@ -64,17 +64,21 @@ struct ItemInstance{
 	static bool_t matches(const ItemInstance*, const ItemInstance*);
 	static bool_t matchesNulls(const ItemInstance*, const ItemInstance*);
 	bool_t mineBlock(int32_t, int32_t, int32_t, int32_t, Mob*);
-	bool_t operator==(const ItemInstance&);
+	bool_t operator==(const ItemInstance&) const;
 	void releaseUsing(Level*, Player*, int32_t);
 	ItemInstance remove(int32_t);
-	bool_t sameItem(ItemInstance*) const;
-	bool_t sameItemAndAux(ItemInstance*);
+	bool_t sameItem(ItemInstance* a2) const {
+		if (!a2) return 0;
+
+		return this->itemClass == a2->itemClass && this->itemClass != 0;
+	}
+	bool_t sameItemAndAux(ItemInstance*) const;
 	void save(CompoundTag*);
 	void setAuxValue(int32_t);
 	void setDescriptionId(const std::string&);
 	void setNull();
 	void snap(Player*);
-	std::string toString();
+	std::string toString() const;
 	ItemInstance* use(Level*, Player*);
 	void useAsFuel();
 	bool_t useOn(Player*, Level*, int32_t, int32_t, int32_t, int32_t, float, float, float);

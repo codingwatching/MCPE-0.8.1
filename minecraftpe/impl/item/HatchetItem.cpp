@@ -3,8 +3,7 @@
 #include <tile/material/Material.hpp>
 
 HatchetItem::HatchetItem(int32_t a2, const Item::Tier& a3)
-	: DiggerItem(a2, a3) {
-	this->damageAgainstEntity = a3.damageAgainstEntity + 3;
+	: DiggerItem(a2, 3, a3, {}) {
 	std::vector<Tile*> tiles;
 	tiles.push_back(Tile::wood);
 	tiles.push_back(Tile::bookshelf);

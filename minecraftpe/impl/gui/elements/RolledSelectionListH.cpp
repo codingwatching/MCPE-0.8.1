@@ -47,10 +47,6 @@ void RolledSelectionListH::setRenderSelection(bool_t a2) {
 	this->renderSelection = a2;
 }
 
-
-RolledSelectionListH::~RolledSelectionListH() {
-}
-
 int32_t RolledSelectionListH::getItemAtPosition(int32_t a2, int32_t a3) {
 	if((float)a3 < this->field_1C || (float)a3 > this->field_20) return -1;
 
@@ -222,11 +218,6 @@ void RolledSelectionListH::setComponentSelected(bool_t a2) {
 	this->componentSelected = a2;
 }
 
-//int32_t RolledSelectionListH::getNumberOfItems() = 0;
-void RolledSelectionListH::selectStart(int32_t, int32_t, int32_t) {
-}
-void RolledSelectionListH::selectCancel(void) {
-}
 //void RolledSelectionListH::selectItem(int32_t, bool_t) = 0;
 //bool_t RolledSelectionListH::isSelectedItem(int32_t) = 0;
 int32_t RolledSelectionListH::getMaxPosition() {
@@ -237,10 +228,3 @@ float RolledSelectionListH::getPos(float a2) {
 }
 void RolledSelectionListH::touched() {
 }
-//void RolledSelectionListH::renderItem(int32_t, int32_t, int32_t, int32_t, struct Tesselator&) = 0;
-void RolledSelectionListH::renderHeader(int32_t, int32_t, struct Tesselator&) {
-}
-//void RolledSelectionListH::renderBackground() = 0;
-void RolledSelectionListH::renderDecorations(int32_t, int32_t){
-}
-void RolledSelectionListH::clickedHeader(int32_t, int32_t) {}

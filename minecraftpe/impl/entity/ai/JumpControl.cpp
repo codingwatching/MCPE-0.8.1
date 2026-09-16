@@ -13,6 +13,3 @@ void JumpControl::tick() {
 	this->controlledEntity->setJumping(this->isJumping);
 	this->isJumping = 0;
 }
-JumpControl::~JumpControl(){
-
-}

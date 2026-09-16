@@ -11,8 +11,6 @@ FurnaceMenu::FurnaceMenu(FurnaceTileEntity* a2)
 	this->field_1C = a2->id;
 }
 
-FurnaceMenu::~FurnaceMenu() {
-}
 std::vector<ItemInstance> FurnaceMenu::getItems() {
 	std::vector<ItemInstance> result;
 	for(int32_t i = 0; i < this->tileEntity->getContainerSize(); ++i) {

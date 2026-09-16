@@ -11,8 +11,6 @@ FloatGoal::FloatGoal(Mob* a2)
 	a2->getNavigation()->setCanFloat(1);
 }
 
-FloatGoal::~FloatGoal() {
-}
 bool_t FloatGoal::canUse() {
 	if(this->holder->isInWater()) return 1;
 	return this->holder->isInLava();

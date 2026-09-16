@@ -12,6 +12,7 @@ struct ChestTileEntity;
 struct BaseContainerMenu;
 struct Tile;
 struct Player : Mob{
+	static const float DEFAULT_FLY_SPEED, DEFAULT_WALK_SPEED;
 	int8_t field_C6C, field_C6D, field_C6E, field_C6F;
 	int32_t score;
 	float field_C74, field_C78;
@@ -106,7 +107,7 @@ struct Player : Mob{
 	virtual void die(Entity*);
 	virtual bool_t isSleeping();
 	virtual float getBaseSpeed() {
-		return 0.1;
+		return Player::DEFAULT_WALK_SPEED;
 	}
 	virtual int32_t getMaxHealth();
 	virtual int32_t getArmorValue();

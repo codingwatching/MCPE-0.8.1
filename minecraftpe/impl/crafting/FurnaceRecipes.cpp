@@ -30,16 +30,16 @@ FurnaceRecipes* FurnaceRecipes::getInstance() {
 	}
 	return FurnaceRecipes::instance;
 }
-void FurnaceRecipes::getRecipes() {
+void FurnaceRecipes::getRecipes() const{
 } //TODO prob different type, but it is empty so cant really guess
-ItemInstance FurnaceRecipes::getResult(int32_t a2) {
+ItemInstance FurnaceRecipes::getResult(int32_t a2) const{
 	auto&& p = this->recipes.find(a2);
 	if(p == this->recipes.end()) {
 		return ItemInstance();
 	}
 	return ItemInstance(p->second);
 }
-bool_t FurnaceRecipes::isFurnaceItem(int32_t a2) {
+bool_t FurnaceRecipes::isFurnaceItem(int32_t a2) const{
 	return this->recipes.find(a2) != this->recipes.end();
 }
 void FurnaceRecipes::teardownFurnaceRecipes() {

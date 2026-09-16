@@ -4,7 +4,6 @@
 #include <dirent.h>
 #include <string.h>
 #include <sys/stat.h>
-#include <network/mco/RestRequestJob.hpp>
 #include <sys/time.h>
 #include <errno.h>
 #include <stdio.h>
@@ -20,6 +19,15 @@ double getTimeS(){
 	struct timeval v1;
 	gettimeofday(&v1, 0);
 	return v1.tv_sec - startedAtSec + (double)v1.tv_usec / 1000000.0;
+}
+
+long getFileSize(const char* a1){ //unused method
+	FILE* v1 = fopen(a1, "rb");
+	if(!v1) return -1;
+	fseek(v1, 0, SEEK_END);
+	long v3 = ftell(v1);
+	fclose(v1);
+	return v3;
 }
 
 time_t getEpochTimeS() { //TODO returns int?
@@ -47,13 +55,6 @@ void sleepMs(int32_t a1) {
 	usleep(1000 * a1);
 }
 
-template<>
-void safeStopAndRemove<std::shared_ptr<RestRequestJob>>(std::shared_ptr<RestRequestJob>& a2) {
-	if(a2.get()) {
-		a2->stop();
-		a2 = std::shared_ptr<RestRequestJob>(); //TODO check
-	}
-}
 void splitString(const std::string& a1, char_t a2, std::vector<std::string>& a3) {
 	std::stringstream v9(a1);
 	for(std::string v7; std::getline(v9, v7, a2);) {

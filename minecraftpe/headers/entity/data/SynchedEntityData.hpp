@@ -32,13 +32,13 @@ struct SynchedEntityData{
 			this->data.insert({a2, new DataItem2<T>(a2, a3)});
 		}
 	}
-	int8_t getByte(int32_t);
-	float getFloat(int32_t);
-	int32_t getInt(int32_t);
+	int8_t getByte(int32_t) const;
+	float getFloat(int32_t) const;
+	int32_t getInt(int32_t) const;
 	ItemInstance getItemInstance(int32_t);
-	Pos getPos(int32_t);
-	int16_t getShort(int32_t);
-	std::string getString(int32_t);
+	Pos getPos(int32_t) const;
+	int16_t getShort(int32_t) const;
+	std::string getString(int32_t) const;
 	void markDirty(int32_t a2) {
 		this->data[a2]->dirty = 1;
 		this->isDirty = 1;
@@ -55,3 +55,4 @@ struct SynchedEntityData{
 
 	~SynchedEntityData();
 };
+

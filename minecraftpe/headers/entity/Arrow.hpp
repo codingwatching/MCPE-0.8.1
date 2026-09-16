@@ -2,6 +2,7 @@
 #include <entity/Entity.hpp>
 
 struct Arrow : Entity{
+	static const float ARROW_BASE_DAMAGE;
 	int32_t shake;
 	int32_t shooterEID;
 	bool_t critical;

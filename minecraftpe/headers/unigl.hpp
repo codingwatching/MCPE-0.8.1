@@ -1,6 +1,6 @@
 #ifndef UNIGL_H
 #define UNIGL_H
-
+#include <_types.h>
 #ifdef USEGLES
 	#include <GLES/gl.h>
 	#include <EGL/egl.h>

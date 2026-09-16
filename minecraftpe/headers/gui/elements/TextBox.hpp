@@ -26,16 +26,15 @@ struct TextBox: GuiElement
 	const char_t* validChars;
 	uint32_t field_4C;
 	void (Screen::*field_50)(int32_t);
-	int32_t field_54;
+	//int32_t field_54; part of previous thing i suppose? (vt off)
 	Screen* field_58;
 	bool_t field_5C;
 	int8_t field_5D, field_5E, field_5F;
-	int32_t field_60;
 
 	TextBox(Minecraft*, const Options::Option*, const std::string&);
-	TextBox(Minecraft*, const std::string&, int32_t, const char_t*, int32_t, Screen*, void (Screen::*)(int32_t), int32_t, int32_t); //TODO seems to have one less argument according to demangled function name
+	TextBox(Minecraft*, const std::string&, int32_t, const char_t*, int32_t, Screen*, void (Screen::*)(int32_t), int32_t); //TODO seems to have one less argument according to demangled function name
 	int32_t getKey();
-	std::string* getText();
+	const std::string* getText() const;
 	void setText(const std::string&);
 	void setValidChars(const char_t*, uint32_t);
 	void updateText(Minecraft*);

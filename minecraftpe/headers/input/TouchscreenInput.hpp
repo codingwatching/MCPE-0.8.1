@@ -9,11 +9,9 @@ struct Options;
 struct Minecraft;
 struct Player;
 
-struct TouchscreenInput: IMoveInput
+struct TouchscreenInput: IMoveInput, GuiComponent
 {
-	int8_t field_12;
-	int8_t field_13;
-	GuiComponent field_14;
+	static const float BUTTONS_TRANSPARENCY;
 	RectangleArea field_1C;
 	int32_t field_34;
 	int32_t field_38;

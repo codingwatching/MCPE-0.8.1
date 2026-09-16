@@ -3,15 +3,11 @@
 #include <level/storage/LevelStorageSource.hpp>
 #include <util/Util.hpp>
 
+static char_t _D6723994[] = {0x2F, 0xA, 0xD, 9, 0, 0xC, 0x60, 0x3F, 0x2A, 0x5C, 0x3C, 0x3E, 0x7C, 0x22, 0x3A, 0x2F};
+
 RenameMPLevelScreen::RenameMPLevelScreen(const std::string& a2) {
 	this->name = a2;
 }
-
-RenameMPLevelScreen::~RenameMPLevelScreen() {
-}
-
-
-static char_t _D6723994[] = {0x2F, 0xA, 0xD, 9, 0, 0xC, 0x60, 0x3F, 0x2A, 0x5C, 0x3C, 0x3E, 0x7C, 0x22, 0x3A, 0x2F};
 
 void RenameMPLevelScreen::render(int32_t a2, int32_t a3, float a4) {
 	int32_t v6;				// r0

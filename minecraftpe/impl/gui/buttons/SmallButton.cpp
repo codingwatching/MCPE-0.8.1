@@ -16,5 +16,3 @@ SmallButton::SmallButton(int32_t a2, int32_t a3, int32_t a4, const std::string& 
 Options::Option* SmallButton::getOption() {
 	return this->option;
 }
-SmallButton::~SmallButton() {
-}

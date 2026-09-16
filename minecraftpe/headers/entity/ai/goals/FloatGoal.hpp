@@ -9,7 +9,8 @@ struct FloatGoal: Goal
 
 	FloatGoal(Mob*);
 
-	virtual ~FloatGoal();
+	virtual ~FloatGoal() {
+	}
 	virtual bool_t canUse();
 	virtual void tick();
 };

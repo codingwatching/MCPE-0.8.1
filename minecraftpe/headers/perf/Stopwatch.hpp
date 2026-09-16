@@ -18,7 +18,8 @@ struct Stopwatch
 	void reset();
 	void start();
 
-	virtual ~Stopwatch();
+	virtual ~Stopwatch() {
+	}
 	virtual void stop();
 	virtual double stopContinue();
 	virtual void print(const std::string&);

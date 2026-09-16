@@ -36,7 +36,7 @@ struct LevelChunk
 	void clearUpdateMap();
 	void deleteBlockData();
 	struct TileEntity* getTileEntity(int32_t, int32_t, int32_t);
-	std::unordered_map<TilePos, struct TileEntity*>* getTileEntityMap();
+	const std::unordered_map<TilePos, struct TileEntity*>* getTileEntityMap() const;
 	bool_t hasTileEntityAt(struct TileEntity*);
 	bool_t hasTileEntityAt(int32_t, int32_t, int32_t);
 	void init();
@@ -62,7 +62,8 @@ struct LevelChunk
 	virtual void getEntitiesOfClass(int32_t, const struct AABB&, std::vector<struct Entity*>&);
 	virtual void getEntitiesOfType(int32_t, const struct AABB&, std::vector<struct Entity*>&);
 	virtual bool_t isSkyLit(int32_t, int32_t, int32_t);
-	virtual void lightLava();
+	virtual void lightLava() {
+	}
 	virtual void recalcBlockLights();
 	virtual void skyBrightnessChanged();
 	virtual void load();

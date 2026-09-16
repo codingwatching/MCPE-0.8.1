@@ -17,10 +17,13 @@ struct ArrowAttackGoal: Goal
 	ArrowAttackGoal(Mob*, float, int32_t, int32_t);
 	void fireAtTarget();
 
-	virtual ~ArrowAttackGoal();
+	virtual ~ArrowAttackGoal() {
+	}
 	virtual bool_t canUse();
 	virtual bool_t canContinueToUse();
 	virtual void stop();
 	virtual void tick();
-	virtual void setLevel(Level*);
+	virtual void setLevel(Level* l) {
+		this->level = l;
+	}
 };

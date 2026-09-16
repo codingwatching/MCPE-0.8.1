@@ -3,7 +3,7 @@
 #include <item/Item.hpp>
 #include <tile/Tile.hpp>
 
-static Recipes::Shape _dword_D6E4DEA0[4] = {
+static std::vector<std::string> _dword_D6E4DEA0[4] = {
 	Recipes::Shape("XXX", " # ", " # "),
 	Recipes::Shape("X", "#", "#"),
 	Recipes::Shape("XX", "X#", " #"),
@@ -47,7 +47,7 @@ void ToolRecipes::addRecipes(Recipes* a1) {
 		v3 = 0;
 		v4 = materials[v2];
 		do {
-			a1->addShapedRecipe(ItemInstance(results[v3][v2]), _dword_D6E4DEA0[v3].shape, v4 > 255 ? definition<Item*, Item*>('#', Item::stick, 'X', Item::items[v4]) : definition<Item*, Tile*>('#', Item::stick, 'X', Tile::tiles[v4]));
+			a1->addShapedRecipe(ItemInstance(results[v3][v2]), _dword_D6E4DEA0[v3], v4 > 255 ? definition<Item*, Item*>('#', Item::stick, 'X', Item::items[v4]) : definition<Item*, Tile*>('#', Item::stick, 'X', Tile::tiles[v4]));
 			++v3;
 		} while(v3 != 4);
 		++v2;

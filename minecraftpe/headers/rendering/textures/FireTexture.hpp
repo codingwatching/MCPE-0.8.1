@@ -4,6 +4,7 @@
 
 struct FireTexture: DynamicTexture
 {
+	static const float fireDieRate;
 	float* field_28, * field_2C;
 	Random random;
 

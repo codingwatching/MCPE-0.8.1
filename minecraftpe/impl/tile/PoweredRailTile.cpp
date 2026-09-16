@@ -6,13 +6,13 @@ PoweredRailTile::PoweredRailTile(int32_t id)
 	this->textureUV = this->getTextureUVCoordinateSet("rail_golden", 0);
 	this->poweredRailTexture = this->getTextureUVCoordinateSet("rail_golden_powered", 0);
 }
-bool_t PoweredRailTile::findPoweredRailSignal(Level* level, int32_t x, int32_t y, int32_t z, bool_t a6, int32_t a7, int32_t a8) {
+bool_t PoweredRailTile::isSameRailWithPower(Level* level, int32_t x, int32_t y, int32_t z, bool_t a6, int32_t a7, int32_t a8) {
 	if(level->getTile(x, y, z) == this->blockID) {
 		level->getData(x, y, z);
 	}
 	return 0;
 }
-bool_t PoweredRailTile::isSameRailWithPower(Level* level, int32_t x, int32_t y, int32_t z, int32_t a6, bool_t a7, int32_t a8) {
+bool_t PoweredRailTile::findPoweredRailSignal(Level* level, int32_t x, int32_t y, int32_t z, int32_t a6, bool_t a7, int32_t a8) {
 	int32_t v8;	 // r8
 	int32_t v11; // r7
 	int32_t v12; // r9

@@ -51,9 +51,7 @@ void Zombie::die(Entity* a2) {
 		}
 	}
 }
-float Zombie::getBaseSpeed() {
-	return 0.23;
-}
+
 int32_t Zombie::getMaxHealth() {
 	return 12;
 }

@@ -162,7 +162,7 @@ void ScrollingPane::addDeltaPos(float x, float y, float z, int32_t n) {
 	if(z > 0) {
 		Vec3 v11(x, y, 0);
 		Vec3 v12(this->field_BC - v11.x, this->field_C0 - v11.y, this->field_C4 - v11.z);
-		Vec3 v10((1.0 / z) * v12.x, (1.0 / z) * v12.y, (1.0 / z) * v12.z);
+		Vec3 v10((1.0f / z) * v12.x, (1.0f / z) * v12.y, (1.0f / z) * v12.z);
 		this->float_vec.push_back(v10.x);
 		this->float_vec.push_back(v10.y);
 		this->field_BC = x;
@@ -813,15 +813,7 @@ void ScrollingPane::renderBatch(std::vector<ScrollingPane::GridItem>& a2, float 
 }
 void ScrollingPane::renderItem(ScrollingPane::GridItem&, float) {
 }
-void ScrollingPane::didEndDragging(){
-}
-void ScrollingPane::didEndDecelerating() {
-}
-void ScrollingPane::willBeginDecelerating() {
-}
-void ScrollingPane::willBeginDragging() {
-}
+
 bool_t ScrollingPane::onSelect(int32_t a2, bool_t a3) {
 	return a3;
 }
-void ScrollingPane::refreshItems(){}

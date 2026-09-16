@@ -8,9 +8,14 @@ struct Skeleton: Monster
 
 	Skeleton(Level*);
 
-	virtual ~Skeleton();
+	virtual ~Skeleton() {
+	}
+
 	virtual int32_t getEntityTypeId() const;
-	virtual float getBaseSpeed();
+	virtual float getBaseSpeed() {
+		return 0.25;
+	}
+
 	virtual int32_t getMaxHealth();
 	virtual void aiStep();
 	virtual ItemInstance* getCarriedItem();

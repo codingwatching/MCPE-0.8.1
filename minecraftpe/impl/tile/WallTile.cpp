@@ -1,6 +1,10 @@
 #include <tile/WallTile.hpp>
 #include <level/Level.hpp>
 #include <tile/material/Material.hpp>
+const float WallTile::WALL_WIDTH = 0.1875; //TODO seems like ida decided to optimize those constants from TileRenderer:: methods and maybe other places </3
+const float WallTile::WallTile::WALL_HEIGHT = 0.8125;
+const float WallTile::POST_WIDTH = 0.25;
+const float WallTile::POST_HEIGHT = 1.0;
 
 WallTile::WallTile(int32_t id, Tile* a3)
 	: Tile(id, a3->material) {
@@ -93,7 +97,7 @@ void WallTile::updateShape(LevelSource* level, int32_t x, int32_t y, int32_t z) 
 bool_t WallTile::shouldRenderFace(LevelSource* level, int32_t x, int32_t y, int32_t z, int32_t a6) {
 	return a6 || Tile::shouldRenderFace(level, x, y, z, 0);
 }
-TextureUVCoordinateSet* WallTile::getTexture(int32_t a2, int32_t a3) {
+const TextureUVCoordinateSet* WallTile::getTexture(int32_t a2, int32_t a3) {
 	if(a3 == 1) return Tile::mossStone->getTexture(a2);
 	return Tile::stoneBrick->getTexture(a2);
 }

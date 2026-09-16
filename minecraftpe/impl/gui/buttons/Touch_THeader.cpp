@@ -25,8 +25,6 @@ Touch::THeader::THeader(int32_t a2, int32_t a3, int32_t a4, int32_t a5, int32_t 
 	this->active = 0;
 }
 
-Touch::THeader::~THeader() {}
-
 void Touch::THeader::render(Minecraft* mc, int32_t x, int32_t y) {
 	this->renderBg(mc, x, y);
 	int32_t v6 = this->field_30;

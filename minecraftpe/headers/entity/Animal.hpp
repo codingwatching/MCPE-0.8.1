@@ -6,7 +6,7 @@ struct Animal: AgableMob
 	int32_t inLove;
 
 	Animal(Level*);
-	bool_t canMate(const Animal*);
+	bool_t canMate(const Animal*) const;
 	bool_t isInLove() const;
 	void resetLove();
 
@@ -14,7 +14,7 @@ struct Animal: AgableMob
 	}
 	virtual bool_t interactWithPlayer(Player*);
 	virtual bool_t hurt(Entity*, int32_t);
-	virtual int32_t getCreatureBaseType();
+	virtual int32_t getCreatureBaseType() const;
 	virtual void readAdditionalSaveData(CompoundTag*);
 	virtual void addAdditonalSaveData(CompoundTag*);
 	virtual int32_t getAmbientSoundInterval();
@@ -23,6 +23,6 @@ struct Animal: AgableMob
 	virtual bool_t removeWhenFarAway();
 	virtual float getWalkTargetValue(int32_t, int32_t, int32_t);
 	virtual Entity* findAttackTarget();
-	virtual bool_t isFood(const ItemInstance*);
+	virtual bool_t isFood(const ItemInstance*) const;
 	virtual Mob* getBreedOffspring(Animal*) = 0;
 };

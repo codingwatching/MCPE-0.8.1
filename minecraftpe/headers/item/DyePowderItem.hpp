@@ -4,16 +4,18 @@
 
 struct DyePowderItem: Item
 {
+	static const int COLOR_RGB[];
 	static std::string COLOR_DESCS[];
 	TextureAtlasTextureItem field_48;
 
 	DyePowderItem(int32_t);
 
-	virtual ~DyePowderItem();
-	virtual TextureUVCoordinateSet* getIcon(int32_t, int32_t, bool_t);
+	virtual ~DyePowderItem() {
+	}
+	virtual const TextureUVCoordinateSet* getIcon(int32_t, int32_t, bool_t) const;
 	virtual bool_t useOn(ItemInstance*, Player*, Level*, int32_t, int32_t, int32_t, int32_t, float, float, float);
 	virtual void interactEnemy(ItemInstance*, Mob*, Player*);
-	virtual std::string getName(const ItemInstance*);
-	virtual std::string getDescriptionId(const ItemInstance*);
+	virtual std::string getName(const ItemInstance*) const;
+	virtual std::string getDescriptionId(const ItemInstance*) const;
 
 };

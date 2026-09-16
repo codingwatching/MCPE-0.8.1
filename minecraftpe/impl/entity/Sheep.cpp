@@ -17,6 +17,25 @@
 #include <entity/Player.hpp>
 #include <entity/ItemEntity.hpp>
 #include <inventory/Inventory.hpp>
+const int Sheep::NumColors = 0x40; //sizeof(Sheep::COLOR)/sizeof(float) ?
+Color4 Sheep::COLOR[] = {
+	Color4(1.0f, 1.0f, 1.0f, 1.0f),
+	Color4(0.85f, 0.5f, 0.2f, 1.0f),
+	Color4(0.7f, 0.3f, 0.85f, 1.0f),
+	Color4(0.4f, 0.6f, 0.85f, 1.0f),
+	Color4(0.9f, 0.9f, 0.2f, 1.0f),
+	Color4(0.5f, 0.8f, 0.1f, 1.0f),
+	Color4(0.95f, 0.5f, 0.65f, 1.0f),
+	Color4(0.3f, 0.3f, 0.3f, 1.0f),
+	Color4(0.6f, 0.6f, 0.6f, 1.0f),
+	Color4(0.3f, 0.5f, 0.6f, 1.0f),
+	Color4(0.5f, 0.25f, 0.7f, 1.0f),
+	Color4(0.2f, 0.3f, 0.7f, 1.0f),
+	Color4(0.4f, 0.3f, 0.2f, 1.0f),
+	Color4(0.4f, 0.5f, 0.2f, 1.0f),
+	Color4(0.6f, 0.2f, 0.2f, 1.0f),
+	Color4(0.1f, 0.1f, 0.1f, 1.0f),
+};
 
 Sheep::Sheep(Level* a2)
 	: Animal(a2) {
@@ -37,7 +56,7 @@ Sheep::Sheep(Level* a2)
 	this->goalSelector.addGoal(7, new LookAtPlayerGoal(this, 6.0), 1);
 	this->goalSelector.addGoal(8, new RandomLookAroundGoal(this), 1);
 }
-int32_t Sheep::getColor() {
+int32_t Sheep::getColor() const{
 	return this->synchedEntityData.getByte(16) & 0xf;
 }
 float Sheep::getHeadEatAngleScale(float a2) {
@@ -90,7 +109,7 @@ int32_t Sheep::getSheepColor(Random* a1) {
 	}
 	return 6;
 }
-bool_t Sheep::isSheared() {
+bool_t Sheep::isSheared() const{
 	return ((uint32_t)this->synchedEntityData.getByte(16) >> 4) & 1;
 }
 void Sheep::setColor(int32_t a2) {
@@ -104,8 +123,6 @@ void Sheep::setSheared(bool_t a2) {
 	this->synchedEntityData.set<int8_t>(16, b); //signed char
 }
 
-Sheep::~Sheep() {
-}
 bool_t Sheep::interactWithPlayer(Player* a2) {
 	ItemInstance* sel; // r0
 	ItemInstance* v5;  // r8
@@ -163,13 +180,11 @@ void Sheep::addAdditonalSaveData(CompoundTag* a2) {
 	a2->putByte("Color", this->getColor());
 }
 
-static std::string _textures[] = {"mob/sheep_0.png", "mob/sheep_1.png", "mob/sheep_2.png", "mob/sheep_3.png", "mob/sheep_4.png", "mob/sheep_5.png", "mob/sheep_6.png", "mob/sheep_7.png", "mob/sheep_8.png", "mob/sheep_9.png", "mob/sheep_10.png", "mob/sheep_11.png", "mob/sheep_12.png", "mob/sheep_13.png", "mob/sheep_14.png", "mob/sheep_15.png"};
 std::string* Sheep::getTexture() {
+	static std::string _textures[] = {"mob/sheep_0.png", "mob/sheep_1.png", "mob/sheep_2.png", "mob/sheep_3.png", "mob/sheep_4.png", "mob/sheep_5.png", "mob/sheep_6.png", "mob/sheep_7.png", "mob/sheep_8.png", "mob/sheep_9.png", "mob/sheep_10.png", "mob/sheep_11.png", "mob/sheep_12.png", "mob/sheep_13.png", "mob/sheep_14.png", "mob/sheep_15.png"};
 	return &_textures[this->getColor()];
 }
-float Sheep::getBaseSpeed() {
-	return 0.25;
-}
+
 int32_t Sheep::getMaxHealth() {
 	return 8;
 }

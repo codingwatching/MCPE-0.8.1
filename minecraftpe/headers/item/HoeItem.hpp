@@ -9,5 +9,5 @@ struct HoeItem: Item
 
 	virtual ~HoeItem(){}
 	virtual bool_t useOn(ItemInstance*, Player*, Level*, int32_t, int32_t, int32_t, int32_t, float, float, float);
-	virtual bool_t isHandEquipped();
+	virtual bool_t isHandEquipped() const;
 };

@@ -71,7 +71,7 @@ struct Level : LevelSource{
 
 	Level(struct LevelStorage*, const std::string&, const LevelSettings&, bool_t, int32_t, struct Dimension*);
 	void _init(const std::string&, const LevelSettings&, int32_t, struct Dimension*);
-	void _syncTime(int32_t); //long
+	void _syncTime(long);
 	bool_t addEntity(struct Entity*);
 	void addListener(struct LevelListener*);
 	Particle * addParticle(ParticleType, float, float, float, float, float, float, int32_t);
@@ -214,7 +214,7 @@ struct Level : LevelSource{
 	void setTileEntity(int32_t, int32_t, int32_t, struct TileEntity*);
 	bool_t setTileNoUpdate(int32_t, int32_t, int32_t, int32_t);
 	void setTilesDirty(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t);
-	int32_t setTime(int32_t); //long
+	int32_t setTime(long);
 	void setUpdateLights(bool_t);
 	void setZombieAi(std::vector<struct Zombie*>&);
 	void swap(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t);
@@ -249,7 +249,8 @@ struct Level : LevelSource{
 	virtual void tick();
 	virtual bool_t tickPendingTicks(bool_t);
 	virtual void addToTickNextTick(int32_t, int32_t, int32_t, int32_t, int32_t);
-	virtual void updateSleepingPlayerList();
+	virtual void updateSleepingPlayerList() {
+	}
 	virtual struct ChunkSource* createChunkSource();
 	virtual void tickTiles();
 };

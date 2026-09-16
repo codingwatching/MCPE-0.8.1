@@ -10,7 +10,7 @@ void ItemPack::add(int32_t id, int32_t cnt) {
 		p->second += cnt;
 	}
 }
-int32_t ItemPack::getCount(int32_t a2) {
+int32_t ItemPack::getCount(int32_t a2) const{
 	auto&& v3 = this->items.find(a2);
 	if(v3 == this->items.end()) return 0;
 	return v3->second;
@@ -43,7 +43,7 @@ ItemInstance ItemPack::getItemInstanceForId(int32_t a2) {
 	}
 	return ItemInstance(v2 >> 9, 1, (((int16_t)a2 + 256) & 0x1ff) - 256);
 }
-std::vector<ItemInstance> ItemPack::getItemInstances() {
+std::vector<ItemInstance> ItemPack::getItemInstances() const{
 	std::vector<ItemInstance> result;
 	for(auto&& p: this->items) {
 		ItemInstance v9 = ItemPack::getItemInstanceForId(p.first);
@@ -52,7 +52,7 @@ std::vector<ItemInstance> ItemPack::getItemInstances() {
 	}
 	return result;
 }
-int32_t ItemPack::getMaxMultipliesOf(ItemPack& a2) {
+int32_t ItemPack::getMaxMultipliesOf(ItemPack& a2) const{
 	int32_t v3 = 99;
 	for(auto&& v4 = a2.items.begin(); v4 != a2.items.end(); ++v4) {
 		auto&& v7 = this->items.find(v4->first);
@@ -67,5 +67,5 @@ int32_t ItemPack::getMaxMultipliesOf(ItemPack& a2) {
 	}
 	return v3;
 }
-void ItemPack::print() {
+void ItemPack::print() const{
 }

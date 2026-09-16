@@ -7,13 +7,14 @@
 #include <tile/Tile.hpp>
 #include <tile/material/Material.hpp>
 
+const int ItemEntity::LIFETIME = 6000;
 ItemEntity::ItemEntity(Level* a2)
 	: Entity(a2) {
 	this->field_130 = 0;
 	this->delayBeforePickup = 0;
 	this->age = 0;
 	this->health = 5;
-	this->lifeTime = 6000;
+	this->lifeTime = ItemEntity::LIFETIME;
 	this->entityRenderId = ITEM_ENTITY;
 	this->hoverStart = (Mth::random() * 3.1416) * 2;
 	this->setSize(0.25, 0.25);
@@ -26,7 +27,7 @@ ItemEntity::ItemEntity(Level* a2, float a3, float a4, float z, const ItemInstanc
 	this->delayBeforePickup = 0;
 	this->age = 0;
 	this->health = 5;
-	this->lifeTime = 6000;
+	this->lifeTime = ItemEntity::LIFETIME;
 	this->entityRenderId = ITEM_ENTITY;
 	this->hoverStart = (float)(Mth::random() * 3.1416) * 2;
 	this->setSize(0.25, 0.25);
@@ -127,7 +128,7 @@ LABEL_24:
 	}
 	return 0;
 }
-int32_t ItemEntity::getLifeTime() {
+int32_t ItemEntity::getLifeTime() const{
 	return this->lifeTime;
 }
 ItemEntity::~ItemEntity() {

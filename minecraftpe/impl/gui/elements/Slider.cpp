@@ -38,8 +38,7 @@ Slider::Slider(Minecraft* a2, const Options::Option* a3, const std::vector<int32
 		this->progress = (float)this->field_40 / (float)(this->field_44 - 1);
 	}
 }
-Slider::~Slider() {
-}
+
 void Slider::tick(Minecraft* a2){
 	float v4; // s15
 	int32_t v6; // [sp+0h] [bp-18h] OVERLAPPED BYREF

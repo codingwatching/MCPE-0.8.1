@@ -21,7 +21,7 @@ struct AddExternalServerScreen: Screen
 
 	void closeScreen();
 
-	virtual ~AddExternalServerScreen();
+	virtual ~AddExternalServerScreen(){}
 	virtual void render(int32_t, int32_t, float);
 	virtual void init();
 	virtual void setupPositions();

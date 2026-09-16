@@ -21,7 +21,7 @@ struct Font
 	void drawTransformed(const std::string&, float, float, int32_t, float, float, bool_t, float);
 	void drawWordWrap(const std::string&, float, float, float, int32_t, bool_t, bool_t);
 	std::vector<std::vector<std::string>> getParagraphs(const std::string&);
-	float getPixelLength(const std::string&);
+	float getPixelLength(const std::string&) const;
 	int32_t height(const std::string&, int32_t);
 	void init(Options*);
 	void setDefaultTexture(void);

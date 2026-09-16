@@ -10,8 +10,11 @@ struct NetherReactor: EntityTile
 	bool_t canSpawnStartNetherReactor(Level*, int32_t, int32_t, int32_t, struct Player*);
 	static void setPhase(Level*, int32_t, int32_t, int32_t, int32_t);
 
-	virtual ~NetherReactor();
+	virtual ~NetherReactor() {
+	}
 	virtual TextureUVCoordinateSet* getTexture(int32_t, int32_t);
-	virtual int32_t getTileEntityType();
+	virtual int32_t getTileEntityType() {
+		return 3;
+	}
 	virtual bool_t use(Level*, int32_t, int32_t, int32_t, Player*);
 };

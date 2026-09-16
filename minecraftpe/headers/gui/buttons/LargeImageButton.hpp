@@ -9,7 +9,8 @@ struct LargeImageButton : ImageButton{
 	LargeImageButton(int32_t, const std::string&);
 	LargeImageButton(int32_t, const std::string&, struct ImageDef&);
 
-	virtual ~LargeImageButton();
+	virtual ~LargeImageButton() {
+	}
 	virtual void render(struct Minecraft*, int32_t, int32_t);
 	virtual void setupDefault();
 };

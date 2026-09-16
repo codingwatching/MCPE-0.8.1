@@ -8,8 +8,6 @@ OptionsItem::OptionsItem(const Options::Option* a2, std::shared_ptr<GuiElement> 
 	this->addChild(a3);
 }
 
-OptionsItem::~OptionsItem() {
-}
 void OptionsItem::render(Minecraft* a2, int32_t a3, int32_t a4) {
 	int32_t v9 = (this->height - 8) / 2;
 	std::string v10 = a2->options.getDescription(this->option, I18n::get(option->name));

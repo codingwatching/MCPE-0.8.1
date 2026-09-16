@@ -67,7 +67,7 @@ void ExternalServerFile::load() {
 		fclose(v4);
 	}
 }
-void ExternalServerFile::removeServer(int32_t i) {
+void ExternalServerFile::removeSevrer(int32_t i) {
 	auto v8 = this->field_0.find(i);
 	if(v8 != this->field_0.end()) {
 		this->field_0.erase(v8);

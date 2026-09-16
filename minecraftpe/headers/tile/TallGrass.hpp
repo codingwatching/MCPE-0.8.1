@@ -14,6 +14,6 @@ struct TallGrass: Bush
 	virtual int32_t getColor(int32_t);
 	virtual int32_t getColor(LevelSource*, int32_t, int32_t, int32_t);
 	virtual void playerDestroy(Level*, Player*, int32_t, int32_t, int32_t, int32_t);
-	virtual std::string getDescriptionId(const ItemInstance*);
+	virtual std::string getDescriptionId(const ItemInstance*) const;
 
 };

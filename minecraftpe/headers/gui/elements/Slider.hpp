@@ -16,7 +16,8 @@ struct Slider: GuiElement
 
 	Slider(Minecraft*, const Options::Option*, float, float);
 	Slider(Minecraft*, const Options::Option*, const std::vector<int32_t>&);
-	virtual ~Slider();
+	virtual ~Slider() {
+	}
 	virtual void tick(Minecraft*);
 	virtual void render(Minecraft*, int32_t, int32_t);
 	virtual void mouseClicked(Minecraft*, int32_t, int32_t, int32_t);

@@ -33,7 +33,7 @@ HitResult::HitResult(const HitResult& vec)
 	this->entity = vec.entity;
 	this->field_24 = vec.field_24;
 }
-float HitResult::distanceTo(Entity* entity) {
+float HitResult::distanceTo(Entity* entity) const{
 	float v2, v3, v4;
 	v2 = this->hitVec.x - entity->posX;
 	v3 = this->hitVec.y - entity->posY;

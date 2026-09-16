@@ -30,14 +30,10 @@ Skeleton::Skeleton(Level* a2)
 	this->goalSelector.addGoal(2, new NearestAttackableTargetGoal(this, 16), 1);
 }
 
-Skeleton::~Skeleton() {
-}
-int32_t Skeleton::getEntityTypeId() const{
+int32_t Skeleton::getEntityTypeId() const {
 	return 34;
 }
-float Skeleton::getBaseSpeed() {
-	return 0.25;
-}
+
 int32_t Skeleton::getMaxHealth() {
 	return 10;
 }

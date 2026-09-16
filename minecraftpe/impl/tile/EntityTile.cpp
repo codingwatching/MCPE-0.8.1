@@ -11,8 +11,6 @@ EntityTile::EntityTile(int32_t id, const std::string& s, const struct Material* 
 	Tile::isEntityTile[this->blockID] = 1;
 }
 
-EntityTile::~EntityTile() {
-}
 void EntityTile::onPlace(Level* level, int32_t x, int32_t y, int32_t z) {
 	level->setTileEntity(x, y, z, this->newTileEntity());
 }

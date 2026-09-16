@@ -3,8 +3,6 @@ Goal::Goal() {
 	this->controlFlags = 0;
 }
 
-Goal::~Goal() {
-}
 bool_t Goal::canContinueToUse() {
 	return this->canUse();
 }

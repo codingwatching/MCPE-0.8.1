@@ -102,7 +102,7 @@ void TextEditScreen::init() {
 	te = this->minecraft->level->getTileEntity(this->signX, this->signY, this->signZ);
 	if(te) {
 		if(te->type == 4) {
-			this->minecraft->platform()->showKeyboard(&((SignTileEntity*)te)->textLines[this->currentLine], 15, 0);
+			this->minecraft->platform()->showKeyboard(((SignTileEntity*)te)->textLines[this->currentLine], 15, 0);
 		}
 	}
 	this->field_54 = 1;

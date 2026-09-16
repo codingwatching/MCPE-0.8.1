@@ -18,5 +18,6 @@ struct TileEntityRenderer
 
 	virtual ~TileEntityRenderer();
 	virtual void render(TileEntity*, float, float, float, float, bool_t) = 0;
-	virtual void onNewLevel(Level*);
+	virtual void onNewLevel(Level*) {
+	}
 };

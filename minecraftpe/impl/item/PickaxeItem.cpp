@@ -3,8 +3,7 @@
 #include <tile/material/Material.hpp>
 
 PickaxeItem::PickaxeItem(int32_t a2, const Item::Tier& a3)
-	: DiggerItem(a2, a3) {
-	this->damageAgainstEntity = a3.damageAgainstEntity + 2;
+	: DiggerItem(a2, 2, a3, {}) {
 	std::vector<Tile*> tiles;
 	tiles.push_back(Tile::stoneBrick);
 	tiles.push_back(Tile::stoneSlab);
@@ -34,7 +33,7 @@ float PickaxeItem::getDestroySpeed(ItemInstance* a2, Tile* a3) {
 		return DiggerItem::getDestroySpeed(a2, a3);
 	}
 }
-bool_t PickaxeItem::canDestroySpecial(const Tile* a2) {
+bool_t PickaxeItem::canDestroySpecial(const Tile* a2) const{
 	if(a2 == Tile::obsidian || a2 == Tile::glowingObsidian) {
 		return this->tier->level == 3;
 	}

@@ -213,7 +213,7 @@ std::vector<const ItemInstance*> Touch::IngameBlockSelectionScreen::getItems(con
 	std::vector<const ItemInstance*> a1;
 	for(int32_t v5 = 9; v5 < this->minecraft->player->inventory->getContainerSize(); ++v5) {
 		ItemInstance* v7 = this->minecraft->player->inventory->getItem(v5);
-		a1.emplace_back(v7);
+		a1.push_back(v7);
 	}
 	return a1;
 }

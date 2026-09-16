@@ -5,8 +5,11 @@
 struct SignRenderer: TileEntityRenderer
 {
 	SignModel model;
-	SignRenderer();
+	SignRenderer() :
+			TileEntityRenderer() {
+	}
 
-	virtual ~SignRenderer();
+	virtual ~SignRenderer() {
+	}
 	virtual void render(TileEntity*, float, float, float, float, bool_t);
 };

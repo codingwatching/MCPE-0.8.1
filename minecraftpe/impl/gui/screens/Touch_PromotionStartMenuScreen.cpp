@@ -5,8 +5,7 @@
 #include <level/LevelSettings.hpp>
 #include <gui/screens/ProgressScreen.hpp>
 
-Touch::PromotionStartMenuScreen::~PromotionStartMenuScreen() {
-}
+
 void Touch::PromotionStartMenuScreen::init() {
 	Touch::StartMenuScreen::init();
 	this->playButton2 = &this->playButton;

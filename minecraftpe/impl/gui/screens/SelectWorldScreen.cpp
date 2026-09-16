@@ -42,7 +42,7 @@ void SelectWorldScreen::loadLevelSource() {
 	for(int i = 0; i < this->field_50.size(); ++i) {
 		LevelSummary* v9 = &this->field_50[i];
 		if(v9->worldName != LevelStorageSource::TempLevelId) {
-			this->selectionList->field_74.emplace_back(LevelSummary(*v9));
+			this->selectionList->field_74.push_back(*v9);
 		}
 	}
 }

@@ -22,7 +22,8 @@ struct Screen : public GuiComponent{
 	void init(struct Minecraft*, int32_t, int32_t);
 	void setSize(int32_t w, int32_t h);
 
-	virtual ~Screen();
+	virtual ~Screen() {
+	}
 	virtual void render(int32_t, int32_t, float);
 	virtual void init();
 	virtual void setupPositions(void);
@@ -32,7 +33,8 @@ struct Screen : public GuiComponent{
 	virtual void keyboardTextEvent();
 	virtual bool_t handleBackEvent(bool_t);
 	virtual void tick();
-	virtual void removed();
+	virtual void removed() {
+	}
 	virtual void renderBackground(int32_t);
 	virtual void renderDirtBackground(int32_t);
 	virtual void renderMenuBackground(float);
@@ -42,16 +44,22 @@ struct Screen : public GuiComponent{
 	virtual bool_t isErrorScreen();
 	virtual bool_t isInGameScreen();
 	virtual bool_t closeOnPlayerHurt();
-	virtual void confirmResult(bool_t, int32_t);
+	virtual void confirmResult(bool_t, int32_t) {
+	}
 	virtual void lostFocus();
 	virtual void toGUICoordinate(int32_t& x, int32_t& y);
-	virtual void feedMCOEvent(MCOEvent);
+	virtual void feedMCOEvent(MCOEvent) {
+	}
 	virtual bool_t supppressedBySubWindow(); //mojang moment
-	virtual void onTextBoxUpdated(int32_t);
-	virtual void onMojangConnectorStatus(MojangConnectionStatus);
+	virtual void onTextBoxUpdated(int32_t) {
+	}
+	virtual void onMojangConnectorStatus(MojangConnectionStatus) {
+	}
 	virtual void setTextboxText(const std::string&);
-	virtual void onInternetUpdate();
-	virtual void buttonClicked(Button*);
+	virtual void onInternetUpdate() {
+	}
+	virtual void buttonClicked(Button*) {
+	}
 	virtual void mouseClicked(int32_t, int32_t, int32_t);
 	virtual void mouseReleased(int32_t, int32_t, int32_t);
 	virtual void keyPressed(int32_t);

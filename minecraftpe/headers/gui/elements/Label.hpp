@@ -14,10 +14,11 @@ struct Label: GuiElement
 	Label(std::string, Minecraft*, int32_t, int32_t, int32_t, int32_t, bool_t);
 
 
-	virtual ~Label();
+	virtual ~Label() {
+	}
 	virtual void render(Minecraft*, int32_t, int32_t);
 	virtual void setupPositions();
-	virtual std::string getText();
+	virtual std::string getText() const;
 	virtual void setText(std::string);
 	virtual void setWidth(int32_t);
 };
