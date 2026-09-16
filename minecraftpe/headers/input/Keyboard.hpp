@@ -5,12 +5,12 @@
 #include <input/KeyboardAction.hpp>
 #include <input/KeyboardTextInput.hpp>
 
-struct KeyboardInputText;
+struct KeyboardTextInput;
 struct Keyboard
 {
 	static int32_t _states[256];
 	static std::vector<KeyboardAction> _inputs;
-	static std::vector<KeyboardInputText> _inputText;
+	static std::vector<KeyboardTextInput> _inputText;
 	static int32_t _textIndex;
 	static int32_t _index;
 
@@ -19,7 +19,7 @@ struct Keyboard
 		Keyboard::_states[a1] = a2;
 	}
 	static void feedText(const std::string& a2, bool_t a3) {
-		Keyboard::_inputText.emplace_back(KeyboardInputText { a2, a3 });
+		Keyboard::_inputText.emplace_back(KeyboardTextInput { a2, a3 });
 	}
 	static void reset() {
 		Keyboard::_inputs.clear();

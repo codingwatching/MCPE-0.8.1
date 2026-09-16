@@ -6,12 +6,24 @@
 struct LevelSource;
 struct Entity;
 struct Path;
+struct IntKeyHash
+{
+	size_t operator()(int32_t k ) const {
+		return (17 * ((k + ~(k << 9)) ^ ((k + ~(k << 9)) >> 14))) ^ ((17 * ((k + ~(k << 9)) ^ ((k + ~(k << 9)) >> 14))) >> 10);
+	};
+};
+struct IntKeyEq
+{
+	bool operator()(int32_t a, int32_t b) const {
+		return a == b;
+	};
+};
 
 struct PathFinder
 {
 	LevelSource* levelSource;
 	BinaryHeap heap;
-	std::unordered_map<int32_t, Node*> nodes; //TODO
+	std::unordered_map<int32_t, Node*, IntKeyHash, IntKeyEq> nodes;
 	arrayWithLength<Node*>* neighborNodes;
 	int8_t field_34, field_35, field_36, field_37;
 	int8_t field_38, field_39, field_3A, field_3B;

@@ -272,7 +272,7 @@ LABEL_17:
 }
 Node* PathFinder::getNode(int32_t x, int32_t y, int32_t z) {
 	uint32_t hash = Node::createHash(x, y, z);
-	auto&& p = this->nodes.find(hash); //TODO check
+	auto&& p = this->nodes.find(hash);
 	if(p != this->nodes.end()) {
 		return p->second;
 	}
