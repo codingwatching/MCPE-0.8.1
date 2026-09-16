@@ -27,7 +27,7 @@ void Painting::setRandomMotive(int32_t direction) {
 			this->motive = m;
 			this->setDir(direction);
 			if(this->survives()) {
-				possible.emplace_back(m);
+				possible.push_back(m);
 			}
 		}
 	}

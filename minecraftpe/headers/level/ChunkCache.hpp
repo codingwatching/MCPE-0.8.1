@@ -166,7 +166,7 @@ struct ChunkCache: ChunkSource
 				for (int32_t x = 0; x != 16; ++x) {
 					LevelChunk* chunk = this->level->getChunk(x, z);
 					if (!a2 || chunk->shouldSave(0)) {
-						v8.emplace_back(chunk);
+						v8.push_back(chunk);
 					}
 				}
 			}

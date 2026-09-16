@@ -120,7 +120,7 @@ bool_t Level::addEntity(struct Entity* e) {
 	return 1;
 }
 void Level::addListener(struct LevelListener* ll) {
-	this->levelListeners.emplace_back(ll);
+	this->levelListeners.push_back(ll);
 }
 Particle* Level::addParticle(ParticleType pt, float a3, float a4, float a5, float a6, float a7, float a8, int32_t a9) {
 	for(auto&& ll: this->levelListeners) {

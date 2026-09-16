@@ -54,15 +54,17 @@ void (*glBufferData)(GLenum target, GLsizeiptr size, const void *data, GLenum us
 #ifdef __WIN32__
 #include <wingdi.h>
 #define GLFUNCADDR wglGetProcAddress
+typedef LPCSTR GLFUNCSTR;
 #else
 #include <GL/glx.h>
 #define GLFUNCADDR glXGetProcAddress
+typedef GLubyte* GLFUNCSTR;
 #endif
 void initGlFuncs(){
-	glDeleteBuffers = (void (*)(GLsizei, const GLuint*)) GLFUNCADDR((GLubyte*)"glDeleteBuffers");
-	glGenBuffers = (void (*)(GLsizei, GLuint*)) GLFUNCADDR((GLubyte*)"glGenBuffers");
-	glBindBuffer = (void (*)(GLenum, GLuint)) GLFUNCADDR((GLubyte*)"glBindBuffer");
-	glBufferData = (void (*)(GLenum, GLsizeiptr, const void*, GLenum)) GLFUNCADDR((GLubyte*)"glBufferData");
+	glDeleteBuffers = (void (*)(GLsizei, const GLuint*)) GLFUNCADDR((GLFUNCSTR)"glDeleteBuffers");
+	glGenBuffers = (void (*)(GLsizei, GLuint*)) GLFUNCADDR((GLFUNCSTR)"glGenBuffers");
+	glBindBuffer = (void (*)(GLenum, GLuint)) GLFUNCADDR((GLFUNCSTR)"glBindBuffer");
+	glBufferData = (void (*)(GLenum, GLsizeiptr, const void*, GLenum)) GLFUNCADDR((GLFUNCSTR)"glBufferData");
 }
 #endif
 
