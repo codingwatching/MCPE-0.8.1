@@ -105,7 +105,7 @@ void SoundSystemDirectSound::playAt(const struct SoundDesc& a2, float a3, float 
 					printf("temp buffer creation failed\n", hr);
 					break;
 				}
-				hr = tmp->QueryInterface(IID_IDirectSoundBuffer8, &this->buffers[i]);
+				hr = tmp->QueryInterface(IID_IDirectSoundBuffer8, (void**) &this->buffers[i]);
 				if(FAILED(hr)){
 					printf("secondary buffer creation failed: %x\n", hr);
 					tmp->Release();
