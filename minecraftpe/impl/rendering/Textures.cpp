@@ -42,7 +42,7 @@ void Textures::_loadTexImage(const ImageData& data){
 }
 
 void Textures::addDynamicTexture(DynamicTexture* a2){
-	this->dynamicTextures.emplace_back(a2);
+	this->dynamicTextures.push_back(a2);
 	a2->tick();
 }
 

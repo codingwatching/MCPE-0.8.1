@@ -12,29 +12,24 @@
 
 int32_t RenderChunk::updates = 0;
 
-RenderChunk::RenderChunk(Level* level, int32_t x, int32_t y, int32_t z, int32_t chunkSize, int32_t rl) {
-	MeshBuffer* v12; // r0
-	double v13; // r0
-	float v14; // s14
-
-	this->xSize = chunkSize;
-	this->ySize = chunkSize;
-	this->zSize = chunkSize;
-	this->level = level;
-	this->frustumBB = {0, 0, 0, 1, 1, 1};
-	this->isInFrustumMaybe = 0;
-	this->field_4D = 1;
-	this->field_4E = 0;
+RenderChunk::RenderChunk(Level* level, int32_t x, int32_t y, int32_t z, int32_t chunkSize, int32_t rl)
+	: xSize(chunkSize)
+	, ySize(chunkSize)
+	, zSize(chunkSize)
+	, level(level)
+	, isInFrustumMaybe(0)
+	, frustumBB{0, 0, 0, 1, 1, 1},
+	field_4D(1),
+	field_4E(0)
+{
 	this->built = 0;
 	this->dirty = 0;
 	this->tessellator = &Tesselator::instance;
 	this->renderLists = rl;
 	this->skipRenderMaybe = 1;
 	memset(this->skipLayer, 0, sizeof(this->skipLayer));
-	v13 = sqrt((float)(this->ySize * this->ySize + this->xSize * this->xSize + this->zSize * this->zSize));
 	this->xPos = -999;
-	v14 = v13;
-	this->field_2C = v14 * 0.5;
+	this->field_2C = sqrt((float)(this->ySize * this->ySize + this->xSize * this->xSize + this->zSize * this->zSize)) * 0.5f;
 	this->setPos(x, y, z);
 }
 float RenderChunk::distanceToSqr(const struct Entity* a2) const{
@@ -71,7 +66,6 @@ bool_t RenderChunk::isDirty() {
 
 void RenderChunk::rebuild(void) {
 	int32_t yPos;				// r7
-	int32_t v3;					// r2
 	int32_t zPos;				// r7
 	int32_t xSize;				// r3
 	int32_t ySize;				// r3
@@ -96,18 +90,15 @@ void RenderChunk::rebuild(void) {
 	int32_t xMax;				// [sp+28h] [bp-F0h]
 	int32_t yMax;				// [sp+2Ch] [bp-ECh]
 	int32_t zMax;				// [sp+30h] [bp-E8h]
-	//Region v30[7]; // [sp+40h] [bp-D8h] BYREF
-	//MeshBuffer result; // [sp+5Ch] [bp-BCh] BYREF
-	//TileRenderer v32; // [sp+84h] [bp-94h] BYREF
+
 
 	if(this->dirty) {
 		xPos = this->xPos;
 		yPos = this->yPos;
-		v3 = RenderChunk::updates;
 		this->skipLayer[0] = 1;
 		v23 = yPos;
 		zPos = this->zPos;
-		RenderChunk::updates = v3 + 1;
+		RenderChunk::updates += 1;
 		xSize = this->xSize;
 		v24 = zPos;
 		this->skipLayer[1] = 1;
@@ -231,14 +222,11 @@ void RenderChunk::setPos(int32_t x, int32_t y, int32_t z) {
 	}
 }
 float RenderChunk::squishedDistanceToSqr(const struct Entity* a2) const{
-	float v2; // s13
-	float v3; // s15
-	float v4; // s14
+	float v2 = a2->posX - this->blockX;
+	float v3 = (a2->posY - this->blockY)*2.0f;
+	float v4 = a2->posZ - this->blockZ;
 
-	v2 = a2->posX - (float)this->blockX;
-	v3 = a2->posY - (float)this->blockY;
-	v4 = a2->posZ - (float)this->blockZ;
-	return (float)((float)((float)(v3 + v3) * (float)(v3 + v3)) + (float)(v2 * v2)) + (float)(v4 * v4);
+	return (v2 * v2) + (v3 + v3) + (v4 * v4);
 }
 void RenderChunk::translateToPos(void) {
 	glTranslatef((float)this->xPos, (float)this->yPos, (float)this->zPos);

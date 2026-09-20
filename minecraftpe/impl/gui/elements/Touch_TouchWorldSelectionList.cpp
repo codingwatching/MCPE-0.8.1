@@ -40,7 +40,7 @@ void Touch::TouchWorldSelectionList::commit(void) {
 		else if(gamemode == 1) v8 = "Creative";
 		else v8 = "Undefined";
 		v12.emplace_back(v8);
-		this->levelsInfoMaybe.emplace_back(v12);
+		this->levelsInfoMaybe.push_back(v12);
 		this->selectedItem = 0;
 	}
 }

@@ -402,7 +402,8 @@ void ClientSideNetworkHandler::handle(const RakNet::RakNetGUID&, struct UpdateBl
 			int y = (uint8_t)a3->y;
 			this->level->setTileAndData(x, y, z, Tile::transformToValidBlockId(a3->id, x, y, z), a3->meta, 3);
 		} else {
-			this->field_28.emplace_back(SBufferedBlockUpdate{x, z, a3->y, a3->id, a3->meta, 1});
+			SBufferedBlockUpdate upd{x, z, a3->y, a3->id, a3->meta, 1};
+			this->field_28.push_back(upd);
 		}
 	}
 }

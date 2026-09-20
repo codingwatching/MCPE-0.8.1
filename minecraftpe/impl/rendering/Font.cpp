@@ -224,7 +224,7 @@ std::vector<std::vector<std::string>> Font::getParagraphs(const std::string& a3)
 			//TODO
 			v14.emplace_back(i);
 		}
-		a1.emplace_back(v14);
+		a1.push_back(v14);
 	}
 	return a1;
 }

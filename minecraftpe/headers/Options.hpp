@@ -6,6 +6,21 @@
 struct Minecraft;
 
 struct Options{
+	static const float SOUND_MIN_VALUE;
+	static const float SOUND_MAX_VALUE;
+	static const float MUSIC_MIN_VALUE;
+	static const float MUSIC_MAX_VALUE;
+	static const float SENSITIVITY_MIN_VALUE;
+	static const float SENSITIVITY_MAX_VALUE;
+	static const float PIXELS_PER_MILLIMETER_MIN_VALUE;
+	static const float PIXELS_PER_MILLIMETER_MAX_VALUE;
+
+	static const char* RENDER_DISTANCE_NAMES[];
+	static const char* DIFFICULTY_NAMES[];
+	static const char* GUI_SCALE[];
+
+
+	static bool debugGl;
 	struct Option
 	{
 		int32_t field_0;
@@ -131,7 +146,7 @@ struct Options{
 	int32_t getIntValue(const Options::Option*);
 	std::string getDescription(const Options::Option*, std::string);
 	bool_t getBooleanValue(const Options::Option*);
-	std::string formatDescriptionString(const Options::Option*, const char_t*, const char_t**, int32_t);
+	std::string formatDescriptionString(const char_t*, const char_t**, int32_t);
 	bool_t canModify(const Options::Option*);
 	void addOptionToSaveOutput(std::vector<std::string>&, std::string, std::string);
 	void addOptionToSaveOutput(std::vector<std::string>&, std::string, int32_t);

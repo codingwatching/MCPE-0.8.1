@@ -199,8 +199,8 @@ void CommandServer::tick() {
 	if(this->initialized) {
 		this->_updateAccept();
 		this->_updateClients();
-		if(this->minecraft->viewEntityMaybe == this->camera) {
-			this->minecraft->viewEntityMaybe->tick();
+		if(this->minecraft->viewEntity == this->camera) {
+			this->minecraft->viewEntity->tick();
 		}
 	}
 }

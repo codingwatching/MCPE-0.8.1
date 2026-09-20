@@ -41,7 +41,7 @@ struct Minecraft : App{
 	struct Level* level;
 	struct LocalPlayer* player;
 	struct IInputHolder *inputHolder;
-	struct Mob* viewEntityMaybe;
+	struct Mob* viewEntity;
 	CThread* prepareLevelThread;
 	Screen* currentScreen;
 	std::shared_ptr<Screen> field_C7C;

@@ -73,7 +73,7 @@ void JoinGameScreen::tick() {
 	std::vector<PingedCompatibleServer> v14;
 	while(v2 < v3->size()) {
 		if(v3->at(v2).field_0.GetLength()) {
-			v14.emplace_back(v3->at(v2));
+			v14.push_back(v3->at(v2));
 		}
 		++v2;
 	}

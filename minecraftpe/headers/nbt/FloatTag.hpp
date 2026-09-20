@@ -10,6 +10,9 @@ struct FloatTag : public Tag{
 	FloatTag(const std::string& n, float v) : Tag(n){
 		this->value = v;
 	}
+	FloatTag(const std::string& s)
+		: Tag(s) {
+	}
 	virtual void write(IDataOutput* out) {
 		out->writeFloat(this->value);
 	}

@@ -10,7 +10,7 @@ struct App : AppPlatform::Listener{
 	AppContext context;
 	int8_t field_18, field_19, field_1A, field_1B;
 	int32_t width, height, field_24, field_28, field_2C;
-	std::string field_30;
+	int field_30;
 	int field_34;
 
 	void init(AppContext& ctx){
@@ -39,7 +39,9 @@ struct App : AppPlatform::Listener{
 	virtual void draw(void){}
 	virtual void update(void){}
 	virtual void setSize(int32_t, int32_t){}
-	virtual void quit(void){}
+	virtual void quit(void) {
+		this->wantsToQuit = 1;
+	}
 	virtual bool_t wantToQuit(void){
 		return this->wantsToQuit;
 	}

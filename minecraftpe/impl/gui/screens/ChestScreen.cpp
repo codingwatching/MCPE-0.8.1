@@ -289,9 +289,9 @@ void ChestScreen::init() {
 	a2.field_24 = 1;
 	this->field_60.setImageDef(a2, 1);
 	this->field_60.field_64 = 0;
-	this->buttons.emplace_back(&this->field_D0);
-	this->buttons.emplace_back(&this->field_104);
-	this->buttons.emplace_back(&this->field_60);
+	this->buttons.push_back(&this->field_D0);
+	this->buttons.push_back(&this->field_104);
+	this->buttons.push_back(&this->field_60);
 	NinePatchFactory a1(this->minecraft->texturesPtr, "gui/spritesheet.png");
 	this->field_170 = a1.createSymmetrical({0, 0, 16, 16}, 4, 4, 32, 32);
 	this->field_174 = a1.createSymmetrical({0, 32, 8, 8}, 3, 3, 32, 32);

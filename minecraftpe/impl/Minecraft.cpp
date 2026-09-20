@@ -94,7 +94,7 @@ Minecraft::Minecraft()
 	this->level = 0;
 	this->player = 0;
 	this->inputHolder = 0;
-	this->viewEntityMaybe = 0;
+	this->viewEntity = 0;
 	this->prepareLevelThread = 0;
 	this->currentScreen = 0;
 	this->field_C7C = 0;
@@ -169,7 +169,7 @@ void Minecraft::_levelGenerated(void) {
 		}
 	}
 	levelRenderer = this->levelRenderer;
-	this->viewEntityMaybe = (Player*)this->player;
+	this->viewEntity = (Player*)this->player;
 	if(levelRenderer) {
 		levelRenderer->setLevel(this->level);
 	}
@@ -340,9 +340,9 @@ LABEL_27:
 			}
 			return;
 		}
-		v9 = this->selectedObject.field_4;
-		v10 = this->selectedObject.field_8;
-		v11 = this->selectedObject.field_C;
+		v9 = this->selectedObject.x;
+		v10 = this->selectedObject.y;
+		v11 = this->selectedObject.z;
 		v12 = this->selectedObject.field_10;
 		v13 = Tile::tiles[this->level->getTile(v9, v10, v11)];
 		if(!a2->isRemove()) {
@@ -383,12 +383,12 @@ void Minecraft::handleMouseDown(int32_t a2, bool_t a3) {
 		}
 	} else if(!this->player->isSleeping() && (a2 != 1 || this->field_D08 <= 0)) {
 		if(this->player->isDestroying) {
-			if(this->selectedObject.hitType || !a3 || a2 != 1 || this->selectedObject.field_24 || (v9 = Tile::tiles[this->level->getTile(this->selectedObject.field_4, this->selectedObject.field_8, this->selectedObject.field_C)]) != 0 && v9->isLiquidTile()) {
+			if(this->selectedObject.hitType || !a3 || a2 != 1 || this->selectedObject.field_24 || (v9 = Tile::tiles[this->level->getTile(this->selectedObject.x, this->selectedObject.y, this->selectedObject.z)]) != 0 && v9->isLiquidTile()) {
 				this->player->stopDestroying();
 				this->gameMode->stopDestroyBlock();
 			} else {
-				this->gameMode->continueDestroyBlock(this->selectedObject.field_4, this->selectedObject.field_8, this->selectedObject.field_C, this->selectedObject.field_10);
-				this->particleEngine->crack(this->selectedObject.field_4, this->selectedObject.field_8, this->selectedObject.field_C, this->selectedObject.field_10);
+				this->gameMode->continueDestroyBlock(this->selectedObject.x, this->selectedObject.y, this->selectedObject.z, this->selectedObject.field_10);
+				this->particleEngine->crack(this->selectedObject.x, this->selectedObject.y, this->selectedObject.z, this->selectedObject.field_10);
 			}
 		}
 	}
@@ -440,7 +440,7 @@ void Minecraft::init(void) {
 	if(v20->accessToken != "") {
 		std::string v18 = MCOStringify::stringifyRefresh(v20->accessToken, v20->clientId, v20->profileId, Common::getGameVersionStringNet());
 		std::shared_ptr<RestRequestJob> v21 = RestRequestJob::CreateJob(RRT_POST, this->mojangConnector->getAccountService(), this);
-		this->field_30 = Util::simpleFormat("/refresh", {});
+		v21->field_30 = Util::simpleFormat("/refresh", {});
 		v21->setBody(v18);
 		//something weird happens with v21 here
 		RestRequestJob::launchRequest(
@@ -521,7 +521,7 @@ LABEL_7:
 				this->level->savePlayers();
 			}
 		}
-		this->viewEntityMaybe = 0;
+		this->viewEntity = 0;
 		this->levelRenderer->setLevel(0);
 		this->particleEngine->setLevel(0);
 		if(this->serverSideNetworkHandler) {
@@ -539,7 +539,7 @@ LABEL_7:
 			this->level = 0;
 		}
 		this->player = 0;
-		this->viewEntityMaybe = 0;
+		this->viewEntity = 0;
 		this->field_CFC = 0;
 		if ( a3 )
 		{
@@ -795,7 +795,7 @@ void Minecraft::setLevel(struct Level* level, const std::string& a3, struct Loca
 	LocalPlayer* player; // r1
 	CThread* v8;		 // r5
 
-	this->viewEntityMaybe = 0;
+	this->viewEntity = 0;
 	level->getSeed();
 	if(level) {
 		level->rakNetInstance = this->rakNetInstance;

@@ -8,6 +8,21 @@
 #include <sstream>
 #include <util/Util.hpp>
 
+const float Options::SOUND_MIN_VALUE = 0.0f;
+const float Options::SOUND_MAX_VALUE = 1.0f;
+const float Options::MUSIC_MIN_VALUE = 0.0f;
+const float Options::MUSIC_MAX_VALUE = 1.0f;
+const float Options::SENSITIVITY_MIN_VALUE = 0.0f;
+const float Options::SENSITIVITY_MAX_VALUE = 1.0f;
+const float Options::PIXELS_PER_MILLIMETER_MIN_VALUE = 3.0f;
+const float Options::PIXELS_PER_MILLIMETER_MAX_VALUE = 12.0f;
+
+const char* Options::RENDER_DISTANCE_NAMES[] = {"options.renderDistance.far", "options.renderDistance.normal", "options.renderDistance.short", "options.renderDistance.tiny"};
+const char* Options::DIFFICULTY_NAMES[] = {"options.difficulty.peaceful", "options.difficulty.easy", "options.difficulty.normal", "options.difficulty.hard"};
+const char* Options::GUI_SCALE[] = {"options.guiScale.auto", "options.guiScale.small", "options.guiScale.normal", "options.guiScale.large"};
+
+bool Options::debugGl = 0;
+
 Options::Option Options::Option::MUSIC{1, "options.music", 0};
 Options::Option Options::Option::SOUND{1, "options.sound", 1};
 Options::Option Options::Option::INVERT_MOUSE{0, "options.invertMouse", 2};
@@ -490,7 +505,7 @@ bool_t Options::getBooleanValue(const Options::Option* a2) {
 	}
 	return 0;
 }
-std::string Options::formatDescriptionString(const Options::Option* a2, const char_t* a3, const char_t** a4, int32_t a5) {
+std::string Options::formatDescriptionString(const char_t* a3, const char_t** a4, int32_t a5) {
 	char_t v9[100];
 	std::string v8 = I18n::get(a4[a5]);
 	sprintf(v9, a3, v8.c_str());

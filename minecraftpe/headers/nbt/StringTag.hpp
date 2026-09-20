@@ -2,12 +2,16 @@
 #include <nbt/Tag.hpp>
 #include <util/input/IDataInput.hpp>
 #include <util/output/IDataOutput.hpp>
+#include <sstream>
 
 struct StringTag : public Tag{
 	std::string value;
-	//XXX has 2 vars, and probably uses not std::string
+	int nameLength;
 	StringTag(const std::string& name, const std::string& value) : Tag(name), value(value){
-
+		this->nameLength = name.length();
+	}
+	StringTag(const std::string& name) : Tag(name){
+		this->nameLength = name.length();
 	}
 	virtual void write(IDataOutput* out) {
 		out->writeString(this->value);
@@ -19,7 +23,9 @@ struct StringTag : public Tag{
 		return 8;
 	}
 	virtual std::string toString(void) const {
-		return this->value.c_str();
+		std::stringstream str;
+		str << this->value;
+		return str.str();
 	}
 	virtual Tag* copy(void) const {
 		return new StringTag(this->getName(), this->value);

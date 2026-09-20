@@ -156,59 +156,6 @@ std::vector<DataItem*> SynchedEntityData::packDirty() {
 	return res;
 }
 
-//TODO get rid of this
-#define _SynchedEntityData_set_base(T, Tid) \
-DataItem* di = this->data[a2]; \
-	if(di) { \
-		if((di->typeId == (Tid)) && !(((DataItem2<T>*)di)->value == a3)) { \
-			((DataItem2<T>*)di)->value = a3; \
-			((DataItem2<T>*)di)->dirty = 1; \
-			this->isDirty = 1; \
-	} \
-}
-
-template<>
-void SynchedEntityData::set(int32_t a2, const int8_t& a3) {
-	_SynchedEntityData_set_base(int8_t, 0)
-}
-
-template<>
-void SynchedEntityData::set(int32_t a2, const int16_t& a3) {
-	_SynchedEntityData_set_base(int16_t, 1)
-}
-template<>
-void SynchedEntityData::set(int32_t a2, const int32_t& a3) {
-	_SynchedEntityData_set_base(int32_t, 2)
-}
-template<>
-void SynchedEntityData::set(int32_t a2, const float& a3) {
-	_SynchedEntityData_set_base(float, 3)
-}
-template<>
-void SynchedEntityData::set(int32_t a2, const std::string& a3) {
-	_SynchedEntityData_set_base(std::string, 4)
-}
-template<>
-void SynchedEntityData::set(int32_t a2, const ItemInstance& a3) {
-	_SynchedEntityData_set_base(ItemInstance, 5)
-}
-template<>
-void SynchedEntityData::set(int32_t a2, const Pos& a3) {
-	_SynchedEntityData_set_base(Pos, 6)
-}
-
-
-template<> //exists only for char in 0.8
-void SynchedEntityData::setFlag<char>(int32_t a2, int32_t a3) {
-	DataItem* it = this->data[a2];
-	int32_t v6 = ((DataItem2<int8_t>*)it)->value;
-	uint8_t v7 = (1 << a3) | (v6);
-	((DataItem2<int8_t>*)it)->value = v7;
-	if((((int32_t)v7 >> a3) & 1) != ((v6 >> a3) & 1)) {
-		this->markDirty(a2);
-	}
-}
-
 std::vector<DataItem*> SynchedEntityData::unpack(IDataInput* a2) {
 	std::vector<DataItem*> vec;
 	for(int32_t i = a2->readByte(); i != 127; i = a2->readByte()) {

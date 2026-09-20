@@ -76,14 +76,14 @@ std::string Tag::getTagName(char id){
 Tag* Tag::newTag(char type, const std::string& name){
 	switch(type){
 		case 0: return new EndTag();
-		case 1: return new ByteTag(name, 0);
-		case 2: return new ShortTag(name, 0);
-		case 3: return new IntTag(name, 0);
-		case 4: return new LongTag(name, 0);
-		case 5: return new FloatTag(name, 0);
-		case 6: return new DoubleTag(name, 0);
-		case 7: return new ByteArrayTag(name, 0, 0);
-		case 8: return new StringTag(name, "");
+		case 1: return new ByteTag(name);
+		case 2: return new ShortTag(name);
+		case 3: return new IntTag(name);
+		case 4: return new LongTag(name);
+		case 5: return new FloatTag(name);
+		case 6: return new DoubleTag(name);
+		case 7: return new ByteArrayTag(name);
+		case 8: return new StringTag(name);
 		case 9: return new ListTag(name);
 		case 10: return new CompoundTag(name);
 		default: return 0;

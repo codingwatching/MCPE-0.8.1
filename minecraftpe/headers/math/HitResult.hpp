@@ -6,9 +6,9 @@ struct Entity;
 
 struct HitResult{
 	int32_t hitType;
-	int32_t field_4;
-	int32_t field_8;
-	int32_t field_C;
+	int32_t x;
+	int32_t y;
+	int32_t z;
 	int32_t field_10;
 	Vec3 hitVec;
 	Entity* entity;

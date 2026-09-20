@@ -3,14 +3,15 @@
 #include <nbt/Tag.hpp>
 #include <util/input/IDataInput.hpp>
 #include <util/output/IDataOutput.hpp>
-#include <util/input/IDataInput.hpp>
-#include <util/output/IDataOutput.hpp>
 
 struct ByteTag : public Tag{
-	int8_t value;
+	int value; //it seems to use 32bit assign when constructing it in Tag::newTag - so it is 32bit for some reason?
 
 	ByteTag(const std::string& s, int8_t v) : Tag(s){
 		this->value = v;
+	}
+	ByteTag(const std::string& s)
+		: Tag(s) {
 	}
 
 	virtual void write(IDataOutput* out){
@@ -31,9 +32,7 @@ struct ByteTag : public Tag{
 	}
 	bool_t equals(const Tag& v) const {
 		const ByteTag* tg = (const ByteTag*) (&v);
-		bool_t eq = Tag::equals(v);
-		if (eq) return this->value == tg->value;
-
-		return eq;
+		if (Tag::equals(v)) return this->value == tg->value;
+		return 0;
 	}
 };

@@ -33,7 +33,11 @@ struct Color4{
 		return ret;
 	}
 	static Color4 lerp(const Color4& a2, const Color4& a3, float a4){
-		return Color4((a4 * a3.r) + ((float)(1.0 - a4) * a2.r), (a4 * a3.g) + ((float)(1.0 - a4) * a2.g), (a4 * a3.b) + ((float)(1.0 - a4) * a2.b), (a4 * a3.a) + ((float)(1.0 - a4) * a2.a));
+		return Color4(
+			(a4 * a3.r) + ((1.0f - a4) * a2.r),
+			(a4 * a3.g) + ((1.0f - a4) * a2.g),
+			(a4 * a3.b) + ((1.0f - a4) * a2.b),
+			(a4 * a3.a) + ((1.0f - a4) * a2.a));
 	}
 	static Color4 fromHSB(float, float, float);
 	void clamp(void){

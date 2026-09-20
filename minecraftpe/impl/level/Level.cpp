@@ -114,7 +114,7 @@ bool_t Level::addEntity(struct Entity* e) {
 	chunk = this->getChunk(v4, v5);
 	chunk->addEntity(a2);
 	this->entities.push_back(a2);
-	this->eid2entity.insert({a2->entityId, a2});
+	this->eid2entity.insert(std::move<std::pair<int, Entity*>>({a2->entityId, a2}));
 	v12 = a2;
 	this->entityAdded(v12);
 	return 1;
@@ -2273,19 +2273,15 @@ void Level::validateSpawn() {
 	this->levelData.setZSpawn(zSpawn);
 }
 
-//woah vt is so smol ty mojang <3
 Level::~Level() {
 	if(this->chunkSource) delete this->chunkSource;
 	this->chunkSource = 0;
 	if(this->dimensionPtr) delete this->dimensionPtr;
 	this->dimensionPtr = 0;
+
 	std::set<Entity*> v27;
-	for(auto&& e: this->entities) {
-		v27.insert(e);
-	}
-	for(auto&& p: this->playersMaybe) {
-		v27.insert(p);
-	}
+	v27.insert(this->entities.begin(), this->entities.end());
+	v27.insert(this->playersMaybe.begin(), this->playersMaybe.end());
 	for(auto&& p: this->field_B6C) {
 		v27.insert(p.entity);
 	}
@@ -2294,13 +2290,10 @@ Level::~Level() {
 			delete e;
 		}
 	}
+
 	std::set<TileEntity*> v29;
-	for(auto&& te: this->tileEntities) {
-		v29.insert(te);
-	}
-	for(auto&& te: this->field_50) {
-		v29.insert(te);
-	}
+	v29.insert(this->tileEntities.begin(), this->tileEntities.end());
+	v29.insert(this->field_50.begin(), this->field_50.end());
 	for(auto&& te: v29) {
 		if(te) {
 			delete te;

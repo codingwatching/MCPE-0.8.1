@@ -8,7 +8,7 @@ struct PrintStream;
 
 struct Tag{
 	int32_t field_0;
-	std::string tagName; //TODO probably wrong type
+	std::string tagName;
 
 	static std::string NullString;
 

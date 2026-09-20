@@ -120,7 +120,7 @@ void TextEditScreen::init() {
 
 	this->doneButton.setImageDef(a2, 1);
 	this->doneButton.field_64 = 0;
-	this->buttons.emplace_back(&this->doneButton);
+	this->buttons.push_back(&this->doneButton);
 }
 void TextEditScreen::setupPositions() {
 	this->doneButton.height = 19;

@@ -445,9 +445,9 @@ void Arrow::tick() {
 					this->prevYaw = this->prevYaw + 180.0;
 				}
 			} else {
-				v55 = a1.field_8;
-				v56 = a1.field_C;
-				this->xTile = a1.field_4;
+				v55 = a1.y;
+				v56 = a1.z;
+				this->xTile = a1.x;
 				this->yTile = v55;
 				this->zTile = v56;
 				this->inTile = this->level->getTile(this->xTile, this->yTile, this->zTile);

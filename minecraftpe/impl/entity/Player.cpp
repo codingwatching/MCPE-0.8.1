@@ -190,7 +190,7 @@ float Player::getDestroySpeed(Tile* a2) {
 	return this->inventory->getDestroySpeed(a2);
 }
 TilePos Player::getRespawnPosition() {
-	return {this->spawn.x, this->spawn.y, this->spawn.z};
+	return TilePos(this->spawn.x, this->spawn.y, this->spawn.z);
 }
 int32_t Player::getScore() {
 	return this->score;
@@ -795,70 +795,36 @@ void Player::travel(float a2, float a3) {
 	}
 }
 void Player::aiStep() {
-	float v2;		// s16
-	double v3;		// r0
-	int32_t health; // r3
 	float v6;		// s14
-	int32_t v7;		// r3
-	float maxY;		// s14
-	float minZ;		// s11
-	float maxX;		// s12
-	float minX;		// s10
-	Level* level;	// r0
-	int32_t v13;	// r5
 	float v14;		// s13
-	float maxZ;		// s14
-	Entity* v17;	// r1
-	float v18;		// s14
 
 	if(!this->level->difficulty && this->health <= 19 && !(this->field_D8 % 240)) {
 		this->heal(1);
 	}
 	this->field_C74 = this->field_C78;
-	v2 = sqrt((float)((float)(this->motionZ * this->motionZ) + (float)(this->motionX * this->motionX)));
-	v3 = atan((float) - (float)(this->motionY * 0.2));
-	onGround = this->onGround;
-	health = this->health;
-	if(v2 > 0.1) {
-		v2 = 0.1;
-	}
-	this->onGround;
-	if(this->onGround) {
-		if(health <= 0) {
-			v2 = 0.0;
-		}
-		goto LABEL_12;
-	}
-	if(health <= 0) {
-		v2 = 0.0;
-LABEL_12:
-		v6 = 0.0;
-		goto LABEL_13;
-	}
-	v18 = v3;
-	v2 = 0.0;
-	v6 = v18 * 15.0;
-LABEL_13:
-	this->field_C78 = this->field_C78 + (float)((float)(v2 - this->field_C78) * 0.4);
-	v7 = this->health;
-	this->field_15C = this->field_15C + (float)((float)(v6 - this->field_15C) * 0.8);
-	if(v7 > 0) {
-		maxY = this->boundingBox.maxY;
-		minZ = this->boundingBox.minZ;
-		maxX = this->boundingBox.maxX;
-		minX = this->boundingBox.minX;
-		level = this->level;
-		v13 = 0;
-		maxZ = this->boundingBox.maxZ;
-		AABB v19{.minX = minX - 1.0f, .minY = this->boundingBox.minY, .minZ = minZ - 1.0f, .maxX = maxX + 1.0f, .maxY = maxY + 0.0f, .maxZ = maxZ + 1.0f}; // [sp+0h] [bp-30h] BYREF
+	float v2 = sqrt((float)((float)(this->motionZ * this->motionZ) + (float)(this->motionX * this->motionX)));
+	float v18 = atan((float) - (float)(this->motionY * 0.2f));
+	if(v2 > 0.1f) v2 = 0.1f;
 
-		std::vector<struct Entity*>* ents = level->getEntities(this, v19);
-		while(v13 < ents->size()) {
-			v17 = ents->at(v13);
+	if(this->onGround) {
+		if(this->health <= 0) v2 = 0.0f;
+		v6 = 0.0f;
+	}else if(this->health <= 0) {
+		v2 = 0.0f;
+		v6 = 0.0f;
+	}else{
+		v2 = 0.0f;
+		v6 = v18 * 15.0f;
+	}
+	this->field_C78 += (v2 - this->field_C78) * 0.4f;
+	this->field_15C += (v6 - this->field_15C) * 0.8f;
+	if(this->health > 0) {
+		std::vector<struct Entity*>* ents = this->level->getEntities(this, this->boundingBox.expand(1, 0, 1));
+		for(int v13 = 0; v13 < ents->size(); ++v13){
+			Entity* v17 = ents->at(v13);
 			if(!v17->isDead) {
 				this->touch(v17);
 			}
-			++v13;
 		}
 	}
 }

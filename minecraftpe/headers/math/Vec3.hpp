@@ -1,7 +1,7 @@
 #pragma once
 #include <_types.h>
 #include <math.h>
-#define MINCLIPVAL 0.0000001
+#define MINCLIPVAL 0.0000001f
 struct Vec3{
 	float x, y, z;
 	static Vec3 ZERO;
@@ -26,17 +26,17 @@ struct Vec3{
 		this->z = z;
 	}
 	float distanceTo(const Vec3& v) const {
+		float dx = v.x - this->x;
 		float dy = v.y - this->y;
 		float dz = v.z - this->z;
-		float dx = v.x - this->x;
-		return sqrt(dy * dy + dx * dx + dz * dz);
+		return sqrt(dx * dx + dy * dy + dz * dz);
 	}
 	float distanceToSqr(const Vec3& v) const{
+		float dx = v.x - this->x;
 		float dy = v.y - this->y;
 		float dz = v.z - this->z;
-		float dx = v.x - this->x;
 
-		return dy*dy + dx*dx + dz*dz;
+		return dx*dx + dy*dy + dz*dz;
 	}
 	bool_t clipX(const Vec3& a2, float a3, Vec3& a4) const{
 		float dx = a2.x - this->x;

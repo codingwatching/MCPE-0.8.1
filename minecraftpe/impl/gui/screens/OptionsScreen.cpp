@@ -148,12 +148,12 @@ void OptionsScreen::init() {
 	this->buttonBack->width = 38;
 	this->buttonBack->height = 18;
 	this->buttonBack->init(this->minecraft);
-	this->buttons.emplace_back(this->headerOptions);
-	this->buttons.emplace_back(this->buttonBack);
+	this->buttons.push_back(this->headerOptions);
+	this->buttons.push_back(this->buttonBack);
 	this->createCategoryButtons();
 	for(auto&& i = this->field_60.begin(); i != this->field_60.end(); ++i) {
-		this->buttons.emplace_back(*i);
-		this->field_2C.emplace_back(*i);
+		this->buttons.push_back(*i);
+		this->field_2C.push_back(*i);
 	}
 	this->generateOptionScreens();
 }

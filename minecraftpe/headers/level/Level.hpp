@@ -33,12 +33,12 @@ struct Level : LevelSource{
 	int8_t field_12, field_13;
 	int32_t difficulty;
 	AdventureSettings adventureSettings;
-	std::vector<struct Entity*> entities;
-	std::map<int32_t, struct Entity*> eid2entity; //TODO check type
+	std::vector<Entity*> entities;
+	std::map<int32_t, Entity*> eid2entity; //TODO check type
 	std::vector<TileEntity*> tileEntities;
 	std::vector<TileEntity*> field_50;
 	int8_t field_5C, field_5D, field_5E, field_5F;
-	std::vector<struct Player*> playersMaybe;
+	std::vector<Player*> playersMaybe;
 	int32_t skyDarken;
 	Dimension* dimensionPtr;
 	struct RakNetInstance* rakNetInstance;
@@ -54,7 +54,7 @@ struct Level : LevelSource{
 	int8_t field_AF3;
 	int32_t prevRandomNumber;
 	int32_t constRandom;
-	std::vector<struct Entity*> entVec;
+	std::vector<Entity*> entVec;
 	std::set<TickNextTickData> tickDataTreeImpl;
 	std::set<ChunkPos> somethingRelatedToChunkPos;
 	std::vector<LightUpdate> lightsToUpdate;

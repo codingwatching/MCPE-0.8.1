@@ -360,7 +360,7 @@ void ScrollingPane::render(int32_t a2, int32_t a3, float a4) {
 						//TODO v28 = (v14 & 0x20) != 0 ? this->field_1A4[v13] : (v13 == this->field_1A8)
 						//used later for (&griditem->field_10)+1 which doesnt exist
 
-						v24.emplace_back(v27);
+						v24.push_back(v27);
 					}
 				}
 			}

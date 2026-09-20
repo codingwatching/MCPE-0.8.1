@@ -214,10 +214,10 @@ void CreateWorldScreen::init() {
 	this->buttons.push_back(this->field_140);
 	this->buttons.push_back(this->field_138);
 	this->buttons.push_back(this->field_13C);
-	this->buttons.emplace_back(this->field_12C);
-	this->buttons.emplace_back(this->field_130);
-	this->field_2C.emplace_back(this->field_12C);
-	this->field_2C.emplace_back(this->field_130);
+	this->buttons.push_back(this->field_12C);
+	this->buttons.push_back(this->field_130);
+	this->field_2C.push_back(this->field_12C);
+	this->field_2C.push_back(this->field_130);
 	this->field_2C.push_back(this->field_13C);
 	this->field_2C.push_back(this->field_138);
 }

@@ -26,10 +26,10 @@ struct SynchedEntityData{
 		}
 	}
 	template<typename T> //exists only for int in 0.8
-	void define(int32_t a2, const T& a3){
+	void define(int32_t a2, const T& a3) {
+		if(a2 > 31) return;
 		if(this->data.end() == this->data.find(a2)){
-			//TODO check
-			this->data.insert({a2, new DataItem2<T>(a2, a3)});
+			this->data.insert(std::pair<int, DataItem*>(a2, new DataItem2<T>(a2, a3)));
 		}
 	}
 	int8_t getByte(int32_t) const;
@@ -47,9 +47,26 @@ struct SynchedEntityData{
 	void packAll(IDataOutput*) const;
 	std::vector<DataItem*> packDirty();
 	template<typename T>
-	void set(int32_t a2, const T& a3);
+	void set(int32_t a2, const T& a3) {
+		DataItem* di = this->data[a2];
+		if(di) {
+			if((di->typeId == (DataType<T>::typeId)) && !(((DataItem2<T>*)di)->value == a3)) {
+				((DataItem2<T>*)di)->value = a3;
+				((DataItem2<T>*)di)->dirty = 1;
+				this->isDirty = 1;
+			}
+		}
+	}
 	template<typename T> //exists only for char in 0.8
-	void setFlag(int32_t, int32_t);
+	void setFlag(int32_t a2, int32_t a3) {
+		DataItem* it = this->data[a2];
+		int32_t v6 = ((DataItem2<T>*)it)->value;
+		T v7 = (1 << a3) | (v6);
+		((DataItem2<T>*)it)->value = v7;
+		if((((int32_t)v7 >> a3) & 1) != ((v6 >> a3) & 1)) {
+			this->markDirty(a2);
+		}
+	}
 	static std::vector<DataItem*> unpack(IDataInput*);
 	static void writeDataItem(IDataOutput*, const DataItem*);
 

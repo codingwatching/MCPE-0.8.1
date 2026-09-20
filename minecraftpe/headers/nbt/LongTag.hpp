@@ -11,6 +11,9 @@ struct LongTag : public Tag{
 	LongTag(const std::string& n, int64_t v) : Tag(n){
 		this->value = v;
 	}
+	LongTag(const std::string& s)
+		: Tag(s) {
+	}
 	virtual void write(IDataOutput* out){
 		out->writeLongLong(this->value);
 	}

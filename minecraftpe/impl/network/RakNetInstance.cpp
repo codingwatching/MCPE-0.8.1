@@ -32,7 +32,7 @@ int32_t RakNetInstance::handleUnconnectedPong(const RakNet::RakString& a2, const
 				if(a5) {
 					this->serverList.insert(this->serverList.begin(), v31); //TODO check
 				} else {
-					this->serverList.emplace_back(v31);
+					this->serverList.push_back(v31);
 				}
 				v9 = this->serverList.size() - 1;
 				return v9;
@@ -62,6 +62,7 @@ RakNetInstance::~RakNetInstance() {
 		this->rakPeerInstance = 0;
 	}
 }
+
 bool_t RakNetInstance::host(const std::string& a2, int32_t port, int32_t maxConnections) {
 	RakNet::RakPeer* rakPeerInstance; // r0
 	int32_t v8;						  // r0
@@ -74,7 +75,7 @@ bool_t RakNetInstance::host(const std::string& a2, int32_t port, int32_t maxConn
 	rakPeerInstance = this->rakPeerInstance;
 	v11 = 2;
 	rakPeerInstance->SetMaximumIncomingConnections(maxConnections);
-	this->rakPeerInstance->SetTimeoutTime(10000u, RakNet::SystemAddress());
+	this->rakPeerInstance->SetTimeoutTime(10000u, _D6E0A1B0);
 	v8 = this->rakPeerInstance->Startup(maxConnections, &v10, 1u, -99999);
 	this->_isServer = 1;
 	this->isPingingHostsMaybe = 0;

@@ -1,5 +1,14 @@
 #ifdef ANDROID
 #include <jni.h>
+#include <RakNetTypes.h>
+static RakNet::SystemAddress _some_unknown_and_possibly_unused_field;
+
+#include <_pengine.hpp>
+jobject mainActivity_ref;
+bool contextWasLost;
+ENGINE* pEngine;
+//TODO there is some other one before appPlatform which belongs to std?
+
 #include <main.hpp>
 #include <android/log.h>
 #include <NinecraftApp.hpp>
@@ -8,17 +17,12 @@
 #include <main.hpp>
 #include <android_native_app_glue.h>
 #include <android/native_activity.h>
-#include <_pengine.hpp>
 #include <android/JVMAttacher.hpp>
 #include <unigl.hpp>
 #include <string.h>
 #include <android/AndroidRestRequestJob.hpp>
 
-jobject mainActivity_ref;
-bool contextWasLost;
-ENGINE* pEngine;
-//TODO there is some other one before appPlatform which belongs to std?
-static RakNet::SystemAddress _some_unknown_and_possibly_unused_field;
+
 AppPlatform_android23 appPlatform;
 NinecraftApp* ninecraftApp;
 std::string nativeUtf8Input;

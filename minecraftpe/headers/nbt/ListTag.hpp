@@ -30,7 +30,7 @@ struct ListTag : public Tag{
 		for (int32_t i = 0; i < cnt; ++i) {
 			Tag* t = Tag::newTag(this->tagType, Tag::NullString);
 			t->load(in);
-			this->value.push_back(t);
+			this->value.insert(this->value.end(), t);
 		}
 	}
 	virtual int32_t getId(void) const {
@@ -44,7 +44,7 @@ struct ListTag : public Tag{
 		tg->tagType = this->tagType;
 		for (Tag* t : this->value) {
 			Tag* cp = t->copy();
-			tg->value.push_back(cp);
+			tg->value.insert(tg->value.end(), cp);
 		}
 		return tg;
 	}
@@ -100,7 +100,7 @@ struct ListTag : public Tag{
 	}
 	void add(Tag* t) {
 		this->tagType = t->getId();
-		this->value.push_back(t);
+		this->value.insert(this->value.end(), t);
 	}
 		
 };

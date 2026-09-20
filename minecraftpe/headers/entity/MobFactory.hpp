@@ -98,11 +98,12 @@ struct MobFactory
 		if(v4) return 0;
 
 LABEL_9:
-		if(_mobs.count(a2) != 0) {
-			return _mobs.at(a2);
+		auto&& it = _mobs.find(a2);
+		if(it != _mobs.end()) {
+			return it->second;
 		}
 		Mob* m = MobFactory::CreateMob(a2, a3);
-		_mobs.insert({a2, m});
+		_mobs.insert(std::move<std::pair<int, Mob*>>({a2, m}));
 		return m;
 	}
 };

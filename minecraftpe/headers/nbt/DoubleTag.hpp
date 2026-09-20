@@ -6,10 +6,14 @@
 
 
 struct DoubleTag : public Tag{
+	int32_t field_C; //do all numeric tags have this thing? maybe it should be a part of some class that got removed during compilation?
 	double value;
 
 	DoubleTag(const std::string& n, double v) : Tag(n){
 		this->value = v;
+	}
+	DoubleTag(const std::string& s)
+		: Tag(s) {
 	}
 	virtual void write(IDataOutput* out) {
 		out->writeDouble(this->value);

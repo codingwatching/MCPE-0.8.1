@@ -10,6 +10,9 @@ struct IntTag : public Tag{
 	IntTag(const std::string& n, int32_t v) : Tag(n){
 		this->value = v;
 	}
+	IntTag(const std::string& s)
+		: Tag(s) {
+	}
 	virtual void write(IDataOutput* out) {
 		out->writeInt(this->value);
 	}

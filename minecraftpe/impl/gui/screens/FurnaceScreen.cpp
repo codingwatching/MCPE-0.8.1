@@ -358,11 +358,11 @@ void FurnaceScreen::init() {
 	a2.field_24 = 1;
 	this->field_84.setImageDef(a2, 1);
 	this->field_84.field_64 = 0;
-	this->buttons.emplace_back(&this->field_184);
-	this->buttons.emplace_back(&this->field_F4);
-	this->buttons.emplace_back(&this->field_124);
-	this->buttons.emplace_back(&this->field_154);
-	this->buttons.emplace_back(&this->field_84);
+	this->buttons.push_back(&this->field_184);
+	this->buttons.push_back(&this->field_F4);
+	this->buttons.push_back(&this->field_124);
+	this->buttons.push_back(&this->field_154);
+	this->buttons.push_back(&this->field_84);
 	NinePatchFactory a1(this->minecraft->texturesPtr, "gui/spritesheet.png");
 	this->field_208 = a1.createSymmetrical({0, 0, 16, 16}, 4, 4, 32, 32);
 	this->field_20C = a1.createSymmetrical({0, 32, 8, 8}, 3, 3, 32, 32);

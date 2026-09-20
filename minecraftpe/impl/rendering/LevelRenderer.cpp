@@ -325,7 +325,7 @@ void LevelRenderer::cullAndSort(FrustumCuller* a2, float a3, float a4) {
 	if(this->minecraft->options.renderDistance != this->renderDistance) {
 		this->allChanged();
 	}
-	Mob* ve = this->minecraft->viewEntityMaybe;
+	Mob* ve = this->minecraft->viewEntity;
 	Vec3 v36(ve->posX, ve->posY, ve->posZ);
 	if((float)((float)((float)((float)(this->field_1CC.y - v36.y) * (float)(this->field_1CC.y - v36.y)) + (float)((float)(this->field_1CC.x - v36.x) * (float)(this->field_1CC.x - v36.x))) + (float)((float)(this->field_1CC.z - v36.z) * (float)(this->field_1CC.z - v36.z))) > 16.0) {
 		this->field_1CC = v36;
@@ -420,22 +420,18 @@ void LevelRenderer::generateSky() {
 		Vec3 v4(2000.0, 0, 0);
 		++v2;
 		v4.yRot((float)((float)v3 / 10.0) * 6.2832);
-		Tesselator::instance.vertex(v4.x, 128.0, v4.z);
+		Tesselator::instance.vertex(v4.x, 128.0f, v4.z);
 	} while(v2 != 11);
 	this->skyMesh = Tesselator::instance.end();
 }
 int32_t LevelRenderer::getLayerFeature(int32_t a1, bool_t a2) {
 	switch(a1) {
 		case 2:
-			return 3042;
+			return GL_BLEND;
 		case 3:
-			if(a2) {
-				return 3008;
-			} else {
-				return 0;
-			}
+			return a2 ? GL_ALPHA_TEST : 0;
 		case 1:
-			return 3008;
+			return GL_ALPHA_TEST;
 		default:
 			return 0;
 	}
@@ -480,7 +476,7 @@ int32_t LevelRenderer::renderChunks(int32_t a2, float a3, bool_t a4) {
 		EnableState v17(LevelRenderer::getLayerFeature(a2, this->minecraft->options.graphics));
 		EnableState v18(a4 ? 2912 : 0);
 		v10 = 0;
-		Mob* ve = this->minecraft->viewEntityMaybe;
+		Mob* ve = this->minecraft->viewEntity;
 		glTranslatef(-(float)(ve->prevPosX + (float)((float)(ve->posX - ve->prevPosX) * a3)), -(float)(ve->prevPosY + (float)((float)(ve->posY - ve->prevPosY) * a3)), -(float)(ve->prevPosZ + (float)((float)(ve->posZ - ve->prevPosZ) * a3)));
 
 		for(auto&& i = this->nearChunks.begin(); i != this->nearChunks.end(); ++i) {
@@ -652,15 +648,15 @@ void LevelRenderer::renderDebug(const AABB& a2, float a3) const{
 }
 void LevelRenderer::renderEntities(Vec3 a2, FrustumCuller* a3, bool_t a4, float a5)
 {
-	TileEntityRenderDispatcher::getInstance()->prepare(this->level, this->textures, this->minecraft->font, this->minecraft->viewEntityMaybe, a5);
-	EntityRenderDispatcher::getInstance()->prepare(this->level, this->minecraft->font, this->minecraft->viewEntityMaybe, &this->minecraft->options, a5);
+	TileEntityRenderDispatcher::getInstance()->prepare(this->level, this->textures, this->minecraft->font, this->minecraft->viewEntity, a5);
+	EntityRenderDispatcher::getInstance()->prepare(this->level, this->minecraft->font, this->minecraft->viewEntity, &this->minecraft->options, a5);
 	this->field_178.clear(); //TODO check
 	int v8 = this->field_18;
 	if(v8 <= 0) {
 		Minecraft* minecraft = this->minecraft;
 		this->field_1C = 0;
 		this->field_20 = 0;
-		Mob* viewEntityMaybe = minecraft->viewEntityMaybe;
+		Mob* viewEntityMaybe = minecraft->viewEntity;
 		float posY = viewEntityMaybe->posY;
 		TileEntityRenderDispatcher::xOff = viewEntityMaybe->prevPosX + (float)((float)(viewEntityMaybe->posX - viewEntityMaybe->prevPosX) * a5);
 		EntityRenderDispatcher::xOff = TileEntityRenderDispatcher::xOff;
@@ -708,14 +704,14 @@ void LevelRenderer::renderEntities(Vec3 a2, FrustumCuller* a3, bool_t a4, float 
 					if(v25->shouldRender(a2)) {
 						if(a3->isVisible(v25->boundingBox) || v25->rider == this->minecraft->player) {
 							Minecraft* v43 = this->minecraft;
-							if(v25 != v43->viewEntityMaybe || v43->options.thirdPerson || !v25->isPlayer() || this->minecraft->viewEntityMaybe->isSleeping()) {
+							if(v25 != v43->viewEntity || v43->options.thirdPerson || !v25->isPlayer() || this->minecraft->viewEntity->isSleeping()) {
 								Minecraft* v26 = this->minecraft;
-								if(v25 != v26->viewEntityMaybe || v26->options.thirdPerson) {
+								if(v25 != v26->viewEntity || v26->options.thirdPerson) {
 									int x = Mth::floor(v25->posX);
 									int v27 = Mth::floor(v25->posY);
 									int v28 = Mth::floor(v25->posZ);
 									if(this->level->hasChunkAt(x, v27, v28)) {
-										this->field_178.insert({v25->entityRenderId, v25}); //TODO check
+										this->field_178.insert(std::move<std::pair<int, Entity*>>({v25->entityRenderId, v25})); //TODO check
 									}
 								}
 							}
@@ -750,9 +746,7 @@ void LevelRenderer::renderEntities(Vec3 a2, FrustumCuller* a3, bool_t a4, float 
 }
 
 int32_t LevelRenderer::renderFarChunks(float a2) {
-	int32_t v4;			  // r7
-	Mob* viewEntityMaybe; // r3
-	int32_t v9;			  // r7
+	int v4;
 
 	glPushMatrix();
 	{
@@ -760,15 +754,15 @@ int32_t LevelRenderer::renderFarChunks(float a2) {
 		EnableClientState v12(32888);
 		EnableState v13(2912);
 		v4 = 0;
-		viewEntityMaybe = this->minecraft->viewEntityMaybe;
-		glTranslatef(-(float)(viewEntityMaybe->prevPosX + (float)((float)(viewEntityMaybe->posX - viewEntityMaybe->prevPosX) * a2)), -(float)(viewEntityMaybe->prevPosY + (float)((float)(viewEntityMaybe->posY - viewEntityMaybe->prevPosY) * a2)), -(float)(viewEntityMaybe->prevPosZ + (float)((float)(viewEntityMaybe->posZ - viewEntityMaybe->prevPosZ) * a2)));
+		Mob* ve = this->minecraft->viewEntity;
+		glTranslatef(-(ve->prevPosX + (ve->posX - ve->prevPosX) * a2), -(ve->prevPosY + (ve->posY - ve->prevPosY) * a2), -(ve->prevPosZ + (ve->posZ - ve->prevPosZ) * a2));
 		for(auto&& i = this->farChunks.begin(); i != this->farChunks.end(); ++i) {
 			RenderChunk* v6 = i->second;
 			if(!v6->built || !v6->skipRenderMaybe) {
 				MeshBuffer* rc = v6->getRenderChunk(0);
 				glPushMatrix();
 				glTranslatef(rc->transformX, rc->transformY, rc->transformZ);
-				v9 = v4 + this->_renderChunk(*v6->getRenderChunk(3));
+				int v9 = v4 + this->_renderChunk(*v6->getRenderChunk(3));
 				v4 = v9 + this->_renderChunk(*rc);
 				glPopMatrix();
 			}
@@ -781,35 +775,25 @@ int32_t LevelRenderer::renderFarChunks(float a2) {
 	return v4;
 }
 void LevelRenderer::renderFilledHitSelect(Player* a2, float a3, Tile* a4, const HitResult& a5) {
-	float v10;		// s18
-	float prevPosZ; // s15
-	float v12;		// s17
-	float posZ;		// s14
-
 	DisableState v14(3553);
 	BlendFunctionState v16(0x306u, 0x300u);
 	EnableState v15(32823);
 	glPushMatrix();
 	this->textures->loadAndBindTexture("terrain-atlas.tga");
 	glColor4f(0.65, 0.65, 0.65, 0.65);
-	v10 = a2->prevPosX + (float)((float)(a2->posX - a2->prevPosX) * a3);
-	prevPosZ = a2->prevPosZ;
-	v12 = a2->prevPosY + (float)((float)(a2->posY - a2->prevPosY) * a3);
-	posZ = a2->posZ;
+	float v10 = a2->prevPosX + (a2->posX - a2->prevPosX) * a3;
+	float v12 = a2->prevPosY + (a2->posY - a2->prevPosY) * a3;
 	Tesselator::instance.begin(0);
-	Tesselator::instance.offset(-v10, -v12, -(float)(prevPosZ + (float)((float)(posZ - prevPosZ) * a3)));
+	Tesselator::instance.offset(-v10, -v12, -(a2->prevPosZ + (a2->posZ - a2->prevPosZ) * a3));
 	Tesselator::instance.noColor();
 	if(!a4) {
 		a4 = Tile::rock;
 	}
-	this->field_70->tesselateInWorld(a4, a5.field_4, a5.field_8, a5.field_C);
+	this->field_70->tesselateInWorld(a4, a5.x, a5.y, a5.z);
 	Tesselator::instance.draw(1);
 	Tesselator::instance.offset(0.0, 0.0, 0.0);
 	glDepthMask(1u);
 	glPopMatrix();
-	//EnableState::~EnableState((EnableState *)&v15);
-	//BlendFunctionState::~BlendFunctionState((BlendFunctionState *)&v16);
-	//DisableState::~DisableState((DisableState *)&v14);
 }
 void LevelRenderer::renderHit(Player* a2, const HitResult& a3, int32_t df, void* a5, float a6) {
 	Tile* v8;	 // r7
@@ -826,7 +810,7 @@ void LevelRenderer::renderHit(Player* a2, const HitResult& a3, int32_t df, void*
 		{
 			EnableState v16(32823);
 			this->textures->loadAndBindTexture("terrain-atlas.tga");
-			v10 = this->level->getTile(a3.field_4, a3.field_8, a3.field_C);
+			v10 = this->level->getTile(a3.x, a3.y, a3.z);
 			if(v10 > 0) {
 				v8 = Tile::tiles[v10];
 			}
@@ -834,12 +818,12 @@ void LevelRenderer::renderHit(Player* a2, const HitResult& a3, int32_t df, void*
 			glColor4f(1.0, 1.0, 1.0, 1.0);
 			Tesselator::instance.noColor();
 			glTranslatef(-EntityRenderDispatcher::xOff, -EntityRenderDispatcher::yOff, -EntityRenderDispatcher::zOff);
-			if(!v8) {
+			if(v8 == 0) {
 				v8 = Tile::rock;
 			}
-			v11 = a3.field_4;
-			v12 = a3.field_8;
-			v14 = a3.field_C;
+			v11 = a3.x;
+			v12 = a3.y;
+			v14 = a3.z;
 			this->field_70->tesselateInWorld(v8, v11, v12, v14, *this->destroyTexture.getUV((int32_t)(float)(this->destroyProgress * 10.0)));
 			Tesselator::instance.draw(1);
 			//EnableState::~EnableState((EnableState*)&v16);
@@ -849,34 +833,18 @@ void LevelRenderer::renderHit(Player* a2, const HitResult& a3, int32_t df, void*
 	}
 }
 void LevelRenderer::renderHitOutline(Player* a2, const HitResult& a3, int32_t a4, void*, float a6) {
-	int32_t v9;	 // r0
-	int32_t v10; // r8
-	float v11;	 // s17
-	float v12;	 // s18
-	float v13;	 // s16
+	if(a4 == 0 && a3.hitType == 0) {
+		glColor4f(0.0f, 0.0f, 0.0f, 0.4f);
+		glLineWidth(1.0f);
 
-	if(!a4 && a3.hitType == 0) {
-		glColor4f(0.0, 0.0, 0.0, 0.4);
-		glLineWidth(1.0);
-		DisableState v14(3553);
-		v9 = this->level->getTile(a3.field_4, a3.field_8, a3.field_C);
-		v10 = v9;
-		if(v9 > 0) {
-			Tile::tiles[v9]->updateShape(this->level, a3.field_4, a3.field_8, a3.field_C);
-			v11 = a2->prevPosX + (float)((float)(a2->posX - a2->prevPosX) * a6);
-			v12 = a2->prevPosY + (float)((float)(a2->posY - a2->prevPosY) * a6);
-			v13 = a2->prevPosZ + (float)((float)(a2->posZ - a2->prevPosZ) * a6);
-			AABB v15 = Tile::tiles[v10]->getTileAABB(this->level, a3.field_4, a3.field_8, a3.field_C);
-			AABB v16{
-				.minX = (float)(v15.minX - 0.002) - v11,
-				.minY = (float)(v15.minY - 0.002) - v12,
-				.minZ = (float)(v15.minZ - 0.002) - v13,
-				.maxX = (float)(v15.maxX + 0.002) - v11,
-				.maxY = (float)(v15.maxY + 0.002) - v12,
-				.maxZ = (float)(v15.maxZ + 0.002) - v13,
-			};
-
-			this->render(v16);
+		DisableState v14(GL_TEXTURE_2D); //i wonder how does this actually look like in real 0.8.1 src
+		int id = this->level->getTile(a3.x, a3.y, a3.z);
+		if(id > 0) {
+			Tile::tiles[id]->updateShape(this->level, a3.x, a3.y, a3.z);
+			float v11 = a2->prevPosX + (a2->posX - a2->prevPosX) * a6;
+			float v12 = a2->prevPosY + (a2->posY - a2->prevPosY) * a6;
+			float v13 = a2->prevPosZ + (a2->posZ - a2->prevPosZ) * a6;
+			this->render(Tile::tiles[id]->getTileAABB(this->level, a3.x, a3.y, a3.z).grow(0.002f, 0.002f, 0.002f).cloneMove(-v11, -v12, -v13));
 		}
 		//~v14
 	}
@@ -884,20 +852,20 @@ void LevelRenderer::renderHitOutline(Player* a2, const HitResult& a3, int32_t a4
 void LevelRenderer::renderHitSelect(Player* a2, const HitResult& a3, int32_t a4, void* a5, float a6) {
 	if(a4 == 0) {
 		Tile* v8 = 0;
-		EnableState v11(32823);
-		DisableState v12(3553);
-		BlendFunctionState v13(0x306u, 0x300u);
+		EnableState v11(GL_POLYGON_OFFSET_FILL);
+		DisableState v12(GL_TEXTURE_2D);
+		BlendFunctionState v13(GL_DST_COLOR, GL_SRC_COLOR);
 		glPushMatrix();
-		int32_t v9 = this->level->getTile(a3.field_4, a3.field_8, a3.field_C);
+		int32_t v9 = this->level->getTile(a3.x, a3.y, a3.z);
 		if(v9 > 0) v8 = Tile::tiles[v9];
-		glColor4f(0.65, 0.65, 0.65, 1.0);
+		glColor4f(0.65f, 0.65f, 0.65f, 1.0f);
 		glTranslatef(-EntityRenderDispatcher::xOff, -EntityRenderDispatcher::yOff, -EntityRenderDispatcher::zOff);
 		Tesselator::instance.begin(0);
 		Tesselator::instance.noColor();
 		if(!v8) {
 			v8 = Tile::rock;
 		}
-		this->field_70->tesselateInWorld(v8, a3.field_4, a3.field_8, a3.field_C);
+		this->field_70->tesselateInWorld(v8, a3.x, a3.y, a3.z);
 		Tesselator::instance.draw(1);
 		Tesselator::instance.offset(0.0, 0.0, 0.0);
 		glPopMatrix();
@@ -916,90 +884,84 @@ void LevelRenderer::renderNameTags(float a2) {
 	glDepthFunc(GL_LEQUAL);
 }
 void LevelRenderer::renderOutlineHitSelect(Player* a2, float a3, Tile* a4, const HitResult& a5) {
-	DisableState v7(0xDE1u);
+	DisableState v7(GL_TEXTURE_2D);
 	glDepthMask(0);
-	glColor4f(0.0, 0.0, 0.0, 0.4);
-	AABB v8 = a4->getTileAABB(this->level, a5.field_4, a5.field_8, a5.field_C);
-	this->render({v8.minX + 0.002f, v8.minY + 0.002f, v8.minZ + 0.002f, v8.maxX - 0.002f, v8.maxY - 0.002f, v8.maxZ - 0.002f});
-	glDepthMask(1u);
+	glColor4f(0.0f, 0.0f, 0.0f, 0.4f);
+	this->render(a4->getTileAABB(this->level, a5.x, a5.y, a5.z).grow(0.002f, 0.002f, 0.002f));
+	glDepthMask(1);
 }
 void LevelRenderer::renderShadows(const std::multimap<int32_t, Entity*, std::greater<int>>& a2, const std::vector<TileEntity*>& a3, float a4) {
-	float v8;		 // s18
-	float v9;		 // s20
-	float v10;		 // s19
-	int v11;		 // r6
-	int v12;		 // r8
-	Entity* v13;	 // r5
-	float v14;		 // s18
-	TileEntity* v18; // t1
-	float v19;		 // s18
-
-	DisableState v20(3553);
+	DisableState v20(GL_TEXTURE_2D);
 	glDepthMask(0);
-	EnableState v21(2960); //destroyed befrore glDepthMask(1);
-	Color4 color = this->level->getSkyColor(this->minecraft->viewEntityMaybe, a4);
-	v8 = (float)(color.r * 0.5) + 0.4;
-	v9 = (float)(color.g * 0.5) + 0.4;
-	v10 = (float)(color.b * 0.5) + 0.4;
-	Color4 v26 = this->level->getSunriseColor(a4);
-	color.a = 1.0;
-	color.b = (float)((float)((float)(v26.a * v26.b) + (float)(v10 * (float)(1.0 - v26.a))) * 0.8) * 0.25;
-	color.g = (float)((float)((float)(v26.a * v26.g) + (float)(v9 * (float)(1.0 - v26.a))) * 0.8) * 0.25;
-	color.r = (float)((float)((float)(v26.a * v26.r) + (float)(v8 * (float)(1.0 - v26.a))) * 0.8) * 0.25;
-	color.clamp();
-	color.a = (float)((float)((float)((float)(color.r + color.g) + color.b) * 0.33333) * 1.2) + 0.1;
-	if((float)((float)(fabsf(this->shadowRed - color.r) + fabsf(this->shadowGreen - color.g)) + fabsf(this->shadowBlue - color.b)) > 0.05 || !this->shadowOverlayBuffer.arrayBuffer) {
-		this->_buildShadowOverlay(color);
-	}
-	glPushMatrix();
-	glColorMask(0, 0, 0, 0);
 	{
-		EnableState v24(32823);
-		glTranslatef(-EntityRenderDispatcher::xOff, -EntityRenderDispatcher::yOff, -EntityRenderDispatcher::zOff);
-		for(auto&& v11: a2) {
-			Entity* v13 = v11.second;
-			v14 = v13->getShadowRadius();
-			if(v14 != 0.0 && !v13->isOnFire()) {
-				Vec3 v25(v13->prevPosX + (float)((float)(v13->posX - v13->prevPosX) * a4), (float)((float)(v13->prevPosY + (float)((float)(v13->posY - v13->prevPosY) * a4)) - v13->ridingHeight) + v13->field_74, v13->prevPosZ + (float)((float)(v13->posZ - v13->prevPosZ) * a4));
-				this->_renderShadow(v14, v25, a4);
-			}
+		EnableState v21(GL_STENCIL_TEST);
+		Color4 color = this->level->getSkyColor(this->minecraft->viewEntity, a4);
+		float v8 = (color.r * 0.5f) + 0.4f;
+		float v9 = (color.g * 0.5f) + 0.4f;
+		float v10 = (color.b * 0.5f) + 0.4f;
+		Color4 v26 = this->level->getSunriseColor(a4);
+		color.a = 1.0f;
+		//TODO this looks like inlined Color4::lerp except color.a = 1.0f and also * 0.8 * 0.25
+		color.b = (v26.a * v26.b) + (v10 * (1.0f - v26.a)) * 0.8f * 0.25f;
+		color.g = (v26.a * v26.g) + (v9 * (1.0f - v26.a)) * 0.8f * 0.25f;
+		color.r = (v26.a * v26.r) + (v8 * (1.0f - v26.a)) * 0.8f * 0.25f;
+		color.clamp();
+		color.a = (color.r + color.g + color.b) * 0.33333f * 1.2f + 0.1f;
+		if(fabsf(this->shadowRed - color.r) + fabsf(this->shadowGreen - color.g) + fabsf(this->shadowBlue - color.b) > 0.05f || !this->shadowOverlayBuffer.arrayBuffer) {
+			this->_buildShadowOverlay(color);
 		}
 
-		for(auto&& v18: a3) {
-			v19 = v18->getShadowRadius();
-			if(v19 != 0.0) {
-				Vec3 v25((float)v18->posX + 0.5, (float)v18->posY, (float)v18->posZ + 0.5);
-				this->_renderShadow(v19, v25, a4);
+		glPushMatrix();
+		glColorMask(0, 0, 0, 0);
+		{
+			EnableState v24(GL_POLYGON_OFFSET_FILL);
+			glTranslatef(-EntityRenderDispatcher::xOff, -EntityRenderDispatcher::yOff, -EntityRenderDispatcher::zOff);
+			for(auto&& v11: a2) {
+				Entity* e = v11.second;
+				float v14 = e->getShadowRadius();
+				if(v14 != 0.0 && !e->isOnFire()) {
+					Vec3 v25(e->prevPosX + (e->posX - e->prevPosX) * a4, e->prevPosY + (e->posY - e->prevPosY) * a4 - e->ridingHeight + e->field_74, e->prevPosZ + (e->posZ - e->prevPosZ)*a4);
+					this->_renderShadow(v14, v25, a4);
+				}
+			}
+
+			for(auto&& v18: a3) {
+				float v19 = v18->getShadowRadius();
+				if(v19 != 0.0) {
+					Vec3 v25(v18->posX + 0.5f, v18->posY, v18->posZ + 0.5f);
+					this->_renderShadow(v19, v25, a4);
+				}
 			}
 		}
-	}
-	glColorMask(1u, 1u, 1u, 1u);
-	glPopMatrix();
-	glShadeModel(0x1D01u);
-	{
-		EnableState v22(3042);
-		DisableState v23(2929);
-		DisableState v24(2884);
-		EnableClientState v25(0x8076u);
-		glMatrixMode(0x1701u);
-		glPushMatrix();
-		glLoadIdentity();
-		glMatrixMode(0x1700u);
-		glPushMatrix();
-		glLoadIdentity();
-		this->minecraft->gameRenderer->setupCamera(a4, 1);
-		if(this->minecraft->options.thirdPerson) {
-			glTranslatef(0.0, -3.0, 0.0);
+		glColorMask(1, 1, 1, 1);
+		glPopMatrix();
+
+		glShadeModel(GL_SMOOTH);
+		{
+			EnableState v22(GL_BLEND);
+			DisableState v23(GL_DEPTH_TEST);
+			DisableState v24(GL_CULL_FACE);
+			EnableClientState v25(0x8076u);
+			glMatrixMode(GL_PROJECTION);
+			glPushMatrix();
+			glLoadIdentity();
+			glMatrixMode(GL_MODELVIEW);
+			glPushMatrix();
+			glLoadIdentity();
+			this->minecraft->gameRenderer->setupCamera(a4, 1);
+			if(this->minecraft->options.thirdPerson) {
+				glTranslatef(0.0f, -3.0f, 0.0f);
+			}
+			glStencilFunc(GL_EQUAL, 1, 0xFFu);
+			this->shadowOverlayBuffer.render();
+			glMatrixMode(GL_PROJECTION);
+			glPopMatrix();
+			glMatrixMode(GL_MODELVIEW);
+			glPopMatrix();
 		}
-		glStencilFunc(0x202u, 1, 0xFFu);
-		this->shadowOverlayBuffer.render();
-		glMatrixMode(0x1701u);
-		glPopMatrix();
-		glMatrixMode(0x1700u);
-		glPopMatrix();
+		glShadeModel(GL_FLAT);
 	}
-	glShadeModel(0x1D00u);
-	glDepthMask(1u);
+	glDepthMask(1);
 }
 void LevelRenderer::renderSky(float a2) {
 	Dimension* dimensionPtr; // r3
@@ -1016,7 +978,7 @@ void LevelRenderer::renderSky(float a2) {
 			EnableState v6(0xB60);
 			DisableState v7(0xB44);
 			DisableState v8(0xDE1);
-			Color4 red = this->level->getSkyColor(this->minecraft->viewEntityMaybe, a2);
+			Color4 red = this->level->getSkyColor(this->minecraft->viewEntity, a2);
 			glColor4f(red.r, red.g, red.b, 1.0);
 			this->skyMesh.render();
 			//~v8, ~v7, ~v6
@@ -1033,7 +995,7 @@ int32_t LevelRenderer::renderStencilChunks(float a2) {
 
 	glPushMatrix();
 	v4 = 0;
-	ve = this->minecraft->viewEntityMaybe;
+	ve = this->minecraft->viewEntity;
 	glTranslatef(-(float)(ve->prevPosX + (float)((float)(ve->posX - ve->prevPosX) * a2)), -(float)(ve->prevPosY + (float)((float)(ve->posY - ve->prevPosY) * a2)), -(float)(ve->prevPosZ + (float)((float)(ve->posZ - ve->prevPosZ) * a2)));
 	for(auto&& i = this->farChunks.begin(); i != this->farChunks.end(); ++i) {
 		MeshBuffer* rc = i->second->getRenderChunk(2);
@@ -1220,8 +1182,8 @@ void LevelRenderer::tick() {
 bool LevelRenderer::updateDirtyChunks(Mob* a2, bool_t a3) {
 	DirtyChunkSorter v37{a2};
 	RenderChunk* v39[3] = {0};
-	int v6 = 0;
 	std::vector<RenderChunk*>* v7 = 0;
+	int v6 = 0;
 	int v8 = this->_renderChunks.size();
 	for(int v5 = 0; v5 < v8; ++v5) {
 		RenderChunk* v9 = this->_renderChunks[v5];
@@ -1230,9 +1192,7 @@ bool LevelRenderer::updateDirtyChunks(Mob* a2, bool_t a3) {
 				continue;
 			}
 LABEL_4:
-			if(!v7) {
-				v7 = new std::vector<RenderChunk*>();
-			}
+			if(!v7) v7 = new std::vector<RenderChunk*>();
 			v7->push_back(v9);
 			++v6;
 			this->_renderChunks[v5] = 0;
@@ -1261,14 +1221,12 @@ LABEL_4:
 	Stopwatch v40;
 	v40.start();
 	if(v7) {
-		int v16 = v7->size();
-		if(v16 > 1) {
+		if(v7->size() > 1) {
 			std::sort(v7->begin(), v7->end(), v37);
 		}
-		int v19 = v7->size();
-		int v20 = v19 - 1;
+		int v20 = v7->size() - 1;
 		while(v20 >= 0) {
-			RenderChunk* v22 = v7->at(v20);
+			RenderChunk* v22 = (*v7)[v20];
 			--v20;
 			v22->rebuild();
 			v22->setClean();
@@ -1300,20 +1258,20 @@ LABEL_38:
 	v39[0] = 0;
 LABEL_39:
 	int v30 = 0;
-	int k;
-	for(k = 0; k != this->_renderChunks.size(); ++k) {
-		RenderChunk* v33 = this->_renderChunks[k];
+	int vsize;
+	for(vsize = 0; vsize != this->_renderChunks.size(); ++vsize) {
+		RenderChunk* v33 = this->_renderChunks[vsize];
 		if(v33) {
 			if(v33 != v39[0] && v33 != v39[1] && v33 != v39[2]) {
-				if(v30 != k) {
+				if(v30 != vsize) {
 					this->_renderChunks[v30] = v33;
 				}
 				++v30;
 			}
 		}
 	}
-	if(k > v30) {
-		this->_renderChunks.resize(v30);
+	if(vsize > v30) {
+		this->_renderChunks.erase(this->_renderChunks.begin() + v30, this->_renderChunks.end());
 	}
 	return v8 == v6 + v24;
 }
@@ -1439,14 +1397,14 @@ void LevelRenderer::takePicture(TripodCamera* a2, Entity* a3) {
 	int TimeMs;			  // r0
 
 	minecraft = this->minecraft;
-	ve = minecraft->viewEntityMaybe;
+	ve = minecraft->viewEntity;
 	hideGUI = minecraft->options.hideGUI;
 	thirdPerson = minecraft->options.thirdPerson;
-	minecraft->viewEntityMaybe = (Mob*)a2;
+	minecraft->viewEntity = (Mob*)a2;
 	this->minecraft->options.hideGUI = 1;
 	this->minecraft->options.thirdPerson = 0;
 	this->minecraft->gameRenderer->renderLevel(0.0);
-	this->minecraft->viewEntityMaybe = ve;
+	this->minecraft->viewEntity = ve;
 	this->minecraft->options.hideGUI = hideGUI;
 	this->minecraft->options.thirdPerson = thirdPerson;
 	_t_keepPic = -1;
@@ -1458,7 +1416,7 @@ Particle* LevelRenderer::addParticle(ParticleType a2, float x, float y, float z,
 	Mob* viewEntityMaybe; // r0
 
 	minecraft = this->minecraft;
-	viewEntityMaybe = minecraft->viewEntityMaybe;
+	viewEntityMaybe = minecraft->viewEntity;
 	if((float)((float)((float)((float)(viewEntityMaybe->posY - y) * (float)(viewEntityMaybe->posY - y)) + (float)((float)(viewEntityMaybe->posX - x) * (float)(viewEntityMaybe->posX - x))) + (float)((float)(viewEntityMaybe->posZ - z) * (float)(viewEntityMaybe->posZ - z))) > 256.0) {
 		return 0;
 	} else {
@@ -1472,7 +1430,7 @@ void LevelRenderer::playSound(const std::string& a2, float x, float y, float z, 
 	if(a6 > 1.0) {
 		v12 = a6 * 16.0;
 	}
-	if(this->minecraft->viewEntityMaybe->distanceToSqr(x, y, z) < (float)(v12 * v12)) {
+	if(this->minecraft->viewEntity->distanceToSqr(x, y, z) < (float)(v12 * v12)) {
 		this->minecraft->soundEngine->play(a2, x, y, z, a6, a7);
 	}
 }

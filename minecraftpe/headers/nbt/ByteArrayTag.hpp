@@ -15,6 +15,11 @@ struct ByteArrayTag : public Tag{
 		this->value = arr;
 		this->count = length;
 	}
+	ByteArrayTag(const std::string& s)
+		: Tag(s) {
+		this->value = 0;
+		this->count = 0;
+	}
 	virtual void write(IDataOutput* out){
 		out->writeInt(this->count);
 		out->writeBytes(this->value, this->count);

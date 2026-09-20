@@ -183,7 +183,7 @@ void ChatScreen::init() {
 	((Touch::TButton*)this->closeButton)->init(this->minecraft);
 	this->buttons.push_back(this->closeButton);
 	this->buttons.push_back(this->field_60);
-	this->buttons.emplace_back(this->field_64);
+	this->buttons.push_back(this->field_64);
 
 	this->updateKeyboardVisibility();
 	this->field_84 = 0;

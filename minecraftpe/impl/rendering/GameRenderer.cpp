@@ -87,7 +87,7 @@ void GameRenderer::bobHurt(float a2) {
 	float v6;				 // r4
 	float v7;				 // s16
 
-	viewEntityMaybe = (Player*)this->minecraft->viewEntityMaybe;
+	viewEntityMaybe = (Player*)this->minecraft->viewEntity;
 	hurtTime = viewEntityMaybe->hurtTime;
 	if(viewEntityMaybe->health <= 0) {
 		glRotatef(40.0 - (float)(8000.0 / (float)((float)((float)viewEntityMaybe->deathTime + a2) + 200.0)), 0.0, 0.0, 1.0);
@@ -102,47 +102,32 @@ void GameRenderer::bobHurt(float a2) {
 	}
 }
 void GameRenderer::bobView(float a2) {
-	Player* viewEntityMaybe; // r3
-	float v5;				 // s16
-	float v6;				 // s17
-	GLfloat v7;				 // s19
-	float v8;				 // s18
-	float v9;				 // r0
-	float v10;				 // r0
-	float v11;				 // r0
-
-	if(this->minecraft->viewEntityMaybe->isPlayer()) {
-		viewEntityMaybe = (Player*)this->minecraft->viewEntityMaybe;
-		v5 = viewEntityMaybe->field_C74 + (float)((float)(viewEntityMaybe->field_C78 - viewEntityMaybe->field_C74) * a2);
-		v6 = -(float)((float)(viewEntityMaybe->field_BC + (float)((float)(viewEntityMaybe->field_BC - viewEntityMaybe->field_B8) * a2)) * 3.1416);
-		v7 = viewEntityMaybe->field_158 + (float)((float)(viewEntityMaybe->field_15C - viewEntityMaybe->field_158) * a2);
-		v8 = Mth::sin(v6);
-		v9 = Mth::cos(v6);
-		glTranslatef((float)(v8 * v5) * 0.5, -fabsf(v9 * v5), 0.0);
-		v10 = Mth::sin(v6);
-		glRotatef((float)(v10 * v5) * 3.0, 0.0, 0.0, 1.0);
-		v11 = Mth::cos(v6 - 0.2);
-		glRotatef(fabsf(v11 * v5) * 5.0, 1.0, 0.0, 0.0);
-		glRotatef(v7, 1.0, 0.0, 0.0);
+	if(this->minecraft->viewEntity->isPlayer()) {
+		Player* ve = (Player*)this->minecraft->viewEntity;
+		float v5 = ve->field_C74 + (float)((float)(ve->field_C78 - ve->field_C74) * a2);
+		float v6 = -(float)((float)(ve->field_BC + (float)((float)(ve->field_BC - ve->field_B8) * a2)) * 3.1416f);
+		float v7 = ve->field_158 + (float)((float)(ve->field_15C - ve->field_158) * a2);
+		glTranslatef((float)(Mth::sin(v6) * v5) * 0.5f, -fabsf(Mth::cos(v6) * v5), 0.0f);
+		glRotatef((float)(Mth::sin(v6) * v5) * 3.0f, 0.0f, 0.0f, 1.0f);
+		glRotatef(fabsf(Mth::cos(v6 - 0.2f) * v5) * 5.0f, 1.0f, 0.0f, 0.0f);
+		glRotatef(v7, 1.0f, 0.0f, 0.0f);
 	}
 }
 float GameRenderer::getFov(float a2, bool_t a3) {
 	float v4;			  // s16
-	Minecraft* minecraft; // r1
-	Mob* viewEntityMaybe; // r5
+	Mob* ve; // r5
 	float v8;			  // s14
 
-	v4 = 70.0;
-	minecraft = this->minecraft;
-	viewEntityMaybe = minecraft->viewEntityMaybe;
+	v4 = 70.0f;
+	ve = this->minecraft->viewEntity;
 	if(a3) {
 		v4 = (float)(this->field_5C + (float)((float)(this->field_58 - this->field_5C) * a2)) * 70.0;
 	}
-	if(viewEntityMaybe->isUnderLiquid(Material::water)) {
-		v4 = 60.0;
+	if(ve->isUnderLiquid(Material::water)) {
+		v4 = 60.0f;
 	}
-	if(viewEntityMaybe->health <= 0) {
-		v8 = 1.0 - (float)(500.0 / (float)((float)((float)viewEntityMaybe->deathTime + a2) + 500.0));
+	if(ve->health <= 0) {
+		v8 = 1.0 - (float)(500.0 / (float)((float)((float)ve->deathTime + a2) + 500.0));
 		v4 = v4 / (float)((float)(v8 + v8) + 1.0);
 	}
 	return (float)(v4 + this->field_64) + (float)((float)(this->field_60 - this->field_64) * a2);
@@ -192,7 +177,7 @@ void GameRenderer::moveCameraToPlayer(float a2) {
 	Minecraft* minecraft; // r3
 	Minecraft* v46;		  // r3
 
-	viewEntityMaybe = this->minecraft->viewEntityMaybe;
+	viewEntityMaybe = this->minecraft->viewEntity;
 	posX = viewEntityMaybe->posX;
 	prevX = viewEntityMaybe->prevX;
 	posY = viewEntityMaybe->posY;
@@ -290,8 +275,8 @@ LABEL_17:
 void GameRenderer::pick(float a2) {
 	if(this->minecraft) {
 		if(this->minecraft->levelRenderer) {
-			if(this->minecraft->viewEntityMaybe) {
-				if(this->minecraft->viewEntityMaybe->isAlive()) {
+			if(this->minecraft->viewEntity) {
+				if(this->minecraft->viewEntity->isAlive()) {
 					float v6 = this->minecraft->gameMode->getPickRange();
 					Vec3 v72(0, 0, 0);
 					bool updated;
@@ -303,23 +288,23 @@ void GameRenderer::pick(float a2) {
 							isLiquidClipItem = 0;
 						}
 						updated = 1;
-						this->minecraft->selectedObject = this->minecraft->viewEntityMaybe->pick(v6, a2, isLiquidClipItem);
-						this->viewVector = this->minecraft->viewEntityMaybe->getViewVector(a2);
+						this->minecraft->selectedObject = this->minecraft->viewEntity->pick(v6, a2, isLiquidClipItem);
+						this->viewVector = this->minecraft->viewEntity->getViewVector(a2);
 					} else {
 						updated = this->updateFreeformPickDirection(a2, v72, this->viewVector);
 					}
 
-					float minY = this->minecraft->viewEntityMaybe->boundingBox.minY;
-					float minZ = this->minecraft->viewEntityMaybe->boundingBox.minZ;
-					float maxX = this->minecraft->viewEntityMaybe->boundingBox.maxX;
-					float minX = this->minecraft->viewEntityMaybe->boundingBox.minX;
+					float minY = this->minecraft->viewEntity->boundingBox.minY;
+					float minZ = this->minecraft->viewEntity->boundingBox.minZ;
+					float maxX = this->minecraft->viewEntity->boundingBox.maxX;
+					float minX = this->minecraft->viewEntity->boundingBox.minX;
 					float v77 = minY;
 					float v78 = minZ;
 					float v79 = maxX;
-					float maxZ = this->minecraft->viewEntityMaybe->boundingBox.maxZ;
-					float maxY = this->minecraft->viewEntityMaybe->boundingBox.maxY;
+					float maxZ = this->minecraft->viewEntity->boundingBox.maxZ;
+					float maxY = this->minecraft->viewEntity->boundingBox.maxY;
 					float v81 = maxZ;
-					Vec3 mobpos = this->minecraft->viewEntityMaybe->getPos(a2);
+					Vec3 mobpos = this->minecraft->viewEntity->getPos(a2);
 
 					if(this->minecraft->options.thirdPerson) {
 						mobpos = v72;
@@ -363,7 +348,7 @@ void GameRenderer::pick(float a2) {
 					float v37 = v81;
 					bool v38 = v74.x < 0.0;
 					bool v39 = v74.x <= 0.0;
-					this->minecraft->viewEntityMaybe->field_174 = this->viewVector;
+					this->minecraft->viewEntity->field_174 = this->viewVector;
 					if(v38) {
 						v31 = v31 + x;
 					} else if(!v39) {
@@ -386,7 +371,7 @@ void GameRenderer::pick(float a2) {
 
 					float v42 = 0;
 					Entity* v43 = 0;
-					std::vector<Entity*>* ents = this->minecraft->level->getEntities(this->minecraft->viewEntityMaybe, AABB{v31 - 1, v32 - 1, v33 - 1, v34 + 1, v35 + 1, v37 + 1});
+					std::vector<Entity*>* ents = this->minecraft->level->getEntities(this->minecraft->viewEntity, AABB{v31 - 1, v32 - 1, v33 - 1, v34 + 1, v35 + 1, v37 + 1});
 					for(int v41 = 0; v41 < ents->size(); ++v41) {
 						Entity* v47 = ents->at(v41);
 						if(v47->isPickable()) {
@@ -586,7 +571,7 @@ void GameRenderer::renderItemInHand(float a2, int32_t a3) {
 	this->bobHurt(a2);
 	if(this->minecraft->options.viewBobbing) {
 		this->bobView(a2);
-		viewEntityMaybe = this->minecraft->viewEntityMaybe;
+		viewEntityMaybe = this->minecraft->viewEntity;
 		Vec3 v21(viewEntityMaybe->pitch + (float)((float)(viewEntityMaybe->pitch - viewEntityMaybe->prevPitch) * a2), viewEntityMaybe->yaw + (float)((float)(viewEntityMaybe->yaw - viewEntityMaybe->prevYaw) * a2), 0.0);
 		Vec3 v22(this->field_130 - v21.x, this->field_134 - v21.y, this->field_138 - v21.z);
 		Vec3 v23(v22.x * 0.5, v22.y * 0.5, v22.z * 0.5);
@@ -601,8 +586,8 @@ void GameRenderer::renderItemInHand(float a2, int32_t a3) {
 	}
 	minecraft = this->minecraft;
 	if(!minecraft->options.thirdPerson) {
-		if(minecraft->viewEntityMaybe->isPlayer()) {
-			if(!this->minecraft->viewEntityMaybe->isSleeping()) {
+		if(minecraft->viewEntity->isPlayer()) {
+			if(!this->minecraft->viewEntity->isSleeping()) {
 				v17 = this->minecraft;
 				if(!v17->options.hideGUI) {
 					fov = this->getFov(a2, 0);
@@ -632,8 +617,8 @@ void GameRenderer::renderItemInHand(float a2, int32_t a3) {
 	glPopMatrix();
 	v16 = this->minecraft;
 	if(!v16->options.thirdPerson) {
-		if(v16->viewEntityMaybe->isPlayer()) {
-			if(!this->minecraft->viewEntityMaybe->isSleeping()) {
+		if(v16->viewEntity->isPlayer()) {
+			if(!this->minecraft->viewEntity->isSleeping()) {
 				this->itemInHandRenderer->renderScreenEffect(a2);
 				this->bobHurt(a2);
 			}
@@ -659,16 +644,16 @@ void GameRenderer::renderLevel(float a2) {
 	LevelRenderer* a1;				// [sp+14h] [bp-52Ch]
 
 	minecraft = this->minecraft;
-	if(!minecraft->viewEntityMaybe) {
+	if(!minecraft->viewEntity) {
 		player = (Mob*)minecraft->player;
 		if(!player) {
 			return;
 		}
-		minecraft->viewEntityMaybe = player;
+		minecraft->viewEntity = player;
 	}
 	this->pick(a2);
 	v6 = this->minecraft;
-	viewEntityMaybe = v6->viewEntityMaybe;
+	viewEntityMaybe = v6->viewEntity;
 	levelRenderer = v6->levelRenderer;
 	particleEngine = v6->particleEngine;
 	v10 = viewEntityMaybe->prevPosX + (float)((float)(viewEntityMaybe->posX - viewEntityMaybe->prevPosX) * a2);
@@ -848,9 +833,9 @@ void GameRenderer::setupClearColor(float a2) {
 	minecraft = this->minecraft;
 	v5 = &this->field_84;
 	level = minecraft->level;
-	viewEntityMaybe = minecraft->viewEntityMaybe;
+	viewEntityMaybe = minecraft->viewEntity;
 	v8 = pow((float)(1.0 / (float)(4 - minecraft->options.renderDistance)), 0.25);
-	Color4 skyCol = level->getSkyColor(this->minecraft->viewEntityMaybe, a2);
+	Color4 skyCol = level->getSkyColor(this->minecraft->viewEntity, a2);
 	Color4 v31 = level->getSunriseColor(a2);
 	Color4 v29 = level->getFogColor(a2);
 	g = v29.g;
@@ -893,7 +878,7 @@ void GameRenderer::setupFog(int32_t a2) {
 	Color4* v5;			  // r1
 	float v6;			  // r1
 
-	viewEntityMaybe = this->minecraft->viewEntityMaybe;
+	viewEntityMaybe = this->minecraft->viewEntity;
 	if(a2) {
 		v5 = &this->field_84;
 	} else {
@@ -1017,12 +1002,12 @@ void GameRenderer::tick(int32_t a2, int32_t a3) {
 		this->field_64 = this->field_60;
 		this->field_70 = this->field_6C;
 		v13 = this->minecraft;
-		if(!v13->viewEntityMaybe) {
-			v13->viewEntityMaybe = (Mob*)v13->player;
+		if(!v13->viewEntity) {
+			v13->viewEntity = (Mob*)v13->player;
 		}
 		this->tickFov();
 		v14 = this->minecraft;
-		viewEntityMaybe = (Player*)v14->viewEntityMaybe;
+		viewEntityMaybe = (Player*)v14->viewEntity;
 		level = v14->level;
 		v17 = Mth::floor(viewEntityMaybe->posX);
 		v18 = Mth::floor(viewEntityMaybe->posY);
@@ -1040,7 +1025,7 @@ void GameRenderer::tickFov() {
 	Minecraft* minecraft; // r3
 
 	minecraft = this->minecraft;
-	if(minecraft->viewEntityMaybe == minecraft->player) {
+	if(minecraft->viewEntity == minecraft->player) {
 		this->field_5C = this->field_58;
 		this->field_58 = this->field_58 + (float)((float)(minecraft->player->getFieldOfViewModifier() - this->field_58) * 0.5);
 	}
@@ -1054,12 +1039,12 @@ void GameRenderer::zoomRegion(float a2, float a3, float a4){
 	this->field_54 = a4;
 }
 void GameRenderer::updateAllChunks() {
-	this->minecraft->levelRenderer->updateDirtyChunks(this->minecraft->viewEntityMaybe, 1);
+	this->minecraft->levelRenderer->updateDirtyChunks(this->minecraft->viewEntity, 1);
 }
 bool_t GameRenderer::updateFreeformPickDirection(float a2, struct Vec3& a3, struct Vec3& a4) {
 	if(this->minecraft->inputHolder->allowPicking()) {
 		float v8 = 12;
-		Vec3 v37 = this->minecraft->viewEntityMaybe->getPos(a2);
+		Vec3 v37 = this->minecraft->viewEntity->getPos(a2);
 		float x = v37.x;
 		float y = v37.y;
 		float z = v37.z;
@@ -1096,7 +1081,7 @@ bool_t GameRenderer::updateFreeformPickDirection(float a2, struct Vec3& a3, stru
 			HitResult a1 = this->minecraft->level->clip(v40, v42, a5, 0);
 
 			this->minecraft->selectedObject = a1;
-			if(this->minecraft->options.thirdPerson && this->minecraft->selectedObject.hitType != 2 && this->minecraft->viewEntityMaybe->distanceToSqr(this->minecraft->selectedObject.field_4, this->minecraft->selectedObject.field_8, this->minecraft->selectedObject.field_C) > v8 * v8) {
+			if(this->minecraft->options.thirdPerson && this->minecraft->selectedObject.hitType != 2 && this->minecraft->viewEntity->distanceToSqr(this->minecraft->selectedObject.x, this->minecraft->selectedObject.y, this->minecraft->selectedObject.z) > v8 * v8) {
 				this->minecraft->selectedObject.hitType = 2;
 			}
 			return 1;

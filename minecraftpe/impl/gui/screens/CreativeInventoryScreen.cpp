@@ -304,9 +304,9 @@ void CreativeInventoryScreen::init()
 	this->field_60 = std::shared_ptr<ImageWithBackground>(v5);
 	this->field_A4 = this->field_98[0].field_4.get();
 	for(auto p: this->field_98) {
-		this->buttons.emplace_back(p.field_4.get());
+		this->buttons.push_back(p.field_4.get());
 	}
-	this->buttons.emplace_back(this->field_60.get());
+	this->buttons.push_back(this->field_60.get());
 	this->field_BC = 1;
 }
 void CreativeInventoryScreen::setupPositions()

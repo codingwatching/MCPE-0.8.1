@@ -129,7 +129,7 @@ void Recipes::addShapedRecipe(const std::vector<ItemInstance>& results, const st
 		}
 
 		int32_t v10 = 0;
-		std::map<char_t, ItemInstance> v43;
+		std::map<char, ItemInstance> v43;
 		while(1) {
 			if(v10 >= ingridients.size()) {
 				int32_t v20 = v8 * v9;
@@ -146,11 +146,11 @@ void Recipes::addShapedRecipe(const std::vector<ItemInstance>& results, const st
 			}
 			const Recipes::Type* v11 = &ingridients[v10];
 			if(v11->item) {
-				v43.insert({v11->chr, ItemInstance(v11->item)});
+				v43.insert(std::pair<char, ItemInstance>(v11->chr, ItemInstance(v11->item)));
 			} else if(v11->tile) {
-				v43.insert({v11->chr, ItemInstance(v11->tile, 1, -1)});
+				v43.insert(std::pair<char, ItemInstance>(v11->chr, ItemInstance(v11->tile, 1, -1)));
 			} else if(!v11->itemInstance.isNull()) {
-				v43.insert({v11->chr, ItemInstance(v11->itemInstance)});
+				v43.insert(std::pair<char, ItemInstance>(v11->chr, ItemInstance(v11->itemInstance)));
 			}
 			++v10;
 		}

@@ -13,7 +13,6 @@ struct DataItem;
 struct AddPlayerPacket : Packet{
 	int32_t field_C;
 	RakNet::RakNetGUID clientId;
-	int32_t field_1C;
 	RakNet::RakString username;
 	int32_t eid;
 	float x, y, z, pitch, yaw;
@@ -24,9 +23,7 @@ struct AddPlayerPacket : Packet{
 	AddPlayerPacket() {
 		this->dataToSend = 0;
 	}
-	AddPlayerPacket(const Player* a2) {
-		this->clientId = a2->rakNetGUID;
-		this->field_1C = a2->field_CA0;
+	AddPlayerPacket(const Player* a2) : clientId(a2->rakNetGUID) {
 		this->eid = a2->entityId;
 		this->x = a2->posX;
 		this->y = a2->posY - a2->ridingHeight;

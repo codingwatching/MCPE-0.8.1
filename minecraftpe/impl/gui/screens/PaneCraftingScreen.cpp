@@ -133,7 +133,7 @@ void PaneCraftingScreen::initCategories() {
 	for(int i = 0; i < this->field_194; ++i) {
 		ImageButton* v8 = new CategoryButton(i + 100, this->field_1B8, this->field_1BC, &this->field_1B0);
 		this->field_54.push_back(v8);
-		this->buttons.emplace_back(v8);
+		this->buttons.push_back(v8);
 	}
 
 	std::vector<Recipe*>* vec = Recipes::getInstance()->getRecipes();
@@ -310,8 +310,8 @@ void PaneCraftingScreen::init() {
 	this->closeButton.setImageDef(a2, 1);
 	this->closeButton.field_64 = 0;
 	this->craftButton.init(this->minecraft->texturesPtr);
-	this->buttons.emplace_back(&this->craftButton);
-	this->buttons.emplace_back(&this->closeButton);
+	this->buttons.push_back(&this->craftButton);
+	this->buttons.push_back(&this->closeButton);
 	NinePatchFactory a1(this->minecraft->texturesPtr, "gui/spritesheet.png");
 	this->field_1B4 = a1.createSymmetrical({0, 0, 16, 16}, 4, 4, 32, 32);
 	_D6E06298 = a1.createSymmetrical({0, 20, 8, 8}, 1, 2, 32, 32)->setExcluded(16);

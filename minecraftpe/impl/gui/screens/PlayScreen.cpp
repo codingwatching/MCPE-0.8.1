@@ -140,11 +140,11 @@ void PlayScreen::joinMCOServer(MCOServerListItem) {
 }
 void PlayScreen::resetBaseButtons() {
 	this->buttons.clear();
-	this->buttons.emplace_back(this->header);
-	this->buttons.emplace_back(this->backButton);
-	this->buttons.emplace_back(this->newButton);
-	this->buttons.emplace_back(this->editButton);
-	this->buttons.emplace_back(this->externalButton);
+	this->buttons.push_back(this->header);
+	this->buttons.push_back(this->backButton);
+	this->buttons.push_back(this->newButton);
+	this->buttons.push_back(this->editButton);
+	this->buttons.push_back(this->externalButton);
 }
 void PlayScreen::resetCurrentlyWaitingMCOCancelButton(void) {
 	if(this->field_B4) {

@@ -267,7 +267,7 @@ void ArmorScreen::init() {
 	this->field_178[2] = &this->field_118;
 	this->field_178[3] = &this->field_148;
 	for(int32_t i = 0; i != 4; ++i) {
-		this->buttons.emplace_back(this->field_178[i]);
+		this->buttons.push_back(this->field_178[i]);
 	}
 	NinePatchFactory npf(this->minecraft->texturesPtr, "gui/spritesheet.png");
 	this->field_1F0 = npf.createSymmetrical({0, 0, 16, 16}, 4, 4, 32, 32);

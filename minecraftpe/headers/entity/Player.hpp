@@ -23,7 +23,6 @@ struct Player : Mob{
 	struct BaseContainerMenu* currentContainer;
 	int8_t field_C90, field_C91, field_C92, field_C93;
 	RakNet::RakNetGUID rakNetGUID;
-	int32_t field_CA0; //XXX might be a part of rakNetGUID
 	std::string field_CA4;
 	int32_t field_CA8;
 	int32_t field_CAC;

@@ -5,10 +5,13 @@
 #include <sstream>
 
 struct ShortTag : public Tag{
-	int16_t value;
+	int value;
 
 	ShortTag(const std::string& s, int16_t v) : Tag(s){
 		this->value = v;
+	}
+	ShortTag(const std::string& s)
+		: Tag(s) {
 	}
 	virtual void write(IDataOutput* out) {
 		out->writeShort(this->value);
