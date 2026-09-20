@@ -5,7 +5,7 @@
 #include <sstream>
 
 struct ShortTag : public Tag{
-	int value;
+	int16_t value;
 
 	ShortTag(const std::string& s, int16_t v) : Tag(s){
 		this->value = v;

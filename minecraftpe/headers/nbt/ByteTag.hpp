@@ -5,7 +5,7 @@
 #include <util/output/IDataOutput.hpp>
 
 struct ByteTag : public Tag{
-	int value; //it seems to use 32bit assign when constructing it in Tag::newTag - so it is 32bit for some reason?
+	int8_t value;
 
 	ByteTag(const std::string& s, int8_t v) : Tag(s){
 		this->value = v;
