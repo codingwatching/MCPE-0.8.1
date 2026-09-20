@@ -10,7 +10,7 @@
 #include <gui/screens/ManageMCOServerScreen.hpp>
 
 
-MCOServerListItemElement::MCOServerListItemElement(Minecraft* mc, struct MCOServerListItem& item, bool_t a4, std::function<void(MCOServerListItem&, bool_t)> func)
+MCOServerListItemElement::MCOServerListItemElement(Minecraft* mc, const MCOServerListItem& item, bool_t a4, std::function<void(MCOServerListItem&, bool_t)> func)
 	: GuiElement(1, 1, 0, 0, 24, 24)
 	, field_2C(0) {
 	this->field_30 = item;

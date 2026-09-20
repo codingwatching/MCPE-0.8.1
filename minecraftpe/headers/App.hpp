@@ -4,8 +4,8 @@
 
 struct App : AppPlatform::Listener{
 
-	char field_4;
-	bool_t wantsToQuit;
+	bool initialized;
+	bool wantsToQuit;
 	char field_2, field_3;
 	AppContext context;
 	int8_t field_18, field_19, field_1A, field_1B;
@@ -16,6 +16,7 @@ struct App : AppPlatform::Listener{
 	void init(AppContext& ctx){
 		this->context = ctx;
 		this->init();
+		this->initialized = 1;
 		this->platform()->addListener(this, 0); //XXX not like in vanilla ?
 	}
 

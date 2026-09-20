@@ -171,6 +171,6 @@ struct AppPlatform{
 		}
 	}
 	void addListener(AppPlatform::Listener* a2, float a3) {
-		this->listeners.insert({a3, a2}); //TODO check
+		this->listeners.insert(std::pair<float, AppPlatform::Listener*>(a3, a2));
 	}
 };

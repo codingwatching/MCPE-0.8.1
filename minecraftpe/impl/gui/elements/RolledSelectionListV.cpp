@@ -291,9 +291,6 @@ float RolledSelectionListV::getPos(float a2) {
 void RolledSelectionListV::touched() {
 }
 
-void RolledSelectionListV::renderDecoration(int32_t, int32_t) {
-}
-
 void RolledSelectionListV::onPreRender() {
 }
 void RolledSelectionListV::onPostRender() {

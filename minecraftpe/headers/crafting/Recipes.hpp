@@ -52,8 +52,8 @@ struct Recipes
 	void addShapedRecipe(const ItemInstance&, const std::string&, const std::string&, const std::string&, const std::vector<Recipes::Type>&);
 	void addShapedRecipe(const ItemInstance&, const std::string&, const std::string&, const std::vector<Recipes::Type>&);
 	void addShapedRecipe(const ItemInstance&, const std::string&, const std::vector<Recipes::Type>&);
-	void addShapedRecipe(const ItemInstance&, const std::vector<std::string>, const std::vector<Recipes::Type>&); //TODO last arg type might be slightly different
-	void addShapedRecipe(const std::vector<ItemInstance>&, const std::vector<std::string, std::allocator<std::string>>, const std::vector<Recipes::Type>&); //TODO check signature
+	void addShapedRecipe(const ItemInstance&, const std::vector<std::string>&, const std::vector<Recipes::Type>&);
+	void addShapedRecipe(const std::vector<ItemInstance>&, const std::vector<std::string>&, const std::vector<Recipes::Type>&);
 	void addShapelessRecipe(const ItemInstance&, const std::vector<Recipes::Type>&);
 	static Recipes* getInstance();
 	Recipe* getRecipeFor(const ItemInstance&);

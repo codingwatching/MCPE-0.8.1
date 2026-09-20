@@ -93,7 +93,7 @@ void LoginOption::mouseReleased(Minecraft* mc, int32_t a3, int32_t a4, int32_t a
 				std::shared_ptr<LoginInformation> v19 = mc->mojangConnector->getLoginInformation();
 				std::string body = MCOStringify::stringifySignOut(v19->accessToken, v19->clientId);
 				std::shared_ptr<RestRequestJob> v20 = RestRequestJob::CreateJob(RRT_POST, mc->mojangConnector->getAccountService(), mc);
-				v20->field_30 = Util::simpleFormat("/invalidate", {});
+				v20->url = Util::simpleFormat("/invalidate", {});
 				v20->setBody(body);
 				RestRequestJob::launchRequest( //TODO check is this stuff corrent, std is pain
 					v20,

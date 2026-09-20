@@ -23,12 +23,11 @@ std::shared_ptr<RestRequestJob> RestRequestJob::CreateJob(RestRequestType a2, st
 }
 
 RestRequestJob::RestRequestJob(){
-	this->field_4 = 0;
 	this->status = JS_0;
 }
 void RestRequestJob::launchRequest(std::shared_ptr<RestRequestJob> a1, std::shared_ptr<ThreadCollection> a2, std::function<void(int32_t, const std::string&, const RestCallTagData&, std::shared_ptr<RestRequestJob>)> a3, std::function<void(bool, bool, int32_t, const std::string&, const RestCallTagData&, std::shared_ptr<RestRequestJob>)> a4) {
-	a1->field_10 = a3;
-	a1->field_20 = a4;
+	a1->onFinish = a3;
+	a1->onError = a4;
 	Job::addToThreadCollection(a1, *a2.get());
 }
 void RestRequestJob::setBody(const std::string& a2) {
@@ -50,8 +49,9 @@ void RestRequestJob::run() {
 	nanosleep(&t, 0);
 	this->trySetStatus(JS_FINISHED);
 }
-void RestRequestJob::finish(){
-	//copyRawCharArrayInside(&v6, "Yey"); Nay
-	printf("RestRequestJob::finish - not implemented\n"); //TODO
-
+void RestRequestJob::finish() {
+	JobStatus status = this->status;
+	std::unique_lock<std::mutex> l;
+	if(status == JS_STOPPED) return;
+	this->onFinish(200, "Yey", RestCallTagData(), this->field_8.lock());
 }

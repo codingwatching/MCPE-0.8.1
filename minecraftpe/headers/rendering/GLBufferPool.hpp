@@ -1,14 +1,14 @@
 #pragma once
 #include <_types.h>
-#include <set>
-#include <deque>
+#include <unordered_set>
+#include <queue>
 #include <unigl.hpp>
 
 extern struct GLBufferPool glBufferPool;
 
 struct GLBufferPool{
-	std::set<uint32_t> usedBuffers;
-	std::deque<uint32_t> unusedBuffers;
+	std::unordered_set<uint32_t> usedBuffers;
+	std::queue<uint32_t> unusedBuffers;
 	int reserveCnt;
 
 	GLBufferPool(unsigned int reserveCnt) {
@@ -20,7 +20,7 @@ struct GLBufferPool{
 				unsigned int bf;
 				glGenBuffers(1, &bf);
 				if(glGetError()) break;
-				this->unusedBuffers.push_back(bf);
+				this->unusedBuffers.push(bf);
 			}
 		}
 
@@ -29,13 +29,13 @@ struct GLBufferPool{
 		}
 
 		uint32_t bf = this->unusedBuffers.front();
-		this->unusedBuffers.pop_front();
+		this->unusedBuffers.pop();
 		this->usedBuffers.insert(bf);
 		return bf;
 	}
 	void release(uint32_t n){
 		uint32_t v4;
-		this->unusedBuffers.push_back(n);
+		this->unusedBuffers.push(n);
 		this->usedBuffers.erase(v4);
 	}
 	bool_t trim(void){
@@ -45,7 +45,7 @@ struct GLBufferPool{
 		}
 		while(!this->unusedBuffers.empty()) {
 			glDeleteBuffers(1, &this->unusedBuffers.front());
-			this->unusedBuffers.pop_front();
+			this->unusedBuffers.pop();
 		}
 		return 1;
 	}

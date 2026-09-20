@@ -7,7 +7,13 @@
 #include <level/LightLayer.hpp>
 
 struct TopSnowTile : Tile{
-	TopSnowTile(int32_t, const std::string&, Material*);
+	TopSnowTile(int32_t id, const std::string& name, Material* mat) :
+			Tile(id, name, mat) {
+		this->setShape(0, 0, 0, 1, 0.125, 1);
+		this->setTicking(1);
+		this->replaceable = 1;
+		this->field_5C = 255;
+	}
 	bool_t checkCanSurvive(Level* level, int32_t x, int32_t y, int32_t z) {
 		int32_t v10; // r0
 		if (this->mayPlace(level, x, y, z)) return 1;

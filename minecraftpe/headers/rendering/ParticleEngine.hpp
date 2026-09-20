@@ -1,6 +1,6 @@
 #pragma once
 #include <_types.h>
-#include <deque>
+#include <stack>
 #include <util/Random.hpp>
 #include <unordered_map>
 #include <string>
@@ -13,7 +13,7 @@ struct Textures;
 struct Entity;
 struct ParticleEngine
 {
-	std::deque<Particle*> particlesToReuse[16];
+	std::stack<Particle*> particlesToReuse[16];
 	Level* level;
 	int8_t field_284, field_285, field_286, field_287;
 	int8_t field_288, field_289, field_28A, field_28B;

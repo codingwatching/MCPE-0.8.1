@@ -114,7 +114,7 @@ bool_t Level::addEntity(struct Entity* e) {
 	chunk = this->getChunk(v4, v5);
 	chunk->addEntity(a2);
 	this->entities.push_back(a2);
-	this->eid2entity.insert(std::move<std::pair<int, Entity*>>({a2->entityId, a2}));
+	this->eid2entity.insert(std::pair<int, Entity*>(a2->entityId, a2));
 	v12 = a2;
 	this->entityAdded(v12);
 	return 1;

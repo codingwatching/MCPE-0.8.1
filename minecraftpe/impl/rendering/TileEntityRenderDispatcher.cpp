@@ -11,8 +11,8 @@
 TileEntityRenderDispatcher::TileEntityRenderDispatcher() {
 	this->textures = 0;
 	this->level = 0; //TODO this thing is not here
-	this->renderers.insert({TER_CHEST, new ChestRenderer()});
-	this->renderers.insert({TER_SIGN, new SignRenderer()});
+	this->renderers.insert(std::pair<TileEntityRendererId, ChestRenderer*>(TER_CHEST, new ChestRenderer()));
+	this->renderers.insert(std::pair<TileEntityRendererId, SignRenderer*>(TER_SIGN, new SignRenderer()));
 	for(auto& r: this->renderers) {
 		r.second->init(this);
 	}

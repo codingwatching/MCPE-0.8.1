@@ -10,7 +10,11 @@ struct PaintingRenderer: EntityRenderer, AppPlatform::Listener
 	std::unordered_map<const Motive*, MeshBuffer> motives;
 	int32_t field_20, field_24;
 
-	//TODO constructor
+	PaintingRenderer()
+		: EntityRenderer() {
+		AppPlatform::_singleton->addListener(this, 1.0f);
+	}
+
 	MeshBuffer _buildPainting(int32_t, int32_t, int32_t, int32_t);
 	MeshBuffer* _getMesh(const Motive*);
 

@@ -146,7 +146,7 @@ void PlayScreen::resetBaseButtons() {
 	this->buttons.push_back(this->editButton);
 	this->buttons.push_back(this->externalButton);
 }
-void PlayScreen::resetCurrentlyWaitingMCOCancelButton(void) {
+void PlayScreen::resetCurrentWaitingMCOCancelButton(void) {
 	if(this->field_B4) {
 		Button** but = std::find(this->buttons.data(), this->buttons.data() + this->buttons.size(), this->field_B4);
 		if(but != (this->buttons.data() + this->buttons.size())) {

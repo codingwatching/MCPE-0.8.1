@@ -551,7 +551,7 @@ struct LevelChunk* RandomLevelSource::getChunk(int32_t chunkX, int32_t chunkZ) {
 	this->random.setSeed(132899541 * chunkZ + 341872712 * chunkX);
 	chunkData = new uint8_t[0x8000u];
 	chunk = new LevelChunk(this->level, chunkData, chunkX, chunkZ);
-	this->field_19E0.insert({v9, chunk});
+	this->field_19E0.insert(std::pair<int, LevelChunk*>(v9, chunk));
 
 	v16 = this->level->getBiomeSource()->getBiomeBlock(16 * chunkX, 16 * chunkZ, 16, 16);
 	this->prepareHeights(chunkX, chunkZ, chunkData, 0, this->level->getBiomeSource()->rainfallNoises);

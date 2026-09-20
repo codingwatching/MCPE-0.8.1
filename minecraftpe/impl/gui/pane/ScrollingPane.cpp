@@ -3,15 +3,6 @@
 #include <cpputils.hpp>
 #include <input/Mouse.hpp>
 #include <string.h>
-ScrollingPane::GridItem::GridItem() {
-}
-ScrollingPane::GridItem::GridItem(int32_t f0, int32_t f4, int32_t f8, float fc, float f10) {
-	this->field_0 = f0;
-	this->field_4 = f4;
-	this->field_8 = f8;
-	this->field_C = fc;
-	this->field_10 = f10;
-}
 
 ScrollingPane::ScrollingPane(int32_t a2, const IntRectangle& a3, const IntRectangle& a4, int32_t a5, int32_t a6, float a7, const IntRectangle& a8)
 	: GuiComponent()

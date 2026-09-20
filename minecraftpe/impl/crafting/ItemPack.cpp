@@ -5,7 +5,7 @@
 void ItemPack::add(int32_t id, int32_t cnt) {
 	auto&& p = this->items.find(id);
 	if(p == this->items.end()) {
-		this->items.insert({id, cnt});
+		this->items.insert(std::pair<int, int>(id, cnt));
 	} else {
 		p->second += cnt;
 	}

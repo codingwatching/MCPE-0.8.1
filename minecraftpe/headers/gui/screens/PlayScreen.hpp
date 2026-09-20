@@ -60,7 +60,7 @@ struct PlayScreen: Screen
 	bool_t isLocalPlayScreen();
 	void joinMCOServer(MCOServerListItem);
 	void resetBaseButtons();
-	void resetCurrentlyWaitingMCOCancelButton(void);
+	void resetCurrentWaitingMCOCancelButton(void);
 	void setMainPanel(PlayScreenPanel);
 	void setPlayScreenSate(PlayScreenState, bool_t);
 	void setPlayScreenStateSetting(PlayScreenState, bool_t, bool_t, bool_t, bool_t, bool_t, bool_t, PlayScreenPanel, const std::string&);

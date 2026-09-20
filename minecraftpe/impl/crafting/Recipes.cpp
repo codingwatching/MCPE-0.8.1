@@ -114,12 +114,12 @@ void Recipes::addShapedRecipe(const ItemInstance& a2, const std::string& a3, con
 void Recipes::addShapedRecipe(const ItemInstance& a2, const std::string& a3, const std::vector<Recipes::Type>& a4) {
 	this->addShapedRecipe(a2, Recipes::Shape(a3), a4);
 }
-void Recipes::addShapedRecipe(const ItemInstance& a2, const std::vector<std::string> a3, const std::vector<Recipes::Type>& a4) { //TODO last arg type might be slightly different
+void Recipes::addShapedRecipe(const ItemInstance& a2, const std::vector<std::string>& a3, const std::vector<Recipes::Type>& a4) {
 	std::vector<ItemInstance> v7;
 	v7.emplace_back(ItemInstance(a2));
 	this->addShapedRecipe(v7, a3, a4); //TODO check
 }
-void Recipes::addShapedRecipe(const std::vector<ItemInstance>& results, const std::vector<std::string, std::allocator<std::string>> shape, const std::vector<Recipes::Type>& ingridients) { //TODO check signature
+void Recipes::addShapedRecipe(const std::vector<ItemInstance>& results, const std::vector<std::string>& shape, const std::vector<Recipes::Type>& ingridients) {
 	if(shape.begin() != shape.end()) {
 		std::string v39 = "";
 		int32_t v8 = shape.size();

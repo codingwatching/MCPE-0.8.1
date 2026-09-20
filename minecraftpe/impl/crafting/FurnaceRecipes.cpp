@@ -22,7 +22,7 @@ FurnaceRecipes::FurnaceRecipes() {
 	this->addFurnaceRecipe(Item::potato->itemID, ItemInstance(Item::potatoBaked));
 }
 void FurnaceRecipes::addFurnaceRecipe(int32_t a2, const ItemInstance& a3) {
-	this->recipes.insert({a2, ItemInstance(a3)});
+	this->recipes.insert(std::pair<int, ItemInstance>(a2, ItemInstance(a3)));
 }
 FurnaceRecipes* FurnaceRecipes::getInstance() {
 	if(!FurnaceRecipes::instance) {

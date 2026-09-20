@@ -14,8 +14,15 @@ struct ScrollingPane: GuiComponent
 		int32_t field_0, field_4, field_8;
 		float field_C, field_10;
 		bool_t field_14, field_15, field_16, field_17;
-		GridItem();
-		GridItem(int32_t f0, int32_t f4, int32_t f8, float fc, float f10);
+		GridItem() {
+		}
+		GridItem(int32_t f0, int32_t f4, int32_t f8, float fc, float f10) {
+			this->field_0 = f0;
+			this->field_4 = f4;
+			this->field_8 = f8;
+			this->field_C = fc;
+			this->field_10 = f10;
+		}
 	};
 
 	int32_t field_4, field_8, field_C, field_10, field_14, field_18;

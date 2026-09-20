@@ -118,7 +118,7 @@ void MojangConnector::setStatus(MojangConnectionStatus status) {
 	if(status != this->status) {
 		if(status == STATUS_2) {
 			std::shared_ptr<RestRequestJob> v8 = RestRequestJob::CreateJob(RRT_GET, this->getMCOService(), this->minecraft);
-			v8->field_30 = Util::simpleFormat("/info/status", {});
+			v8->url = Util::simpleFormat("/info/status", {});
 			RestRequestJob::launchRequest(
 				v8,
 				this->getThreadCollection(),
@@ -147,6 +147,24 @@ void MojangConnector::updateUIThread() const{
 	this->threadCollection->processUIThread();
 }
 std::string MojangConnector::urlEncode(std::string a2) const{
-	printf("MojangConnector::urlEncode(%s) - not implemented\n", a2.c_str()); //TODO
+	char* v5 = new char[3 * a2.length() + 1];
+	char* v6 = v5;
+	const char* s = a2.c_str();
+	char c;
+	while((c = *(s++))) {
+		if(std::isalnum(c) || c == '-' || c == '_' || c == '.' || c == '~') {
+			*(v6++) = c;
+		} else if(c == ' ') {
+			*(v6++) = '+';
+		} else {
+			*v6 = '%';
+			v6[1] = "0123456789abcdef"[((unsigned char)c) >> 4];
+			v6[2] = "0123456789abcdef"[c & 0xf];
+			v6 += 3;
+		}
+	}
+	*v6 = 0;
+	std::string r = v5;
+	if(v5) delete[] v5;
 	return "";
 }

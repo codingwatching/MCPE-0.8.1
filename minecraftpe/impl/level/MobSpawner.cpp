@@ -154,7 +154,7 @@ bool_t MobSpawner::tick(Level* level, bool_t hostiles, bool_t animals) {
 		if(animals) {
 			int v5 = 0;
 			do {
-				MobSpawner::chunksToPoll.insert({ChunkPos{v5 >> 4, (v5 & 0xf)}, 0});
+				MobSpawner::chunksToPoll.insert(std::pair<ChunkPos, bool>(ChunkPos{v5 >> 4, (v5 & 0xf)}, 0));
 				++v5;
 			} while(v5 != 256);
 			hostiles = 0;
@@ -180,7 +180,7 @@ bool_t MobSpawner::tick(Level* level, bool_t hostiles, bool_t animals) {
 					int v16 = v13 - 8;
 					do {
 						if((unsigned int)(i + v11) <= 0xF && v16 >= 0 && v16 <= 15) {
-							MobSpawner::chunksToPoll.insert({{i + v11, v16}, 0});
+							MobSpawner::chunksToPoll.insert(std::pair<ChunkPos, bool>({i + v11, v16}, 0));
 						}
 						++v15;
 						++v16;
@@ -295,7 +295,6 @@ LABEL_54:
 					}
 					if ( !--v45 || v41 > v40 )
 					{
-						//goto LABEL_54;
 						if(!--v44) {
 							goto LABEL_56;
 						}

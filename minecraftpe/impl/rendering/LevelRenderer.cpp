@@ -369,9 +369,9 @@ void LevelRenderer::cullAndSort(FrustumCuller* a2, float a3, float a4) {
 
 			float v21 = (float)((float)((float)(v39.y + v39.y) * (float)(v39.y + v39.y)) + (float)(v39.x * v39.x)) + (float)(v39.z * v39.z);
 			if(v21 >= (float)(v17 * 0.5)) {
-				this->farChunks.insert({v21, v19});
+				this->farChunks.insert(std::pair<float, RenderChunk*>(v21, v19));
 			} else {
-				this->nearChunks.insert({v21, v19});
+				this->nearChunks.insert(std::pair<float, RenderChunk*>(v21, v19));
 			}
 		}
 	}

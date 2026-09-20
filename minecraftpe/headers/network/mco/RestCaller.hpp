@@ -14,7 +14,7 @@ struct RestCaller
 	CMutex* mutex;
 	std::string field_8;
 	MCOConnector* connector;
-	std::string key, sidOrUser2, sidOrUser1;
+	std::string key, user, sid;
 
 	RestCaller(MCOConnector*, const std::string&);
 	void addToCookieData(std::string&, const std::string&, const std::string&);
@@ -32,9 +32,8 @@ struct RestCaller
 
 	virtual ~RestCaller();
 	virtual void requestStop() = 0;
-	virtual void urlEscape(const std::string&);
+	virtual std::string urlEscape(const std::string&);
 	virtual void update() {
-		printf("RestCaller::update - not implemented\n");
 	}
 	virtual void makeRequest(RestCallerObject*) = 0;
 

@@ -23,7 +23,7 @@ struct MCOServerListItemElement: GuiElement
 	int8_t field_90, field_91, field_92, field_93;
 	int32_t field_94;
 
-	MCOServerListItemElement(Minecraft*, struct MCOServerListItem&, bool_t, std::function<void (MCOServerListItem&, bool_t)>);
+	MCOServerListItemElement(Minecraft*, const MCOServerListItem&, bool_t, std::function<void (MCOServerListItem&, bool_t)>);
 
 	virtual ~MCOServerListItemElement();
 	virtual void tick(Minecraft*);

@@ -5,12 +5,6 @@
 #include <network/PingedCompatibleServer.hpp>
 #include <rendering/Textures.hpp>
 
-Touch::AvailableGamesList::AvailableGamesList(Minecraft* mc, int32_t w, int32_t h)
-	: RolledSelectionListV(mc, w, h, 0, w, 24, h, 34) {
-	this->field_6C = -1;
-	this->selectedItem = -1;
-}
-
 void Touch::AvailableGamesList::selectStart(int32_t a2) {
 	this->field_6C = a2;
 }

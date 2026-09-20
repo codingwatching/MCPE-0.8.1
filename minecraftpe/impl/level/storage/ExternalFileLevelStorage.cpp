@@ -485,12 +485,12 @@ void ExternalFileLevelStorage::tick() {
 						for(auto&& el: this->field_2C) {
 							if(el.index == (x + 16 * z)) {
 								el.timeMs = RakNet::GetTimeMS();
-								goto LABEL_12;
+								chunk->unsaved = 0;
+								continue;
 							}
 						}
-
-						this->field_2C.push_back({x + 16 * z, (int32_t)RakNet::GetTimeMS(), chunk});
-LABEL_12:
+						UnsavedLevelChunk cnk(x + 16 * z, (int32_t)RakNet::GetTimeMS(), chunk);
+						this->field_2C.push_back(cnk);
 						chunk->unsaved = 0;
 					}
 				}

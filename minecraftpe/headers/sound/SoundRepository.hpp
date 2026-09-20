@@ -20,7 +20,7 @@ struct SoundRepository{
 			if (p == this->sounds.end()) {
 				std::vector<SoundDesc> v11;
 				v11.push_back(a3);
-				this->sounds.insert( { a2, v11 });
+				this->sounds.insert(std::pair<std::string, std::vector<SoundDesc>>(a2, v11));
 			} else {
 				p->second.push_back(a3);
 			}

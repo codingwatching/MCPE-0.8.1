@@ -52,6 +52,9 @@
 #include <level/Level.hpp>
 #include <network/mco/RestCallTagData.hpp>
 #include <network/packet/AddPlayerPacket.hpp>
+#include <network/mco/MojangConnector.hpp>
+#include <algorithm>
+#include <mutex>
 
 ServerSideNetworkHandler::ServerSideNetworkHandler(Minecraft* a2, IRakNetInstance* a3) {
 	this->minecraft = a2;
@@ -215,9 +218,40 @@ void ServerSideNetworkHandler::sendLoginMessageLocal(int32_t a2, const RakNet::R
 		this->sendWorldSeed(this->createNewPlayer(a3, a4), a3);
 	}
 }
-void ServerSideNetworkHandler::sendLoginMessageMCO(int32_t, const RakNet::RakNetGUID&, LoginPacket*) {
-	printf("ServerSideNetworkHandler::sendLoginMessageMCO - not implemented\n"); //TODO implement
-	//unused?
+void ServerSideNetworkHandler::sendLoginMessageMCO(int32_t a2, const RakNet::RakNetGUID& a3, LoginPacket* a4) {
+	if(a2){
+		RakNet::BitStream v26;
+		LoginStatusPacket(a2).write(&v26);
+		this->rakPeer->Send(&v26, PacketPriority::HIGH_PRIORITY, PacketReliability::RELIABLE_ORDERED, 0, RakNet::AddressOrGUID(a3), 0, 0);
+	}else{
+		this->createNewPlayer(a3, a4);
+		std::shared_ptr<RestRequestJob> v21 = RestRequestJob::CreateJob(RRT_GET, this->minecraft->mojangConnector->getMCOService(), this->minecraft);
+		v21->setTagData(RestCallTagData(a3.g));
+
+		{
+			std::string v19 = this->minecraft->mojangConnector->urlEncode(a4->data.C_String());
+			RakNet::RakString v20(a4->username);
+			std::vector<std::string> v23;
+			ParameterStringify::stringifyNext(v23, v20, v19);
+			v21->url = Util::simpleFormat("/auth/validate-player/%/%", v23);
+		}
+
+		RestRequestJob::launchRequest(
+			v21,
+			this->minecraft->mojangConnector->getThreadCollection(),
+			[this](int32_t a2, const std::string& a3, const RestCallTagData& a4, std::shared_ptr<RestRequestJob> a5) {
+				std::unique_lock<std::mutex> v9;
+				std::remove(this->field_18.begin(), this->field_18.end(), a5);
+				this->onPlayerVerified(a4);
+			},
+			[this](bool, bool, int32_t a2, const std::string& a3, const RestCallTagData& a4, std::shared_ptr<RestRequestJob> a5) {
+				std::unique_lock<std::mutex> v9;
+				std::remove(this->field_18.begin(), this->field_18.end(), a5);
+				this->onPlayerVerifiedFailed(a4);
+			});
+		std::unique_lock<std::mutex> v23;
+		this->field_18.push_back(v21);
+	}
 }
 void ServerSideNetworkHandler::sendWorldSeed(Player* a2, const RakNet::RakNetGUID& a3) {
 	RakNet::BitStream v24;
@@ -665,23 +699,22 @@ void ServerSideNetworkHandler::handle(const RakNet::RakNetGUID& a2, struct Respa
 }
 void ServerSideNetworkHandler::onPlayerVerified(const RestCallTagData& a2) {
 	RakNet::BitStream v16;
-	Player* pp = this->findPendingPlayer(a2.guid_g);
+	RakNet::RakNetGUID v13(a2.guid_g);
+	Player* pp = this->findPendingPlayer(v13);
 	if(pp) {
-		LoginStatusPacket v14(0);
-		v14.write(&v16);
-		this->rakPeer->Send(&v16, PacketPriority::HIGH_PRIORITY, PacketReliability::RELIABLE_ORDERED, 0, RakNet::AddressOrGUID(a2.guid_g), 0, 0);
-		this->sendWorldSeed(pp, a2.guid_g);
+		pp->field_CD0 = 1;
+		LoginStatusPacket(0).write(&v16);
+		this->rakPeer->Send(&v16, PacketPriority::HIGH_PRIORITY, PacketReliability::RELIABLE_ORDERED, 0, RakNet::AddressOrGUID(RakNet::RakNetGUID(a2.guid_g)), 0, 0);
+		this->sendWorldSeed(pp, v13);
 	} else {
-		LoginStatusPacket v14(4);
-		v14.write(&v16);
-		this->rakPeer->Send(&v16, PacketPriority::HIGH_PRIORITY, PacketReliability::RELIABLE_ORDERED, 0, RakNet::AddressOrGUID(a2.guid_g), 0, 0);
+		LoginStatusPacket(4).write(&v16);
+		this->rakPeer->Send(&v16, PacketPriority::HIGH_PRIORITY, PacketReliability::RELIABLE_ORDERED, 0, RakNet::AddressOrGUID(RakNet::RakNetGUID(a2.guid_g)), 0, 0);
 	}
 }
 void ServerSideNetworkHandler::onPlayerVerifiedFailed(const RestCallTagData& a2) {
 	RakNet::BitStream v8;
-	LoginStatusPacket v7(3);
-	v7.write(&v8); //XXX non-virtual in mcpe081
-	this->rakPeer->Send(&v8, PacketPriority::HIGH_PRIORITY, PacketReliability::RELIABLE_ORDERED, 0, RakNet::AddressOrGUID(a2.guid_g), 0, 0);
+	LoginStatusPacket(3).write(&v8);
+	this->rakPeer->Send(&v8, PacketPriority::HIGH_PRIORITY, PacketReliability::RELIABLE_ORDERED, 0, RakNet::AddressOrGUID(RakNet::RakNetGUID(a2.guid_g)), 0, 0);
 }
 
 static RakNet::SystemAddress _d6e0a1f0; //TODO check is this thing initialized correctly

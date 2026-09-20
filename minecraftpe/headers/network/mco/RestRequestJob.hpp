@@ -1,5 +1,4 @@
 #pragma once
-#include <_types.h>
 #include <util/Job.hpp>
 #include <functional>
 #include <memory>
@@ -16,11 +15,9 @@ struct ThreadCollection;
 
 struct RestRequestJob: Job
 {
-	int32_t field_4;
-	std::weak_ptr<RestRequestJob> field_8;
-	std::function<void(int32_t, const std::string&, const RestCallTagData&, std::shared_ptr<RestRequestJob>)> field_10;
-	std::function<void(bool_t, bool_t, int32_t, const std::string&, const RestCallTagData&, std::shared_ptr<RestRequestJob>)> field_20;
-	std::string field_30;
+	std::function<void(int32_t, const std::string&, const RestCallTagData&, std::shared_ptr<RestRequestJob>)> onFinish;
+	std::function<void(bool_t, bool_t, int32_t, const std::string&, const RestCallTagData&, std::shared_ptr<RestRequestJob>)> onError;
+	std::string url;
 	std::string body;
 	std::shared_ptr<RestService> restService;
 	RestRequestType requestType;
@@ -36,7 +33,7 @@ struct RestRequestJob: Job
 	void setMethod(const std::string& fmt, _args... args) {
 		std::vector<std::string> v4;
 		ParameterStringify::stringifyNext(v4, args...);
-		this->field_30 = Util::simpleFormat(fmt, v4);
+		this->url = Util::simpleFormat(fmt, v4);
 	}
 
 	void setTagData(const RestCallTagData&);

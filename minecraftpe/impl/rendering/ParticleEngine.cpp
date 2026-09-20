@@ -19,7 +19,6 @@
 #include <entity/Mob.hpp>
 #include <rendering/Textures.hpp>
 #include <rendering/Tesselator.hpp>
-#include <algorithm>
 #include <sstream>
 
 ParticleEngine::ParticleEngine(Level* a2, Textures* a3) {
@@ -29,13 +28,13 @@ ParticleEngine::ParticleEngine(Level* a2, Textures* a3) {
 }
 Particle* ParticleEngine::_get(ParticleType a2) {
 	if(this->particlesToReuse[a2].empty()) return 0;
-	Particle* p = this->particlesToReuse[a2].back();
-	this->particlesToReuse[a2].pop_back();
+	Particle* p = this->particlesToReuse[a2].top();
+	this->particlesToReuse[a2].pop();
 	return p;
 }
 void ParticleEngine::_release(Particle* a2) {
-	std::deque<Particle*>* deq = &this->particlesToReuse[a2->type];
-	deq->emplace_back(a2);
+	std::stack<Particle*>* deq = &this->particlesToReuse[a2->type];
+	deq->push(a2);
 }
 void ParticleEngine::clear() {
 	for(auto& p: this->string2ParticleVec) {
@@ -46,9 +45,9 @@ void ParticleEngine::clear() {
 	}
 	for(auto& pd: this->particlesToReuse) {
 		while(!pd.empty()) {
-			Particle* p = pd.back();
+			Particle* p = pd.top();
 			if(p) delete p;
-			pd.pop_back();
+			pd.pop();
 		}
 	}
 }

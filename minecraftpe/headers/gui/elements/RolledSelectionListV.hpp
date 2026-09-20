@@ -50,7 +50,8 @@ struct RolledSelectionListV: GuiComponent
 	virtual void renderBackground() = 0;
 	virtual void renderForeground() {
 	}
-	virtual void renderDecoration(int32_t, int32_t);
+	virtual void renderDecorations(int32_t, int32_t) {
+	}
 	virtual void clickedHeader(int32_t, int32_t) {
 	}
 	virtual int32_t convertSelection(int32_t a2, int32_t a3, int32_t) {

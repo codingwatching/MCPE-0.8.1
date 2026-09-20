@@ -119,17 +119,17 @@ void CurlRestRequestJob::finish(){
 		if(this->httpStatusOrNegativeError > 0) {
 			//int32_t, const std::string&, const RestCallTagData&, std::shared_ptr<RestRequestJob>
 			if(this->httpStatusOrNegativeError < 300) {
-				this->field_10(this->httpStatusOrNegativeError, this->content, this->field_44, std::shared_ptr<RestRequestJob>(this->field_8));
+				this->onFinish(this->httpStatusOrNegativeError, this->content, this->field_44, std::shared_ptr<RestRequestJob>(this->field_8));
 			} else {
-				this->field_20(0, 0, this->httpStatusOrNegativeError, this->content, this->field_44, std::shared_ptr<RestRequestJob>(this->field_8));
+				this->onError(0, 0, this->httpStatusOrNegativeError, this->content, this->field_44, std::shared_ptr<RestRequestJob>(this->field_8));
 			}
 		} else {
-			this->field_20(0, 1, this->httpStatusOrNegativeError, this->content, this->field_44, std::shared_ptr<RestRequestJob>(this->field_8));
+			this->onError(0, 1, this->httpStatusOrNegativeError, this->content, this->field_44, std::shared_ptr<RestRequestJob>(this->field_8));
 		}
 
 		return;
 	}
-	this->field_20(1, 0, 0, "", this->field_44, std::shared_ptr<RestRequestJob>(this->field_8));
+	this->onError(1, 0, 0, "", this->field_44, std::shared_ptr<RestRequestJob>(this->field_8));
 
 	printf("CurlRestRequestJob::finish - not implemented\n");
 }
