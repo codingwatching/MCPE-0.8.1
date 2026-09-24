@@ -1,12 +1,9 @@
 #ifdef ANDROID
 #include <jni.h>
-#include <RakNetTypes.h>
-static RakNet::SystemAddress _some_unknown_and_possibly_unused_field;
 
 #include <_pengine.hpp>
-jobject mainActivity_ref;
-bool contextWasLost;
 ENGINE* pEngine;
+bool contextWasLost;
 //TODO there is some other one before appPlatform which belongs to std?
 
 #include <main.hpp>
@@ -21,11 +18,13 @@ ENGINE* pEngine;
 #include <unigl.hpp>
 #include <string.h>
 #include <android/AndroidRestRequestJob.hpp>
+#include <RakNetTypes.h>
 
 
-AppPlatform_android23 appPlatform;
-NinecraftApp* ninecraftApp;
 std::string nativeUtf8Input;
+AppPlatform_android23 appPlatform;
+static jobject mainActivity_ref;
+NinecraftApp* ninecraftApp;
 
 static pthread_mutex_t _D6E04480; //TODO defined in the same file as engine?
 extern "C" {
@@ -245,6 +244,7 @@ JNIEXPORT void JNICALL Java_com_mojang_minecraftpe_MainActivity_nativeWebRequest
     a3->onRequestComplete(a2, a4, v10);
     puts("native done!");
 }
+static RakNet::SystemAddress _some_unknown_and_possibly_unused_field;
 
 }
 #endif

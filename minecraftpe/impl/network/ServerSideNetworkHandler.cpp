@@ -227,14 +227,7 @@ void ServerSideNetworkHandler::sendLoginMessageMCO(int32_t a2, const RakNet::Rak
 		this->createNewPlayer(a3, a4);
 		std::shared_ptr<RestRequestJob> v21 = RestRequestJob::CreateJob(RRT_GET, this->minecraft->mojangConnector->getMCOService(), this->minecraft);
 		v21->setTagData(RestCallTagData(a3.g));
-
-		{
-			std::string v19 = this->minecraft->mojangConnector->urlEncode(a4->data.C_String());
-			RakNet::RakString v20(a4->username);
-			std::vector<std::string> v23;
-			ParameterStringify::stringifyNext(v23, v20, v19);
-			v21->url = Util::simpleFormat("/auth/validate-player/%/%", v23);
-		}
+		v21->setMethod("/auth/validate-player/%/%", a4->username, this->minecraft->mojangConnector->urlEncode(a4->data.C_String()));
 
 		RestRequestJob::launchRequest(
 			v21,

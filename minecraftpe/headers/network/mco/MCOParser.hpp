@@ -3,6 +3,7 @@
 #include <string>
 #include <unordered_map>
 #include <network/mco/MCOServerListItem.hpp>
+#include <memory>
 
 struct LoginInformation;
 struct MCOParser
@@ -12,6 +13,6 @@ struct MCOParser
 	void parseErrorMessage(const std::string&, std::string&, int32_t&);
 	void parseJoinWorld(const std::string&, std::string&, uint16_t&, std::string&);
 	LoginInformation parseMCOAccountValidSessionReturnValue(const std::string&);
-	std::unordered_map<int64_t, MCOServerListItem> parseServerList(const std::string&);
+	std::shared_ptr<std::unordered_map<long long, MCOServerListItem>> parseServerList(const std::string&);
 	void parseStatus(const std::string&, bool&, bool& createServersEnabled, bool& serviceEnabled);
 };

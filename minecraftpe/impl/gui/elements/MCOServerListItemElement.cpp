@@ -38,8 +38,8 @@ MCOServerListItemElement::MCOServerListItemElement(Minecraft* mc, const MCOServe
 		this->field_78->width = 32;
 		this->field_78->height = 32;
 		this->field_78->setupPositions();
-		if(!item.field_14) {
-			this->field_78->setActiveAndVisibility(0, item.field_14);
+		if(!item.myWorld) {
+			this->field_78->setActiveAndVisibility(0, item.myWorld);
 		}
 	}
 }
@@ -102,13 +102,13 @@ void MCOServerListItemElement::render(Minecraft* a2, int32_t a3, int32_t a4) {
 		v11 = 0xFFFFFFFF;
 	}
 	a2->font->drawShadow(this->field_30.worldName, (float)(this->posX + 5), (float)(this->posY + 6), v11);
-	a2->font->drawShadow(this->field_30.field_10, (float)(this->posX + 5), (float)(this->posY + 18), 0xFFBBBBBB);
+	a2->font->drawShadow(this->field_30.ownerName, (float)(this->posX + 5), (float)(this->posY + 18), 0xFFBBBBBB);
 	a2->font->width(this->field_30.gamemodeName);
-	sprintf(v18, "%d/%d", this->field_30.field_20.size(), this->field_30.field_18);
+	sprintf(v18, "%d/%d", this->field_30.playerNames.size(), this->field_30.maxNrPlayers);
 	v13 = a2->font->width(v18);
 	a2->font->drawShadow(v18, (float)(width + this->posX - 10 - v13), (float)(this->posY + 12), 0xFFFFFFFF);
 	texturesPtr = a2->texturesPtr;
-	if(this->field_30.field_C) {
+	if(this->field_30.open) {
 		v15 = 9;
 	} else {
 		v15 = -9;
@@ -138,7 +138,7 @@ void MCOServerListItemElement::mouseClicked(Minecraft* a2, int32_t a3, int32_t a
 		goto LABEL_8;
 	}
 
-	if(this->field_7C->clicked(a2, a3, a4) && this->field_30.field_C) {
+	if(this->field_7C->clicked(a2, a3, a4) && this->field_30.open) {
 		this->field_24 = v9;
 		this->field_28 = v12;
 		v13 = (Button*)this->field_7C;
@@ -172,7 +172,7 @@ LABEL_15:
 		this->field_2C = 0;
 		return;
 	}
-	if(this->field_30.field_C) {
+	if(this->field_30.open) {
 		if(!this->field_90) {
 			this->field_90 = 1;
 			this->field_80(this->field_30, a2->platform()->isNetworkEnabled(1));

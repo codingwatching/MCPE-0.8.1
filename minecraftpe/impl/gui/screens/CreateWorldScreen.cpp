@@ -55,23 +55,15 @@ void CreateWorldScreen::generateLocalGame() {
 	std::string text(*this->field_144->getText());
 	if(text == "") text = "Level";
 	std::string ret = this->getUniqueLevelName(text);
-	this->minecraft->selectLevel(ret, text, LevelSettings{this->getSeed(), this->isCreative()});
+	LevelSettings v22(this->getSeed(), this->isCreative());
+	this->minecraft->selectLevel(ret, text, v22);
 	this->minecraft->hostMultiplayer(19132);
 	this->minecraft->setScreen(new ProgressScreen());
 	std::string v16;
 	if(this->field_148->text == "") {
-		std::string v21 = "{\"%\": \"%\", \"%\": \"%\"}";
-		const char* v11 = this->isCreative() ? "creative" : "survival";
-		std::string v18 = this->field_148->text;
-		std::vector<std::string> v24;
-		ParameterStringify::stringifyNext /*<char const*, char const*, char const*, std::string>*/ (v24, "game_type", v11, "seed", v18);
-		v16 = Util::simpleFormat(v21, v24);
+		v16 = Util::simpleFormat("{\"%\": \"%\"}", ParameterStringify::stringify("game_type", this->isCreative() ? "creative" : "survival"));
 	} else {
-		std::string v21 = "{\"%\": \"%\"}";
-		const char* v11 = this->isCreative() ? "creative" : "survival";
-		std::vector<std::string> v24;
-		ParameterStringify::stringifyNext(v24, "game_type", v11); //TODO check
-		v16 = Util::simpleFormat(v21, v24);
+		v16 = Util::simpleFormat("{\"%\": \"%\", \"%\": \"%\"}", ParameterStringify::stringify("game_type", this->isCreative() ? "creative" : "survival", "seed", this->field_148->text));
 	}
 	this->minecraft->platform()->statsTrackData("create_world", v16);
 }
@@ -86,8 +78,9 @@ void CreateWorldScreen::generateMCOGame(bool_t a2) {
 		this->field_1B8->setMethod("/server/%/recreate?type=%&seed=%&name=%", this->field_170.field_0, std::string(gm), this->getSeed(), this->minecraft->mojangConnector->urlEncode(this->getLevelName()));
 	}else{
 		this->field_1B8 = RestRequestJob::CreateJob(RRT_POST, v27, this->minecraft);
-		//TODO inlined setMethod
+		this->field_1B8->setMethod("/server/create?name=%&type=%&seed=%", this->minecraft->mojangConnector->urlEncode(this->getLevelName()), this->getSeed());
 	}
+	//RestRequestJob::launchRequest(this->field_1B8, this->minecraft->mojangConnector->getThreadCollection()
 
 
 	printf("CreateWorldScreen::generateMCOGame - not implemented\n");

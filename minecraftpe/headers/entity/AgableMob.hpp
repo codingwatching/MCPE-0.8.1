@@ -13,10 +13,10 @@ struct AgableMob: PathfinderMob
 	virtual ~AgableMob() {
 	}
 	virtual float getShadowRadius() {
-		float v3 = this->entityWidth * 0.8;
-		float v4 = 0.5;
+		float v3 = this->entityWidth * 0.8f;
+		float v4 = 0.5f;
 		if(!this->isBaby()) {
-			v4 = 1.0;
+			v4 = 1.0f;
 		}
 		return v3 * v4;
 	}

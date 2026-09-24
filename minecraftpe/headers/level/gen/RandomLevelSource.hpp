@@ -3,15 +3,10 @@
 #include <level/gen/feature/LargeCaveFeature.hpp>
 #include <map>
 #include <util/PerlinNoise.hpp>
-/*
- * TODO:
-RandomLevelSource::SNOW_SCALE
-_ZN17RandomLevelSource10SNOW_SCALEE DCD 0x3E99999A
-EXPORT _ZN17RandomLevelSource11SNOW_CUTOFFE
-; RandomLevelSource::SNOW_CUTOFF
-_ZN17RandomLevelSource11SNOW_CUTOFFE DCD 0x3F000000
-*/
 struct RandomLevelSource : ChunkSource{
+	static const float SNOW_CUTOFF;
+	static const float SNOW_SCALE;
+
 	int8_t field_4, field_5, field_6, field_7;
 	LargeCaveFeature caveGenerator;
 	float field_9E0[1024];

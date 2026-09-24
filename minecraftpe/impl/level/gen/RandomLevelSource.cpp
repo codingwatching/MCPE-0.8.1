@@ -13,6 +13,8 @@
 #include <tile/HeavyTile.hpp>
 #include <tile/material/Material.hpp>
 #include <cpputils.hpp>
+const float RandomLevelSource::SNOW_CUTOFF = 0.5f;
+const float RandomLevelSource::SNOW_SCALE = 0.3f;
 
 RandomLevelSource::RandomLevelSource(struct Level* a2, long a3, int32_t a4, bool a5) //long, int, bool
 	: random(a3),

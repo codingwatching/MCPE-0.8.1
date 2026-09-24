@@ -3,6 +3,9 @@
 
 struct RotatedPillarTile: Tile
 {
+	static const int rotatedX[];
+	static const int rotatedZ[];
+
 	RotatedPillarTile(int32_t id, const struct Material* mat);
 	virtual ~RotatedPillarTile() {
 	}

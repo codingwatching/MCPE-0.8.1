@@ -4,6 +4,7 @@
 struct Path;
 struct PathfinderMob: Mob
 {
+	static const float MAX_TURN;
 	int32_t attackTarget;
 	bool_t _shouldHoldGround;
 	int8_t field_C71, field_C72, field_C73;

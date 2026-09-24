@@ -18,26 +18,14 @@
 #include <gui/elements/Label.hpp>
 #include <network/RestService.hpp>
 #include <network/mco/MCOParser.hpp>
+#include <util/Base64.hpp>
+#include <gui/screens/ProgressScreen.hpp>
+#include <network/mco/MCOStringify.hpp>
+#include <gui/elements/MCOServerListItemElement.hpp>
 
-PlayScreen::PlayScreen(bool_t a2) {
-	PlayScreenState v4 = a2 ? PlayScreenState::ELEVEN : PlayScreenState::ZERO;
-	this->field_50 = 0;
-	this->field_51 = 0;
-	this->header = 0;
-	this->backButton = 0;
-	this->field_5C = "";
-	this->newButton = 0;
-	this->externalButton = 0;
-	this->frame = 0;
-	this->field_74 = 0;
-	this->field_78 = 0;
-	this->spinner = 0;
-	this->editButton = 0;
-	this->field_84 = 0;
-
-	this->field_B4 = 0;
-	this->field_C4 = "";
-	this->field_118 = v4;
+PlayScreen::PlayScreen(bool_t a2) : field_50(0), field_51(0), header(0),
+	backButton(0), newButton(0), externalButton(0), frame(0), field_74(0), field_78(0),
+	spinner(0), editButton(0), field_84(0), field_B4(0), field_118(a2 ? PlayScreenState::ELEVEN : PlayScreenState::ZERO){
 	std::string v6 = "Welcome to the Minecraft Realms Alpha! We're still testing out features, but eventually Realms will let up to 10" " Pocket Edition users play together online. It's currently free, and limited to a set amount of servers. \n" "\n" "\n" "Realms will be an optional, paid service once it's released. Have fun!";
 	std::string v7 = "Minecraft Realms is currently in a limited alpha test. More servers will be available to register from this page" " as the service is developed, so check back soon.\n" "\n" "Realms servers may be down or be reset while we are working toward the beta release.";
 	std::string v8 = "Tap 'New' to create your own Realms server!\n\nFree during alpha.";
@@ -55,10 +43,23 @@ PlayScreen::PlayScreen(bool_t a2) {
 	this->setPlayScreenStateSetting(PlayScreenState::ELEVEN, 1, 0, 0, 0, 0, 1, PlayScreenPanel::LOCAL_SERVER_LIST, "");
 	this->setPlayScreenStateSetting(PlayScreenState::TWELVE, 1, 1, 0, 0, 1, 0, PlayScreenPanel::LOCAL_SERVER_LIST, "");
 }
-std::shared_ptr<GuiElement> PlayScreen::buildJoinRealmsScreen(bool_t) {
+std::shared_ptr<PackedScrollContainer> PlayScreen::buildJoinRealmsScreen(bool_t a2) {
+	std::shared_ptr<PackedScrollContainer> v33;
+	if(a2) {
+		if(!this->field_20C) {
+			this->field_20C = std::shared_ptr<PackedScrollContainer>(new PackedScrollContainer(0, 0, 0));
+		}
+		v33 = this->field_20C;
+	} else {
+		if(this->field_204) {
+			this->field_204 = std::shared_ptr<PackedScrollContainer>(new PackedScrollContainer(0, 0, 0));
+		}
+		v33 = this->field_204;
+	}
+
 	//TODO
 	printf("PlayScreen::buildJoinRealmsScreen - not implemented\n");
-	return std::shared_ptr<GuiElement>();
+	return v33;
 }
 std::shared_ptr<GuiElement> PlayScreen::buildLocalServerList() {
 	this->field_50 = 0;
@@ -106,8 +107,29 @@ std::shared_ptr<GuiElement> PlayScreen::buildMCOServerList() {
 	}
 	std::shared_ptr<PackedScrollContainer> v23(*(std::shared_ptr<PackedScrollContainer>*)&this->field_1FC);
 	v23->clearAll();
-	//TODO
-	printf("PlayScreen::buildMCOServerList - not implemented\n");
+	if(this->minecraft->mojangConnector->getConnectionStatus() == STATUS_CONNECTED) {
+		this->field_54 = this->minecraft->mojangConnector->getMCOServerList();
+		if(this->field_54) {
+			if(this->field_54->size()) {
+				std::vector<std::pair<long long, MCOServerListItem>> v26;
+				for(auto&& p: *this->field_54) {
+					v26.push_back(p);
+				}
+				//TODO figure out what is happening here v26.resize(18); //TODO check
+				bool em = this->isEditMode();
+				for(auto&& p: v26) {
+					MCOServerListItemElement* v16 = new MCOServerListItemElement(this->minecraft, p.second, em, [this](MCOServerListItem& a2, bool_t a3) {
+						if(a3) {
+							this->joinMCOServer(a2);
+						} else {
+							this->field_C4 = "You need to be connected through Wifi to play on Realms";
+						}
+					});
+					v23->addChild(std::shared_ptr<MCOServerListItemElement>(v16));
+				}
+			}
+		}
+	}
 	return this->field_1FC;
 }
 std::shared_ptr<GuiElement> PlayScreen::buildMessageScreen() {
@@ -134,9 +156,52 @@ bool_t PlayScreen::isEditMode() {
 bool_t PlayScreen::isLocalPlayScreen() {
 	return 0;
 }
-void PlayScreen::joinMCOServer(MCOServerListItem) {
-	//TODO join mco server
-	printf("PlayScreen::joinMCOServer - not implemented\n");
+void PlayScreen::joinMCOServer(MCOServerListItem a2) {
+	if(!this->field_A4.get() && this->minecraft->mojangConnector->getConnectionStatus() == STATUS_CONNECTED) {
+		safeStopAndRemove(this->field_AC);
+		this->field_CC = a2;
+		this->field_AC = RestRequestJob::CreateJob(RRT_POST, this->minecraft->mojangConnector->getMCOService(), this->minecraft);
+		this->field_AC->setMethod("/server/%/join", a2.field_0);
+		MCOServerListItem v11 = this->field_CC;
+		Minecraft* minecraft = this->minecraft;
+		RestRequestJob::launchRequest(
+			this->field_AC,
+			this->minecraft->mojangConnector->getThreadCollection(),
+			/*TODO this thing is bigger by 8 bytes(0x50 => 0x58) - one field after this and one after v11(this->minecraft)*/
+			[this, v11, minecraft](int32_t a2, const std::string& a3, const RestCallTagData& a4, std::shared_ptr<RestRequestJob> a5) {
+				uint16_t port;
+				std::string v12, v13;
+				this->minecraft->mojangConnector->getMCOParser()->parseJoinWorld(a3, v12, port, v13);
+				std::string v14 = Base64::base64Decode(v13);
+				MojangConnector* con = minecraft->mojangConnector.get();
+				std::string v15 = con->getEncryptedJoinDataString(v11.field_0, con->getLoginInformation()->profileName, v14);
+				safeStopAndRemove(this->field_AC);
+				this->field_C4 = a3;
+				minecraft->mojangConnector->setPayload(v15);
+				minecraft->connectToMCOServer(v11.worldName, v12, port);
+				DEBUGMSG("MC: %p\n", minecraft);
+				minecraft->setScreen(new ProgressScreen());
+				DEBUGMSG("MC2: %p\n", minecraft);
+				std::string v19 = Util::simpleFormat("{\"%\": \"%\", \"%\": \"%\", \"%\": \"%\"}", ParameterStringify::stringify("server_type", "Realms", "game_type", v11.gamemodeName, "world_name", this->field_CC.worldName));
+				minecraft->platform()->statsTrackData("start_game", v19);
+			},
+			[this](bool_t, bool_t, int32_t a4, const std::string& a5, const RestCallTagData& a6, std::shared_ptr<RestRequestJob> a7) {
+				safeStopAndRemove(this->field_AC);
+				std::string v12 = "";
+				if(a4 == 500) {
+					v12 = "Unexpected Server Error";
+				} else {
+					if(a4 > 500) {
+						v12 = "Service Temporarily Unavailable";
+					} else {
+						int v11;
+						this->minecraft->mojangConnector->getMCOParser()->parseErrorMessage(a5, v12, v11);
+					}
+				}
+				this->field_C4 = v12;
+				this->field_118 = TEN;
+			});
+	}
 }
 void PlayScreen::resetBaseButtons() {
 	this->buttons.clear();
@@ -205,8 +270,25 @@ void PlayScreen::setPlayScreenStateSetting(PlayScreenState state, bool_t a3, boo
 	this->field_11C[state] = v16;
 }
 void PlayScreen::signOut() {
-	//TODO
-	printf("PlayScreen::signOut - not implemented\n");
+	if(this->minecraft->mojangConnector->getConnectionStatus() == STATUS_CONNECTED && !this->field_A4) {
+		std::shared_ptr<LoginInformation> v6 = this->minecraft->mojangConnector->getLoginInformation();
+		std::string v5 = MCOStringify::stringifySignOut(v6->accessToken, v6->clientId);
+		safeStopAndRemove(this->field_9C);
+		safeStopAndRemove(this->field_94);
+		this->field_A4 = RestRequestJob::CreateJob(RRT_POST, this->minecraft->mojangConnector->getAccountService(), this->minecraft);
+		this->field_A4->setMethod("/invalidate");
+		this->field_A4->setBody(v5);
+		RestRequestJob::launchRequest(
+			this->field_A4,
+			this->minecraft->mojangConnector->getThreadCollection(),
+			[this](int32_t, const std::string&, const RestCallTagData&, std::shared_ptr<RestRequestJob>) {
+				this->minecraft->mojangConnector->setLoginInformation(LoginInformation());
+				safeStopAndRemove(this->field_A4);
+			},
+			[this](bool, bool, int32_t, const std::string&, const RestCallTagData&, std::shared_ptr<RestRequestJob> a7) {
+				safeStopAndRemove(this->field_A4);
+			});
+	}
 }
 void PlayScreen::updateHeaderItems(PlayScreenState a2) {
 	this->newButton->setActiveAndVisibility(this->getStateData(a2)->showNewButton);
@@ -217,8 +299,26 @@ void PlayScreen::updateHeaderItems(PlayScreenState a2) {
 }
 
 void PlayScreen::updateMCOServerList() {
-	//TODO
-	printf("PlayScreen::updateMCOServerList - not implemented\n");
+	if(this->minecraft->mojangConnector->getConnectionStatus() == STATUS_CONNECTED && !this->field_A4 && this->minecraft->mojangConnector->getConnectionStatus() == STATUS_CONNECTED) {
+		safeStopAndRemove(this->field_94);
+		this->field_94 = RestRequestJob::CreateJob(RRT_GET, this->minecraft->mojangConnector->getMCOService(), this->minecraft);
+		this->field_94->setMethod("/server/list");
+		this->spinner->setActiveAndVisibility(1);
+		RestRequestJob::launchRequest(
+			this->field_94,
+			this->minecraft->mojangConnector->getThreadCollection(),
+			[this](int32_t a2, const std::string& a3, const RestCallTagData& a4, std::shared_ptr<RestRequestJob> a5) {
+				this->field_54 = this->minecraft->mojangConnector->getMCOParser()->parseServerList(a3);
+				this->minecraft->mojangConnector->setMCOServerList(this->field_54);
+				safeStopAndRemove(this->field_94);
+				this->updateRealmsState();
+				this->spinner->setActiveAndVisibility(0);
+			},
+			[this](bool, bool, int32_t, const std::string&, const RestCallTagData&, std::shared_ptr<RestRequestJob>) {
+				safeStopAndRemove(this->field_94);
+				this->spinner->setActiveAndVisibility(0);
+			});
+	}
 }
 void PlayScreen::updateMCOStatus() {
 	if(this->minecraft->mojangConnector->getConnectionStatus() && !this->field_A4 && this->minecraft->mojangConnector->getConnectionStatus()) {

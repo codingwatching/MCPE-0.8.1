@@ -4,6 +4,8 @@
 #include <math.h>
 #include <math/Mth.hpp>
 
+const float PathfinderMob::MAX_TURN = 30.0f;
+
 PathfinderMob::PathfinderMob(Level* a2)
 	: Mob(a2) {
 	this->attackTarget = 0;

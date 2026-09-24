@@ -6,6 +6,8 @@ const float WallTile::WallTile::WALL_HEIGHT = 0.8125;
 const float WallTile::POST_WIDTH = 0.25;
 const float WallTile::POST_HEIGHT = 1.0;
 
+std::string WallTile::COBBLE_NAMES[] = {"normal", "mossy"};
+
 WallTile::WallTile(int32_t id, Tile* a3)
 	: Tile(id, a3->material) {
 	this->setDestroyTime(a3->blockResistance / 3.0);

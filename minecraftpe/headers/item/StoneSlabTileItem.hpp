@@ -56,7 +56,7 @@ struct StoneSlabTileItem: TileItem
 		int32_t v6 = meta;
 		if (meta < 0) {
 			v6 = 0;
-		} else if (meta >= 7) {
+		} else if (meta >= StoneSlabTile::SLAB_NAMES_COUNT) {
 			v6 = 0;
 		}
 
@@ -67,7 +67,7 @@ struct StoneSlabTileItem: TileItem
 		int32_t v6 = meta;
 		if (meta < 0) {
 			v6 = 0;
-		} else if (meta >= 7) {
+		} else if (meta >= StoneSlabTile::SLAB_NAMES_COUNT) {
 			v6 = 0;
 		}
 

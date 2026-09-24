@@ -440,7 +440,7 @@ void Minecraft::init(void) {
 	if(v20->accessToken != "") {
 		std::string v18 = MCOStringify::stringifyRefresh(v20->accessToken, v20->clientId, v20->profileId, Common::getGameVersionStringNet());
 		std::shared_ptr<RestRequestJob> v21 = RestRequestJob::CreateJob(RRT_POST, this->mojangConnector->getAccountService(), this);
-		v21->url = Util::simpleFormat("/refresh", {});
+		v21->setMethod("/refresh");
 		v21->setBody(v18);
 		//something weird happens with v21 here
 		RestRequestJob::launchRequest(

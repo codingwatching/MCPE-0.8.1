@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#include <util/Util.hpp>
 
 struct ParameterStringify
 {
@@ -15,6 +16,15 @@ struct ParameterStringify
 		s << t;
 		a1.emplace_back(s.str());
 		ParameterStringify::stringifyNext(a1, args...);
+	}
+
+
+	//should be always inlined? might not even be here actually~
+	template<typename... _args>
+	static std::vector<std::string> stringify(_args... args) {
+		std::vector<std::string> vec;
+		ParameterStringify::stringifyNext(vec, args...);
+		return vec;
 	}
 };
 

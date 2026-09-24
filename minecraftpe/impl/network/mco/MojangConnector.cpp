@@ -79,7 +79,7 @@ std::shared_ptr<ThreadCollection> MojangConnector::getThreadCollection() {
 	return this->threadCollection;
 }
 bool_t MojangConnector::isMCOCreateServersEnabled() {
-	return this->status == STATUS_2 && this->serverCreationEnabled;
+	return this->status == STATUS_CONNECTED && this->serverCreationEnabled;
 }
 bool_t MojangConnector::isServiceEnabled() const{
 	return this->serviceEnabled;
@@ -92,7 +92,7 @@ void MojangConnector::setLoginInformation(const LoginInformation& a2) {
 	this->mcoService->setCookieData("user", this->loginInformation->profileName);
 	if(a2.accessToken != "") { //TODO check: compareStringsMaybe(&a2->accessToken, &_byte_nullstr_D67153C4)
 		this->minecraft->options.set(&Options::Option::NAME, this->loginInformation->profileName);
-		this->setStatus(STATUS_2);
+		this->setStatus(STATUS_CONNECTED);
 		this->minecraft->platform()->setLoginInformation(a2);
 	} else {
 		this->setStatus(STATUS_0);
@@ -116,9 +116,9 @@ void MojangConnector::setServerKey(const std::string& a2) {
 }
 void MojangConnector::setStatus(MojangConnectionStatus status) {
 	if(status != this->status) {
-		if(status == STATUS_2) {
+		if(status == STATUS_CONNECTED) {
 			std::shared_ptr<RestRequestJob> v8 = RestRequestJob::CreateJob(RRT_GET, this->getMCOService(), this->minecraft);
-			v8->url = Util::simpleFormat("/info/status", {});
+			v8->setMethod("/info/status");
 			RestRequestJob::launchRequest(
 				v8,
 				this->getThreadCollection(),

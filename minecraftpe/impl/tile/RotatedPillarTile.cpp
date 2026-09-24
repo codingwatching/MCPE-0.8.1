@@ -1,4 +1,6 @@
 #include <tile/RotatedPillarTile.hpp>
+const int RotatedPillarTile::rotatedX[] = {3, 2, 0, 1, 4, 5};
+const int RotatedPillarTile::rotatedZ[] = {5, 4, 2, 3, 0, 1};
 
 RotatedPillarTile::RotatedPillarTile(int32_t id, const struct Material* mat) :
 		Tile(id, mat) {

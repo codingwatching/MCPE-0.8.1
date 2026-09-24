@@ -14,7 +14,7 @@ struct Spider: Monster
 	virtual ~Spider(){}
 	virtual void tick();
 	virtual float getShadowRadius() {
-		return this->entityWidth * 0.7;
+		return this->entityWidth * 0.7f;
 	}
 	virtual void makeStuckInWeb();
 	virtual int32_t getEntityTypeId() const;

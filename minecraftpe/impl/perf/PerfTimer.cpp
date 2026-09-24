@@ -29,16 +29,18 @@ std::vector<PerfTimer::ResultField> PerfTimer::getLog(const std::string& a2) {
 void PerfTimer::pop() {
 	if(PerfTimer::enabled) {
 		double time = getTimeS();
+		float v3 = time - PerfTimer::startTimes.back();
 		PerfTimer::paths.pop_back();
 		PerfTimer::startTimes.pop_back();
-		float v3 = time - PerfTimer::startTimes.back();
-		PerfTimer::times.insert({PerfTimer::path, v3});
-
-		if(PerfTimer::paths.size()) {
-			PerfTimer::path = PerfTimer::paths[PerfTimer::paths.size() - 1];
+		auto&& v = PerfTimer::times.find(PerfTimer::path);
+		if(v == PerfTimer::times.end()) {
+			PerfTimer::times.insert(std::pair<std::string, float>(PerfTimer::path, v3));
 		} else {
-			PerfTimer::path = "";
+			v->second += v3;
 		}
+
+		std::string v7 = PerfTimer::paths.size() ? PerfTimer::paths.end()[-1] : ""; //i luv dis if it works
+		PerfTimer::path = v7;
 	}
 }
 void PerfTimer::popPush(const std::string& a1) {

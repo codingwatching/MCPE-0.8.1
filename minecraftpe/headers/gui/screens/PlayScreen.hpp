@@ -12,6 +12,7 @@
 #include <gui/screens/PlayScreenStateSetting.hpp>
 #include <gui/screens/PlayScreenState.hpp>
 #include <unordered_map>
+#include <gui/PackedScrollContainer.hpp>
 
 struct PlayScreen: Screen
 {
@@ -38,18 +39,18 @@ struct PlayScreen: Screen
 	double field_BC;
 	std::string field_C4;
 	MCOServerListItem field_CC;
-	int32_t field_110;
+	//int32_t field_110;
 	PlayScreenState field_114, field_118;
 	PlayScreenStateSetting field_11C[13];
 	std::shared_ptr<GuiElement> field_1EC;
 	std::shared_ptr<GuiElement> field_1F4;
 	std::shared_ptr<GuiElement> field_1FC;
-	std::shared_ptr<GuiElement> field_204;
-	std::shared_ptr<GuiElement> field_20C;
+	std::shared_ptr<PackedScrollContainer> field_204;
+	std::shared_ptr<PackedScrollContainer> field_20C;
 	std::shared_ptr<GuiElement> field_214;
 
 	PlayScreen(bool_t);
-	std::shared_ptr<GuiElement> buildJoinRealmsScreen(bool_t);
+	std::shared_ptr<PackedScrollContainer> buildJoinRealmsScreen(bool_t);
 	std::shared_ptr<GuiElement> buildLocalServerList();
 	std::shared_ptr<GuiElement> buildMCOServerList();
 	std::shared_ptr<GuiElement> buildMessageScreen();

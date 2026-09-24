@@ -2,6 +2,7 @@
 #include <tile/SlabTile.hpp>
 
 struct StoneSlabTile : SlabTile{
+	static const int SLAB_NAMES_COUNT;
 	static std::string SLAB_NAMES[];
 
 	TextureUVCoordinateSet field_84, field_9C, field_B4, field_CC;

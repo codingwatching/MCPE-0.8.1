@@ -3,6 +3,7 @@
 
 struct WallTile : Tile{
 	static const float WALL_WIDTH, WALL_HEIGHT, POST_WIDTH, POST_HEIGHT;
+	static std::string COBBLE_NAMES[];
 	WallTile(int32_t, Tile*);
 	bool_t connectsTo(LevelSource*, int32_t, int32_t, int32_t);
 

@@ -1,5 +1,6 @@
 #include <tile/StoneSlabTile.hpp>
 #include <tile/material/Material.hpp>
+const int StoneSlabTile::SLAB_NAMES_COUNT = 7;
 std::string StoneSlabTile::SLAB_NAMES[] = {
 	"stone",
 	"sand",
